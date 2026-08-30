@@ -1,0 +1,5 @@
+pathogen	atlas_id	test	timestamp	minimum_data_passed	minimum_data_failing_checks	verdict	raw_p_value	gc_adjusted_p_value_fdr	locus_disruption_rate	control_disruption_rate	underpowered
+FMDV	FMDV-G4-001	D.H1	2026-08-28T10:48:00.829404+00:00	False	min_sequences_per_lineage	INSUFFICIENT_DATA					
+FMDV	FMDV-G4-002	D.H1	2026-08-28T10:48:00.829404+00:00	False	min_sequences_per_lineage	INSUFFICIENT_DATA					
+FMDV	FMDV-G4-003	D.H1	2026-08-28T10:48:00.829404+00:00	False	min_sequences_per_lineage	INSUFFICIENT_DATA					
+FMDV	FMDV-G4-004	D.H1	2026-08-28T10:48:00.829404+00:00	False	min_sequences_per_lineage	INSUFFICIENT_DATA					

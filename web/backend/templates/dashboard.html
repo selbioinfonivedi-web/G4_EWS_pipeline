@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %}{{ d.pathogen }} &middot; G4-WATCH{% endblock %}
+{% block content %}
+
+<h1>{{ d.display_name }} <span class="tag">{{ d.pathogen }}</span></h1>
+<p class="meta">Atlas v{{ d.atlas_version }} &middot; reference {{ d.reference_accession }}</p>
+
+{# Section 17: the gate status is always visible and never suppressed. #}
+<section class="gate-panel {{ 'gate-open' if d.scoring_permitted else 'gate-closed' }}">
+  <h2>D.H1 gate: {{ 'SCORING PERMITTED' if d.scoring_permitted else 'SCORING BLOCKED' }}</h2>
+  <p class="permission">{{ d.gate.permission.value }}</p>
+  <p>{{ d.gate.explain() }}</p>
+  <dl>
+    <dt>operational_mode</dt><dd>{{ d.gate.operational_mode }}</dd>
+    <dt>ledger rows</dt><dd>{{ d.gate.n_ledger_rows }}</dd>
+    <dt>supported loci</dt><dd>{{ d.gate.n_supported_loci }}</dd>
+    <dt>latest run</dt><dd>{{ d.gate.latest_timestamp or 'never' }}</dd>
+    {% if d.gate.failing_checks %}
+    <dt>failing checks</dt><dd>{{ d.gate.failing_checks | join(', ') }}</dd>
+    {% endif %}
+  </dl>
+</section>
+
+{% for disclaimer in d.disclaimers %}
+<p class="disclaimer">{{ disclaimer }}</p>
+{% endfor %}
+
+<section>
+  <h2>Surveillance scores</h2>
+  {% if d.scoring_permitted %}
+    <p>Stage 5 scoring is permitted for this pathogen but is not yet implemented
+       (see <code>g4watch/pipeline/stage5_scoring.py</code>).</p>
+  {% else %}
+    {# Not blank: an empty panel would read as "nothing to report". #}
+    <p class="no-scores">
+      No scores are computed, and this is the finding rather than a gap. The gate above
+      explains why. Scores will remain unwired until the D.H1 gate returns
+      <code>SUPPORTED</code> and the pathogen config sets <code>operational_mode: true</code>.
+    </p>
+  {% endif %}
+</section>
+
+<section>
+  <h2>G4 Reference Atlas &mdash; {{ d.loci | length }} locus/loci</h2>
+
+  <div class="axes">
+    <div>
+      <h3>Structural confidence</h3>
+      <ul>{% for k, v in d.confidence_breakdown.items() %}<li><strong>{{ k }}</strong>: {{ v }}</li>{% endfor %}</ul>
+    </div>
+    <div>
+      <h3>Functional context</h3>
+      <ul>{% for k, v in d.functional_breakdown.items() %}<li><strong>{{ k }}</strong>: {{ v }}</li>{% endfor %}</ul>
+    </div>
+  </div>
+  <p class="note">
+    These are two independent axes and are never combined into a single confidence score.
+    <code>functional_context</code> is displayed but never used to filter or rank loci: a locus
+    in an unannotated region is not less real than one in a known functional region.
+  </p>
+
+  <table class="loci">
+    <thead>
+      <tr>
+        <th>Locus</th><th>Position</th><th>Feature</th>
+        <th>Structural confidence</th><th>Functional context</th>
+        <th>Tools</th><th>G4Hunter</th><th>Conservation (phylo)</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for l in d.loci %}
+      <tr {% if l.is_algorithm_artefact %}class="artefact"{% endif %}>
+        <td><code>{{ l.atlas_id }}</code></td>
+        <td>{{ l.genome_start }}&ndash;{{ l.genome_end }} ({{ l.strand }})</td>
+        <td>{{ l.gene_feature }}</td>
+        <td><span class="conf conf-{{ l.structural_confidence }}">{{ l.structural_confidence }}</span>
+            {{ l.structural_confidence_label }}</td>
+        <td>{{ l.functional_context }}</td>
+        <td>{{ l.concordant_tool_count }}</td>
+        <td>{{ l.g4hunter_score if l.g4hunter_score is not none else '&mdash;' | safe }}</td>
+        <td>{{ l.conservation_pct_phylo if l.conservation_pct_phylo is not none else '&mdash;' | safe }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}

@@ -1,0 +1,16 @@
+# g4watch/alignment — MAFFT.
+FROM debian:bookworm-slim
+
+LABEL org.opencontainers.image.title="g4watch-alignment" \
+      org.opencontainers.image.licenses="MIT"
+
+# Version-pinned: MAFFT's --auto heuristic picks a different algorithm at
+# different corpus sizes, and an unpinned upgrade could silently change
+# the alignment a published Atlas coordinate depends on.
+ARG MAFFT_VERSION=7.520-1
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        "mafft=${MAFFT_VERSION}" \
+    && rm -rf /var/lib/apt/lists/*
+
+USER 1000
+ENTRYPOINT ["mafft"]

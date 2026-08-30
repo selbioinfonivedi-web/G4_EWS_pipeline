@@ -1,0 +1,23 @@
+# g4watch/selection — PhiPack (recombination screening), HyPhy.
+FROM debian:bookworm-slim
+
+LABEL org.opencontainers.image.title="g4watch-selection" \
+      org.opencontainers.image.licenses="MIT"
+
+# PhiPack is vendored rather than packaged: it has no Debian package and
+# no release tarball. Pinned to the commit recorded in
+# vendor/PINNED_VERSIONS.tsv.
+ARG PHIPACK_COMMIT=b1d48d21037dd087b12a01d06eefbb3b33428bef
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        build-essential git ca-certificates \
+    && git clone https://github.com/julianzaugg/phipack.git /opt/phipack \
+    && cd /opt/phipack \
+    && git checkout "${PHIPACK_COMMIT}" \
+    && make \
+    && cp Phi /usr/local/bin/ \
+    && apt-get purge -y git && apt-get autoremove -y \
+    && rm -rf /var/lib/apt/lists/*
+
+USER 1000
+ENTRYPOINT ["Phi"]

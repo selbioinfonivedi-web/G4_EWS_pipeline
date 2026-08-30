@@ -1,0 +1,104 @@
+# G4-WATCH pathogen configuration — Lumpy Skin Disease Virus
+#
+# NOT YET PROVISIONED. Phase 5 (multi-pathogen extension) scope. The
+# fields below encode the decisions the architecture already fixes for
+# LSDV; the reference genome and corpus fields are deliberately null
+# rather than guessed, and `provisioned: false` makes the config loader
+# refuse to run this pathogen until a curator fills them in. Nothing here
+# fabricates an accession or a coordinate.
+
+pathogen: LSDV
+display_name: "Lumpy Skin Disease Virus"
+genome_type: dsDNA
+taxonomy_id: 59509
+provisioned: false
+provisioning_notes: |
+  Required before this config can run:
+    1. Choose and record a reference genome (the LSDV Neethling reference
+       strain is the conventional choice) — set reference.accession,
+       reference.fasta, and read cds bounds from that record's own
+       annotation rather than inferring them. LSDV is a ~150 kb
+       poxvirus with ~156 ORFs, so `reference.cds` becomes a LIST of
+       ORF spans, not the single-ORF form FMDV uses; stage0's
+       GenomeAnnotation currently models one CDS and must be extended
+       (tracked in docs/revision_log.md) before this pathogen runs.
+    2. Fetch a corpus and accession list; populate corpus.*.
+    3. Enable pqsfinder (below) — LSDV is the DNA-virus sprint that
+       unblocks it.
+
+reference:
+  accession: null
+  fasta: null
+  cds: null
+  genome_length: null
+
+corpus:
+  metadata_tsv: null
+  sequences_fasta: null
+  lineage_field: clade
+
+qc:
+  min_completeness_fraction: 0.90
+  max_n_content_fraction: 0.05
+  require_year_precision_date: true
+
+alignment:
+  tool: mafft
+  args: "--auto --keeplength --addfragments"
+  max_gapped_fraction: 0.50
+
+recombination:
+  # Section 11: MANDATORY and HIGH PRIORITY for LSDV. Recombinant vaccine-
+  # like field strains are a documented, dominant feature of LSDV
+  # evolution, so a significant PHI result here routes the analysis to a
+  # non-tree-based estimate rather than being noted and passed over.
+  enabled: true
+  tier: high_priority
+  alpha: 0.05
+
+phylogenetics:
+  tool: iqtree2
+  model: GTR+F+I+G4
+  bootstrap_replicates: 1000
+  seed: 20250823
+  outgroup: null
+  ancestral_states: required
+  timetree:
+    tool: treetime
+    clock_rate: null
+    clock_filter_iqd: 3.0
+
+g4_prediction:
+  g4hunter:
+    window: 25
+    threshold: 1.2
+  pattern_motif:
+    enabled: true
+  g4rna_screener:
+    enabled: false
+    reason: "upstream is Python 2-only with a pickled PyBrain classifier; see vendor/README.md"
+  pqsfinder:
+    # LSDV is a DNA virus — pqsfinder is in scope here, unlike for the
+    # RNA-virus pathogens. Implement g4watch/g4prediction/pqsfinder.py
+    # before flipping this to true.
+    enabled: false
+    reason: "g4watch/g4prediction/pqsfinder.py not yet implemented (Phase 5)"
+  concordance:
+    min_overlap_fraction: 0.80
+  flank: 100
+
+control_regions:
+  length_tolerance: 0.10
+  gc_tolerance: 0.05
+  pqs_overlap_score_threshold: 0.80
+  exclusion_buffer: 50
+
+atlas:
+  version: null
+  path: null
+
+dh1_gate:
+  alpha: 0.05
+  ledger: data/atlases/testing_ledger.tsv
+
+operational_mode: false

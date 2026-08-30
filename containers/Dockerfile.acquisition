@@ -1,0 +1,11 @@
+# g4watch/acquisition — NCBI corpus fetching (Entrez Direct).
+FROM g4watch/core:1.0.0
+
+LABEL org.opencontainers.image.title="g4watch-acquisition" \
+      org.opencontainers.image.licenses="MIT"
+
+USER root
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        ncbi-entrez-direct \
+    && rm -rf /var/lib/apt/lists/*
+USER 1000

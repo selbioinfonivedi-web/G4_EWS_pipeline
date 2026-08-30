@@ -1,0 +1,106 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "g4watch"
+version = "1.0.0"
+description = "G-quadruplex genomic surveillance framework for livestock viruses (ICAR-NIVEDI)"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "ICAR-NIVEDI G4-WATCH" }]
+keywords = ["g-quadruplex", "genomic-surveillance", "virology", "phylogenetics", "fmdv"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Scientific/Engineering :: Bio-Informatics",
+]
+
+# Lower bounds are the versions the pipeline was developed and validated
+# against (see docs/installation.md for the exact validated environment);
+# upper bounds guard the next major, which may change numerical defaults.
+dependencies = [
+  "numpy>=1.26,<3",
+  "scipy>=1.11,<2",
+  "biopython>=1.83,<2",
+  "pyyaml>=6.0,<7",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=7.4",
+  "pytest-cov>=4.1",
+  "coverage[toml]>=7.4",
+  "ruff>=0.4",
+]
+
+[project.scripts]
+g4watch = "g4watch.cli:main"
+
+[project.urls]
+Documentation = "https://github.com/ICAR-NIVEDI/g4watch/tree/main/docs"
+
+[tool.setuptools.packages.find]
+include = ["g4watch*"]
+
+[tool.setuptools.package-data]
+g4watch = ["py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# --strict-markers so a typo in a marker fails rather than silently
+# selecting nothing; -ra so skips are always visible in CI logs.
+addopts = "-ra --strict-markers"
+markers = [
+  "requires_r: needs Rscript + ape (ancestral-state reconstruction)",
+  "requires_phi: needs the compiled vendor/phipack/Phi binary",
+  "slow: end-to-end runs measured in minutes, not seconds",
+]
+
+[tool.coverage.run]
+source = ["g4watch"]
+branch = true
+
+[tool.coverage.report]
+# Section 3 non-functional requirement: >=85% coverage, enforced (not
+# advisory) in CI. Raise this floor, never lower it.
+fail_under = 85
+show_missing = true
+exclude_lines = [
+  "pragma: no cover",
+  "if TYPE_CHECKING:",
+  "raise NotImplementedError",
+  "if __name__ == .__main__.:",
+]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B"]
+ignore = [
+  "E501",
+  # B905 (zip without strict=): the zips here pair columns that are equal
+  # by construction. Adding strict=True would convert a structural
+  # invariant into a runtime exception in scientific code paths without
+  # first proving each pairing, so it is not a safe blanket change.
+  # Revisit per-call-site rather than repo-wide.
+  "B905",
+  # UP042 (prefer StrEnum): these enums deliberately inherit from
+  # (str, Enum). Their values are written to the Atlas TSV and the
+  # testing ledger and compared against strings read back from them;
+  # StrEnum changes __str__ and __format__ behaviour, which would alter
+  # serialized output. The persisted format is the constraint here.
+  "UP042",
+]
+
+[tool.ruff.lint.per-file-ignores]
+# Scripts and the demo insert the repo root on sys.path before importing
+# g4watch, which is a deliberate module-level-import-not-at-top.
+"scripts/python/*.py" = ["E402"]
+"demo/*.py" = ["E402"]

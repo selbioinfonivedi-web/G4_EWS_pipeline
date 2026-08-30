@@ -1,0 +1,61 @@
+# G4-WATCH web interface — standalone service (Section 17).
+#
+# Linked from NADRES rather than embedded in it. Read-only over pipeline
+# artifacts: it never runs the pipeline and never writes the ledger.
+#
+#   docker compose -f containers/docker-compose.yml up --build
+#
+# Run from the repository root — the build contexts are relative to it.
+
+services:
+  web-backend:
+    build:
+      context: ..
+      dockerfile: containers/Dockerfile.web-backend
+    image: g4watch/web-backend:1.0.0
+    environment:
+      G4WATCH_DB_URL: postgresql://g4watch:g4watch@web-db:5432/g4watch
+    volumes:
+      # Read-only. The dashboard must not be able to alter the Atlas or
+      # the testing ledger, whatever a bug in it does.
+      - ../data:/opt/g4watch/data:ro
+      - ../config:/opt/g4watch/config:ro
+    depends_on:
+      web-db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  web-db:
+    build:
+      context: ..
+      dockerfile: containers/Dockerfile.web-db
+    image: g4watch/web-db:1.0.0
+    environment:
+      POSTGRES_USER: g4watch
+      # Development default. A real deployment supplies this via secrets;
+      # it is written here plainly rather than hidden so nobody mistakes
+      # it for a configured credential.
+      POSTGRES_PASSWORD: g4watch
+      POSTGRES_DB: g4watch
+    volumes:
+      - g4watch-db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U g4watch -d g4watch"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  web-proxy:
+    build:
+      context: ..
+      dockerfile: containers/Dockerfile.web-proxy
+    image: g4watch/web-proxy:1.0.0
+    ports:
+      - "8080:80"
+    depends_on:
+      - web-backend
+    restart: unless-stopped
+
+volumes:
+  g4watch-db:

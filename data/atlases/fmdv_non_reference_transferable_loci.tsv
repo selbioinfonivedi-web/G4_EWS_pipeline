@@ -1,0 +1,20 @@
+reference_projected_start	reference_projected_end	origin_genomes	n_genomes_with_hit	reason
+260	294	['KC412634.1', 'PQ654498.1']	2	AY593823's own sequence at this position does not independently reproduce a qualifying G4Hunter hit -- not added to the reference-coordinate Atlas.
+2385	2511	['MF372126.1', 'PQ654498.1', 'PQ768018.1', 'PX864607.1']	4	AY593823's own sequence at this position does not independently reproduce a qualifying G4Hunter hit -- not added to the reference-coordinate Atlas.
+2994	3020	['PQ654498.1']	1	AY593823's own sequence at this position does not independently reproduce a qualifying G4Hunter hit -- not added to the reference-coordinate Atlas.
+4358	4390	['KC412634.1', 'PX864607.1']	2	AY593823's own sequence at this position does not independently reproduce a qualifying G4Hunter hit -- not added to the reference-coordinate Atlas.
+5315	5352	['PX864607.1']	1	AY593823's own sequence at this position does not independently reproduce a qualifying G4Hunter hit -- not added to the reference-coordinate Atlas.
+5537	5567	['PX864607.1']	1	AY593823's own sequence at this position does not independently reproduce a qualifying G4Hunter hit -- not added to the reference-coordinate Atlas.
+801	827	['PQ768018.1']	1	AY593823's own sequence at this position does not independently reproduce a qualifying G4Hunter hit -- not added to the reference-coordinate Atlas.
+1864	1891	['PQ768018.1', 'PQ768019.1']	2	AY593823's own sequence at this position does not independently reproduce a qualifying G4Hunter hit -- not added to the reference-coordinate Atlas.
+3263	3307	['PQ474240.1', 'PQ768018.1', 'PQ768019.1']	3	AY593823's own sequence at this position does not independently reproduce a qualifying G4Hunter hit -- not added to the reference-coordinate Atlas.
+2773	2828	['MF372126.1', 'PQ768019.1']	2	AY593823's own sequence at this position does not independently reproduce a qualifying G4Hunter hit -- not added to the reference-coordinate Atlas.
+3716	3757	['MF372126.1', 'PQ474240.1', 'PQ768019.1']	3	AY593823's own sequence at this position does not independently reproduce a qualifying G4Hunter hit -- not added to the reference-coordinate Atlas.
+4864	4893	['PQ768019.1']	1	AY593823's own sequence at this position does not independently reproduce a qualifying G4Hunter hit -- not added to the reference-coordinate Atlas.
+7054	7079	['PQ474240.1']	1	AY593823's own sequence at this position does not independently reproduce a qualifying G4Hunter hit -- not added to the reference-coordinate Atlas.
+1070	1098	['MF372126.1']	1	AY593823's own sequence at this position does not independently reproduce a qualifying G4Hunter hit -- not added to the reference-coordinate Atlas.
+3520	3544	['MF372126.1']	1	AY593823's own sequence at this position does not independently reproduce a qualifying G4Hunter hit -- not added to the reference-coordinate Atlas.
+4417	4441	['MF372126.1']	1	AY593823's own sequence at this position does not independently reproduce a qualifying G4Hunter hit -- not added to the reference-coordinate Atlas.
+4941	4970	['MF372126.1']	1	AY593823's own sequence at this position does not independently reproduce a qualifying G4Hunter hit -- not added to the reference-coordinate Atlas.
+3438	3465	['KC412634.1']	1	AY593823's own sequence at this position does not independently reproduce a qualifying G4Hunter hit -- not added to the reference-coordinate Atlas.
+3654	3698	['KC412634.1']	1	AY593823's own sequence at this position does not independently reproduce a qualifying G4Hunter hit -- not added to the reference-coordinate Atlas.

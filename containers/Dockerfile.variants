@@ -1,0 +1,15 @@
+# g4watch/variants — variant calling from the reference-anchored alignment.
+#
+# Variant calling is done in-package (g4watch/variants/), so this is the
+# core image plus snippy/SnpEff for the read-based comparisons the
+# architecture lists as an alternative route.
+FROM g4watch/core:1.0.0
+
+LABEL org.opencontainers.image.title="g4watch-variants" \
+      org.opencontainers.image.licenses="MIT"
+
+USER root
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        snpeff \
+    && rm -rf /var/lib/apt/lists/*
+USER 1000

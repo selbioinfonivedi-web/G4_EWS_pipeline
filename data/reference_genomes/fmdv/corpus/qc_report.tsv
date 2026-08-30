@@ -1,0 +1,1108 @@
+accession	serotype	serotype_normalized	country	passed	completeness_fraction	n_content_fraction	reasons_failed
+PX864607.1	O	O	Ghana	True	0.99	0.0	
+PX864606.1	O	O	Ghana	True	0.9918	0.0	
+PX864605.1	O	O	Ghana	True	0.99	0.0011	
+PX864603.1	O	O	Ghana	True	0.9343	0.0	
+PX864602.1	SAT 2	SAT2	Ghana	True	1.0002	0.0084	
+PX864601.1	SAT 2	SAT2	Ghana	True	0.9994	0.0	
+PX864600.1	O	O	Ghana	True	0.9854	0.0001	
+PX864599.1	O	O	Ghana	True	0.9883	0.0001	
+PZ575027.1			South Korea	True	0.9991	0.0	
+PV446528.1			Germany	True	1.001	0.0	
+LC917744.1	SAT1	SAT1	Iraq	True	0.9994	0.0	
+LC917743.1	SAT1	SAT1	Iraq	True	0.9994	0.0	
+LC917742.1	SAT1	SAT1	Iraq	True	0.9994	0.0	
+LC917741.1	SAT1	SAT1	Iraq	True	0.9994	0.0	
+LC917740.1	SAT1	SAT1	Iraq	True	0.9994	0.0	
+LC917739.1	SAT1	SAT1	Iraq	True	0.9994	0.0	
+LC917738.1	SAT1	SAT1	Iraq	True	0.9994	0.0	
+LC917737.1	SAT1	SAT1	Iraq	True	0.9994	0.0	
+LC917736.1	SAT1	SAT1	Iraq	True	0.9994	0.0	
+PQ768022.1	A	A	India	True	0.9928	0.0007	
+PQ768021.1	A	A	India	True	0.9973	0.0018	
+PQ768020.1	A	A	India	True	0.9948	0.0012	
+PQ768019.1	A	A	India	True	0.9922	0.0009	
+PQ768018.1	A	A	India	True	0.9978	0.0	
+PQ768017.1	A	A	India	True	0.9978	0.0029	
+PQ768016.1	A	A	India	True	0.9976	0.0	
+PQ768015.1	A	A	India	True	0.9977	0.0004	
+PQ768014.1	A	A	India	True	0.9979	0.0	
+PQ768013.1	A	A	India	True	0.9974	0.0	
+PQ768012.1	A	A	India	True	0.9977	0.0	
+PQ768011.1	A	A	India	True	0.9972	0.0006	
+PQ768010.1	A	A	India	True	0.9977	0.0	
+PQ768009.1	A	A	India	True	0.9976	0.0	
+PQ768008.1	A	A	India	True	0.9971	0.0	
+PQ768007.1	A	A	India	True	0.997	0.0001	
+PQ768006.1	A	A	India	True	0.9977	0.0002	
+PQ768005.1	A	A	India	True	0.9522	0.0	
+PQ768004.1	A	A	India	True	0.9974	0.0001	
+PQ768003.1	A	A	India	True	0.9973	0.0001	
+PQ768002.1	A	A	India	True	0.9918	0.0001	
+PQ768001.1	A	A	India	True	0.9924	0.0	
+PQ474240.1	A	A	Russia	True	0.9906	0.0	
+PQ474239.1	A	A	Russia	True	0.9966	0.0	
+PQ474238.1	A	A	Russia	True	1.0084	0.0	
+PQ474237.1	A	A	Russia	True	1.0032	0.0	
+PQ474236.1	A	A	Russia	True	1.0065	0.0	
+PQ474235.1	A	A	Russia	True	0.997	0.0	
+PQ474234.1	A	A	Russia	True	0.9903	0.0	
+LC897151.1	SAT1	SAT1	Iraq	True	0.9994	0.0	
+PX114617.1			Egypt	True	0.9935	0.0	
+PX114616.1			Egypt	True	0.9935	0.0	
+PX114615.1			Egypt	True	1.0045	0.0	
+PX114614.1			Egypt	True	1.0045	0.0	
+PX114613.1			Egypt	True	1.0045	0.0	
+PX114612.1			Egypt	True	1.0045	0.0	
+PX114611.1			Egypt	True	1.0045	0.0	
+PX114610.1			Egypt	True	1.0045	0.0	
+PX114609.1			Egypt	True	1.0045	0.0	
+PX114608.1			Egypt	True	1.0045	0.0	
+PV805283.1			Bangladesh	True	1.0012	0.0012	
+PV805282.1			Bangladesh	True	1.0016	0.0	
+PV805281.1			Bangladesh	True	1.0015	0.0	
+PV805280.1			Bangladesh	True	1.0011	0.0001	
+PQ654498.1	O	O	United Arab Emirates	True	1.003	0.0004	
+PQ654497.1	O	O	United Arab Emirates	True	1.0032	0.0005	
+PQ654496.1	O	O	United Arab Emirates	True	1.0032	0.0005	
+PQ654495.1	O	O	United Arab Emirates	True	1.0032	0.0005	
+PQ654494.1	O	O	United Arab Emirates	True	1.0032	0.0005	
+PQ654493.1	O	O	Nepal	True	1.003	0.0007	
+PQ654492.1	O	O	Nepal	True	1.0032	0.0009	
+PQ654491.1	O	O	Nepal	True	1.0028	0.0005	
+PQ654490.1	O	O	Nepal	True	1.0033	0.0001	
+PQ654489.1	O	O	Sri Lanka	True	0.9984	0.001	
+PQ654488.1	O	O	Sri Lanka	True	1.0021	0.0009	
+PQ662947.1	A	A	Nigeria	True	0.9889	0.0005	
+PQ662946.1	A	A	Nigeria	True	0.9877	0.0004	
+PQ662945.1	A	A	Nigeria	True	0.9867	0.0046	
+PQ662944.1	A	A	Nigeria	True	0.9873	0.0017	
+PQ662943.1	A	A	Nigeria	True	0.9876	0.0042	
+PQ662942.1	A	A	Nigeria	True	0.9893	0.0009	
+PQ662957.1	O	O	Nigeria	True	0.9304	0.0	
+PQ662956.1	O	O	Nigeria	True	0.9304	0.0008	
+PQ662955.1	O	O	Nigeria	True	0.9303	0.0	
+PQ662954.1	O	O	Nigeria	True	0.9301	0.0001	
+PQ662953.1	O	O	Nigeria	True	0.9301	0.0	
+PQ662952.1	O	O	Nigeria	True	0.9313	0.0	
+PQ662951.1	O	O	Nigeria	True	0.9355	0.0	
+PQ662950.1	O	O	Nigeria	True	0.9307	0.0	
+PQ662949.1	O	O	Nigeria	True	0.9307	0.0	
+PQ662948.1	O	O	Nigeria	True	0.9299	0.0	
+PQ662941.1	O	O	Nigeria	True	0.9303	0.0	
+PQ662940.1	O	O	Nigeria	True	0.9309	0.0	
+PQ662939.1	O	O	Nigeria	True	0.9303	0.0	
+PQ662938.1	O	O	Nigeria	True	0.9299	0.0	
+LC868350.1	SAT1	SAT1	Iraq	True	0.9991	0.0	
+LC868349.1	SAT1	SAT1	Iraq	True	0.9991	0.0	
+LC868348.1	SAT1	SAT1	Iraq	True	0.9991	0.0	
+LC868347.1	SAT1	SAT1	Iraq	True	0.9991	0.0	
+LC868346.1	SAT1	SAT1	Iraq	True	0.9991	0.0	
+LC868345.1	SAT1	SAT1	Iraq	True	0.9991	0.0	
+LC868344.1	SAT1	SAT1	Iraq	True	0.9991	0.0	
+LC868343.1	SAT1	SAT1	Iraq	True	0.9991	0.0	
+LC868342.1	SAT1	SAT1	Iraq	True	0.9991	0.0	
+PQ587574.1	SAT2	SAT2	Ethiopia	True	0.9998	0.004	
+PQ587573.1	SAT2	SAT2	Ethiopia	True	0.9959	0.0006	
+PQ587572.1	SAT2	SAT2	Ethiopia	True	0.9996	0.0004	
+PQ587571.1	SAT2	SAT2	Ethiopia	True	0.9988	0.0015	
+PQ587570.1	SAT2	SAT2	Ethiopia	True	0.9982	0.0054	
+PQ587569.1	SAT2	SAT2	Ethiopia	True	0.9961	0.001	
+PQ587568.1	SAT2	SAT2	Ethiopia	True	0.9999	0.0	
+PQ587567.1	SAT2	SAT2	Ethiopia	True	0.9999	0.0	
+PQ587566.1	SAT2	SAT2	Ethiopia	True	0.9995	0.0004	
+PQ587565.1	SAT2	SAT2	Ethiopia	True	0.9983	0.0007	
+PQ587564.1	SAT2	SAT2	Ethiopia	True	0.9994	0.0001	
+PQ587563.1	SAT2	SAT2	Ethiopia	True	0.9971	0.0002	
+PQ801122.1	O	O	Bangladesh	True	0.9993	0.0001	
+PP432673.1	SAT2	SAT2	Turkey	True	0.997	0.0004	
+PP432672.1	SAT2	SAT2	Turkey	True	0.9983	0.0017	
+PP432671.1	SAT2	SAT2	Turkey	True	0.9979	0.0001	
+PP432670.1	SAT2	SAT2	Turkey	True	0.9983	0.0009	
+PP432669.1	SAT2	SAT2	Turkey	True	0.9999	0.0002	
+PP432668.1	SAT2	SAT2	Turkey	True	0.9999	0.0	
+PP432667.1	SAT2	SAT2	Turkey	True	0.9987	0.0001	
+PP432666.1	SAT2	SAT2	Turkey	True	0.9985	0.0007	
+PP432665.1	SAT2	SAT2	Turkey	True	0.9976	0.0001	
+PP432664.1	SAT2	SAT2	Turkey	True	0.9985	0.0007	
+PP432663.1	SAT2	SAT2	Turkey	True	0.9985	0.0001	
+PP432662.1	SAT2	SAT2	Turkey	True	0.9978	0.0016	
+PP432661.1	SAT2	SAT2	Turkey	True	0.9988	0.0023	
+PP432660.1	SAT2	SAT2	Turkey	True	0.9989	0.0029	
+PP432659.1	SAT2	SAT2	Turkey	True	0.9999	0.0	
+PP432658.1	SAT2	SAT2	Turkey	True	0.9979	0.0007	
+PP432657.1	SAT2	SAT2	Turkey	True	0.9989	0.0001	
+PP432656.1	SAT2	SAT2	Jordan	True	0.9983	0.0	
+PP432655.1	SAT2	SAT2	Jordan	True	0.9985	0.0004	
+PP432654.1	SAT2	SAT2	Jordan	True	0.9985	0.0015	
+PP432653.1	SAT2	SAT2	Jordan	True	0.9999	0.0	
+PP432652.1	SAT2	SAT2	Jordan	True	0.9989	0.0005	
+PP432651.1	SAT2	SAT2	Jordan	True	0.9999	0.0001	
+PP432650.1	SAT2	SAT2	Iraq	True	0.9998	0.0002	
+PP432649.1	SAT2	SAT2	Iraq	True	0.9999	0.0	
+PP432648.1	SAT2	SAT2	Iraq	True	1.0	0.0001	
+PP432647.1	SAT2	SAT2	Iraq	True	0.9998	0.0002	
+PP432646.1	SAT2	SAT2	Iraq	True	0.9987	0.0034	
+PP432645.1	SAT2	SAT2	Iraq	True	0.9998	0.0006	
+PP432644.1	SAT2	SAT2	Bahrain	True	0.9984	0.001	
+PP432643.1	SAT2	SAT2	Bahrain	True	0.9999	0.0005	
+PP432642.1	SAT2	SAT2	Bahrain	True	0.9983	0.0004	
+PQ619438.1			Bulgaria	True	0.9996	0.001	
+PQ153287.1	O	O	Pakistan	True	1.0017	0.0009	
+PQ153286.1	O	O	Pakistan	True	1.0017	0.0009	
+PQ153285.1	O	O	Pakistan	True	1.0018	0.0007	
+OP136971.1	A	A	Uganda	True	0.991	0.0	
+OP105165.1	SAT 1	SAT1	Uganda	True	0.9531	0.0	
+OP105164.1	SAT 1	SAT1	Uganda	True	0.9528	0.0	
+OP105163.1	SAT 2	SAT2	Uganda	True	0.9307	0.0	
+OP105162.1	SAT 2	SAT2	Uganda	True	0.9494	0.0	
+OP034506.1	SAT 2	SAT2	Uganda	True	0.9302	0.0	
+OP136972.1	O	O	Uganda	True	0.9286	0.0	
+OP034505.1	O	O	Uganda	True	0.9253	0.0	
+OP034504.1	O	O	Uganda	True	0.9254	0.0	
+ON961017.1	O	O	Uganda	True	0.9253	0.0	
+ON961016.1	O	O	Uganda	True	0.9253	0.0	
+ON961015.1	O	O	Uganda	True	0.9254	0.0	
+ON961014.1	O	O	Uganda	True	0.9258	0.0	
+ON784047.1	O	O	Uganda	True	0.9739	0.0001	
+ON784046.1	O	O	Uganda	True	0.9822	0.0	
+ON784045.1	O	O	Uganda	True	0.9371	0.0	
+ON736860.1	O	O	Uganda	True	0.9408	0.0	
+MH791293.1	O	O	Uganda	True	0.9291	0.0	
+OR338621.1	A	A	Argentina	True	0.9899	0.0001	
+OR338620.1	A	A	Argentina	True	0.9899	0.0002	
+OR338619.1	A	A	Argentina	True	0.9899	0.0001	
+OR338618.1	A	A	Argentina	True	0.9899	0.0	
+OR338617.1	A	A	Argentina	True	0.9899	0.0004	
+OR338616.1	A	A	Argentina	True	0.9898	0.0016	
+OR338615.1	A	A	Argentina	True	0.9899	0.0	
+OR338614.1	A	A	Argentina	True	0.9899	0.0	
+OR338612.1	A	A	Argentina	True	0.9899	0.0	
+OR338611.1	A	A	Argentina	True	0.9899	0.0	
+OR338610.1	A	A	Argentina	True	0.99	0.0	
+OR338609.1	A	A	Argentina	True	0.99	0.0002	
+OR338608.1	A	A	Argentina	True	0.99	0.0001	
+OR338607.1	A	A	Argentina	True	0.9898	0.0	
+OR338606.1	A	A	Argentina	True	0.9899	0.0	
+OR338605.1	A	A	Argentina	True	0.9899	0.0004	
+OR338604.1	A	A	Argentina	True	0.9898	0.0004	
+OR338603.1	A	A	Argentina	True	0.9899	0.0001	
+OR338602.1	A	A	Argentina	True	0.9899	0.0	
+OR338601.1	A	A	Argentina	True	0.9899	0.0	
+PP273559.1	A	A	India	True	0.992	0.0	
+OQ427394.1	O	O	Argentina	True	0.9548	0.0	
+OQ427393.1	C	C		True	0.9497	0.0	
+OQ383267.1	C	C	Brazil	True	0.9536	0.0001	
+OQ383266.1			United Kingdom	True	0.9526	0.0	
+OQ383265.1	C	C	Netherlands	True	0.9474	0.0	
+OQ356340.1	A	A	Brazil	True	0.9929	0.0001	
+OQ356349.1	A	A	Kenya	True	0.9872	0.0	
+OQ356348.1	A	A	Iraq	True	0.9282	0.0	
+OQ356347.1	A	A	Egypt	True	1.0005	0.0	
+OQ356346.1	A	A	Kenya	True	0.9659	0.0	
+OQ356345.1	A	A	Argentina	True	0.9564	0.0	
+OQ356344.1	A	A	Uruguay	True	0.9793	0.0	
+OQ356343.1	A	A	Argentina	True	0.955	0.0	
+OQ356342.1	A	A	Argentina	True	0.9637	0.0	
+OQ356341.1	A	A	Brazil	True	0.9536	0.0	
+OQ356339.1	C	C	United Kingdom	True	0.941	0.0001	
+OQ356338.1	Asia 1	ASIA1	Israel	True	0.9588	0.0	
+OQ356337.1	Asia 1	ASIA1	Pakistan	True	0.9314	0.0	
+OQ256242.1	A	A	Israel	True	0.9641	0.0	
+OQ238686.1	A	A	Germany	True	0.9928	0.0	
+OQ238685.1	A	A	Argentina	True	0.9921	0.0	
+LC771233.1	A	A	Iraq	True	0.9903	0.0	
+OQ745961.1	A	A	Thailand	True	1.0012	0.0	
+OP957418.1	O	O	Bangladesh	True	1.0012	0.0	
+ON557390.1	SAT3	SAT3	Zambia	True	0.9815	0.0022	
+OP751924.1			Indonesia	False	0.8529	0.0	genome completeness 85.3% below minimum 90%
+OM863584.1	SAT2	SAT2	Sudan	True	0.9636	0.0	
+OM863583.1	SAT1	SAT1	Kenya	True	0.989	0.0001	
+OM863582.1	SAT1	SAT1	Kenya	True	0.9931	0.0	
+OM863581.1	A	A	Kenya	True	1.0011	0.0001	
+OM863580.1	A	A	Egypt	True	0.9952	0.0005	
+OP585403.1	O	O	Indonesia	True	1.0002	0.0001	
+OM160625.1			Algeria	True	0.9424	0.0003	
+OM160624.1			Algeria	True	0.9464	0.0003	
+OM160623.1			Algeria	True	0.9448	0.0	
+OM160622.1			Algeria	True	0.9446	0.0	
+OM160621.1			Algeria	True	0.9455	0.0	
+OM160620.1			Tunisia	True	0.9459	0.0	
+OM160619.1			Tunisia	True	0.9801	0.0002	
+OM160618.1			Tunisia	True	0.9809	0.0009	
+OM160617.1			Tunisia	True	0.9801	0.0	
+OM160616.1			Tunisia	True	0.98	0.0	
+OM160615.1			Tunisia	True	0.9801	0.0001	
+OM160614.1			Tunisia	True	0.9801	0.0	
+OM160613.1			Tunisia	True	0.9801	0.0001	
+OM160612.1			Tunisia	True	0.9801	0.0001	
+OM160611.1			Tunisia	True	0.9805	0.0	
+OM160610.1			Tunisia	True	0.9801	0.0	
+OK318551.1			Viet Nam	True	0.997	0.0	
+OK318550.1			Viet Nam	True	0.9979	0.0	
+OK318549.1			Viet Nam	True	0.9981	0.0	
+OK318548.1			Viet Nam	True	0.9981	0.0	
+OK318547.1			Viet Nam	True	0.9979	0.0	
+OK318546.1			Viet Nam	True	0.9967	0.0	
+OK318545.1			Viet Nam	True	0.9978	0.0	
+OK318544.1			Viet Nam	True	0.9982	0.0	
+OK318543.1			Viet Nam	True	0.9894	0.0	
+OK318542.1			Viet Nam	True	0.9894	0.0	
+OK318541.1			Viet Nam	True	0.9854	0.0	
+OK318540.1			Viet Nam	True	0.9893	0.0	
+OK318539.1			Viet Nam	True	0.9893	0.0	
+OK318538.1			Viet Nam	True	0.9896	0.0	
+OK318537.1			Viet Nam	True	0.9894	0.0	
+OK318536.1			Viet Nam	True	0.9945	0.0023	
+OK318535.1			Viet Nam	True	0.9781	0.0025	
+OK318534.1			Viet Nam	True	0.9893	0.0	
+OK318533.1			Viet Nam	True	0.9751	0.0139	
+OK318532.1			Viet Nam	True	0.9893	0.0	
+OK318531.1			Viet Nam	True	0.9893	0.0	
+OK318530.1			Viet Nam	True	0.9894	0.0	
+OK318529.1			Viet Nam	True	0.9893	0.0	
+OK318528.1			Viet Nam	True	0.9887	0.0	
+OK318527.1			Viet Nam	True	0.9894	0.0	
+OK318526.1			Viet Nam	True	0.9961	0.0	
+OK318525.1			Viet Nam	True	0.9894	0.0	
+OK318524.1			Viet Nam	True	0.989	0.0	
+OK318523.1			Viet Nam	True	0.9954	0.0	
+OK318522.1			Viet Nam	True	0.9895	0.0	
+OK318521.1			Viet Nam	True	0.9777	0.0	
+OK318520.1			Viet Nam	True	0.9883	0.0	
+OK318519.1			Viet Nam	True	0.9827	0.003	
+OK318518.1			Viet Nam	True	0.9949	0.0	
+OK318517.1			Viet Nam	True	0.9955	0.0002	
+OK318516.1			Viet Nam	True	0.9957	0.0	
+OK318515.1			Viet Nam	True	0.9773	0.0	
+OK318514.1			Viet Nam	True	0.9955	0.0	
+OK318513.1			Viet Nam	True	0.9788	0.0	
+OK318512.1			Viet Nam	True	0.9893	0.0	
+OK318511.1			Viet Nam	True	0.9894	0.0	
+OK318510.1			Viet Nam	True	0.9972	0.0	
+OK318509.1			Viet Nam	True	0.9974	0.0	
+OK318508.1			Viet Nam	True	0.9971	0.0	
+OK318507.1			Viet Nam	True	0.9972	0.0	
+OK318506.1			Viet Nam	True	0.9971	0.0	
+OK318505.1			Viet Nam	True	0.9973	0.0002	
+OK318504.1			Viet Nam	True	0.9968	0.0002	
+OK318503.1			Viet Nam	True	0.9965	0.0	
+OK318502.1			Viet Nam	True	0.9968	0.0017	
+OK318501.1			Viet Nam	True	0.997	0.0	
+OK318500.1			Viet Nam	True	0.9944	0.0	
+OK318499.1			Viet Nam	True	0.994	0.0	
+OM456150.1			Pakistan	True	0.9939	0.0038	
+OM456149.1			Pakistan	True	0.9938	0.0036	
+OM456148.1			Pakistan	True	0.9938	0.0038	
+OM456147.1			Pakistan	True	0.9939	0.0036	
+OM456146.1			Pakistan	True	0.994	0.0038	
+OM456145.1			Pakistan	True	0.9943	0.0038	
+OM456144.1			Pakistan	True	0.9943	0.0037	
+OM456143.1			Pakistan	True	0.9937	0.0036	
+OM456142.1			Pakistan	True	0.9942	0.0039	
+OM456141.1			Pakistan	True	0.9938	0.0067	
+OM456140.1			Pakistan	True	0.9942	0.0038	
+OM456139.1			Pakistan	True	0.994	0.0036	
+OM456138.1			Pakistan	True	0.994	0.0038	
+OM456137.1			Pakistan	True	0.994	0.0038	
+OM456136.1			Pakistan	True	0.9952	0.0047	
+OM456135.1			Pakistan	True	0.9938	0.0036	
+OM456134.1			Pakistan	True	0.9938	0.0036	
+OM456133.1			Pakistan	True	0.9938	0.0038	
+OM456132.1			Pakistan	True	0.9934	0.0	
+OM456131.1			Pakistan	True	0.9933	0.0	
+OM456130.1			Pakistan	True	0.9929	0.0	
+OM456129.1			Pakistan	True	0.9923	0.0	
+OM456128.1			Pakistan	True	0.9929	0.0	
+OM455484.1			Pakistan	True	0.9954	0.0017	
+OM455483.1			Pakistan	True	0.9965	0.0015	
+OM455482.1			Pakistan	True	0.9977	0.0	
+OM455481.1			Pakistan	True	0.9981	0.0022	
+OM455480.1			Pakistan	True	0.9973	0.0006	
+OM455479.1			Pakistan	True	0.9965	0.0013	
+OM455478.1			Pakistan	True	0.9972	0.0	
+OM455477.1			Pakistan	True	0.9962	0.0	
+OM455476.1			Pakistan	True	0.996	0.0	
+OM455475.1			Pakistan	True	0.9952	0.0	
+OM455474.1			Pakistan	True	0.9952	0.0	
+OM455473.1			Pakistan	True	0.9963	0.0	
+OM455472.1			Pakistan	True	0.9984	0.0	
+OM455471.1			Pakistan	True	0.9965	0.0	
+OM455470.1			Pakistan	True	0.996	0.0	
+OM455469.1			Pakistan	True	0.9946	0.0	
+OM455468.1			Pakistan	True	0.9966	0.0	
+OM455467.1			Pakistan	True	0.9962	0.0	
+OM455466.1			Pakistan	True	0.9979	0.0	
+OM455465.1			Pakistan	True	0.9977	0.0	
+OM471680.1			Pakistan	True	0.9951	0.0	
+OM471679.1			Pakistan	True	0.9954	0.001	
+OM471678.1			Pakistan	True	0.9955	0.0	
+OM471677.1			Pakistan	True	0.9968	0.0	
+OM471676.1			Pakistan	True	0.9951	0.0001	
+OM471675.1			Pakistan	True	0.9946	0.0	
+OM471674.1			Pakistan	True	0.995	0.0015	
+OM471673.1			Pakistan	True	0.9946	0.0	
+OM471672.1			Pakistan	True	0.996	0.0	
+OM471671.1			Pakistan	True	0.9954	0.0	
+OM471670.1			Pakistan	True	0.9959	0.0	
+OM471669.1			Pakistan	True	0.9946	0.0012	
+OM471668.1			Pakistan	True	0.9948	0.0012	
+OM471667.1			Pakistan	True	0.9959	0.0	
+OM471666.1			Pakistan	True	0.9959	0.0	
+OM471665.1			Pakistan	True	0.996	0.0	
+OM471664.1			Pakistan	True	0.9946	0.0	
+OM471663.1			Pakistan	True	0.9962	0.0017	
+OM471662.1			Pakistan	True	0.9946	0.0015	
+OM471661.1			Pakistan	True	0.9951	0.0	
+OM471660.1			Pakistan	True	0.9963	0.0	
+OM471659.1			Pakistan	True	0.9959	0.0001	
+OM471658.1			Pakistan	True	0.9952	0.0	
+OM471657.1			Pakistan	True	0.9972	0.0	
+OM471656.1			Pakistan	True	0.9965	0.0	
+OM471655.1			Pakistan	True	0.9968	0.0	
+OM471654.1			Pakistan	True	0.9967	0.0	
+OM471653.1			Pakistan	True	0.9955	0.002	
+OM471652.1			Pakistan	True	0.9895	0.007	
+OM471651.1			Pakistan	True	0.9967	0.0	
+OM471650.1			Pakistan	True	0.9965	0.0	
+OM471649.1			Pakistan	True	0.996	0.0	
+OM471648.1			Pakistan	True	0.9976	0.0	
+OM471647.1			Pakistan	True	0.9966	0.0	
+OM471646.1			Pakistan	True	0.9963	0.0	
+OM471645.1			Pakistan	True	0.9961	0.0	
+OM471644.1			Pakistan	True	0.9985	0.0	
+OM471643.1			Pakistan	True	0.9987	0.0	
+OM471642.1			Pakistan	True	0.9983	0.0	
+OM471641.1			Pakistan	True	0.9955	0.0005	
+OM471640.1			Pakistan	True	0.9957	0.0033	
+OM471639.1			Pakistan	True	0.9955	0.0021	
+OM471638.1			Pakistan	True	0.9961	0.0	
+OM471637.1			Pakistan	True	0.9983	0.0	
+OM471636.1			Pakistan	True	0.996	0.0	
+OM471635.1			Pakistan	True	0.9987	0.0	
+OM471634.1			Pakistan	True	0.9991	0.0	
+OM471633.1			Pakistan	True	0.9966	0.0	
+OM471632.1			Pakistan	True	0.9971	0.0	
+OM471631.1			Pakistan	True	0.9956	0.0	
+OM471630.1			Pakistan	True	0.996	0.0	
+OM471629.1			Pakistan	True	0.9977	0.0	
+OM471628.1			Pakistan	True	0.9989	0.0	
+OM471627.1			Pakistan	True	0.9952	0.0	
+OM471626.1			Pakistan	True	0.9959	0.0	
+OM471625.1			Pakistan	True	0.9966	0.0	
+OM471624.1			Pakistan	True	0.9988	0.0	
+OM471623.1			Pakistan	True	0.997	0.0	
+OM471622.1			Pakistan	True	0.9985	0.0	
+OM471621.1			Pakistan	True	0.996	0.0	
+OM471620.1			Pakistan	True	0.9987	0.0	
+OM471619.1			Pakistan	True	0.9957	0.0	
+OM471618.1			Pakistan	True	0.996	0.0	
+OM471617.1			Pakistan	True	0.9966	0.0	
+OM471616.1			Pakistan	True	0.9991	0.0	
+OM471615.1			Pakistan	True	0.9946	0.0043	
+OM471614.1			Pakistan	True	0.9959	0.0013	
+OM471613.1			Pakistan	True	0.9951	0.0005	
+OM471612.1			Pakistan	True	0.9959	0.0	
+OM471611.1			Pakistan	True	0.9957	0.0	
+OM471610.1			Pakistan	True	0.9959	0.0	
+OK422491.1	O	O	India	True	0.9994	0.0	
+OK422490.1	O	O	India	False	0.9994	0.0	collection date missing year-level precision
+OK422489.1	O	O	India	True	0.9994	0.0	
+OV121130.1				False	1.0001	0.001	collection date missing year-level precision
+OK019689.1	O	O	Iran	True	0.9974	0.0	
+MT495500.1	O	O		False	0.9972	0.0013	collection date missing year-level precision
+MT495499.1	O	O		False	1.0001	0.0	collection date missing year-level precision
+MT495498.1	O	O		False	0.9999	0.0	collection date missing year-level precision
+MT495497.1	O	O		False	0.9981	0.0002	collection date missing year-level precision
+MT495496.1	O	O		False	0.9982	0.0021	collection date missing year-level precision
+MT495495.1	O	O		False	0.9988	0.0	collection date missing year-level precision
+MT495494.1	O	O		False	0.9998	0.0	collection date missing year-level precision
+MT495493.1	O	O		False	1.0	0.0	collection date missing year-level precision
+MT495492.1	O	O		False	1.0	0.0	collection date missing year-level precision
+MT495491.1	O	O		False	0.9995	0.0	collection date missing year-level precision
+MT495490.1	O	O		False	1.0	0.0	collection date missing year-level precision
+MT495489.1	O	O		False	1.0001	0.0	collection date missing year-level precision
+MT495488.1	O	O		False	1.0001	0.0	collection date missing year-level precision
+MT495487.1	O	O		False	1.0	0.0	collection date missing year-level precision
+MT495486.1	O	O		False	1.0	0.0	collection date missing year-level precision
+MT495485.1	O	O		False	0.9991	0.0	collection date missing year-level precision
+MT495484.1	O	O		False	0.9999	0.0	collection date missing year-level precision
+MT495483.1	O	O		False	0.9996	0.0	collection date missing year-level precision
+MT495482.1	O	O		False	1.0	0.0	collection date missing year-level precision
+MT495481.1	O	O		False	0.9978	0.0007	collection date missing year-level precision
+MT495480.1	O	O		False	0.9982	0.0	collection date missing year-level precision
+MT495479.1	O	O		False	1.0001	0.0	collection date missing year-level precision
+MT495478.1	O	O		False	0.9995	0.0	collection date missing year-level precision
+MT495477.1	O	O		False	0.9996	0.0	collection date missing year-level precision
+MT495476.1	A	A		False	0.9935	0.0	collection date missing year-level precision
+MT495475.1	A	A		False	0.9933	0.0	collection date missing year-level precision
+MT495474.1	A	A		False	0.9905	0.0059	collection date missing year-level precision
+MT495473.1	A	A		False	0.9918	0.0004	collection date missing year-level precision
+MT495472.1	A	A		False	0.9865	0.0022	collection date missing year-level precision
+MT495471.1	A	A		False	0.9922	0.0015	collection date missing year-level precision
+MT495470.1	A	A		False	0.9862	0.0017	collection date missing year-level precision
+MT495469.1	A	A		False	0.9924	0.0006	collection date missing year-level precision
+MT495468.1	A	A		False	0.9932	0.0006	collection date missing year-level precision
+MT495467.1	A	A		False	0.9915	0.0006	collection date missing year-level precision
+MT495466.1	A	A		False	0.9911	0.0023	collection date missing year-level precision
+MT495465.1	A	A		False	0.9923	0.0006	collection date missing year-level precision
+MT495464.1	A	A		False	0.9907	0.0063	collection date missing year-level precision
+MT495463.1	A	A		False	0.9913	0.0023	collection date missing year-level precision
+MT495462.1	A	A		False	0.9913	0.0021	collection date missing year-level precision
+MT431617.1	O	O		False	0.9905	0.0058	collection date missing year-level precision
+MT431616.1	O	O		False	0.9976	0.0023	collection date missing year-level precision
+MT431615.1	O	O		False	0.9991	0.003	collection date missing year-level precision
+MT431614.1	O	O		False	0.9978	0.0023	collection date missing year-level precision
+MT431613.1	O	O		False	1.0002	0.0	collection date missing year-level precision
+MT431612.1	O	O		False	0.9998	0.0	collection date missing year-level precision
+MT431611.1	O	O		False	0.9999	0.0	collection date missing year-level precision
+MT431610.1	O	O		False	0.9982	0.0	collection date missing year-level precision
+MT431609.1	O	O		False	1.0	0.0	collection date missing year-level precision
+MT431608.1	O	O		False	1.0002	0.0	collection date missing year-level precision
+MT431607.1	O	O		False	1.0001	0.0	collection date missing year-level precision
+MT431606.1	O	O		False	1.0002	0.0	collection date missing year-level precision
+MT431605.1	O	O		False	1.0002	0.0	collection date missing year-level precision
+MT431604.1	O	O		False	0.9974	0.0007	collection date missing year-level precision
+MT431603.1	O	O		False	0.9995	0.0005	collection date missing year-level precision
+MT431602.1	O	O		False	0.9998	0.0	collection date missing year-level precision
+MT431601.1	O	O		False	0.9988	0.0009	collection date missing year-level precision
+MT431600.1	O	O		False	0.9991	0.0	collection date missing year-level precision
+MT431599.1	O	O		False	0.999	0.001	collection date missing year-level precision
+MT431598.1	O	O		False	0.9981	0.0009	collection date missing year-level precision
+MT431597.1	O	O		False	0.9991	0.0	collection date missing year-level precision
+MT431596.1	O	O		False	0.9993	0.0007	collection date missing year-level precision
+MT431595.1	O	O		False	0.9994	0.0006	collection date missing year-level precision
+MT431594.1	O	O		False	0.9989	0.0004	collection date missing year-level precision
+MT431593.1	O	O		False	0.9993	0.0	collection date missing year-level precision
+MT431592.1	O	O		False	0.9976	0.0018	collection date missing year-level precision
+MT431591.1	O	O		False	0.9977	0.0004	collection date missing year-level precision
+MW355680.1	SAT3	SAT3	Zimbabwe	True	0.9933	0.0171	
+MW355679.1	SAT3	SAT3	Zimbabwe	True	0.9935	0.0001	
+MW355678.1	SAT3	SAT3	Zambia	True	0.9922	0.0001	
+MW355677.1	SAT3	SAT3	South Africa	True	0.9871	0.001	
+MW355676.1	SAT3	SAT3	Zimbabwe	True	0.989	0.0001	
+MW355675.1	SAT3	SAT3	Zimbabwe	True	0.9883	0.0027	
+MW355674.1	SAT3	SAT3	Botswana	True	0.9882	0.0005	
+MW355673.1	SAT2	SAT2	Zimbabwe	True	0.9949	0.0002	
+MW355672.1	SAT2	SAT2	Zambia	True	0.9899	0.0133	
+MW355671.1	SAT2	SAT2	Mozambique	True	0.9916	0.0001	
+MW355670.1	SAT2	SAT2	Botswana	True	0.9949	0.0036	
+MW355669.1	SAT1	SAT1	Zambia	True	0.9962	0.0	
+MW355668.1	SAT1	SAT1	Tanzania	True	0.9949	0.0	
+LC564923.1	A	A	Thailand	True	0.9287	0.0003	
+LC564922.1	A	A	Thailand	True	0.9287	0.0005	
+LC564921.1	A	A	Thailand	True	0.9287	0.0003	
+LC564920.1	A	A	Thailand	True	0.9287	0.0009	
+LC564919.1	A	A	Thailand	True	0.9287	0.0004	
+LC564918.1	A	A	Thailand	True	0.9287	0.0005	
+LC564917.1	A	A	Thailand	True	0.9301	0.0005	
+LC564916.1	A	A	Thailand	True	0.9287	0.0005	
+LC564915.1	A	A	Thailand	True	0.9291	0.0	
+LC564914.1	A	A	Thailand	True	0.9291	0.0004	
+LC564913.1	A	A	Thailand	True	0.9199	0.0005	
+LC564912.1	A	A	Thailand	True	0.9291	0.0	
+LC564911.1	A	A	Thailand	True	0.9291	0.0001	
+LC564910.1	A	A	Thailand	True	0.9223	0.0012	
+LC564909.1	A	A	Thailand	True	0.9227	0.0001	
+LC564908.1	A	A	Thailand	True	0.9292	0.0	
+LC564907.1	A	A	Thailand	True	0.9292	0.0003	
+LC564906.1	A	A	Thailand	True	0.9292	0.0	
+LC564905.1	A	A	Thailand	True	0.9292	0.0004	
+LC564904.1	A	A	Thailand	True	0.9292	0.0001	
+LC564903.1	A	A	Thailand	True	0.9292	0.0	
+LC564902.1	A	A	Thailand	True	0.9292	0.0	
+LC564901.1	A	A	Thailand	True	0.9291	0.0001	
+LC564900.1	A	A	Thailand	True	0.9292	0.0001	
+LC564899.1	A	A	Thailand	True	0.9257	0.0014	
+LC564898.1	A	A	Thailand	True	0.9291	0.0003	
+LC564897.1	A	A	Thailand	True	0.9291	0.0004	
+LC564896.1	A	A	Thailand	True	0.929	0.0003	
+LC564895.1	A	A	Thailand	True	0.929	0.0001	
+LC564894.1	A	A	Thailand	True	0.9291	0.0001	
+MH167966.1	O	O	Uganda	True	0.9252	0.0	
+MH167965.1	O	O	Uganda	True	0.9251	0.0	
+MH167964.1	O	O	Uganda	True	0.9255	0.0	
+MH167963.1	O	O	Uganda	True	0.9251	0.0	
+MH167962.1	O	O	Uganda	True	0.9252	0.0	
+KY444649.1	O	O	Thailand	True	1.0045	0.0	
+KY444648.1	O	O	Thailand	True	1.0043	0.0	
+KY444647.1	O	O	Thailand	True	1.0043	0.0	
+KY444646.1	O	O	Thailand	True	1.0032	0.0	
+KY444645.1	O	O	Thailand	True	1.0004	0.0	
+KY444644.1	O	O	Thailand	True	0.9977	0.0	
+MT944983.1	O	O	Iran	True	0.9983	0.0001	
+MT944982.1	O	O	Iran	True	0.9959	0.0007	
+MT944981.1	O	O	Iran	True	0.9987	0.0	
+MT944980.1	O	O	Iran	True	0.9918	0.01	
+MN442540.1			South Africa	True	0.9834	0.0	
+MN442539.1			South Africa	True	0.9447	0.0	
+MN442538.1			South Africa	True	0.9553	0.0	
+MT602092.1	SAT2	SAT2	Kenya	True	0.99	0.0004	
+MT602091.1	SAT2	SAT2	Ethiopia	True	0.9901	0.0032	
+MT602090.1	SAT2	SAT2	Ethiopia	True	0.9753	0.0001	
+MT602089.1	SAT2	SAT2	Egypt	True	0.9931	0.0001	
+MT602088.1	SAT1	SAT1	Tanzania	True	0.9943	0.0002	
+MT602087.1	SAT1	SAT1	Tanzania	True	0.9949	0.0004	
+MT602086.1	SAT1	SAT1	Tanzania	True	0.9935	0.0001	
+MT602085.1	SAT1	SAT1	Kenya	True	0.991	0.0002	
+MT602084.1	O	O	Kenya	True	0.9989	0.0065	
+MT602083.1	O	O	Ethiopia	True	0.9912	0.002	
+MT602082.1	O	O	Ethiopia	True	0.9927	0.0056	
+MT602081.1	O	O	Ethiopia	True	0.9988	0.0002	
+MT602080.1	A	A	Uganda	True	0.9944	0.0013	
+MT602079.1	A	A	Sudan	True	0.9862	0.0004	
+MT602078.1	A	A	Ethiopia	True	0.9895	0.0006	
+MT602077.1	A	A	Ethiopia	True	0.9942	0.0002	
+MT863269.1	O	O	Egypt	True	0.9489	0.0	
+MT863268.1	A	A	Egypt	True	1.0071	0.0	
+MN227144.1	A	A	India	True	0.9991	0.0117	
+KY322680.1	A	A	Viet Nam	True	0.9942	0.0001	
+KY322679.1	A	A	Thailand	True	0.9978	0.0002	
+KY322678.1	A	A	Malaysia	True	0.9988	0.0	
+KY322677.1	A	A	Malaysia	True	0.9984	0.0001	
+KY322676.1	A	A	Malaysia	True	0.9988	0.0	
+KY322675.1	A	A	Laos	True	0.9985	0.0006	
+KY322674.1	O	O	South Korea	True	0.9949	0.0	
+KY322673.1	O	O	Malaysia	True	0.9888	0.002	
+KY322672.1	O	O	Malaysia	True	0.9955	0.0	
+KY322671.1	O	O	Malaysia	True	0.9987	0.0001	
+KY322670.1	O	O	Laos	True	0.9984	0.002	
+MN366244.1			Bangladesh	True	0.9989	0.0	
+MN983158.1			India	True	0.9959	0.0024	
+MN983157.1			India	True	0.9961	0.0004	
+MN983156.1			India	True	0.9967	0.0006	
+MN983155.1			India	True	0.9971	0.0015	
+MN983154.1			India	True	0.9972	0.0022	
+MN983153.1			India	True	0.995	0.0072	
+MN983152.1			India	True	0.9962	0.0015	
+MN953620.1	O	O	Pakistan	True	0.9977	0.001	
+MN953619.1	O	O	Pakistan	True	0.9977	0.0011	
+MN389541.1	O	O	China	True	0.9939	0.0	
+MN062587.1	A	A	Pakistan	True	0.931	0.0	
+MN062586.1	A	A	Afghanistan	True	0.9313	0.0	
+MN062585.1	O	O	Turkey	True	0.994	0.0219	
+MN062584.1	O	O	Pakistan	True	0.9301	0.0005	
+MN062583.1	O	O	Pakistan	True	0.9311	0.0005	
+MN062582.1	O	O	Pakistan	True	0.9301	0.0	
+MN062581.1	O	O	Pakistan	True	0.9301	0.0008	
+MN062580.1	O	O	Iran	True	0.9303	0.0	
+MN062579.1	O	O	Iran	True	0.9259	0.0	
+MN062578.1	O	O	Afghanistan	False	0.9302	0.0	collection date missing year-level precision
+LC483874.1	A	A	Thailand	True	0.942	0.0006	
+MK341545.1			Argentina	False	1.0006	0.0	collection date missing year-level precision
+MK341544.1			Argentina	False	1.0006	0.0	collection date missing year-level precision
+MK088170.1	O	O	Bangladesh	True	1.0006	0.0	
+MN275121.1			Cameroon	True	0.9974	0.0005	
+MN275120.1			Cameroon	True	0.9967	0.0071	
+MN275119.1			Cameroon	True	0.9974	0.0056	
+MN275118.1			Cameroon	True	0.9951	0.0071	
+MN116688.1			Kenya	True	0.9954	0.0061	
+MN103523.1	SAT2	SAT2	Nigeria	True	0.986	0.0006	
+MN095371.1			India	True	0.9955	0.0011	
+MN095370.1			India	True	0.995	0.0048	
+MN095369.1			India	True	0.9945	0.0048	
+MN095368.1			India	True	0.9963	0.0064	
+MN095367.1			India	True	0.9935	0.0088	
+MN095366.1			India	True	0.9946	0.0006	
+MN095365.1			India	True	0.9981	0.0006	
+MN095364.1			India	True	0.9982	0.0	
+MN095363.1			India	True	0.9946	0.0076	
+MN095362.1			India	True	0.9976	0.0005	
+MN095361.1			India	True	0.9946	0.005	
+MN095360.1			India	True	0.9971	0.0016	
+MN095359.1			India	True	0.9957	0.0023	
+MN095358.1			India	True	0.9955	0.0026	
+MN095357.1			India	True	0.9987	0.0001	
+MN095356.1			India	True	0.997	0.0005	
+MN095355.1			India	True	0.9982	0.0015	
+MN095354.1			India	True	0.9984	0.0009	
+LC485149.1				False	0.9405	0.0005	collection date missing year-level precision
+LC485148.1				False	0.9405	0.0003	collection date missing year-level precision
+LC485147.1				False	0.9405	0.0003	collection date missing year-level precision
+LC485146.1				False	0.9402	0.0004	collection date missing year-level precision
+LC485145.1				False	0.9407	0.0	collection date missing year-level precision
+LC485144.1				False	0.9405	0.0	collection date missing year-level precision
+LC485143.1				False	0.9402	0.0003	collection date missing year-level precision
+LC485142.1				False	0.9407	0.0003	collection date missing year-level precision
+NC_039210.1	O	O	United Kingdom	False	0.9994	0.0	collection date missing year-level precision
+MK088171.1	A	A	Bangladesh	True	1.0018	0.0	
+MK071699.1	O	O	Bangladesh	True	1.0018	0.0	
+MH845413.2	O	O	Viet Nam	True	0.9909	0.0001	
+MH784405.1	O	O	Pakistan	True	0.9989	0.0002	
+MH784404.1	O	O	Pakistan	True	0.9985	0.0001	
+MH784403.1	O	O	Pakistan	True	0.9984	0.0001	
+MG913340.1	A	A	Algeria	True	0.9894	0.0	
+MG372732.1	C	C		False	0.9404	0.0062	collection date missing year-level precision
+MG372731.1	Asia 1	ASIA1		False	1.0035	0.0016	collection date missing year-level precision
+MG372730.1	O	O	South Korea	True	0.9887	0.0263	
+MG372729.1	C	C		False	0.9921	0.0007	collection date missing year-level precision
+MG372728.1	O	O		False	0.9907	0.0005	collection date missing year-level precision
+MG372727.1	SAT 3	SAT3	South Africa	False	0.9957	0.0001	collection date missing year-level precision
+MF372126.1	Asia1	ASIA1	India	True	1.0078	0.0	
+MF372125.1	Asia1	ASIA1	India	True	0.9991	0.0	
+MF461724.1			China	True	1.0006	0.0	
+KY234502.1	O	O	China	True	0.9917	0.0	
+KY234501.1	O	O	China	True	1.0032	0.0	
+MH053352.1	SAT3	SAT3	Zimbabwe	True	0.9944	0.0001	
+MH053351.1	SAT3	SAT3	Zimbabwe	True	0.9933	0.0055	
+MH053350.1	SAT3	SAT3	Zimbabwe	True	0.9933	0.0064	
+MH053349.1	SAT3	SAT3	Zimbabwe	True	0.9923	0.0093	
+MH053348.1	SAT3	SAT3	Zimbabwe	True	0.9937	0.0072	
+MH053347.1	SAT3	SAT3	Zimbabwe	True	0.992	0.0053	
+MH053346.1	SAT3	SAT3	Zimbabwe	True	0.9873	0.0002	
+MH053345.1	SAT3	SAT3	Zimbabwe	True	0.9928	0.0063	
+MH053344.1	SAT3	SAT3	Zimbabwe	True	0.9926	0.005	
+MH053343.1	SAT3	SAT3	Zimbabwe	True	0.9938	0.0065	
+MH053342.1	SAT3	SAT3	Zambia	True	0.9926	0.0239	
+MH053341.1	SAT3	SAT3	Uganda	True	1.0009	0.0269	
+MH053340.1	SAT3	SAT3	Malawi	True	0.9924	0.0037	
+MH053339.1	SAT3	SAT3	Botswana	True	0.9873	0.0064	
+MH053338.1	SAT3	SAT3	Botswana	True	0.9868	0.0002	
+MH053337.1	SAT2	SAT2	Uganda	True	0.9966	0.0188	
+MH053336.1	SAT2	SAT2	Uganda	True	0.9967	0.0126	
+MH053335.1	SAT2	SAT2	Zimbabwe	True	0.9904	0.0009	
+MH053334.1	SAT2	SAT2	Zambia	True	0.996	0.0004	
+MH053333.1	SAT2	SAT2	Ethiopia	True	0.9896	0.0	
+MH053332.1	SAT2	SAT2	Botswana	True	0.9949	0.0004	
+MH053331.1	SAT2	SAT2	Botswana	True	0.9946	0.0	
+MH053330.1	SAT2	SAT2	Botswana	True	0.995	0.0016	
+MH053329.1	SAT2	SAT2	Botswana	True	0.9952	0.0073	
+MH053328.1	SAT2	SAT2	Botswana	True	0.9915	0.0001	
+MH053327.1	SAT1	SAT1	Uganda	True	0.9965	0.0028	
+MH053326.1	SAT1	SAT1	Uganda	True	0.9965	0.0	
+MH053325.1	SAT1	SAT1	Uganda	True	0.9993	0.0	
+MH053324.1	SAT1	SAT1	Uganda	True	0.9994	0.0	
+MH053323.1	SAT1	SAT1	Chad	True	0.9978	0.0001	
+MH053322.1	SAT1	SAT1	Namibia	True	0.9966	0.0001	
+MH053321.1	SAT1	SAT1	Mozambique	True	0.9974	0.0004	
+MH053320.1	SAT1	SAT1	Kenya	True	0.9927	0.0002	
+MH053319.1	SAT1	SAT1	Botswana	True	0.9965	0.006	
+MH053318.1	O	O	Uganda	True	0.9944	0.0002	
+MH053317.1	O	O	Uganda	True	0.9968	0.0045	
+MH053316.1	O	O	Uganda	True	0.9817	0.0002	
+MH053315.1	O	O	Sudan	True	0.9938	0.0049	
+MH053314.1	O	O	Ethiopia	True	0.9961	0.0044	
+MH053313.1	O	O	Ethiopia	True	0.9946	0.0006	
+MH053312.1	O	O	Ethiopia	True	0.995	0.0044	
+MH053311.1	O	O	Ethiopia	True	0.9959	0.0038	
+MH053310.1	C	C	Uganda	True	0.9942	0.0001	
+MH053309.1	C	C	Kenya	True	0.9935	0.0005	
+MH053308.1	C	C	Ethiopia	True	0.9957	0.0009	
+MH053307.1	A	A	Zambia	True	0.9955	0.0061	
+MH053306.1	A	A	Chad	True	0.996	0.0055	
+MH053305.1	A	A	Egypt	True	1.0004	0.005	
+MG725876.1	A	A	Nigeria	True	0.9903	0.0	
+MG725875.1	A	A	Nigeria	True	0.9903	0.0	
+MG725874.1	A	A	Nigeria	True	0.9913	0.0001	
+MG725873.1	A	A	Nigeria	True	0.9906	0.0001	
+MG725872.1	A	A	Nigeria	True	0.9903	0.0002	
+MF782478.1	Asia 1	ASIA1	Bangladesh	True	0.999	0.0	
+MF678826.1	SAT1	SAT1	Nigeria	True	1.0011	0.0	
+MF678825.1	SAT1	SAT1	Nigeria	True	1.0011	0.0001	
+MF678824.1	SAT1	SAT1	Nigeria	True	1.0013	0.0	
+MF678823.1	SAT1	SAT1	Nigeria	True	1.001	0.0	
+KY404935.1	A	A	Argentina	False	1.0006	0.0	collection date missing year-level precision
+KY404934.1	A	A	Argentina	False	1.0006	0.0	collection date missing year-level precision
+KX534089.1	O	O	South Korea	True	0.9982	0.0	
+KY072818.1	O	O	China	True	0.9963	0.0	
+KY446903.1	O	O	Pakistan	True	0.9937	0.0	
+KY446902.1	A	A	Pakistan	True	0.9976	0.0001	
+KY446901.1	Asia-1	ASIA1	Pakistan	True	0.9989	0.0	
+KY086466.1	O	O	South Korea	True	0.9915	0.0	
+KY086465.1	O	O	South Korea	True	0.991	0.0001	
+KR401154.1	O	O	Myanmar	False	0.9967	0.0	collection date missing year-level precision
+KR401160.1	O	O	South Korea	False	0.9967	0.0002	collection date missing year-level precision
+KR401159.1	O	O	South Korea	False	0.9967	0.0002	collection date missing year-level precision
+KR401158.1	O	O	South Korea	False	0.9967	0.0002	collection date missing year-level precision
+KR401157.1	O	O	Myanmar	False	0.9967	0.0	collection date missing year-level precision
+KR401156.1	O	O	Myanmar	False	0.9967	0.0	collection date missing year-level precision
+KR401155.1	O	O	Myanmar	False	0.9967	0.0004	collection date missing year-level precision
+KR401153.1	O	O	Myanmar	False	0.9967	0.0004	collection date missing year-level precision
+KR401152.1	O	O	Myanmar	False	0.9967	0.0004	collection date missing year-level precision
+KX712091.1	O	O	Bangladesh	True	1.0006	0.0	
+KX375417.1	SAT 3	SAT3		False	0.99	0.0	collection date missing year-level precision
+KX162590.1	O	O	South Korea	True	0.9959	0.0	
+KU726614.1	O	O	Greece	True	0.9945	0.0009	
+KU821592.1	SAT2	SAT2	Zambia	True	0.9957	0.0001	
+KU821591.1	O	O	Zambia	True	0.9934	0.0	
+KU821590.1	SAT1	SAT1	Namibia	True	0.984	0.0001	
+KU291242.1	O	O	Morocco	True	0.9889	0.0002	
+KT968663.1	A	A	China	True	0.9874	0.0	
+KU127247.1	A	A	Saudi Arabia	True	0.9989	0.0001	
+LC036265.1	O	O	Japan	True	1.0012	0.0	
+HQ832592.1	A	A	India	True	0.992	0.0	
+HQ832591.1	A	A	India	True	0.9971	0.0	
+HQ832590.1	A	A	India	True	0.9972	0.0	
+HQ832589.1	A	A	India	True	0.9922	0.0	
+HQ832588.1	A	A	India	True	0.9966	0.0	
+HQ832587.1	A	A	India	True	0.9981	0.0006	
+HQ832586.1	A	A	India	True	0.9972	0.0	
+HQ832585.1	A	A	India	True	0.9972	0.0006	
+HQ832584.1	A	A	India	True	0.9867	0.0	
+HQ832583.1	A	A	India	True	0.997	0.0	
+HQ832582.1	A	A	India	True	0.9967	0.0	
+HQ832581.1	A	A	India	True	0.9865	0.0	
+HQ832580.1	A	A	India	True	0.9967	0.0	
+HQ832579.1	A	A	India	True	0.9965	0.0	
+HQ832578.1	A	A	India	True	0.9961	0.0	
+HQ832577.1	A	A	India	True	0.9968	0.0004	
+HQ832576.1	A	A	India	True	0.9977	0.0005	
+KC412634.1	Asia1	ASIA1	China	True	1.0037	0.0	
+KT003716.1	O	O	Pakistan	True	0.994	0.0	
+KJ608371.1	A	A	Viet Nam	True	1.0028	0.0	
+KR401161.1	O	O	United Kingdom	False	0.9972	0.0	collection date missing year-level precision
+JX947859.1	O	O	United Kingdom	False	0.9972	0.0011	collection date missing year-level precision
+JX947858.1	O	O	United Kingdom	False	0.9972	0.0002	collection date missing year-level precision
+KR265075.1	O	O	United Kingdom	False	0.9972	0.0	collection date missing year-level precision
+KR265074.1	O	O	United Kingdom	False	0.9972	0.0	collection date missing year-level precision
+KR265073.1	O	O	United Kingdom	False	0.9972	0.0	collection date missing year-level precision
+KR265072.1	O	O	United Kingdom	False	0.9972	0.0	collection date missing year-level precision
+KJ825809.1	O	O	India	True	0.9993	0.0018	
+KJ825808.1	O	O	India	True	0.9994	0.0018	
+KJ825807.1	O	O	India	True	0.9993	0.0018	
+KJ825806.1	O	O	India	True	0.9993	0.0018	
+KJ825805.1	O	O	India	True	0.9991	0.0018	
+KJ825804.1	O	O	India	True	0.9993	0.0018	
+KJ825803.1	O	O	India	True	0.9966	0.0018	
+KJ825802.1	O	O	India	True	0.9989	0.0018	
+KJ825801.1	O	O	India	True	0.9991	0.0018	
+KJ820999.1	SAT 3	SAT3	Uganda	True	0.9996	0.0011	
+JF749862.1				False	0.9954	0.0	collection date missing year-level precision
+JF749860.1				False	0.9924	0.0004	collection date missing year-level precision
+JF749851.1				False	0.9989	0.0007	collection date missing year-level precision
+JF749843.1				False	0.9987	0.0	collection date missing year-level precision
+GU384683.1	O	O	Pakistan	True	1.0096	0.0121	
+GU384682.1	O	O	Pakistan	True	1.009	0.0121	
+KM268901.1	SAT 3	SAT3	Zimbabwe	True	0.9966	0.0	
+KM268900.1	SAT 2	SAT2	Tanzania	True	0.9935	0.0	
+KM268899.1	SAT 1	SAT1	Tanzania	True	0.9939	0.0	
+KM268898.1	Asia 1	ASIA1	Turkey	True	0.9994	0.0	
+KM268897.1	C	C	Kenya	True	0.9991	0.0	
+KM268896.1	A	A	Turkey	True	1.0006	0.0	
+KM268895.1	O	O	Turkey	True	1.0011	0.0	
+KJ933864.1	A	A	Malaysia	True	1.0071	0.0	
+JX869188.1	O	O	United Kingdom	True	0.9976	0.0039	
+JX869187.1	O	O	United Kingdom	True	0.9976	0.0039	
+JX869186.1	O	O	United Kingdom	True	0.9976	0.0039	
+JX869185.1	O	O	United Kingdom	True	0.9976	0.0039	
+JX869184.1	O	O	United Kingdom	True	0.9976	0.0039	
+JX869183.1	O	O	United Kingdom	True	0.9972	0.0039	
+JX869182.1	O	O	United Kingdom	True	0.9976	0.0039	
+JX869181.1	O	O	United Kingdom	True	0.9976	0.0039	
+JX869180.1	O	O	United Kingdom	True	0.9976	0.0039	
+JX869179.1	O	O	United Kingdom	True	0.9976	0.0039	
+JX869178.1	O	O	United Kingdom	True	0.9977	0.0039	
+JX869177.1	O	O	United Kingdom	True	0.9977	0.0039	
+KJ754939.1	A	A	Bangladesh	True	1.0017	0.0	
+KC503937.1			South Korea	True	1.0039	0.0	
+KF985189.1	O	O	Bangladesh	True	0.9909	0.0	
+KC588943.1	A	A	South Korea	True	0.9988	0.0	
+KC440884.1	SAT 2	SAT2	Egypt	False	0.8881	0.0	genome completeness 88.8% below minimum 90%
+KC440883.1	O	O	Egypt	False	0.8872	0.0	genome completeness 88.7% below minimum 90%
+KC440882.1	A	A	Egypt	False	0.889	0.0004	genome completeness 88.9% below minimum 90%
+KC440881.1	A	A	Egypt	False	0.8873	0.0	genome completeness 88.7% below minimum 90%
+KF694746.1	O	O	South Korea	True	1.001	0.0	
+KF694745.1	O	O	South Korea	True	1.001	0.0	
+KF694744.1	O	O	South Korea	True	1.0007	0.0	
+KF694743.1	O	O	South Korea	True	1.0009	0.0	
+KF694742.1	O	O	South Korea	True	1.0006	0.0	
+KF694741.1	O	O	South Korea	True	1.0006	0.0	
+KF694740.1	O	O	South Korea	True	1.0009	0.0	
+KF694739.1	O	O	South Korea	True	1.0007	0.0	
+KF694738.1	O	O	South Korea	True	1.0007	0.0	
+KF694737.1	O	O	South Korea	True	1.0007	0.0	
+KF694736.1	O	O	South Korea	True	1.0007	0.0	
+KF694735.1	O	O	South Korea	True	1.0007	0.0	
+KF694734.1	O	O	South Korea	True	1.0009	0.0	
+KF694733.1	O	O	South Korea	True	1.0009	0.0	
+KF694732.1	O	O	South Korea	True	1.0007	0.0	
+KF694731.1	O	O	South Korea	True	1.0007	0.0	
+KF112889.1	O	O	Hong Kong	True	0.9981	0.0065	
+KF112888.1	O	O	North Korea	True	0.9979	0.006	
+KF112887.1	O	O	South Korea	True	0.9983	0.0052	
+KF112886.1	O	O	South Korea	True	0.9981	0.0053	
+KF112885.1	O	O	Japan	True	0.9983	0.0055	
+KF112884.1	O	O	Russia	True	0.9977	0.0006	
+KF112883.1	O	O	Russia	True	0.9981	0.0	
+KF112882.1	O	O	Mongolia	True	0.9978	0.0	
+KF112881.1	O	O	Mongolia	True	0.9979	0.0053	
+KF112880.1	O	O	Myanmar	True	0.9978	0.006	
+KF112879.1	O	O	Thailand	True	0.9979	0.0059	
+HM229661.1	O	O	Hong Kong	True	0.9899	0.0064	
+DQ533483.2	FMDV-Asia 1	ASIA1	China	True	0.9984	0.0	
+JX040501.1	O	O	Israel	True	0.9985	0.0051	
+JX040500.1	O	O	Turkey	True	0.9985	0.0051	
+JX040499.1	O	O	Turkey	True	0.9985	0.0051	
+JX040498.1	O	O	Turkey	True	0.9985	0.0068	
+JX040497.1	O	O	Turkey	True	0.9985	0.0068	
+JX040496.1	O	O	Turkey	True	0.9985	0.0051	
+JX040495.1	O	O	Turkey	True	0.9985	0.0051	
+JX040494.1	O	O	Turkey	True	0.9985	0.0051	
+JX040493.1	O	O	Turkey	True	0.9985	0.0051	
+JX040492.1	O	O	Turkey	True	0.9985	0.0051	
+JX040491.1	O	O	Turkey	True	0.9985	0.0051	
+JX040490.1	O	O	Bulgaria	True	0.9985	0.0051	
+JX040489.1	O	O	Bulgaria	True	0.9985	0.0068	
+JX040488.1	O	O	Bulgaria	True	0.9985	0.0051	
+JX040487.1	O	O	Bulgaria	True	0.9985	0.0068	
+JX040486.1	O	O	Bulgaria	True	0.9985	0.0068	
+JX040485.1	O	O	Bulgaria	True	0.9985	0.0052	
+JX066665.1	O	O	Bulgaria	True	0.9985	0.0045	
+JX066664.1	O	O	Bulgaria	True	0.9985	0.0045	
+JX570655.1	O	O	United Kingdom	True	0.9984	0.0031	
+JX570654.1	O	O	United Kingdom	True	0.9984	0.0031	
+JX570653.1	O	O	United Kingdom	True	0.9984	0.0031	
+JX570652.1	O	O	United Kingdom	True	0.9984	0.0033	
+JX570651.1	O	O	United Kingdom	True	0.9984	0.0033	
+JX570650.1	O	O	United Kingdom	True	0.9984	0.0031	
+JX570649.1	O	O	United Kingdom	True	0.9984	0.0032	
+JX570648.1	O	O	United Kingdom	True	0.9984	0.0034	
+JX570647.1	O	O	United Kingdom	True	0.9984	0.0031	
+JX570646.1	O	O	United Kingdom	True	0.9984	0.0031	
+JX570645.1	O	O	United Kingdom	True	0.9984	0.0031	
+JX570644.1	O	O	United Kingdom	True	0.9984	0.0031	
+JX570643.1	O	O	United Kingdom	True	0.9984	0.0034	
+JX570642.1	O	O	United Kingdom	True	0.9984	0.0033	
+JX570641.1	O	O	United Kingdom	True	0.9984	0.0031	
+JX570640.1	O	O	United Kingdom	True	0.9984	0.0034	
+JX570639.1	O	O	United Kingdom	True	0.9984	0.0032	
+JX570638.1	O	O	United Kingdom	True	0.9984	0.0031	
+JX014256.1	SAT2	SAT2	Gaza Strip	True	0.9911	0.0031	
+JX014255.1	SAT2	SAT2	Egypt	True	0.9912	0.0031	
+JQ900581.1			China	False	0.9888	0.0	collection date missing year-level precision
+JN998086.1			China	True	1.0043	0.0	
+JN998085.1			China	True	1.0038	0.0	
+HQ631363.1	Asia 1	ASIA1	China	True	0.9994	0.0	
+JF739177.1	Asia 1	ASIA1	Israel	True	0.9988	0.0	
+HQ632774.1	Asia 1	ASIA1	Malaysia	True	0.9965	0.0066	
+HQ632773.1	A	A	Malaysia	True	0.9983	0.0059	
+HQ632772.1	O	O	Malaysia	True	0.9976	0.0051	
+HQ632771.1	O	O	Malaysia	True	0.9907	0.0047	
+HQ632770.1	O	O	Malaysia	True	0.9981	0.0051	
+HQ632769.1	O	O	Malaysia	True	0.9943	0.0059	
+HQ632768.1	O	O	Malaysia	True	0.9981	0.0063	
+FJ906802.1	Asia 1	ASIA1	China	True	1.004	0.0	
+GU931682.1			China	True	0.9985	0.0	
+HM008917.1	O	O	China	True	1.0068	0.0	
+HQ412603.1	O	O	China	True	0.9911	0.0	
+HQ009509.1			China	True	1.003	0.0	
+FJ175666.1	O	O	Israel	True	1.0094	0.0121	
+FJ175665.1	O	O	Israel	True	1.0078	0.0121	
+FJ175664.1	O	O	Israel	True	1.0077	0.0121	
+FJ175663.1	O	O	Israel	True	1.0097	0.0121	
+FJ175662.1	O	O	Israel	True	1.0084	0.0121	
+FJ175661.1	O	O	Israel	True	1.0099	0.0121	
+HM854025.1	A	A	India	True	0.9883	0.0	
+HM854024.1	A	A	India	True	0.9942	0.0	
+HM854023.1	A	A	India	True	0.9998	0.0001	
+HM854022.1	A	A	India	True	1.0001	0.0	
+HM854021.1	A	A	India	True	0.9885	0.0011	
+AY686687.1				False	0.9948	0.0	collection date missing year-level precision
+AF540910.1	SAT 2	SAT2		False	0.996	0.0	collection date missing year-level precision
+AY304994.1	Asia 1	ASIA1		False	0.9952	0.0	collection date missing year-level precision
+AF377945.1				False	0.9521	0.0	collection date missing year-level precision
+FJ542372.1			United Kingdom	True	0.9984	0.0001	
+FJ542371.1			United Kingdom	True	0.9984	0.0001	
+FJ542370.1			United Kingdom	True	0.9984	0.0	
+FJ542369.1			United Kingdom	True	0.9985	0.0	
+FJ542368.1			United Kingdom	True	0.9984	0.0	
+FJ542367.1			United Kingdom	True	0.9984	0.0	
+FJ542366.1			United Kingdom	True	0.9984	0.0	
+FJ542365.1			United Kingdom	True	0.9984	0.0	
+EU214601.1	Pan Asia O	PANASIAO	United Kingdom	True	0.9984	0.0	
+EF614457.1	O	O	South Korea	False	1.0009	0.0	collection date missing year-level precision
+EF552697.1	Pan Asia O	PANASIAO	United Kingdom	True	0.9984	0.0	
+EF552696.1	Pan Asia O	PANASIAO	United Kingdom	True	0.9984	0.0	
+EF552695.1	Pan Asia O	PANASIAO	United Kingdom	True	0.9984	0.0	
+EF552694.1	Pan Asia O	PANASIAO	United Kingdom	True	0.9985	0.0	
+EF552693.1	Pan Asia O	PANASIAO	United Kingdom	True	0.9984	0.0	
+EF552692.1	Pan Asia O	PANASIAO	United Kingdom	True	0.9987	0.0	
+EF552691.1	Pan Asia O	PANASIAO	United Kingdom	True	0.9984	0.0	
+EF552690.1	Pan Asia O	PANASIAO	United Kingdom	True	0.9984	0.0	
+EF552689.1	Pan Asia O	PANASIAO	United Kingdom	True	0.9984	0.0	
+EF552688.1	Pan Asia O	PANASIAO	United Kingdom	True	0.9984	0.0	
+DQ989323.1			India	True	1.0089	0.0121	
+DQ989322.1			India	True	1.0055	0.0121	
+DQ989321.1			India	True	1.0082	0.0121	
+DQ989320.1			India	True	1.0082	0.0121	
+DQ989319.1			India	True	1.0083	0.0121	
+DQ989318.1			India	True	1.0077	0.0121	
+DQ989317.1			India	True	1.0083	0.0121	
+DQ989316.1			India	False	1.0084	0.0824	N-content 8.2% above maximum 5%
+DQ989315.1			India	True	1.008	0.0121	
+DQ989314.1			India	True	1.0082	0.0121	
+DQ989313.1			India	True	1.0078	0.0121	
+DQ989312.1			India	True	1.0078	0.0121	
+DQ989311.1			India	True	0.9978	0.0122	
+DQ989310.1			India	True	0.9998	0.0122	
+DQ989309.1			India	True	1.0084	0.0121	
+DQ989308.1			India	True	1.0084	0.0122	
+DQ989307.1			India	True	1.008	0.0121	
+DQ989306.1			India	True	1.0026	0.0122	
+DQ989305.1			India	True	1.0082	0.0121	
+DQ989304.1			India	True	1.0026	0.0122	
+DQ989303.1			India	True	1.0026	0.0122	
+AY593853.1	SAT3	SAT3	Botswana	False	0.9909	0.0	collection date missing year-level precision
+AY593852.1	SAT3	SAT3	Kenya	False	0.9949	0.0	collection date missing year-level precision
+AY593851.1	SAT3	SAT3	Botswana	False	0.9949	0.0	collection date missing year-level precision
+AY593850.1	SAT3	SAT3	South Africa	False	0.9956	0.0	collection date missing year-level precision
+AY593849.1	SAT2	SAT2	Kenya	False	0.9996	0.0	collection date missing year-level precision
+AY593848.1	SAT2	SAT2		False	0.9913	0.0	collection date missing year-level precision
+AY593847.1	SAT2	SAT2	Zimbabwe	False	0.9894	0.0	collection date missing year-level precision
+AY593846.1	SAT1	SAT1	Zimbabwe	False	0.9911	0.0	collection date missing year-level precision
+AY593845.1	SAT1	SAT1	Botswana	False	0.9962	0.0	collection date missing year-level precision
+AY593844.1	SAT1	SAT1	Israel	False	0.9981	0.0	collection date missing year-level precision
+AY593843.1	SAT1	SAT1	Namibia	False	0.9968	0.0	collection date missing year-level precision
+AY593842.1	SAT1	SAT1	South Africa	False	0.9963	0.0	collection date missing year-level precision
+AY593841.1	SAT1	SAT1	Zimbabwe	False	0.9965	0.0	collection date missing year-level precision
+AY593840.1	SAT1	SAT1	Namibia	False	0.9967	0.0	collection date missing year-level precision
+AY593839.1	SAT1	SAT1		False	0.9921	0.0	collection date missing year-level precision
+AY593838.1	SAT1	SAT1	Botswana	False	0.996	0.0	collection date missing year-level precision
+AY593837.1	O	O	Uruguay	False	0.9991	0.0	collection date missing year-level precision
+AY593836.1	O	O	United Kingdom	False	0.9991	0.0	collection date missing year-level precision
+AY593835.1	O	O	Taiwan	False	0.9966	0.0	collection date missing year-level precision
+AY593834.1	O	O	Iran	False	0.999	0.0	collection date missing year-level precision
+AY593833.1	O	O	Taiwan	False	0.9907	0.0	collection date missing year-level precision
+AY593832.1	O	O	United Kingdom	False	0.9993	0.0	collection date missing year-level precision
+AY593831.1	O	O	United Kingdom	False	0.9993	0.0	collection date missing year-level precision
+AY593830.1	O	O	Poland	False	0.9988	0.0	collection date missing year-level precision
+AY593829.1	O	O	United Kingdom	False	0.9994	0.0	collection date missing year-level precision
+AY593828.1	O	O	India	False	0.994	0.0	collection date missing year-level precision
+AY593827.1	O	O	Venezuela	False	0.9955	0.0	collection date missing year-level precision
+AY593826.1	O	O	Italy	False	0.9951	0.0	collection date missing year-level precision
+AY593825.1	O	O	Argentina	False	0.9943	0.0	collection date missing year-level precision
+AY593824.1	O	O	South Korea	False	0.9991	0.0	collection date missing year-level precision
+AY593823.1	O	O	Turkey	False	1.0	0.0	collection date missing year-level precision
+AY593822.1	O	O		False	0.9949	0.0	collection date missing year-level precision
+AY593821.1	O	O	Argentina	False	0.9998	0.0	collection date missing year-level precision
+AY593820.1	O	O	Argentina	False	0.9987	0.0	collection date missing year-level precision
+AY593819.1	O	O	Argentina	False	0.9989	0.0	collection date missing year-level precision
+AY593818.1	O	O	Argentina	False	0.9987	0.0	collection date missing year-level precision
+AY593817.1	O	O	Belgium	False	0.9987	0.0	collection date missing year-level precision
+AY593816.1	O	O	United Kingdom	False	0.9985	0.0	collection date missing year-level precision
+AY593815.1	O	O	United Kingdom	False	0.9985	0.0	collection date missing year-level precision
+AY593814.1	O	O	Argentina	False	0.9991	0.0	collection date missing year-level precision
+AY593813.1	O	O	Indonesia	False	0.9884	0.0	collection date missing year-level precision
+AY593812.1	O	O	Philippines	False	0.9994	0.0	collection date missing year-level precision
+AY593811.1	O	O	Philippines	False	0.9994	0.0	collection date missing year-level precision
+AY593810.1	C	C	United Kingdom	False	0.9883	0.0	collection date missing year-level precision
+AY593809.1	C	C	Argentina	False	0.9982	0.0	collection date missing year-level precision
+AY593808.1	C	C	Argentina	False	0.9978	0.0	collection date missing year-level precision
+AY593807.1	C	C	Brazil	False	0.9983	0.0	collection date missing year-level precision
+AY593806.1	C	C	Brazil	False	0.9972	0.0	collection date missing year-level precision
+AY593805.1	C	C	Germany	False	0.9922	0.0	collection date missing year-level precision
+AY593804.1	C	C	Switzerland	False	0.9932	0.0	collection date missing year-level precision
+AY593803.1	A	A	Brazil	False	0.9991	0.0	collection date missing year-level precision
+AY593802.1	A	A	Uruguay	False	0.9994	0.0	collection date missing year-level precision
+AY593801.1	A	A	Uruguay	False	0.9994	0.0	collection date missing year-level precision
+AY593800.1	Asia1	ASIA1	Lebanon	False	0.9988	0.0	collection date missing year-level precision
+AY593799.1	Asia1	ASIA1	Lebanon	False	0.9988	0.0	collection date missing year-level precision
+AY593798.1	Asia1	ASIA1	Lebanon	False	0.9988	0.0	collection date missing year-level precision
+AY593797.1	Asia1	ASIA1	Israel	False	0.9921	0.0	collection date missing year-level precision
+AY593796.1	Asia1	ASIA1	Israel	False	0.9983	0.0	collection date missing year-level precision
+AY593795.1	Asia1	ASIA1	Pakistan	False	0.9976	0.0	collection date missing year-level precision
+AY593794.1	A	A	Colombia	False	0.9994	0.0	collection date missing year-level precision
+AY593793.1	A	A	Philippines	False	0.9996	0.0	collection date missing year-level precision
+AY593792.1	A	A	Italy	False	0.999	0.0	collection date missing year-level precision
+AY593791.1	A	A	Iran	False	1.009	0.0	collection date missing year-level precision
+AY593790.1	A	A	Argentina	False	0.9987	0.0	collection date missing year-level precision
+AY593789.1	A	A	Argentina	False	0.991	0.0	collection date missing year-level precision
+AY593788.1	A	A	Brazil	False	1.0013	0.0	collection date missing year-level precision
+AY593787.1	A	A	Brazil	False	0.9988	0.0	collection date missing year-level precision
+AY593786.1	A	A	Argentina	False	1.0004	0.0	collection date missing year-level precision
+AY593785.1	A	A	Argentina	False	0.9988	0.0	collection date missing year-level precision
+AY593784.1	A	A	Argentina	False	0.9988	0.0	collection date missing year-level precision
+AY593783.1	A	A	Argentina	False	0.9988	0.0	collection date missing year-level precision
+AY593782.1	A	A	Argentina	False	0.9993	0.0	collection date missing year-level precision
+AY593781.1	A	A	Germany	False	1.0013	0.0	collection date missing year-level precision
+AY593780.1	A	A	France	False	0.9991	0.0	collection date missing year-level precision
+AY593779.1	A	A	Germany	False	0.996	0.0	collection date missing year-level precision
+AY593778.1	A	A	Spain	False	0.999	0.0	collection date missing year-level precision
+AY593777.1	A	A	Germany	False	0.9946	0.0	collection date missing year-level precision
+AY593776.1	A	A	Germany	False	0.994	0.0	collection date missing year-level precision
+AY593775.1	A	A	Venezuela	False	1.0006	0.0	collection date missing year-level precision
+AY593774.1	A	A	Spain	False	0.9946	0.0	collection date missing year-level precision
+AY593773.1	A	A	Peru	False	0.9995	0.0	collection date missing year-level precision
+AY593772.1	A	A	Turkey	False	0.9942	0.0	collection date missing year-level precision
+AY593771.1	A	A	Colombia	False	0.9993	0.0	collection date missing year-level precision
+AY593770.1	A	A	Argentina	False	0.9889	0.0	collection date missing year-level precision
+AY593769.1	A	A	Argentina	False	0.9913	0.0	collection date missing year-level precision
+AY593768.1	A	A	Brazil	False	0.9939	0.0	collection date missing year-level precision
+AY593767.1	A	A	Argentina	False	0.9987	0.0	collection date missing year-level precision
+AY593766.1	A	A	Kenya	False	0.9995	0.0	collection date missing year-level precision
+AY593765.1	A	A	Turkey	False	0.9995	0.0	collection date missing year-level precision
+AY593764.1	A	A	Iraq	False	0.9996	0.0	collection date missing year-level precision
+AY593763.1	A	A	Iraq	False	0.9998	0.0	collection date missing year-level precision
+AY593762.1	A	A	Iraq	False	1.0012	0.0	collection date missing year-level precision
+AY593761.1	A	A	Kenya	False	0.9945	0.0	collection date missing year-level precision
+AY593760.1	A	A	Russia	False	0.9934	0.0	collection date missing year-level precision
+AY593759.1	A	A	Germany	False	0.9954	0.0	collection date missing year-level precision
+AY593758.1	A	A	Venezuela	False	0.9998	0.0	collection date missing year-level precision
+AY593757.1	A	A	Brazil	False	0.9995	0.0	collection date missing year-level precision
+AY593756.1	A	A	Brazil	False	0.9888	0.0	collection date missing year-level precision
+AY593755.1	A	A	Thailand	False	0.9983	0.0	collection date missing year-level precision
+AY593754.1	A	A	Spain	False	1.0004	0.0	collection date missing year-level precision
+AY593753.1	A	A	Brazil	False	0.9995	0.0	collection date missing year-level precision
+AY593752.1	A	A	United Kingdom	False	0.9998	0.0	collection date missing year-level precision
+AY593751.1	A	A	Netherlands	False	0.9945	0.0	collection date missing year-level precision
+AF511039.1	O	O		False	0.9928	0.0	collection date missing year-level precision
+FJ824812.1	C	C	Spain	False	0.9889	0.0001	collection date missing year-level precision
+EF117837.1	A	A	Pakistan	True	0.929	0.0	
+EF175732.1	O	O	China	False	0.9938	0.0	collection date missing year-level precision
+DQ404180.1	O	O	United Kingdom	True	0.9984	0.0004	
+DQ404179.1	O	O	United Kingdom	True	0.9984	0.0	
+DQ404178.1	O	O	United Kingdom	True	0.9984	0.0	
+DQ404177.1	O	O	United Kingdom	True	0.9984	0.0	
+DQ404176.1	O	O	United Kingdom	True	0.9984	0.0	
+DQ404175.1	O	O	United Kingdom	True	0.9984	0.0	
+DQ404174.1	O	O	Ireland	True	0.9984	0.0	
+DQ404173.1	O	O	United Kingdom	True	0.9987	0.0	
+DQ404172.1	O	O	United Kingdom	True	0.9984	0.0	
+DQ404171.1	O	O	United Kingdom	True	0.9984	0.0	
+DQ404169.1	O	O	United Kingdom	True	0.9984	0.0	
+DQ404170.1	O	O	United Kingdom	True	0.9984	0.0	
+DQ404168.1	O	O	United Kingdom	True	0.9984	0.0	
+DQ404167.1	O	O	United Kingdom	True	0.9978	0.0001	
+DQ404166.1	O	O	United Kingdom	True	0.9984	0.0	
+DQ404165.1	O	O	United Kingdom	True	0.9984	0.0	
+DQ404164.1	O	O	United Kingdom	True	0.9984	0.0	
+DQ404163.1	O	O	United Kingdom	True	0.9982	0.0	
+DQ404162.1	O	O	United Kingdom	True	0.9983	0.0	
+DQ404161.1	O	O	United Kingdom	True	0.9979	0.0	
+DQ404160.1	O	O	United Kingdom	True	0.9977	0.0001	
+DQ404159.1	O	O	United Kingdom	True	0.9978	0.0	
+DQ404158.1	O	O	United Kingdom	True	0.9977	0.0	
+DQ478937.1	O	O	China	False	0.9951	0.0	collection date missing year-level precision
+DQ478936.1	O	O	China	False	0.9954	0.0	collection date missing year-level precision
+DQ409191.1	C	C	Spain	False	0.9889	0.0	collection date missing year-level precision
+DQ409190.1	C	C	Spain	False	0.873	0.0	genome completeness 87.3% below minimum 90%; collection date missing year-level precision
+DQ409189.1	C	C	Spain	False	0.9381	0.0	collection date missing year-level precision
+DQ409188.1	C	C	Spain	False	0.9889	0.0	collection date missing year-level precision
+DQ409187.1	C	C	Spain	False	0.873	0.0	genome completeness 87.3% below minimum 90%; collection date missing year-level precision
+DQ409186.1	C	C	Spain	False	0.9381	0.0	collection date missing year-level precision
+DQ409185.1	C	C	Spain	False	0.9889	0.0	collection date missing year-level precision
+DQ409184.1	C	C	Spain	False	0.8672	0.0	genome completeness 86.7% below minimum 90%; collection date missing year-level precision
+DQ409183.1	C	C	Spain	False	0.9381	0.0	collection date missing year-level precision
+DQ248888.1				False	0.9876	0.0	collection date missing year-level precision
+AY687334.1			India	False	0.9966	0.0	collection date missing year-level precision
+AY687333.1			India	False	0.9966	0.0	collection date missing year-level precision
+AY333431.1				False	0.9421	0.0001	collection date missing year-level precision
+AY390432.1	Asia 1	ASIA1		False	0.9948	0.0	collection date missing year-level precision
+AY359854.1	O	O		False	0.985	0.0	collection date missing year-level precision
+AF506822.2	O	O		False	0.996	0.0	collection date missing year-level precision
+AF308157.1	O	O	Taiwan	False	0.9912	0.0	collection date missing year-level precision
+AF274010.1				False	0.9889	0.0	collection date missing year-level precision
+AF026168.2			Taiwan	False	0.9424	0.0	collection date missing year-level precision
+AY317098.1				False	0.9876	0.0	collection date missing year-level precision
+EF614458.1	Asia1	ASIA1	Mongolia	False	0.9984	0.0	collection date missing year-level precision
+EF149010.1			China	False	0.9977	0.0	collection date missing year-level precision
+EF149009.1			China	False	0.9979	0.0	collection date missing year-level precision
+AM409325.1	C	C		False	0.9889	0.0	collection date missing year-level precision
+AJ539141.1	O	O	United Kingdom	False	0.9972	0.0	collection date missing year-level precision
+AJ539140.1	O	O	South Africa	False	0.9973	0.0001	collection date missing year-level precision
+AJ539139.1	O	O	South Korea	False	0.9971	0.0001	collection date missing year-level precision
+AJ539138.1	O	O	China	False	0.9972	0.0002	collection date missing year-level precision
+AJ539137.1	O	O	Taiwan	False	0.9972	0.0	collection date missing year-level precision
+AJ539136.1	O	O	Taiwan	False	0.9972	0.0004	collection date missing year-level precision
+AJ320488.1			Brazil	False	0.9954	0.0	collection date missing year-level precision
+AJ633821.1	O	O	France	False	1.0034	0.0	collection date missing year-level precision

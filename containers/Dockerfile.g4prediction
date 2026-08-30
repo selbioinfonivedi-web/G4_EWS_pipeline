@@ -1,0 +1,15 @@
+# g4watch/g4prediction — G4 prediction runs in-process in the core image.
+#
+# Kept as its own image because architecture Section 5 lists it and
+# because pqsfinder (Bioconductor, DNA-virus scope, Phase 5) will need R
+# and does not belong in the core image. Until pqsfinder is implemented
+# this image is the core image plus R/Bioconductor.
+FROM r-base:4.3.3
+
+LABEL org.opencontainers.image.title="g4watch-g4prediction" \
+      org.opencontainers.image.licenses="MIT"
+
+RUN R -e "install.packages('BiocManager', repos='https://cloud.r-project.org')" \
+ && R -e "BiocManager::install('pqsfinder', ask=FALSE, update=FALSE)"
+
+USER 1000

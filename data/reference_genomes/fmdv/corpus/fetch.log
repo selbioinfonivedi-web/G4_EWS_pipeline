@@ -1,0 +1,56 @@
+curl: (56) OpenSSL SSL_read: OpenSSL/3.6.3: error:0A000126:SSL routines::unexpected eof while reading, errno 0
+ ERROR:  curl command failed ( Sun Aug 23 10:29:31 PM IST 2026 ) with: 56
+-X POST https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi -d query_key=1&WebEnv=MCID_6a8b25e64aece450550db0ca&retstart=0&retmax=100&db=nuccore&rettype=gb&retmode=text&tool=edirect&edirect=19.2&edirect_os=Linux&email=ubantu%40ubantu-Latitude-7480
+HTTP/1.0 200 OK
+curl: (56) OpenSSL SSL_read: OpenSSL/3.6.3: error:0A000126:SSL routines::unexpected eof while reading, errno 0
+ ERROR:  curl command failed ( Sun Aug 23 10:29:35 PM IST 2026 ) with: 56
+-X POST https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi -d query_key=1&WebEnv=MCID_6a8b25e64aece450550db0ca&retstart=100&retmax=100&db=nuccore&rettype=gb&retmode=text&tool=edirect&edirect=19.2&edirect_os=Linux&email=ubantu%40ubantu-Latitude-7480
+HTTP/1.0 200 OK
+curl: (56) OpenSSL SSL_read: OpenSSL/3.6.3: error:0A000126:SSL routines::unexpected eof while reading, errno 0
+ ERROR:  curl command failed ( Sun Aug 23 10:29:39 PM IST 2026 ) with: 56
+-X POST https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi -d query_key=1&WebEnv=MCID_6a8b25e64aece450550db0ca&retstart=200&retmax=100&db=nuccore&rettype=gb&retmode=text&tool=edirect&edirect=19.2&edirect_os=Linux&email=ubantu%40ubantu-Latitude-7480
+HTTP/1.0 200 OK
+curl: (56) OpenSSL SSL_read: OpenSSL/3.6.3: error:0A000126:SSL routines::unexpected eof while reading, errno 0
+ ERROR:  curl command failed ( Sun Aug 23 10:29:42 PM IST 2026 ) with: 56
+-X POST https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi -d query_key=1&WebEnv=MCID_6a8b25e64aece450550db0ca&retstart=300&retmax=100&db=nuccore&rettype=gb&retmode=text&tool=edirect&edirect=19.2&edirect_os=Linux&email=ubantu%40ubantu-Latitude-7480
+HTTP/1.0 200 OK
+curl: (56) OpenSSL SSL_read: OpenSSL/3.6.3: error:0A000126:SSL routines::unexpected eof while reading, errno 0
+ ERROR:  curl command failed ( Sun Aug 23 10:29:46 PM IST 2026 ) with: 56
+-X POST https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi -d query_key=1&WebEnv=MCID_6a8b25e64aece450550db0ca&retstart=400&retmax=100&db=nuccore&rettype=gb&retmode=text&tool=edirect&edirect=19.2&edirect_os=Linux&email=ubantu%40ubantu-Latitude-7480
+HTTP/1.0 200 OK
+curl: (22) The requested URL returned error: 502
+ ERROR:  curl command failed ( Sun Aug 23 10:29:49 PM IST 2026 ) with: 22
+-X POST https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi -d query_key=1&WebEnv=MCID_6a8b25e64aece450550db0ca&retstart=500&retmax=100&db=nuccore&rettype=gb&retmode=text&tool=edirect&edirect=19.2&edirect_os=Linux&email=ubantu%40ubantu-Latitude-7480
+HTTP/1.0 502 Bad Gateway
+ WARNING:  FAILURE ( Sun Aug 23 10:29:49 PM IST 2026 )
+nquire -url https://eutils.ncbi.nlm.nih.gov/entrez/eutils/ efetch.fcgi -query_key 1 -WebEnv MCID_6a8b25e64aece450550db0ca -retstart 500 -retmax 100 -db nuccore -rettype gb -retmode text -tool edirect -edirect 19.2 -edirect_os Linux -email ubantu@ubantu-Latitude-7480
+EMPTY RESULT
+SECOND ATTEMPT
+curl: (56) OpenSSL SSL_read: OpenSSL/3.6.3: error:0A000126:SSL routines::unexpected eof while reading, errno 0
+ ERROR:  curl command failed ( Sun Aug 23 10:29:52 PM IST 2026 ) with: 56
+-X POST https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi -d query_key=1&WebEnv=MCID_6a8b25e64aece450550db0ca&retstart=500&retmax=100&db=nuccore&rettype=gb&retmode=text&tool=edirect&edirect=19.2&edirect_os=Linux&email=ubantu%40ubantu-Latitude-7480
+HTTP/1.0 200 OK
+curl: (56) OpenSSL SSL_read: OpenSSL/3.6.3: error:0A000126:SSL routines::unexpected eof while reading, errno 0
+ ERROR:  curl command failed ( Sun Aug 23 10:29:56 PM IST 2026 ) with: 56
+-X POST https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi -d query_key=1&WebEnv=MCID_6a8b25e64aece450550db0ca&retstart=600&retmax=100&db=nuccore&rettype=gb&retmode=text&tool=edirect&edirect=19.2&edirect_os=Linux&email=ubantu%40ubantu-Latitude-7480
+HTTP/1.0 200 OK
+curl: (56) OpenSSL SSL_read: OpenSSL/3.6.3: error:0A000126:SSL routines::unexpected eof while reading, errno 0
+ ERROR:  curl command failed ( Sun Aug 23 10:30:00 PM IST 2026 ) with: 56
+-X POST https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi -d query_key=1&WebEnv=MCID_6a8b25e64aece450550db0ca&retstart=700&retmax=100&db=nuccore&rettype=gb&retmode=text&tool=edirect&edirect=19.2&edirect_os=Linux&email=ubantu%40ubantu-Latitude-7480
+HTTP/1.0 200 OK
+curl: (56) OpenSSL SSL_read: OpenSSL/3.6.3: error:0A000126:SSL routines::unexpected eof while reading, errno 0
+ ERROR:  curl command failed ( Sun Aug 23 10:30:03 PM IST 2026 ) with: 56
+-X POST https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi -d query_key=1&WebEnv=MCID_6a8b25e64aece450550db0ca&retstart=800&retmax=100&db=nuccore&rettype=gb&retmode=text&tool=edirect&edirect=19.2&edirect_os=Linux&email=ubantu%40ubantu-Latitude-7480
+HTTP/1.0 200 OK
+curl: (56) OpenSSL SSL_read: OpenSSL/3.6.3: error:0A000126:SSL routines::unexpected eof while reading, errno 0
+ ERROR:  curl command failed ( Sun Aug 23 10:30:07 PM IST 2026 ) with: 56
+-X POST https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi -d query_key=1&WebEnv=MCID_6a8b25e64aece450550db0ca&retstart=900&retmax=100&db=nuccore&rettype=gb&retmode=text&tool=edirect&edirect=19.2&edirect_os=Linux&email=ubantu%40ubantu-Latitude-7480
+HTTP/1.0 200 OK
+curl: (56) OpenSSL SSL_read: OpenSSL/3.6.3: error:0A000126:SSL routines::unexpected eof while reading, errno 0
+ ERROR:  curl command failed ( Sun Aug 23 10:30:10 PM IST 2026 ) with: 56
+-X POST https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi -d query_key=1&WebEnv=MCID_6a8b25e64aece450550db0ca&retstart=1000&retmax=100&db=nuccore&rettype=gb&retmode=text&tool=edirect&edirect=19.2&edirect_os=Linux&email=ubantu%40ubantu-Latitude-7480
+HTTP/1.0 200 OK
+curl: (56) OpenSSL SSL_read: OpenSSL/3.6.3: error:0A000126:SSL routines::unexpected eof while reading, errno 0
+ ERROR:  curl command failed ( Sun Aug 23 10:30:14 PM IST 2026 ) with: 56
+-X POST https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi -d query_key=1&WebEnv=MCID_6a8b25e64aece450550db0ca&retstart=1100&retmax=7&db=nuccore&rettype=gb&retmode=text&tool=edirect&edirect=19.2&edirect_os=Linux&email=ubantu%40ubantu-Latitude-7480
+HTTP/1.0 200 OK

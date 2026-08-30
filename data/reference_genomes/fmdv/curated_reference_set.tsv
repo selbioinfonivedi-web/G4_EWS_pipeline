@@ -1,0 +1,9 @@
+accession	serotype	strain	country	collection_date	length_bp	cds_start	cds_end	role	source
+AY593823.1	O	O1 Manisa iso87	Turkey	(undated in record)	8206	1099	8097	primary_reference	pre-existing (Sprint 2 bootstrap)
+PQ654498.1	O	unspecified	United Arab Emirates	05-Dec-2021	8231	1103	8101	curated_additional	corpus (fmdv_complete_genomes.gb), fetched via efetch
+PX864607.1	O	unspecified	Ghana	18-Jul-2024	8124	1024	8013	curated_additional	corpus (fmdv_complete_genomes.gb), fetched via efetch
+PQ768018.1	A	unspecified	India	07-Feb-2013	8188	1095	8096	curated_additional	corpus (fmdv_complete_genomes.gb), fetched via efetch
+PQ768019.1	A	unspecified	India	Jan-2019	8142	1054	8055	curated_additional	corpus (fmdv_complete_genomes.gb), fetched via efetch
+PQ474240.1	A	A-2167	Russia	Jun-2013	8129	1083	8084	curated_additional	corpus (fmdv_complete_genomes.gb), fetched via efetch
+MF372126.1	Asia1	unspecified	India	1994	8270	1183	8172	curated_additional	corpus (fmdv_complete_genomes.gb), fetched via efetch
+KC412634.1	Asia1	unspecified	China	2006	8236	1116	8105	curated_additional	corpus (fmdv_complete_genomes.gb), fetched via efetch

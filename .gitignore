@@ -1,0 +1,71 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.eggs/
+.venv/
+venv/
+
+# --- Test / coverage ---
+.pytest_cache/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# --- Nextflow ---
+work/
+.nextflow/
+.nextflow.log*
+results/
+trace.txt
+timeline.html
+report.html
+dag.svg
+
+# --- Vendored third-party checkouts ---
+# Both carry their own .git, so committing them would create unconfigured
+# gitlinks. Their provenance is pinned in vendor/PINNED_VERSIONS.tsv, which
+# is the actual reproducibility record; `make vendor` restores and builds
+# PhiPack at its pinned commit. See docs/installation.md.
+vendor/phipack/
+# G4RNA Screener is kept as a local reference copy only -- it is Python 2
+# with a pickled PyBrain classifier and is NOT run by the pipeline. See
+# vendor/README.md and docs/revision_log.md R-01.
+vendor/g4rna_screener/
+
+# --- PhiPack scratch output written into the CWD ---
+# PhiPack writes these next to wherever it is invoked; the pipeline
+# captures the parsed result, so the raw droppings are not artifacts.
+/Phi.log
+/Phi.inf.list
+/Phi.inf.sites
+/Phi.poly.unambig.sites
+
+# --- Large regenerable data artifacts ---
+# Reproducibility here is "regenerate from the committed accession list",
+# not "commit 116 MB of derived FASTA". Everything ignored below is
+# rebuilt by `nextflow run workflow/main.nf`; the accession lists,
+# metadata, QC reports, atlases and testing ledger that define the run
+# ARE committed. See docs/installation.md.
+data/reference_genomes/*/corpus/*.fasta
+data/reference_genomes/*/corpus/*.gb
+data/reference_genomes/*/corpus/aligned/
+data/reference_genomes/*/corpus/phylogenetics/
+data/reference_genomes/*/corpus/variants/
+data/reference_genomes/*/corpus/recombination/
+data/reference_genomes/*/corpus/serotype_o/
+!data/reference_genomes/*/corpus/*_metadata.tsv
+!data/reference_genomes/*/corpus/qc_report.tsv
+
+# --- Editor / OS ---
+.Rhistory
+.RData
+.vscode/
+.DS_Store
+*.swp
+.idea/

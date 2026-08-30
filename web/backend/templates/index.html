@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Pathogens</h1>
+<p class="lede">
+  Each pathogen's surveillance scoring is contingent on its D.H1 gate. The gate status is
+  shown here first, before anything else, because it determines whether any score below it
+  means anything.
+</p>
+<table class="pathogens">
+  <thead>
+    <tr><th>Pathogen</th><th>Status</th><th>D.H1 gate</th></tr>
+  </thead>
+  <tbody>
+  {% for p in pathogens %}
+    <tr>
+      <td>
+        {% if p.provisioned %}<a href="/pathogen/{{ p.name }}">{{ p.display_name }}</a>
+        {% else %}{{ p.display_name }}{% endif %}
+      </td>
+      <td>{% if p.provisioned %}provisioned{% else %}<span class="muted">scaffold &mdash; not provisioned</span>{% endif %}</td>
+      <td>
+        <span class="gate {{ 'gate-open' if p.permitted else 'gate-closed' }}">{{ p.permission }}</span>
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

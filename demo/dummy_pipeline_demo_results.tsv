@@ -1,0 +1,2 @@
+pathogen	atlas_id	test	timestamp	minimum_data_passed	minimum_data_failing_checks	verdict	raw_p_value	gc_adjusted_p_value_fdr	locus_disruption_rate	control_disruption_rate	underpowered
+DUMMY-DEMO	DUMMY-G4-001	D.H1	2026-08-28T10:55:20.075890+00:00	True		NOT_SUPPORTED	1.0	0.9999174729381294	0.75	0.75	False

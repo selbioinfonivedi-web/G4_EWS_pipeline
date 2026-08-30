@@ -1,0 +1,107 @@
+# G4-WATCH pathogen configuration — Foot-and-Mouth Disease Virus
+#
+# Every parameter that changes a scientific result lives here, never in
+# code, so that a run is fully described by (git commit, config file,
+# accession list). Values that are hard architectural floors — the
+# Appendix C minimum-data thresholds, alpha = 0.05 — are deliberately NOT
+# configurable and stay in g4watch/validation/.
+
+pathogen: FMDV
+display_name: "Foot-and-Mouth Disease Virus"
+genome_type: ssRNA_positive
+taxonomy_id: 12110
+
+reference:
+  accession: AY593823.1
+  fasta: data/reference_genomes/fmdv/AY593823.fasta
+  # 1-based inclusive CDS bounds of the single FMDV polyprotein ORF, read
+  # from the AY593823 GenBank record's own CDS feature (not inferred).
+  # Used by stage0 to assign region labels (5' UTR / polyprotein / 3' UTR).
+  cds_start: 1099
+  cds_end: 8097
+  genome_length: 8206
+
+corpus:
+  metadata_tsv: data/reference_genomes/fmdv/corpus/fmdv_corpus_metadata.tsv
+  sequences_fasta: data/reference_genomes/fmdv/corpus/fmdv_corpus_sequences.fasta
+  # Lineage field used for the Appendix C per-lineage floor. For FMDV this
+  # is serotype; sequences with no recorded serotype are kept as their own
+  # explicit "unknown" category and never folded into a named serotype.
+  lineage_field: serotype
+
+qc:
+  min_completeness_fraction: 0.90
+  max_n_content_fraction: 0.05
+  require_year_precision_date: true
+
+alignment:
+  tool: mafft
+  # --auto picks FFT-NS-2 at this corpus size; pinned explicitly so a
+  # future MAFFT release cannot silently change the algorithm.
+  args: "--auto --keeplength --addfragments"
+  max_gapped_fraction: 0.50
+
+recombination:
+  # Section 11: mandatory for every pathogen; FMDV is standard tier
+  # (recombination is documented in FMDV but is not the dominant
+  # evolutionary mode it is for the capripoxviruses).
+  enabled: true
+  tier: standard
+  alpha: 0.05
+
+phylogenetics:
+  tool: iqtree2
+  model: GTR+F+I+G4
+  bootstrap_replicates: 1000
+  seed: 20250823
+  outgroup: null
+  # Ancestral-state reconstruction is a REQUIRED Stage 2 output, not
+  # optional — Stage 4's phylo-weighted metrics consume it directly.
+  ancestral_states: required
+  timetree:
+    tool: treetime
+    clock_rate: null # estimated from the data
+    clock_filter_iqd: 3.0
+
+g4_prediction:
+  g4hunter:
+    window: 25
+    threshold: 1.2
+  pattern_motif:
+    enabled: true
+  # G4RNA Screener is unrunnable (Python 2 / unmaintained PyBrain) — see
+  # vendor/README.md and Build Architecture Section 4. The schema field is
+  # retained and always null so a future maintained release can drop in.
+  g4rna_screener:
+    enabled: false
+    reason: "upstream is Python 2-only with a pickled PyBrain classifier; see vendor/README.md"
+  pqsfinder:
+    enabled: false
+    reason: "DNA-virus-scoped tool, deferred to the LSDV sprint"
+  concordance:
+    min_overlap_fraction: 0.80
+  flank: 100
+
+control_regions:
+  length_tolerance: 0.10
+  gc_tolerance: 0.05
+  pqs_overlap_score_threshold: 0.80
+  exclusion_buffer: 50
+
+atlas:
+  version: "1.0"
+  path: data/atlases/G4_Reference_Atlas_v1.0.fmdv.tsv
+
+dh1_gate:
+  alpha: 0.05
+  ledger: data/atlases/testing_ledger.tsv
+
+# Section 12 two-layer enforcement. Stage 5 (scoring) and Stage 6
+# (reporting) refuse to execute on real data unless BOTH are true:
+#   operational_mode: true, AND the ledger records a SUPPORTED D.H1
+#   verdict for this pathogen.
+# As of the last real FMDV run the verdict is INSUFFICIENT_DATA (real
+# per-serotype undersampling: Asia1, Pan Asia O and C all fall under the
+# 20-sequences-per-lineage floor). This flag stays false until that
+# changes. Flipping it does not bypass the ledger check.
+operational_mode: false

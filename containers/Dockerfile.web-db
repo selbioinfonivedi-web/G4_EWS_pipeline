@@ -1,0 +1,14 @@
+# g4watch/web-db — PostgreSQL for run history (Section 17).
+#
+# Run history only: which pipeline runs happened, when, and what they
+# produced. The scientific record lives in data/atlases/testing_ledger.tsv,
+# which is append-only, version-controlled and readable without a database.
+# Putting it in Postgres instead would make the primary record depend on a
+# running service.
+FROM postgres:16-bookworm
+
+LABEL org.opencontainers.image.title="g4watch-web-db" \
+      org.opencontainers.image.licenses="MIT"
+
+ENV POSTGRES_DB=g4watch
+COPY web/db/init.sql /docker-entrypoint-initdb.d/10-init.sql

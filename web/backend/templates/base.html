@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}G4-WATCH{% endblock %}</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="masthead">
+    <a class="brand" href="/">G4-WATCH</a>
+    <span class="sub">G-quadruplex genomic early warning &middot; ICAR-NIVEDI</span>
+  </header>
+  <main>{% block content %}{% endblock %}</main>
+  <footer>
+    <p class="research-use">
+      <strong>Research use only.</strong> G4-WATCH is a research framework, not a validated
+      diagnostic or an operational alert system. No output here should drive a control
+      decision on its own.
+    </p>
+    <p class="version">g4watch {{ version }}</p>
+  </footer>
+</body>
+</html>

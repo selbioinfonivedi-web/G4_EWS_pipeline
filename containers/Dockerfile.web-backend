@@ -1,0 +1,27 @@
+# g4watch/web-backend — the read-only FastAPI dashboard (Section 17).
+FROM python:3.12-slim-bookworm
+
+LABEL org.opencontainers.image.title="g4watch-web-backend" \
+      org.opencontainers.image.licenses="MIT"
+
+WORKDIR /opt/g4watch
+COPY pyproject.toml README.md ./
+COPY g4watch ./g4watch
+COPY web ./web
+COPY config ./config
+
+RUN pip install --no-cache-dir . "fastapi>=0.110,<1" "uvicorn[standard]>=0.27,<1"
+
+# The service is read-only over pipeline artifacts. data/ is mounted
+# read-only at run time (see containers/docker-compose.yml) rather than
+# baked in, so the image does not carry a snapshot of the science.
+VOLUME ["/opt/g4watch/data"]
+
+RUN useradd --create-home --uid 1000 g4watch || true
+USER 1000
+EXPOSE 8000
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+    CMD python -c "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://localhost:8000/health').status==200 else 1)"
+
+CMD ["uvicorn", "web.backend.app:app", "--host", "0.0.0.0", "--port", "8000"]

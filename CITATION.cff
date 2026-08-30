@@ -1,0 +1,33 @@
+cff-version: 1.2.0
+title: "G4-WATCH: a G-quadruplex genomic early-warning framework for livestock viruses"
+message: "If you use this software, please cite it using these metadata."
+type: software
+authors:
+  - name: "ICAR-NIVEDI"
+    address: "ICAR-National Institute of Veterinary Epidemiology and Disease Informatics"
+    city: Bengaluru
+    country: IN
+version: 1.0.0
+date-released: "2026-08-30"
+license: MIT
+keywords:
+  - g-quadruplex
+  - genomic surveillance
+  - veterinary virology
+  - foot-and-mouth disease virus
+  - phylogenetics
+abstract: >-
+  G4-WATCH is a reproducible pipeline for identifying and monitoring
+  G-quadruplex-forming loci in livestock virus genomes. Surveillance
+  scoring is contingent on a per-pathogen statistical gate (the D.H1
+  test), which compares phylogenetically-weighted, GC-adjusted disruption
+  at G4 loci against matched control regions. Scoring remains unwired
+  until that gate returns SUPPORTED, so a negative or insufficient-data
+  outcome is reported as a finding rather than filled in with
+  unsupported numbers. As of this release the FMDV gate reports
+  INSUFFICIENT_DATA owing to real per-serotype undersampling.
+references:
+  - type: software
+    title: PhiPack
+    notes: "Recombination screening (PHI test); GPL-3.0; invoked as a separate executable."
+    repository-code: "https://github.com/julianzaugg/phipack"
