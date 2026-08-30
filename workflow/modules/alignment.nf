@@ -11,7 +11,7 @@ process ALIGN_TO_REFERENCE {
     label 'alignment'
     label 'multicore'
     label 'long'
-    publishDir "${params.outdir}/aligned", mode: 'copy'
+    publishDir "${params.outdir}/aligned", mode: 'link'
 
     input:
     val  pathogen

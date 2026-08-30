@@ -11,7 +11,7 @@ process CALL_VARIANTS {
     tag "${pathogen}"
     label 'g4watch'
     label 'big_mem'
-    publishDir "${params.outdir}/variants", mode: 'copy'
+    publishDir "${params.outdir}/variants", mode: 'link'
 
     input:
     val  pathogen

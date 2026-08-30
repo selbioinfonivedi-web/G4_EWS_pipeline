@@ -12,7 +12,6 @@ process SEQUENCE_QC {
 
     input:
     val  pathogen
-    path repo_root
 
     output:
     path "qc_report.tsv",       emit: report

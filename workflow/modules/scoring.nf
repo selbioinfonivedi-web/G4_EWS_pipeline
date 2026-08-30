@@ -23,7 +23,20 @@ process SCORING {
 
     script:
     """
-    g4watch score --pathogen ${pathogen} > scoring.log 2>&1 || true
+    set +e
+    g4watch score --pathogen ${pathogen} > scoring.log 2>&1
+    status=\$?
+    set -e
     cat scoring.log
+
+    # Exit 3 is "D.H1 gate closed" — a correct outcome, so the process
+    # succeeds and the run continues to Stage 6. Exit 0 would mean scores
+    # were produced. Anything else is a real failure (bad config, crash)
+    # and must surface rather than being masked into a clean gate closure,
+    # which a bare `|| true` would do.
+    if [ "\$status" -ne 0 ] && [ "\$status" -ne 3 ]; then
+        echo "g4watch score failed with exit \$status — this is not a gate closure" >&2
+        exit \$status
+    fi
     """
 }

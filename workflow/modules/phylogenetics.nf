@@ -22,7 +22,7 @@ process IQTREE_ML {
     label 'multicore'
     label 'big_mem'
     label 'long'
-    publishDir "${params.outdir}/phylogenetics", mode: 'copy'
+    publishDir "${params.outdir}/phylogenetics", mode: 'link'
 
     input:
     val  pathogen
@@ -31,7 +31,9 @@ process IQTREE_ML {
     output:
     path "iqtree.treefile", emit: treefile
     path "iqtree.log",      emit: log
-    path "iqtree.*",        emit: all
+    // Excludes iqtree.treefile / iqtree.log, already emitted above —
+    // a bare iqtree.* would publish them a second and third time.
+    path "iqtree.{iqtree,mldist,bionj,contree,splits.nex,ckp.gz}", optional: true, emit: aux
 
     script:
     """
@@ -49,13 +51,16 @@ process TREETIME_ROOT {
     tag "${pathogen}"
     label 'phylogenetics'
     label 'long'
-    publishDir "${params.outdir}/phylogenetics", mode: 'copy'
+    publishDir "${params.outdir}/phylogenetics", mode: 'link'
 
     input:
     val  pathogen
     path treefile
     path alignment
     path dates_csv
+    // Staged rather than referenced via ${projectDir}/.., which is not
+    // mounted under the docker/singularity profiles.
+    path root_resolver
 
     output:
     path "rooted.nwk",   emit: rooted_tree
@@ -73,7 +78,7 @@ process TREETIME_ROOT {
     # TreeTime has made the root decision; multi2di() only reformats it
     # into the bifurcating shape ape::ace() requires. Safe here, and only
     # here (see the module header).
-    Rscript ${projectDir}/../scripts/R/resolve_root_polytomy.R \\
+    Rscript ${root_resolver} \\
         treetime_output/timetree.nexus rooted.nwk
     """
 }

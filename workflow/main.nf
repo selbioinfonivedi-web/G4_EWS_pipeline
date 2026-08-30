@@ -80,21 +80,26 @@ workflow {
     // ---- Stage 0: Atlas ------------------------------------------------
     // The Atlas fixes the loci every later stage tests, so it is
     // established before any test runs against it.
-    ch_atlas = params.atlas
+    // .first() makes these explicit value channels, so they broadcast to
+    // every consumer regardless of item count. Without it the pipeline
+    // relies on Nextflow's implicit single-item broadcast, which changes
+    // behaviour silently the moment a channel carries more than one item
+    // (multi-pathogen batching).
+    ch_atlas = (params.atlas
         ? Channel.fromPath(params.atlas, checkIfExists: true)
-        : BUILD_ATLAS(pathogen).atlas
+        : BUILD_ATLAS(pathogen).atlas).first()
 
     // ---- Stage 1: QC + alignment ---------------------------------------
     if (params.alignment) {
-        ch_alignment = Channel.fromPath(params.alignment, checkIfExists: true)
+        ch_alignment = Channel.fromPath(params.alignment, checkIfExists: true).first()
     }
     else {
         if (params.skip_qc) {
             exit 1, "ERROR: --skip_qc needs --alignment; there is nothing to align otherwise."
         }
-        ch_qc        = SEQUENCE_QC(pathogen, Channel.fromPath("${projectDir}/..", type: 'dir'))
+        ch_qc        = SEQUENCE_QC(pathogen)
         ch_reference = Channel.fromPath(params.reference, checkIfExists: true)
-        ch_alignment = ALIGN_TO_REFERENCE(pathogen, ch_qc.passed_fasta, ch_reference).alignment
+        ch_alignment = ALIGN_TO_REFERENCE(pathogen, ch_qc.passed_fasta, ch_reference).alignment.first()
     }
 
     // ---- Stage 1.5: recombination screening (MANDATORY) ----------------
@@ -105,7 +110,7 @@ workflow {
 
     // ---- Stage 2: phylogenomics ----------------------------------------
     if (params.rooted_tree) {
-        ch_rooted_tree = Channel.fromPath(params.rooted_tree, checkIfExists: true)
+        ch_rooted_tree = Channel.fromPath(params.rooted_tree, checkIfExists: true).first()
     }
     else if (params.skip_phylogenetics) {
         exit 1, "ERROR: --skip_phylogenetics needs --rooted_tree. Stage 4 cannot run without a rooted tree."
@@ -113,7 +118,12 @@ workflow {
     else {
         ch_treefile    = IQTREE_ML(pathogen, ch_alignment).treefile
         ch_dates       = Channel.fromPath(params.dates, checkIfExists: true)
-        ch_rooted_tree = TREETIME_ROOT(pathogen, ch_treefile, ch_alignment, ch_dates).rooted_tree
+        // Staged as an input rather than referenced via ${projectDir}/..,
+        // which is not mounted under the docker/singularity profiles.
+        ch_root_resolver = Channel.fromPath(
+            "${projectDir}/../scripts/R/resolve_root_polytomy.R", checkIfExists: true).first()
+        ch_rooted_tree = TREETIME_ROOT(
+            pathogen, ch_treefile, ch_alignment, ch_dates, ch_root_resolver).rooted_tree.first()
     }
 
     // ---- Stage 4 + 4.5 + D.H1 gate -------------------------------------
