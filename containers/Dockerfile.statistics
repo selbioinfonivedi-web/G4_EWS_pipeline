@@ -1,14 +1,29 @@
-# g4watch/statistics — R statistical stack for power analysis and
-# Bayesian prior-sensitivity work (Sections 10.3, 13.4).
-FROM r-base:4.3.3
+# g4watch/statistics — R statistical stack.
+#
+# BASE: rocker/r-ver, not r-base. r-base tracks Debian unstable, so
+# `apt-get update` inside it mixes repository snapshots — openssl from
+# unstable collided with the image's own libssl3t64 and dpkg aborted, so
+# this image could not build at all. rocker/r-ver is stable-based and pins
+# a CRAN snapshot date, which is what a reproducible pipeline needs.
+FROM rocker/r-ver:4.3.3
 
 LABEL org.opencontainers.image.title="g4watch-statistics" \
+      org.opencontainers.image.description="R statistical stack for G4-WATCH" \
+      org.opencontainers.image.vendor="ICAR-NIVEDI" \
       org.opencontainers.image.licenses="MIT"
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-        libcurl4-openssl-dev libssl-dev libxml2-dev python3 python3-numpy python3-scipy \
+        libcurl4-openssl-dev libssl-dev libxml2-dev \
     && rm -rf /var/lib/apt/lists/*
 
-RUN R -e "install.packages(c('pwr','brms','ape','phytools'), repos='https://cloud.r-project.org')"
+# ape only. It is the one R package the codebase actually calls
+# (scripts/R/ancestral_state_reconstruction.R, scripts/R/resolve_root_polytomy.R).
+#
+# brms and phytools were listed here and are referenced by NO code path in
+# this repository. brms pulls the full Stan toolchain and adds tens of
+# minutes to every build of an image nothing uses it from. They belong here
+# when something calls them, not before. pwr likewise: power analysis is
+# implemented in Python (g4watch/validation/power_analysis.py).
+RUN install2.r --error --skipinstalled ape
 
 USER 1000

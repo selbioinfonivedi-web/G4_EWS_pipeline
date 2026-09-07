@@ -7,10 +7,27 @@ LABEL org.opencontainers.image.title="g4watch-alignment" \
 # Version-pinned: MAFFT's --auto heuristic picks a different algorithm at
 # different corpus sizes, and an unpinned upgrade could silently change
 # the alignment a published Atlas coordinate depends on.
-ARG MAFFT_VERSION=7.520-1
+#
+# 7.505-1 is what debian:bookworm actually ships. This previously read
+# 7.520-1, which is not in bookworm at all, so this image could never have
+# built -- consistent with the recorded state of "11 Dockerfiles defined,
+# 0 built". The version claimed in vendor/PINNED_VERSIONS.tsv has been
+# corrected to match what the container can really provide.
+ARG MAFFT_VERSION=7.505-1
+# procps: Nextflow's task wrapper runs `ps` to collect metrics. Without
+# it the wrapper aborts BEFORE the task script runs, and the failure shows
+# only as exit 1 with no output at all and a single line about ps in
+# .command.err -- which looks nothing like the real cause. Documented
+# Nextflow container requirement.
 RUN apt-get update && apt-get install -y --no-install-recommends \
-        "mafft=${MAFFT_VERSION}" \
+        "mafft=${MAFFT_VERSION}" procps \
     && rm -rf /var/lib/apt/lists/*
 
 USER 1000
-ENTRYPOINT ["mafft"]
+# NO ENTRYPOINT. Nextflow executes its own task script inside the
+# container (`/bin/bash .command.run`), so any non-shell ENTRYPOINT is
+# prepended to that and the task dies with "invalid choice: '/bin/bash'".
+# This image previously set ENTRYPOINT, which made the docker profile
+# unusable for every process that runs in it. CMD is kept so a bare
+# `docker run` is still informative for a human.
+CMD ["mafft", "--help"]

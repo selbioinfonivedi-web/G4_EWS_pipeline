@@ -15,13 +15,42 @@ phylo/clade_collapse.py, rather than working from raw tip proportions.
 
 from __future__ import annotations
 
+import os
 import subprocess
 import tempfile
 from dataclasses import dataclass
 from pathlib import Path
 
-DEFAULT_R_SCRIPT = Path(__file__).resolve().parents[2] / "scripts" / "R" / "ancestral_state_reconstruction.R"
-DEFAULT_RESOLVE_ROOT_SCRIPT = Path(__file__).resolve().parents[2] / "scripts" / "R" / "resolve_root_polytomy.R"
+
+def scripts_dir() -> Path:
+    """Where the bundled R scripts live.
+
+    Resolved at call time, in the same order as
+    :func:`g4watch.config.config_dir` and for the same reason:
+
+    1. ``$G4WATCH_SCRIPTS_DIR`` when set.
+    2. ``<package parent>/scripts`` — correct in a repository checkout.
+    3. ``./scripts`` relative to the working directory — correct for an
+       INSTALLED package.
+
+    Rule 3 exists because of a real container failure. Inside the core
+    image the package is installed, so rule 2 resolved to
+    ``/usr/local/lib/python3.12/site-packages/scripts/R/...`` and Stage 4
+    died with "cannot open file". The stage exits 0 with the error only in
+    its log, so Nextflow reported it as a missing output file rather than
+    as the missing script it actually was.
+    """
+    override = os.environ.get("G4WATCH_SCRIPTS_DIR")
+    if override:
+        return Path(override)
+    packaged = Path(__file__).resolve().parents[2] / "scripts"
+    if packaged.is_dir():
+        return packaged
+    return Path.cwd() / "scripts"
+
+
+DEFAULT_R_SCRIPT = scripts_dir() / "R" / "ancestral_state_reconstruction.R"
+DEFAULT_RESOLVE_ROOT_SCRIPT = scripts_dir() / "R" / "resolve_root_polytomy.R"
 
 
 @dataclass(frozen=True)
@@ -118,9 +147,7 @@ def resolve_treetime_root_polytomy(
         text=True,
     )
     if result.returncode != 0:
-        raise AncestralReconstructionError(
-            f"resolve_root_polytomy.R failed:\n{result.stdout}\n{result.stderr}"
-        )
+        raise AncestralReconstructionError(f"resolve_root_polytomy.R failed:\n{result.stdout}\n{result.stderr}")
 
 
 def reconstruct_ancestral_states(

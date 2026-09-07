@@ -15,20 +15,43 @@ LABEL org.opencontainers.image.title="g4watch-core" \
 # scripts/R/ancestral_state_reconstruction.R, and Stage 4 cannot run
 # without it. Installed here rather than in a separate image because the
 # call is in-process from the D.H1 stage.
+# procps: Nextflow's task wrapper runs `ps` to collect metrics. Without
+# it the wrapper aborts BEFORE the task script runs, and the failure shows
+# only as exit 1 with no output at all and a single line about ps in
+# .command.err -- which looks nothing like the real cause. Documented
+# Nextflow container requirement.
 RUN apt-get update && apt-get install -y --no-install-recommends \
-        r-base-core r-cran-ape \
+        r-base-core r-cran-ape procps \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /opt/g4watch
 COPY pyproject.toml README.md ./
 COPY g4watch ./g4watch
 COPY scripts ./scripts
+COPY config ./config
+
+# The R scripts are CODE shipped with the image, so pointing at the copy
+# inside it is right. Config is deliberately NOT pinned this way: its
+# relative data/ paths only mean anything against the mounted repository.
+ENV G4WATCH_SCRIPTS_DIR=/opt/g4watch/scripts
+# Shipped so the image is self-describing and can be pointed at with
+# G4WATCH_CONFIG_DIR. NOT forced via ENV: a run normally mounts the
+# repository, and a forced value would make `--pathogen fmdv` read the
+# image's own config, whose relative data/ paths resolve inside the image
+# where no corpus exists. Left unset, config_dir() falls through to
+# ./config in the working directory — the mounted repository.
 
 RUN pip install --no-cache-dir .
+
 
 # Non-root: Nextflow's docker profile runs with the host uid/gid.
 RUN useradd --create-home --uid 1000 g4watch || true
 USER 1000
 
-ENTRYPOINT ["g4watch"]
-CMD ["--help"]
+# NO ENTRYPOINT. Nextflow executes its own task script inside the
+# container (`/bin/bash .command.run`), so any non-shell ENTRYPOINT is
+# prepended to that and the task dies with "invalid choice: '/bin/bash'".
+# This image previously set ENTRYPOINT, which made the docker profile
+# unusable for every process that runs in it. CMD is kept so a bare
+# `docker run` is still informative for a human.
+CMD ["g4watch", "--help"]

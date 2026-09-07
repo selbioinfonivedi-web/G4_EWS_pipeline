@@ -1,0 +1,41 @@
+cff-version: 1.2.0
+message: >-
+  If you use PhiPack, please cite the original publication below. This
+  repository is an unofficial archival mirror of the software; the science and
+  the software are the work of the authors listed.
+title: "PhiPack: PHI test and other tests of recombination"
+abstract: >-
+  PhiPack implements the Pairwise Homoplasy Index (PHI), Maximum Chi-Squared and
+  the Neighbour Similarity Score (NSS) for detecting the presence of
+  recombination in aligned sequence data. The Phi program tests an alignment as
+  a whole; the Profile program scans a sliding window along an alignment to
+  locate the regions with the strongest evidence of recombination.
+type: software
+license: LGPL-3.0-or-later
+version: "1.0"
+authors:
+  - family-names: Bruen
+    given-names: Trevor C.
+  - family-names: Philippe
+    given-names: Hervé
+  - family-names: Bryant
+    given-names: David
+preferred-citation:
+  type: article
+  title: >-
+    A Simple and Robust Statistical Test for Detecting the Presence of
+    Recombination
+  authors:
+    - family-names: Bruen
+      given-names: Trevor C.
+    - family-names: Philippe
+      given-names: Hervé
+    - family-names: Bryant
+      given-names: David
+  journal: Genetics
+  volume: "172"
+  issue: "4"
+  start: 2665
+  end: 2681
+  year: 2006
+  doi: 10.1534/genetics.105.048975

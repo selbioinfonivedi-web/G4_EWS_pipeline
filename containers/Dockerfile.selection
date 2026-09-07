@@ -1,23 +1,45 @@
-# g4watch/selection — PhiPack (recombination screening), HyPhy.
+# g4watch/selection — PhiPack (recombination screening).
 FROM debian:bookworm-slim
 
 LABEL org.opencontainers.image.title="g4watch-selection" \
+      org.opencontainers.image.description="PhiPack recombination screening" \
+      org.opencontainers.image.vendor="ICAR-NIVEDI" \
       org.opencontainers.image.licenses="MIT"
 
-# PhiPack is vendored rather than packaged: it has no Debian package and
-# no release tarball. Pinned to the commit recorded in
-# vendor/PINNED_VERSIONS.tsv.
-ARG PHIPACK_COMMIT=b1d48d21037dd087b12a01d06eefbb3b33428bef
-
+# PhiPack is built from the VENDORED source at vendor/phipack-src, not
+# cloned from GitHub at build time.
+#
+# The previous version ran `git clone https://github.com/julianzaugg/phipack`
+# and checked out a pinned commit. That made every build of this image
+# depend on a third-party repository staying reachable and keeping that
+# commit — and Stage 1.5 recombination screening is MANDATORY for every
+# pathogen (config.recombination.enabled must be true; the validator raises
+# otherwise), so losing it would stop every pathogen reaching the D.H1
+# gate. The source is a few hundred kilobytes; carrying it is cheap
+# insurance against an unbounded external dependency.
+#
+# Provenance, including the upstream commit, is recorded in
+# vendor/phipack-src/PROVENANCE.md. Build context is the repository root.
+# procps: Nextflow's task wrapper runs `ps` to collect metrics. Without
+# it the wrapper aborts BEFORE the task script runs, and the failure shows
+# only as exit 1 with no output at all and a single line about ps in
+# .command.err -- which looks nothing like the real cause. Documented
+# Nextflow container requirement.
 RUN apt-get update && apt-get install -y --no-install-recommends \
-        build-essential git ca-certificates \
-    && git clone https://github.com/julianzaugg/phipack.git /opt/phipack \
-    && cd /opt/phipack \
-    && git checkout "${PHIPACK_COMMIT}" \
-    && make \
-    && cp Phi /usr/local/bin/ \
-    && apt-get purge -y git && apt-get autoremove -y \
+        build-essential procps \
     && rm -rf /var/lib/apt/lists/*
 
+COPY vendor/phipack-src /opt/phipack-src
+RUN make -C /opt/phipack-src \
+    && cp /opt/phipack-src/Phi /usr/local/bin/ \
+    && chmod 0755 /usr/local/bin/Phi \
+    && make -C /opt/phipack-src clean
+
 USER 1000
-ENTRYPOINT ["Phi"]
+# NO ENTRYPOINT. Nextflow executes its own task script inside the
+# container (`/bin/bash .command.run`), so any non-shell ENTRYPOINT is
+# prepended to that and the task dies with "invalid choice: '/bin/bash'".
+# This image previously set ENTRYPOINT, which made the docker profile
+# unusable for every process that runs in it. CMD is kept so a bare
+# `docker run` is still informative for a human.
+CMD ["Phi"]

@@ -9,6 +9,12 @@ COPY pyproject.toml README.md ./
 COPY g4watch ./g4watch
 COPY web ./web
 COPY config ./config
+# Shipped so the image is self-describing and can be pointed at with
+# G4WATCH_CONFIG_DIR. NOT forced via ENV: a run normally mounts the
+# repository, and a forced value would make `--pathogen fmdv` read the
+# image's own config, whose relative data/ paths resolve inside the image
+# where no corpus exists. Left unset, config_dir() falls through to
+# ./config in the working directory — the mounted repository.
 
 RUN pip install --no-cache-dir . "fastapi>=0.110,<1" "uvicorn[standard]>=0.27,<1"
 

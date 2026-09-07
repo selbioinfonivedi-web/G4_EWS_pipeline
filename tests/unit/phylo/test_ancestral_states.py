@@ -168,3 +168,32 @@ def test_node_lookup_raises_keyerror_for_unknown_id(two_clade_tree: Path) -> Non
     run = reconstruct_ancestral_states(two_clade_tree, tip_states)
     with pytest.raises(KeyError):
         run.node(999)
+
+
+# ── script directory resolution ─────────────────────────────────────
+def test_scripts_dir_prefers_the_environment_override(monkeypatch, tmp_path):
+    from g4watch.phylo.ancestral_states import scripts_dir
+
+    monkeypatch.setenv("G4WATCH_SCRIPTS_DIR", str(tmp_path))
+    assert scripts_dir() == tmp_path
+
+
+def test_scripts_dir_falls_back_when_the_package_is_installed(monkeypatch, tmp_path):
+    """Inside the core image the package is installed, so the
+    package-relative path resolved into site-packages and Stage 4 died with
+    "cannot open file" — reported by Nextflow as a missing output rather
+    than as the missing script it was."""
+    import g4watch.phylo.ancestral_states as mod
+
+    monkeypatch.delenv("G4WATCH_SCRIPTS_DIR", raising=False)
+    monkeypatch.setattr(mod, "__file__", str(tmp_path / "sp" / "g4watch" / "phylo" / "x.py"))
+    monkeypatch.chdir(tmp_path)
+    (tmp_path / "scripts").mkdir()
+    assert mod.scripts_dir() == tmp_path / "scripts"
+
+
+def test_the_bundled_r_scripts_are_found_in_a_checkout():
+    from g4watch.phylo.ancestral_states import DEFAULT_R_SCRIPT, DEFAULT_RESOLVE_ROOT_SCRIPT
+
+    assert DEFAULT_R_SCRIPT.is_file()
+    assert DEFAULT_RESOLVE_ROOT_SCRIPT.is_file()

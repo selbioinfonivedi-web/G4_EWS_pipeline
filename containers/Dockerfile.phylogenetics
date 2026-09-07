@@ -8,6 +8,7 @@ ARG IQTREE_VERSION=2.3.6
 ARG TREETIME_VERSION=0.11.4
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
+        procps \
         wget ca-certificates r-base-core r-cran-ape \
     && wget -q "https://github.com/iqtree/iqtree2/releases/download/v${IQTREE_VERSION}/iqtree-${IQTREE_VERSION}-Linux-intel.tar.gz" \
     && tar -xzf "iqtree-${IQTREE_VERSION}-Linux-intel.tar.gz" \

@@ -1,15 +1,35 @@
-# g4watch/g4prediction — G4 prediction runs in-process in the core image.
+# g4watch/g4prediction — R/Bioconductor host for pqsfinder.
 #
-# Kept as its own image because architecture Section 5 lists it and
-# because pqsfinder (Bioconductor, DNA-virus scope, Phase 5) will need R
-# and does not belong in the core image. Until pqsfinder is implemented
-# this image is the core image plus R/Bioconductor.
-FROM r-base:4.3.3
+# G4 prediction for the current RNA-virus pathogens runs IN-PROCESS in the
+# core image: G4Hunter is a native reimplementation and the pattern-motif
+# detector is pure Python. Neither needs R.
+#
+# This image exists for pqsfinder, which the architecture scopes to DNA
+# virus genomes (LSDV, ASFV) and which config/*.yaml currently disables
+# with a stated reason. It is built now so the LSDV sprint starts from a
+# working image rather than an untested Dockerfile.
+#
+# BASE: rocker/r-ver rather than r-base, for the same reason as
+# Dockerfile.statistics — r-base tracks unstable and its apt tree conflicts
+# with itself.
+FROM rocker/r-ver:4.3.3
 
 LABEL org.opencontainers.image.title="g4watch-g4prediction" \
+      org.opencontainers.image.description="Bioconductor host for pqsfinder (LSDV sprint)" \
+      org.opencontainers.image.vendor="ICAR-NIVEDI" \
       org.opencontainers.image.licenses="MIT"
 
-RUN R -e "install.packages('BiocManager', repos='https://cloud.r-project.org')" \
- && R -e "BiocManager::install('pqsfinder', ask=FALSE, update=FALSE)"
+# zlib/bz2/lzma headers are required to COMPILE the Bioconductor stack
+# from source: XVector fails with "zlib.h: No such file or directory",
+# which cascades into Biostrings, GenomicRanges and finally pqsfinder.
+# rocker/r-ver is slim and ships none of them.
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        libcurl4-openssl-dev libssl-dev libxml2-dev \
+        zlib1g-dev libbz2-dev liblzma-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN install2.r --error --skipinstalled BiocManager \
+ && R -q -e "BiocManager::install('pqsfinder', ask=FALSE, update=FALSE)" \
+ && R -q -e "library(pqsfinder); cat('pqsfinder OK\n')"
 
 USER 1000

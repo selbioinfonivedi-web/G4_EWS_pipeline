@@ -136,6 +136,59 @@ jobs:
           fi
           echo "Workflow correctly refused to run without --pathogen."
 
+      - name: ACQUISITION entry refuses without an accession list
+        run: |
+          if nextflow run workflow/main.nf -entry ACQUISITION --pathogen fmdv \
+               -profile conda_free > /dev/null 2>&1; then
+            echo "::error::ACQUISITION should refuse without --accession_list"
+            exit 1
+          fi
+          echo "ACQUISITION correctly refused without --accession_list."
+
+      # Every process must be reachable from an entry workflow, and every
+      # g4watch command a process invokes must exist. A pipeline whose DAG
+      # looks complete while the stages that produce results are never
+      # called is the exact defect these assert against.
+      - name: Orchestration is complete
+        run: |
+          pip install -e ".[dev]"
+          pytest tests/workflow -q
+
+  containers:
+    name: container images
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # Static checks first: they need no daemon and fail fast on a
+      # Dockerfile that could not build (a pinned apt version the base
+      # image does not carry, a COPY outside the build context, an image
+      # the pipeline requests that nothing builds).
+      - run: pip install -e ".[dev]"
+      - name: Container definitions are consistent
+        run: pytest tests/containers -q
+
+      # Then actually build them. Eleven Dockerfiles sat unbuilt in this
+      # repository; two could never have built at all, and one reported
+      # success while the single package it exists to provide was missing.
+      # A definition nobody builds is a definition nobody has checked.
+      - name: Build every image
+        run: make containers
+
+      - name: Runtime behaviour inside the images
+        run: pytest tests/containers -q
+
+      - name: Digests were recorded
+        run: |
+          cat containers/IMAGE_DIGESTS.tsv
+          if grep -q "not built" containers/IMAGE_DIGESTS.tsv; then
+            echo "::error::IMAGE_DIGESTS.tsv still records unbuilt images"
+            exit 1
+          fi
+
   gate-invariant:
     name: D.H1 gate stays closed
     runs-on: ubuntu-latest
