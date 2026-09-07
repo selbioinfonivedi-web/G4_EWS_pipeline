@@ -1,0 +1,4 @@
+Placeholder. Present when Stage 5 produced no result — normally because the
+D.H1 gate is closed. REPORT_CARD detects this filename and builds the card
+with --no-stage5, so the two scored sections report as unavailable with a
+stated reason rather than the card failing to build at all.

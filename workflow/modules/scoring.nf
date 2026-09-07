@@ -40,3 +40,54 @@ process SCORING {
     fi
     """
 }
+
+
+/*
+ * Stage 5 — the full downstream surveillance chain.
+ *
+ * SCORING above only reports the gate's verdict; it deliberately produces
+ * no numbers. This process runs the chain that actually computes them:
+ * the seven G.2 terms, normalisation, outcome labels, weight fitting,
+ * M3/M4 scores, CUSUM/EWMA calibration, D.H3 and the M1-M4 comparison.
+ *
+ * Until this existed the documented entry point — `nextflow run
+ * workflow/main.nf --pathogen X` — could never produce a surveillance
+ * score for any pathogen, however open its gate, because the chain was
+ * reachable only from the command line.
+ *
+ * Exit 3 is absorbed for the same reason SCORING absorbs it: a closed
+ * gate is a correct outcome and must end the run cleanly with a report,
+ * not as a crash.
+ */
+process SURVEILLANCE_SCORING {
+    tag "${pathogen}"
+    label 'g4watch'
+    label 'gated'
+    publishDir "${params.outdir}/scoring", mode: 'copy'
+
+    input:
+    val  pathogen
+    path gate_log
+
+    output:
+    path "stage5.json",     emit: result,  optional: true
+    path "stage5_run.log",  emit: log
+
+    script:
+    def unchecked = params.force_unchecked ? '--force-unchecked' : ''
+    def ineligible = params.include_ineligible_loci ? '--include-ineligible-loci' : ''
+    def excl = params.exclude_lineages ? "--exclude-lineages ${params.exclude_lineages}" : ''
+    """
+    set +e
+    g4watch stage5 --pathogen ${pathogen} --out stage5.json ${unchecked} ${ineligible} ${excl} \\
+        > stage5_run.log 2>&1
+    status=\$?
+    set -e
+    cat stage5_run.log
+
+    if [ "\$status" -ne 0 ] && [ "\$status" -ne 3 ]; then
+        echo "g4watch stage5 failed with exit \$status — this is not a gate closure" >&2
+        exit \$status
+    fi
+    """
+}

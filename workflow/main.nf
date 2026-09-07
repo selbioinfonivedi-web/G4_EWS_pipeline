@@ -30,9 +30,14 @@ include { ALIGN_TO_REFERENCE   } from './modules/alignment.nf'
 include { RECOMBINATION_SCREEN } from './modules/recombination_screen.nf'
 include { IQTREE_ML            } from './modules/phylogenetics.nf'
 include { TREETIME_ROOT        } from './modules/phylogenetics.nf'
+include { CALL_VARIANTS        } from './modules/variant_analysis.nf'
+include { FETCH_CORPUS         } from './modules/acquisition.nf'
 include { DH1_GATE             } from './modules/g4_surveillance.nf'
 include { SCORING              } from './modules/scoring.nf'
+include { SURVEILLANCE_SCORING } from './modules/scoring.nf'
 include { GATE_STATUS_REPORT   } from './modules/reporting.nf'
+include { REPORT_CARD          } from './modules/reporting.nf'
+include { DH3_TEST             } from './modules/reporting.nf'
 
 def helpMessage() {
     log.info """
@@ -137,11 +142,33 @@ workflow {
         ch_recombination.completed
     )
 
+    // ---- Stage 3: variant calling --------------------------------------
+    // Publishes the variant table and its intersection with the Atlas.
+    // Stage 5 calls variants in-process for its own metrics; this artifact
+    // is the auditable record a reader can inspect independently.
+    CALL_VARIANTS(pathogen, ch_alignment)
+
     // ---- Stage 5: scoring (fail-closed) --------------------------------
+    // SCORING reports the gate's verdict and produces no numbers.
     ch_scoring = SCORING(pathogen, ch_dh1.log)
+
+    // The chain that actually computes them: seven G.2 terms,
+    // normalisation, outcome labels, weight fitting, M3/M4, CUSUM/EWMA,
+    // D.H3 and the M1-M4 comparison. Gated on ch_scoring.log so the gate
+    // is provably evaluated before any score is attempted.
+    ch_stage5 = SURVEILLANCE_SCORING(pathogen, ch_scoring.log)
+
+    // ---- D.H3, reported as its own artifact ----------------------------
+    DH3_TEST(pathogen, ch_scoring.log)
 
     // ---- Stage 6: reporting (never blocked) ----------------------------
     GATE_STATUS_REPORT(pathogen, ch_scoring.log)
+
+    // A closed gate produces no stage5.json. The card must still be built
+    // — one that says the gate is closed is exactly what a reader needs —
+    // so a placeholder stands in and REPORT_CARD switches to --no-stage5.
+    ch_card_input = ch_stage5.result.ifEmpty(file("${projectDir}/assets/NO_STAGE5"))
+    REPORT_CARD(pathogen, ch_card_input)
 
     // Registered inside the entry workflow: Nextflow's strict syntax
     // (25.x onward) does not allow top-level statements in a script.
@@ -160,4 +187,25 @@ workflow {
         ------------------------------------------------------------------
         """.stripIndent()
     }
+}
+
+
+/*
+ * Corpus acquisition, as a NAMED ENTRY POINT rather than part of the main
+ * run:  nextflow run workflow/main.nf -entry ACQUISITION --pathogen X \
+ *           --accession_list path/to/accessions.txt
+ *
+ * Deliberately separate. Re-fetching from NCBI on every analysis run would
+ * make a result depend on the day it was produced, which is exactly what
+ * the (commit, config, accession list) reproducibility triple exists to
+ * prevent. Acquisition is a decision, not a step.
+ */
+workflow ACQUISITION {
+    if (!params.pathogen) {
+        exit 1, "ERROR: --pathogen is required."
+    }
+    if (!params.accession_list) {
+        exit 1, "ERROR: -entry ACQUISITION requires --accession_list."
+    }
+    FETCH_CORPUS(params.pathogen, Channel.fromPath(params.accession_list, checkIfExists: true))
 }

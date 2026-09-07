@@ -18,12 +18,19 @@ process CALL_VARIANTS {
     path alignment
 
     output:
-    path "variants.tsv", emit: variants
+    path "variants.tsv",         emit: variants
+    path "variants_x_atlas.tsv", emit: g4_variants
     path "variants.log", emit: log
 
+    // Was scripts/python/call_variants_fmdv.py -- an FMDV-only script
+    // invoked from a pathogen-agnostic pipeline, which is why this process
+    // could never run for any other pathogen and was left unwired.
+    // (Groovy comment: it must stay OUTSIDE the script block, which is bash.)
     script:
     """
-    python3 ${projectDir}/../scripts/python/call_variants_fmdv.py \\
-        --alignment ${alignment} --out variants.tsv 2>&1 | tee variants.log
+    g4watch variants --pathogen ${pathogen} \\
+        --alignment ${alignment} \\
+        --out variants.tsv \\
+        --g4-out variants_x_atlas.tsv 2>&1 | tee variants.log
     """
 }
