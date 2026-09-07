@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>G4 Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Instrument+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="/workstation/static/bioluminescence.css">
+</head>
+<body>
+
+<!-- the luminous field: this is the data, not a photograph -->
+<div class="field"><canvas id="field"></canvas></div>
+<div class="vignette"></div>
+
+<!-- ═══ MENU BAR ═══════════════════════════════════════════════ -->
+<div class="menubar">
+  <div class="mgroup glass">
+    <button class="mitem on" data-menu="project">Project</button>
+    <button class="mitem" data-menu="edit">Edit</button>
+    <button class="mitem" data-menu="view">View</button>
+    <button class="mitem" data-menu="window">Window</button>
+  </div>
+
+  <div class="docname glass">
+    <svg class="ico" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+    <span class="nm" id="docname">FMDV_G4_Atlas_v1.0</span>
+    <span class="chev">▾</span>
+  </div>
+
+  <div class="searchbar glass">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="color:var(--ink-3)"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+    <input id="q" type="search" placeholder="Search sequence…" aria-label="Search">
+  </div>
+
+  <div class="spacer"></div>
+  <button class="pill glass" id="btn-redo">Redo</button>
+  <button class="pill glass" id="btn-undo">Undo</button>
+  <button class="pill glass accent" id="btn-export">Export</button>
+</div>
+
+<!-- ═══ TOOL RAIL ══════════════════════════════════════════════ -->
+<nav class="rail glass" id="rail" aria-label="Tools"></nav>
+
+<!-- ═══ FLOATING READOUTS ══════════════════════════════════════ -->
+<div class="badge glass" id="live"><span class="dot live"></span><span>Live rendering</span></div>
+<div class="badge glass" id="coords">
+  <span>X: <b id="cx">0.000</b></span>
+  <span>Y: <b id="cy">0.000</b></span>
+  <span>Z: <b id="cz">1.000</b></span>
+</div>
+
+<!-- ═══ INSPECTOR ══════════════════════════════════════════════ -->
+<aside class="inspector glass" id="inspector">
+  <div class="insp-head">
+    <span class="sq">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 3v4c0 4 12 6 12 10v4M18 3v4c0 4-12 6-12 10v4M7 8h10M7 16h10"/></svg>
+    </span>
+    <div>
+      <h2 id="insp-title">Locus Metadata</h2>
+      <div class="sub">Precision Inspect</div>
+    </div>
+  </div>
+
+  <div class="insp-tabs" id="insp-tabs"></div>
+  <div class="insp-body" id="insp-body"></div>
+</aside>
+
+<!-- ═══ SEQUENCE RULER ═════════════════════════════════════════ -->
+<div class="ruler glass" id="ruler"></div>
+<div class="foot glass" id="foot"></div>
+
+<div class="toasts" id="toasts"></div>
+<div class="gtip" id="gtip" hidden></div>
+
+<script src="/workstation/static/studio.js"></script>
+</body>
+</html>

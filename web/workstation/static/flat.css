@@ -1,0 +1,72 @@
+/* ═══════════════════════════════════════════════════════════════════
+   FLAT — the plain analysis skin.
+
+   Previously "flat" was not a skin at all: it simply removed the
+   data-skin attribute and let the generated spectrum.css base tokens
+   apply. Those carry a prefers-color-scheme block, so on a machine set
+   to dark mode the whole interface silently became dark while every
+   other skin stayed light. Correct geometry, unreadable result, and no
+   stylesheet to point at.
+
+   It is now an explicit light definition, so choosing a skin decides the
+   appearance and the OS does not override it.
+   ═══════════════════════════════════════════════════════════════════ */
+
+:root[data-skin="flat"] {
+  --bg-void:      #DDE3E3;
+  --bg-canvas:    #FFFFFF;
+  --bg-workspace: #F1F4F4;
+  --bg-surface:   #FFFFFF;
+  --bg-panel:     #FFFFFF;
+  --bg-hover:     #EDF2F4;
+  --bg-select:    #DCE8EE;
+
+  --text-primary:    #12181B;
+  --text-secondary:  #37454A;
+  --text-tertiary:   #566268;
+  --text-quaternary: #6E7C82;
+  --text-disabled:   #9BA6AB;
+
+  --line-hairline: #EAEEEF;
+  --line-rule:     #D6DDDF;
+  --line-edge:     #A8B3B7;
+
+  --st-complete: #14713F;
+  --st-running:  #175E9E;
+  --st-warning:  #8A5A00;
+  --st-error:    #A62A1F;
+
+  --cat-0: #175E9E; --cat-1: #A15A00; --cat-2: #5B3A9B; --cat-3: #A62A1F;
+  --cat-4: #0E6F7E; --cat-5: #45702F; --cat-6: #8C3E68; --cat-7: #566268;
+
+  --flow-data-active:      #5B3A9B;
+  --flow-qc-active:        #175E9E;
+  --flow-genomic-active:   #0E6F7E;
+  --flow-evolution-active: #14713F;
+  --flow-network-active:   #45702F;
+  --flow-model-active:     #8A5A00;
+  --flow-interpret-active: #A15A00;
+  --flow-report-active:    #A62A1F;
+
+  --accent: #175E9E;
+
+  --flow-genomic-wash: #DCE8EE;
+  --st-complete-wash:  #E3EFE7;
+  --st-warning-wash:   #F7EEDA;
+  --st-error-wash:     #F6E4E1;
+
+  --veil: .20;
+}
+
+:root[data-skin="flat"] #glassfield,
+:root[data-skin="flat"] #glassveil { display: none; }
+:root[data-skin="flat"] .identity,
+:root[data-skin="flat"] .modes,
+:root[data-skin="flat"] .flow,
+:root[data-skin="flat"] .context,
+:root[data-skin="flat"] .console,
+:root[data-skin="flat"] .panel,
+:root[data-skin="flat"] .sheet,
+:root[data-skin="flat"] .note {
+  backdrop-filter: none; -webkit-backdrop-filter: none;
+}

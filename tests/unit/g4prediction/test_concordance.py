@@ -17,8 +17,12 @@ def _g4h(start: int, end: int, score: float = 1.5, strand: str = "+") -> G4Hunte
 
 def _pat(start: int, end: int, score: float = 20.0) -> PatternMotifHit:
     return PatternMotifHit(
-        start=start, end=end, sequence="G" * (end - start), score=score,
-        tract_lengths=(3, 3, 3, 3), loop_lengths=(1, 1, 1),
+        start=start,
+        end=end,
+        sequence="G" * (end - start),
+        score=score,
+        tract_lengths=(3, 3, 3, 3),
+        loop_lengths=(1, 1, 1),
     )
 
 
@@ -27,8 +31,12 @@ def test_exact_same_span_is_fully_concordant() -> None:
     result = find_concordant_candidates([_g4h(0, 15)], [supporting])
     assert result == [
         ConcordantCandidate(
-            start=0, end=15, g4hunter_score=1.5, g4hunter_strand="+",
-            pattern_motif_score=21.0, concordant_tool_count=2,
+            start=0,
+            end=15,
+            g4hunter_score=1.5,
+            g4hunter_strand="+",
+            pattern_motif_score=21.0,
+            concordant_tool_count=2,
             supporting_pattern_hit=supporting,
         )
     ]
@@ -38,8 +46,12 @@ def test_no_overlap_is_single_algorithm_only() -> None:
     result = find_concordant_candidates([_g4h(0, 15)], [_pat(100, 115)])
     assert result == [
         ConcordantCandidate(
-            start=0, end=15, g4hunter_score=1.5, g4hunter_strand="+",
-            pattern_motif_score=None, concordant_tool_count=1,
+            start=0,
+            end=15,
+            g4hunter_score=1.5,
+            g4hunter_strand="+",
+            pattern_motif_score=None,
+            concordant_tool_count=1,
             supporting_pattern_hit=None,
         )
     ]
@@ -89,9 +101,7 @@ def test_multiple_g4hunter_hits_each_evaluated_independently() -> None:
 
 def test_overlap_fraction_boundary_exactly_at_threshold_counts() -> None:
     # overlap=8, shorter=10, fraction=0.8 exactly -> should count (>=)
-    result = find_concordant_candidates(
-        [_g4h(0, 10)], [_pat(2, 10)], min_overlap_fraction=0.8
-    )
+    result = find_concordant_candidates([_g4h(0, 10)], [_pat(2, 10)], min_overlap_fraction=0.8)
     assert result[0].concordant_tool_count == 2
 
 

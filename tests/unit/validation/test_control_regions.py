@@ -19,9 +19,7 @@ _SMALL_WINDOW = 4  # smaller than the default 25, so 8bp test sequences are mean
 
 
 def test_finds_the_clean_matched_control_not_the_pqs_containing_one() -> None:
-    result = find_matched_control_region(
-        GENOME, LOCUS_START, LOCUS_END, g4hunter_window=_SMALL_WINDOW
-    )
+    result = find_matched_control_region(GENOME, LOCUS_START, LOCUS_END, g4hunter_window=_SMALL_WINDOW)
     assert result is not None
     assert result.start == GOOD_CONTROL_START
     assert result.length == len(LOCUS_SEQ)

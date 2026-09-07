@@ -1,0 +1,118 @@
+/* ═══════════════════════════════════════════════════════════════════
+   REDESIGN SKIN — the palette and type from g4_redesign.html, applied
+   as a token override so every existing component rule is reused.
+
+   Ink-black ground with desaturated forest surfaces; amber as the single
+   active accent, teal for completion, rose for failure. Space Grotesk
+   for display, IBM Plex Sans for UI, IBM Plex Mono for data. Radii stay
+   small (3px / 6px) — this is an instrument, not a consumer app.
+
+   Activated by data-skin="redesign" on <html>.
+   ═══════════════════════════════════════════════════════════════════ */
+
+:root[data-skin="redesign"] {
+  --ink-base:  #0B0F0E;
+  --surface:   #121917;
+  --surface-2: #1A2320;
+  --surface-3: #212B27;
+  --line:      #28322D;
+  --line-strong: #3A4740;
+
+  --amber:     #E3A857;  --amber-dim: #3A2E19;
+  --teal:      #4FA98C;  --teal-dim:  #173129;
+  --rose:      #D9694F;  --rose-dim:  #33201A;
+
+  --bg-void:      #07100E;
+  --bg-canvas:    #0B0F0E;
+  --bg-workspace: #0E1413;
+  --bg-surface:   #121917;
+  --bg-panel:     #1A2320;
+  --bg-hover:     #212B27;
+  --bg-select:    #28322D;
+
+  --text-primary:    #ECEFEA;
+  --text-secondary:  #B6C1BA;
+  --text-tertiary:   #8FA098;
+  --text-quaternary: #5C6A63;
+  --text-disabled:   #47534D;
+
+  --line-hairline: #1E2724;
+  --line-rule:     #28322D;
+  --line-edge:     #3A4740;
+
+  --st-complete: #4FA98C;
+  --st-running:  #E3A857;
+  --st-warning:  #E3A857;
+  --st-error:    #D9694F;
+
+  --cat-0: #4FA98C; --cat-1: #E3A857; --cat-2: #8FA098; --cat-3: #D9694F;
+  --cat-4: #6E9FB5; --cat-5: #A9B77C; --cat-6: #C08BA5; --cat-7: #7E8C86;
+
+  --flow-data-active:      #8FA098;
+  --flow-qc-active:        #6E9FB5;
+  --flow-genomic-active:   #4FA98C;
+  --flow-evolution-active: #A9B77C;
+  --flow-network-active:   #C9B25E;
+  --flow-model-active:     #E3A857;
+  --flow-interpret-active: #D98E4F;
+  --flow-report-active:    #D9694F;
+
+  --accent: var(--amber);
+
+
+  /* wash tints: used by the drop-zone hot state and alert fills.
+     Defined per skin because a tint that works on ink is invisible
+     on paper, and vice versa. */
+  --flow-genomic-wash: #173129;
+  --st-complete-wash:  #173129;
+  --st-warning-wash:   #3A2E19;
+  --st-error-wash:     #33201A;
+
+  --veil: .15;
+
+  --sans: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  --display: "Space Grotesk", "IBM Plex Sans", sans-serif;
+}
+
+/* display face for the things that name something */
+:root[data-skin="redesign"] .identity .mark h1,
+:root[data-skin="redesign"] .stage-head h2,
+:root[data-skin="redesign"] .sheet > header h3 {
+  font-family: var(--display); letter-spacing: -.01em; font-weight: 600;
+}
+
+/* small radii, per the reference */
+:root[data-skin="redesign"] .panel,
+:root[data-skin="redesign"] .sheet,
+:root[data-skin="redesign"] .note,
+:root[data-skin="redesign"] .tray { border-radius: 6px; }
+:root[data-skin="redesign"] .btn,
+:root[data-skin="redesign"] .input,
+:root[data-skin="redesign"] .select,
+:root[data-skin="redesign"] .mode,
+:root[data-skin="redesign"] .stagenode { border-radius: 3px; }
+
+/* amber is the single active accent */
+:root[data-skin="redesign"] .btn.primary {
+  background: var(--amber); border-color: var(--amber); color: #0B0F0E; font-weight: 600;
+}
+:root[data-skin="redesign"] .btn.primary:hover:not(:disabled) { filter: brightness(1.12); }
+:root[data-skin="redesign"] .mode.on { background: var(--surface-2); }
+:root[data-skin="redesign"] .mode.on::after { background: var(--amber); }
+:root[data-skin="redesign"] .stagenode.on { background: var(--surface-3); box-shadow: inset 2px 0 0 var(--amber); }
+:root[data-skin="redesign"] .ctx-tabs button.on { box-shadow: inset 0 -2px 0 var(--amber); color: var(--amber); }
+
+/* the trust banner from the reference: an always-visible provenance strip */
+.trust-banner {
+  display: none;
+  align-items: center; gap: 10px;
+  padding: 7px 18px;
+  background: var(--amber-dim, #3A2E19);
+  border-bottom: 1px solid var(--line-strong);
+  font-family: var(--mono); font-size: 11px; color: var(--text-secondary);
+}
+:root[data-skin="redesign"] .trust-banner { display: flex; }
+.trust-banner .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--amber); flex: none; }
+.trust-banner b { color: var(--amber); font-weight: 500; letter-spacing: .1em; }
+.trust-banner .spacer { flex: 1; }

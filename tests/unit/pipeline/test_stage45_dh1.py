@@ -223,7 +223,16 @@ def test_reference_absent_from_alignment_is_fatal(synthetic_config, synthetic_ro
     write_fasta(synthetic_root / "corpus" / "sequences.fasta", {"SOMETHING-ELSE": SYNTHETIC_GENOME})
     write_tsv(
         synthetic_root / "corpus" / "metadata.tsv",
-        [{"accession": "SOMETHING-ELSE", "length": 150, "collection_date": "2020", "country": "T", "host": "B", "lineage": "A"}],
+        [
+            {
+                "accession": "SOMETHING-ELSE",
+                "length": 150,
+                "collection_date": "2020",
+                "country": "T",
+                "host": "B",
+                "lineage": "A",
+            }
+        ],
         ["accession", "length", "collection_date", "country", "host", "lineage"],
     )
     tree = synthetic_root / "tree.nwk"

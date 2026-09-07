@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>G4-WATCH · Workstation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Instrument+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="/workstation/static/spectrum.css">
+<link rel="stylesheet" href="/workstation/static/tetrad.css">
+</head>
+<body>
+
+<div class="station">
+
+  <!-- ═══ 1 · SPECIMEN HEADER ═══════════════════════════════════ -->
+  <header class="specimen" id="specimen">
+    <div class="spec-mark">
+      <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true">
+        <g fill="none" stroke="currentColor" stroke-width="1">
+          <rect x="2.5" y="2.5" width="6" height="6"/><rect x="11.5" y="2.5" width="6" height="6"/>
+          <rect x="2.5" y="11.5" width="6" height="6"/><rect x="11.5" y="11.5" width="6" height="6"/>
+        </g>
+        <circle cx="10" cy="10" r="1.6" fill="currentColor"/>
+      </svg>
+      <div>
+        <h1>G4-WATCH</h1>
+        <p class="rev" id="rev">workstation</p>
+      </div>
+    </div>
+    <div id="spec-fields" style="display:flex"></div>
+    <div class="spec-gate" id="spec-gate"></div>
+  </header>
+
+  <!-- ═══ 2 · WORKFLOW SPINE ════════════════════════════════════ -->
+  <nav class="spine" id="spine" aria-label="Analysis workflow">
+    <svg class="spine-svg" id="spine-svg" aria-hidden="true"></svg>
+    <div id="spine-nodes"></div>
+  </nav>
+
+  <!-- ═══ 3 · SCIENTIFIC CANVAS ═════════════════════════════════ -->
+  <main class="canvas">
+    <div class="canvas-head">
+      <h2 id="view-title">Phylogeny</h2>
+      <span class="sub" id="view-sub"></span>
+      <div class="push">
+        <div class="seg">
+          <button class="k" id="btn-params">Parameters</button>
+          <button class="k" id="btn-history">History</button>
+          <button class="k" id="btn-export">Export</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="view" id="view"></div>
+
+    <div class="register" id="register"></div>
+  </main>
+
+  <!-- ═══ 4 · OBSERVATION COLUMN ════════════════════════════════ -->
+  <aside class="observe" aria-label="Analytical interpretation">
+    <div class="obs-head">
+      <span class="tag">Observations</span>
+      <span class="count" id="obs-count"></span>
+    </div>
+    <div id="observations"></div>
+  </aside>
+
+  <!-- ═══ 5 · COORDINATE RAIL ═══════════════════════════════════ -->
+  <footer class="rail">
+    <section class="rail-pane">
+      <header>
+        <span class="tag">Genome coordinate</span>
+        <span class="read" id="rail-genome-read"></span>
+      </header>
+      <svg id="rail-genome" role="img" aria-label="Genome coordinate axis with Atlas loci"></svg>
+    </section>
+    <section class="rail-pane">
+      <header>
+        <span class="tag">Collection year</span>
+        <span class="read" id="rail-time-read"></span>
+      </header>
+      <svg id="rail-time" role="img" aria-label="Collection year distribution, brushable"></svg>
+    </section>
+  </footer>
+
+</div>
+
+<div class="tip" id="tip" hidden></div>
+
+<script src="/workstation/static/workstation.js"></script>
+</body>
+</html>

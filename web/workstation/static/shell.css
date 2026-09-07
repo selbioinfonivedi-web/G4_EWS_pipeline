@@ -1,0 +1,234 @@
+/* ═══════════════════════════════════════════════════════════════════
+   G4 — application shell.
+
+   Six fixed regions. The workspace changes with mode; nothing else
+   moves, so a researcher never loses the workflow, the identity of the
+   dataset, or the execution controls while changing task.
+   ═══════════════════════════════════════════════════════════════════ */
+
+.app {
+  /* Lifted above the background field unconditionally. #glassfield sits
+     at z-index 0 and #glassveil at 1, both position:fixed; a
+     non-positioned .app is painted *under* them, which hides the entire
+     interface. Scoping this to one skin — as it once was — meant every
+     other skin that showed the field rendered a blank page. */
+  position: relative;
+  z-index: 2;
+
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr) 330px;
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
+  grid-template-areas:
+    "identity identity identity"
+    "modes    modes    modes"
+    "flow     stage    context"
+    "console  console  console";
+  height: 100vh;
+}
+
+/* ═══ IDENTITY STRIP ══════════════════════════════════════════════ */
+.identity {
+  grid-area: identity; display: flex; align-items: stretch;
+  background: var(--bg-surface); border-bottom: 1px solid var(--edge);
+}
+.identity .mark { display: flex; align-items: center; gap: 10px; padding: 0 16px; border-right: 1px solid var(--rule); flex: none; }
+.identity .mark h1 { font-size: 15px; font-weight: 600; letter-spacing: .1em; line-height: 1; }
+.identity .mark .sub { font-family: var(--mono); font-size: 8.5px; letter-spacing: .14em; color: var(--ink-3); margin-top: 3px; }
+
+.idf {
+  display: flex; flex-direction: column; justify-content: center; gap: 2px;
+  padding: 7px 13px; border-right: 1px solid var(--hair); flex: none; min-width: 0;
+}
+.idf .v { font-family: var(--mono); font-size: 11.5px; white-space: nowrap; }
+.idf .v em { font-style: normal; color: var(--ink-3); }
+
+.dirty { display: flex; align-items: center; gap: 6px; padding: 0 12px; border-right: 1px solid var(--hair); }
+.dirty .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--st-warning); flex: none; }
+.dirty span { font-family: var(--mono); font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--st-warning); }
+.dirty[hidden] { display: none; }
+
+.identity .grow { flex: 1; min-width: 120px; display: flex; align-items: center; padding: 0 12px; }
+.identity .tools { display: flex; align-items: center; gap: 5px; padding: 0 12px; border-left: 1px solid var(--hair); flex: none; }
+
+/* live system monitor */
+.sysmon { display: flex; align-items: center; gap: 14px; padding: 0 14px; border-left: 1px solid var(--hair); flex: none; }
+.sysmon .cell { display: flex; flex-direction: column; gap: 3px; width: 58px; }
+.sysmon .cell .k { font-family: var(--mono); font-size: 8px; letter-spacing: .13em; text-transform: uppercase; color: var(--ink-4); display: flex; justify-content: space-between; }
+.sysmon .cell .k b { color: var(--ink-2); font-weight: 400; }
+
+/* ═══ MODE BAR ════════════════════════════════════════════════════ */
+.modes {
+  grid-area: modes; display: flex; align-items: stretch;
+  background: var(--bg-panel); border-bottom: 1px solid var(--edge); overflow-x: auto;
+}
+.mode {
+  display: flex; align-items: center; gap: 8px; padding: 8px 16px;
+  border-right: 1px solid var(--hair); background: none; cursor: pointer;
+  font-family: var(--mono); font-size: 9.5px; letter-spacing: .15em; text-transform: uppercase;
+  color: var(--ink-3); white-space: nowrap; position: relative;
+}
+.mode:hover { color: var(--ink); background: var(--bg-hover); }
+.mode.on { color: var(--ink); background: var(--bg-surface); }
+.mode.on::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: var(--accent, var(--ink)); }
+.mode .n { font-size: 8.5px; color: var(--ink-4); }
+.mode.on .n { color: var(--ink-3); }
+.modes .push { margin-left: auto; display: flex; align-items: center; gap: 6px; padding: 0 12px; border-left: 1px solid var(--hair); }
+
+/* per-mode accent, drawn from the spectral workflow ramp */
+.mode[data-accent="data"].on::after      { background: var(--flow-data-active); }
+.mode[data-accent="qc"].on::after        { background: var(--flow-qc-active); }
+.mode[data-accent="genomic"].on::after   { background: var(--flow-genomic-active); }
+.mode[data-accent="evolution"].on::after { background: var(--flow-evolution-active); }
+.mode[data-accent="network"].on::after   { background: var(--flow-network-active); }
+.mode[data-accent="model"].on::after     { background: var(--flow-model-active); }
+.mode[data-accent="interpret"].on::after { background: var(--flow-interpret-active); }
+.mode[data-accent="report"].on::after    { background: var(--flow-report-active); }
+
+/* ═══ WORKFLOW SPINE ══════════════════════════════════════════════ */
+.flow {
+  grid-area: flow; background: var(--bg-surface); border-right: 1px solid var(--edge);
+  overflow-y: auto; position: relative; padding: 10px 0 24px;
+}
+.flow-svg { position: absolute; inset: 0; width: 100%; pointer-events: none; }
+.stagenode {
+  position: relative; z-index: 1; width: 100%;
+  display: grid; grid-template-columns: 20px 1fr; gap: 7px; align-items: start;
+  padding: 7px 8px 7px 6px; background: none; cursor: pointer; text-align: left;
+}
+.stagenode:hover { background: var(--bg-hover); }
+.stagenode.on { background: var(--bg-select); }
+.stagenode .ord { font-family: var(--mono); font-size: 8.5px; color: var(--ink-4); text-align: right; padding-top: 3px; }
+.stagenode.on .ord { color: var(--ink); }
+.stagenode .glyph { width: 13px; height: 13px; border: 1px solid var(--ink-4); display: grid; place-items: center; margin-bottom: 3px; }
+.stagenode .glyph::after { content: ""; width: 5px; height: 5px; }
+.stagenode.completed .glyph { border-color: var(--st-complete); } .stagenode.completed .glyph::after { background: var(--st-complete); }
+.stagenode.running   .glyph { border-color: var(--st-running); }  .stagenode.running .glyph::after { background: var(--st-running); animation: blink 1s steps(1) infinite; }
+.stagenode.failed    .glyph { border-color: var(--st-error); }    .stagenode.failed .glyph::after { background: var(--st-error); clip-path: polygon(0 38%,100% 38%,100% 62%,0 62%); }
+.stagenode.warning   .glyph { border-color: var(--st-warning); }  .stagenode.warning .glyph::after { background: var(--st-warning); clip-path: polygon(50% 0,100% 100%,0 100%); }
+.stagenode.blocked   .glyph { border-style: dashed; }
+.stagenode .nm { font-family: var(--mono); font-size: 8.5px; letter-spacing: .07em; text-transform: uppercase; color: var(--ink-3); line-height: 1.3; }
+.stagenode.on .nm { color: var(--ink); }
+.stagenode.blocked .nm { color: var(--ink-4); }
+
+/* ═══ WORKSPACE ═══════════════════════════════════════════════════ */
+.stage {
+  grid-area: stage; min-width: 0; min-height: 0;
+  display: grid; grid-template-rows: auto minmax(0, 1fr) auto;
+  background: var(--bg-canvas);
+}
+.stage-head {
+  display: flex; align-items: center; gap: 12px; padding: 9px 16px;
+  border-bottom: 1px solid var(--rule); background: var(--bg-canvas); flex-wrap: wrap;
+}
+.stage-head h2 { font-size: 14px; font-weight: 600; letter-spacing: -.005em; }
+.stage-head .sub { font-family: var(--mono); font-size: 10px; color: var(--ink-3); }
+.stage-head .push { margin-left: auto; display: flex; gap: 5px; align-items: center; flex-wrap: wrap; }
+
+.work { min-height: 0; min-width: 0; overflow: auto; position: relative; }
+.work.pad { padding: 18px 20px; }
+.work.canvas {
+  overflow: hidden; padding: 0;
+  background:
+    linear-gradient(rgba(20,24,25,.05) 1px, transparent 1px) 0 0 / 100% 32px,
+    linear-gradient(90deg, rgba(20,24,25,.05) 1px, transparent 1px) 0 0 / 32px 100%,
+    var(--bg-canvas);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .work.canvas {
+    background:
+      linear-gradient(rgba(233,240,241,.035) 1px, transparent 1px) 0 0 / 100% 32px,
+      linear-gradient(90deg, rgba(233,240,241,.035) 1px, transparent 1px) 0 0 / 32px 100%,
+      var(--bg-canvas);
+  }
+}
+.work canvas, .work svg.plot { display: block; width: 100%; height: 100%; }
+
+.footbar {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  padding: 7px 16px; border-top: 1px solid var(--rule); background: var(--bg-surface); min-height: 38px;
+}
+.footbar .push { margin-left: auto; display: flex; gap: 6px; align-items: center; }
+
+.token {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-family: var(--mono); font-size: 9.5px; border: 1px solid var(--edge);
+  padding: 2px 6px; color: var(--ink-2);
+}
+.token b { color: var(--ink); font-weight: 400; }
+.token i.sw { width: 7px; height: 7px; display: block; }
+.token button { background: none; border: 0; color: var(--ink-4); cursor: pointer; font-size: 11px; padding: 0 0 0 2px; }
+.token button:hover { color: var(--st-error); }
+
+/* ═══ CONTEXT PANEL ═══════════════════════════════════════════════ */
+.context { grid-area: context; background: var(--bg-surface); border-left: 1px solid var(--edge); overflow-y: auto; min-height: 0; }
+.ctx-tabs { display: flex; position: sticky; top: 0; z-index: 3; background: var(--bg-surface); border-bottom: 1px solid var(--edge); }
+.ctx-tabs button {
+  flex: 1; padding: 8px 4px; background: none; border: 0; border-right: 1px solid var(--hair); cursor: pointer;
+  font-family: var(--mono); font-size: 8.5px; letter-spacing: .13em; text-transform: uppercase; color: var(--ink-3);
+}
+.ctx-tabs button:last-child { border-right: 0; }
+.ctx-tabs button.on { color: var(--ink); box-shadow: inset 0 -2px 0 var(--ink); }
+.ctx-body { padding: 14px; display: flex; flex-direction: column; gap: 14px; }
+
+.obs { display: grid; grid-template-columns: 12px 1fr; gap: 9px; padding: 11px 0; border-bottom: 1px solid var(--hair); cursor: pointer; text-align: left; background: none; border-left: 0; border-right: 0; border-top: 0; width: 100%; }
+.obs .sev { width: 9px; height: 9px; border: 1px solid currentColor; margin-top: 3px; }
+.obs.block { color: var(--st-error); } .obs.block .sev { background: currentColor; }
+.obs.caution { color: var(--st-warning); } .obs.caution .sev { background: linear-gradient(135deg, currentColor 50%, transparent 50%); }
+.obs.note { color: var(--ink-3); }
+.obs .t { font-size: 12px; font-weight: 600; color: var(--ink); line-height: 1.35; }
+.obs .d { font-size: 11px; color: var(--ink-2); line-height: 1.5; margin-top: 5px; }
+.obs .r { font-family: var(--mono); font-size: 9px; color: var(--ink-3); margin-top: 6px; padding-left: 7px; border-left: 1px solid var(--edge); }
+.obs .dm { font-family: var(--mono); font-size: 8px; letter-spacing: .16em; text-transform: uppercase; margin-bottom: 3px; }
+
+/* ═══ EXECUTION CONSOLE ═══════════════════════════════════════════ */
+.console { grid-area: console; background: var(--bg-surface); border-top: 1px solid var(--edge); display: flex; flex-direction: column; min-height: 0; }
+.console.open { height: 300px; }
+.console-bar { display: flex; align-items: center; gap: 8px; padding: 6px 12px; border-bottom: 1px solid var(--rule); flex-wrap: wrap; flex: none; }
+.console-bar .push { margin-left: auto; display: flex; gap: 6px; align-items: center; }
+.console-bar .sep { width: 1px; height: 18px; background: var(--rule); margin: 0 3px; }
+
+.telemetry { display: flex; gap: 14px; align-items: center; }
+.telemetry .t { display: flex; flex-direction: column; gap: 1px; }
+.telemetry .t .k { font-family: var(--mono); font-size: 8px; letter-spacing: .13em; text-transform: uppercase; color: var(--ink-4); }
+.telemetry .t .v { font-family: var(--mono); font-size: 11px; color: var(--ink); }
+
+.logbody { flex: 1; min-height: 0; overflow: auto; background: var(--bg-canvas); font-family: var(--mono); font-size: 11.5px; line-height: 1.6; padding: 8px 0 16px; }
+.console:not(.open) .logbody { display: none; }
+.ln { display: grid; grid-template-columns: 42px 52px 1fr; }
+.ln .n { text-align: right; padding-right: 9px; color: var(--ink-4); font-size: 10px; user-select: none; border-right: 1px solid var(--hair); }
+.ln .lvl { font-size: 9px; letter-spacing: .1em; text-transform: uppercase; text-align: center; color: var(--ink-4); user-select: none; }
+.ln .t { padding: 0 14px 0 8px; white-space: pre-wrap; word-break: break-word; color: var(--ink-2); }
+.ln.stderr .t, .ln.error .t { color: var(--st-error); } .ln.stderr .lvl, .ln.error .lvl { color: var(--st-error); }
+.ln.meta .t { color: var(--st-running); } .ln.meta .lvl { color: var(--st-running); }
+.ln.warning .t { color: var(--st-warning); } .ln.warning .lvl { color: var(--st-warning); }
+.ln.success .t { color: var(--st-complete); } .ln.success .lvl { color: var(--st-complete); }
+.logbody .blank { padding: 22px 20px; color: var(--ink-3); font-family: var(--sans); font-size: 12px; max-width: 62ch; line-height: 1.6; }
+
+/* ═══ layout helpers ══════════════════════════════════════════════ */
+.cols { display: grid; gap: 18px; }
+.cols.two { grid-template-columns: 1fr 1fr; }
+.cols.three { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 1100px) { .cols.two, .cols.three { grid-template-columns: 1fr; } }
+.stack { display: flex; flex-direction: column; gap: 12px; }
+.stack.tight { gap: 7px; }
+.sec { display: flex; flex-direction: column; gap: 10px; }
+.sec > h3 { font-family: var(--mono); font-size: 9.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-3); padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
+.blank { padding: 34px 20px; color: var(--ink-3); font-size: 12.5px; max-width: 62ch; line-height: 1.65; }
+.blank b { display: block; color: var(--ink); font-weight: 600; margin-bottom: 6px; }
+
+@media (max-width: 1180px) { .app { grid-template-columns: 96px minmax(0,1fr); } .context { display: none; } }
+
+/* ═══ SYNTHETIC-DATA MARKER (see bioluminescence.css for the rationale) */
+.synth {
+  position: fixed; z-index: 100; left: 0; right: 0; bottom: 0;
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 7px 18px;
+  background: repeating-linear-gradient(135deg, color-mix(in srgb, var(--st-warning) 20%, transparent) 0 12px,
+                                                 color-mix(in srgb, var(--st-warning) 11%, transparent) 12px 24px);
+  border-top: 2px solid var(--st-warning);
+  font-family: var(--mono); font-size: 11px; color: var(--ink);
+}
+.synth .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--st-warning); flex: none; }
+.synth b { letter-spacing: .16em; color: var(--st-warning); }
+.synth .to-real { margin-left: auto; padding: 3px 11px; border: 1px solid var(--st-warning); color: var(--st-warning); font-size: 10px; letter-spacing: .1em; background: none; cursor: pointer; }
+.synth .to-real:hover { background: var(--st-warning); color: var(--bg-canvas); }
+body.is-synth .app { height: calc(100vh - 34px); }

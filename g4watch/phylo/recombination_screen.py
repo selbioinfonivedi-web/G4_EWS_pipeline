@@ -100,9 +100,7 @@ def parse_phi_output(stdout: str) -> PhiTestResult:
 def run_phi_test(fasta_path: str | Path, phi_binary: str | Path = _VENDOR_PHI_BINARY) -> PhiTestResult:
     binary = Path(phi_binary)
     if not binary.exists():
-        raise PhiExecutionError(
-            f"Phi binary not found at {binary} — build it via `make` in vendor/phipack/ first."
-        )
+        raise PhiExecutionError(f"Phi binary not found at {binary} — build it via `make` in vendor/phipack/ first.")
 
     resolved_fasta = Path(fasta_path).resolve()
     result = subprocess.run(

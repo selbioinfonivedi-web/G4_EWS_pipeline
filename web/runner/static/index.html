@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>G4-WATCH — operator console</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="shell">
+
+  <header class="masthead">
+    <div class="ident">
+      <!-- The G-tetrad: four guanines in a plane, the unit the whole
+           project is named for. Drawn, not decorated. -->
+      <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true">
+        <g fill="none" stroke="currentColor" stroke-width="1.2">
+          <rect x="3.5"  y="3.5"  width="8" height="8"/>
+          <rect x="14.5" y="3.5"  width="8" height="8"/>
+          <rect x="3.5"  y="14.5" width="8" height="8"/>
+          <rect x="14.5" y="14.5" width="8" height="8"/>
+        </g>
+        <circle cx="13" cy="13" r="2" fill="currentColor"/>
+      </svg>
+      <div>
+        <h1>G4-WATCH</h1>
+        <p class="sub" id="version">operator console</p>
+      </div>
+    </div>
+
+    <div class="control">
+      <span class="lab">Pathogen</span>
+      <select id="pathogen" aria-label="Pathogen"></select>
+    </div>
+
+    <div class="fill"></div>
+
+    <div class="lamps" id="tools" aria-label="External tool availability"></div>
+  </header>
+
+  <main class="bench">
+
+    <!-- ── protocol ─────────────────────────────────────────────── -->
+    <section class="protocol" aria-label="Pipeline protocol">
+      <div class="rule-head">
+        <span class="lab">D.H1 gate</span>
+        <span class="fill"></span>
+        <button class="key sm" id="refresh-gate" type="button">Re-read</button>
+      </div>
+      <div id="gate"></div>
+
+      <div class="rule-head">
+        <span class="lab">Protocol</span>
+        <span class="fill"></span>
+      </div>
+      <div id="stages"></div>
+    </section>
+
+    <!-- ── readout ──────────────────────────────────────────────── -->
+    <section class="readout" aria-label="Instrument output">
+      <div class="readout-head">
+        <div class="cell">
+          <span class="lab">State</span>
+          <span class="annun idle" id="job-state">idle</span>
+        </div>
+        <div class="cell">
+          <span class="lab">Elapsed</span>
+          <span class="val" id="elapsed">—</span>
+        </div>
+        <div class="cell">
+          <span class="lab">Exit</span>
+          <span class="val" id="exit">—</span>
+        </div>
+        <div class="cell grow">
+          <span class="lab">Invocation</span>
+          <span class="cmd" id="job-cmd">no job selected</span>
+        </div>
+        <div class="act">
+          <button class="key stop" id="cancel" type="button" disabled>Halt</button>
+        </div>
+      </div>
+
+      <div class="printout" id="console">
+        <div class="placeholder">
+          <b>No job selected.</b>
+          Choose a step from the protocol and press RUN. Output is streamed here line by line as the process writes it.
+
+          Steps run one at a time: they share the Atlas, the QC alignment and the append-only ledger, so concurrent runs would interleave writes to the same files.
+        </div>
+      </div>
+
+      <div class="readout-foot">
+        <label><input type="checkbox" id="follow" checked> follow output</label>
+        <span class="fill"></span>
+        <span id="job-meta"></span>
+      </div>
+    </section>
+
+    <!-- ── log ──────────────────────────────────────────────────── -->
+    <aside class="log" aria-label="Run log and artifacts">
+      <div class="rule-head"><span class="lab">Run log</span><span class="fill"></span></div>
+      <div id="jobs"><p class="blank">Nothing run in this session.</p></div>
+
+      <div class="rule-head">
+        <span class="lab">Artifacts</span>
+        <span class="fill"></span>
+        <button class="key sm" id="refresh-artifacts" type="button">Rescan</button>
+      </div>
+      <div id="artifacts"></div>
+    </aside>
+
+  </main>
+</div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

@@ -44,9 +44,11 @@ class Partition:
     seed: int | None
 
     def __post_init__(self) -> None:
-        overlap = (set(self.discovery) & set(self.training)) | (
-            set(self.discovery) & set(self.holdout)
-        ) | (set(self.training) & set(self.holdout))
+        overlap = (
+            (set(self.discovery) & set(self.training))
+            | (set(self.discovery) & set(self.holdout))
+            | (set(self.training) & set(self.holdout))
+        )
         if overlap:
             raise PartitionError(f"partitions must be disjoint; shared members: {sorted(overlap)}")
 
@@ -95,9 +97,7 @@ def partition_groups(
     """
     unique = sorted(set(groups))
     if len(unique) != len(groups):
-        raise PartitionError(
-            f"group identifiers must be unique; {len(groups) - len(unique)} duplicate(s) supplied"
-        )
+        raise PartitionError(f"group identifiers must be unique; {len(groups) - len(unique)} duplicate(s) supplied")
     n_discovery, n_training, _ = _split_sizes(len(unique), fractions)
 
     shuffled = list(unique)

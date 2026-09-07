@@ -1,0 +1,301 @@
+/* ═══════════════════════════════════════════════════════════════════
+   INSTITUTE — the g4_redesign palette, in the manner of an NCBI/NLM
+   resource page: warm paper, serif headings, a left resource rail,
+   pill tabs, and links that look like links.
+
+   Palette taken verbatim from the supplied design, with one class of
+   change and its reason recorded below.
+
+   ACCESSIBILITY CORRECTION. Three of the supplied colours are used as
+   small text and fall under WCAG AA (4.5:1) on the warm paper ground:
+
+       ink-faint   #8C866E  3.38:1  ->  #77715D  4.52:1
+       gold        #A9791F  3.58:1  ->  #936A1B  4.51:1
+       terracotta  #B5651D  4.02:1  ->  #A95E1B  4.52:1
+
+   Each was darkened along its own hue and saturation by binary search,
+   to the minimum that clears the threshold — so the design's colour is
+   preserved and only its luminance moves. The originals are kept as
+   `-mark` variants for graphical use, where the bar is 3:1 and all
+   three already pass. A public-institute portal that fails contrast on
+   its caption text is not a small defect.
+
+   Everything else is exactly as supplied:
+       paper #FAF6EC  surface #FFFFFF  alt #F2ECDA
+       border #E2DAC3 / #C9BD9C   ink #211E1A / #5B5647
+       blue #1F5C8B   maroon #8C3A3A   green #3F6B4E
+       Source Serif 4 · Source Sans 3 · Source Code Pro · radii 2/3px
+
+   Activated by data-skin="institute".
+   ═══════════════════════════════════════════════════════════════════ */
+
+:root[data-skin="institute"] {
+  --paper:        #FAF6EC;
+  --surface:      #FFFFFF;
+  --surface-alt:  #F2ECDA;
+  --border:       #E2DAC3;
+  --border-strong:#C9BD9C;
+
+  --ink:        #211E1A;
+  --ink-muted:  #5B5647;
+  --ink-faint:  #77715D;   /* corrected for AA; see header */
+
+  --blue:       #1F5C8B;  --blue-dim:       #E7EEF3;
+  --maroon:     #8C3A3A;  --maroon-dim:     #F5E7E4;
+  --green:      #3F6B4E;  --green-dim:      #E8EFE7;
+  --gold:       #936A1B;  --gold-dim:       #F5EEDD;
+  --terracotta: #A95E1B;  --terracotta-dim: #F6E9DB;
+
+  /* originals, for marks and fills where 3:1 is the bar */
+  --gold-mark:       #A9791F;
+  --terracotta-mark: #B5651D;
+  --faint-mark:      #8C866E;
+
+  --bg-void:      #EFE8D6;
+  --bg-canvas:    #FFFFFF;
+  --bg-workspace: #FAF6EC;
+  --bg-surface:   #FFFFFF;
+  --bg-panel:     #FFFFFF;
+  --bg-hover:     #F2ECDA;
+  --bg-select:    #E7EEF3;
+
+  --text-primary:    #211E1A;
+  --text-secondary:  #5B5647;
+  --text-tertiary:   #77715D;
+  --text-quaternary: #8C866E;
+  --text-disabled:   #B0A992;
+
+  --line-hairline: #EFE9D9;
+  --line-rule:     #E2DAC3;
+  --line-edge:     #C9BD9C;
+
+  --st-complete: #3F6B4E;
+  --st-running:  #1F5C8B;
+  --st-warning:  #936A1B;
+  --st-error:    #8C3A3A;
+
+  /* Data marks: the design's own accents, extended to eight. Blue is
+     the interface colour, so the categorical set opens on maroon. */
+  --cat-0: #8C3A3A; --cat-1: #1F5C8B; --cat-2: #3F6B4E; --cat-3: #A9791F;
+  --cat-4: #B5651D; --cat-5: #4A4A7A; --cat-6: #6E5A46; --cat-7: #5B5647;
+
+  --flow-data-active:      #4A4A7A;
+  --flow-qc-active:        #1F5C8B;
+  --flow-genomic-active:   #3F6B4E;
+  --flow-evolution-active: #6E7F35;
+  --flow-network-active:   #A9791F;
+  --flow-model-active:     #B5651D;
+  --flow-interpret-active: #A95E1B;
+  --flow-report-active:    #8C3A3A;
+
+  --accent: var(--blue);
+
+  --flow-genomic-wash: #E7EEF3;
+  --st-complete-wash:  #E8EFE7;
+  --st-warning-wash:   #F5EEDD;
+  --st-error-wash:     #F5E7E4;
+
+  --veil: .22;
+
+  --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --sans:  "Source Sans 3", -apple-system, "Segoe UI", Arial, sans-serif;
+  --mono:  "Source Code Pro", ui-monospace, Menlo, monospace;
+  --display: var(--serif);
+}
+
+/* ── flat paper: no glass, no blur, no field ───────────────────── */
+:root[data-skin="institute"] body {
+  background: var(--paper); font-size: 14px; line-height: 1.55; font-family: var(--sans);
+}
+:root[data-skin="institute"] #glassfield,
+:root[data-skin="institute"] #glassveil { display: none; }
+:root[data-skin="institute"] .identity,
+:root[data-skin="institute"] .modes,
+:root[data-skin="institute"] .flow,
+:root[data-skin="institute"] .context,
+:root[data-skin="institute"] .console,
+:root[data-skin="institute"] .stage-head,
+:root[data-skin="institute"] .footbar,
+:root[data-skin="institute"] .panel,
+:root[data-skin="institute"] .note,
+:root[data-skin="institute"] .tip,
+:root[data-skin="institute"] .trust-banner {
+  backdrop-filter: none; -webkit-backdrop-filter: none; box-shadow: none;
+}
+
+/* ── masthead: white, with the design's 2px ink rule under it ──── */
+:root[data-skin="institute"] .identity {
+  background: var(--surface); border-bottom: 2px solid var(--ink); color: var(--ink);
+}
+:root[data-skin="institute"] .identity .mark h1 {
+  font-family: var(--serif); font-weight: 700; font-size: 21px; letter-spacing: 0; color: var(--ink);
+}
+:root[data-skin="institute"] .identity .mark .sub {
+  font-family: var(--sans); font-size: 10.5px; text-transform: uppercase;
+  letter-spacing: .06em; color: var(--ink-faint);
+}
+:root[data-skin="institute"] .identity .mark { border-right: 1px solid var(--border); }
+:root[data-skin="institute"] .idf { border-right: 1px solid var(--border); padding: 4px 18px; }
+:root[data-skin="institute"] .idf .tag {
+  font-family: var(--sans); font-size: 9.5px; font-weight: 600; letter-spacing: .05em;
+  text-transform: uppercase; color: var(--ink-faint);
+}
+:root[data-skin="institute"] .idf .v { font-family: var(--sans); font-size: 13px; font-weight: 600; color: var(--ink); }
+:root[data-skin="institute"] .idf .v em { color: var(--ink-faint); font-weight: 400; }
+:root[data-skin="institute"] .sysmon,
+:root[data-skin="institute"] .identity .tools { border-left: 1px solid var(--border); }
+:root[data-skin="institute"] .meter { background: var(--surface-alt); border: 1px solid var(--border); }
+:root[data-skin="institute"] .meter i { background: var(--blue); }
+:root[data-skin="institute"] .meter i.warn,
+:root[data-skin="institute"] .meter i.bad { background: var(--maroon); }
+:root[data-skin="institute"] .search {
+  background: var(--surface); border: 1px solid var(--border-strong); border-radius: 2px;
+}
+
+/* ── pill tabs, per the design ─────────────────────────────────── */
+:root[data-skin="institute"] .modes { background: var(--surface); border-bottom: 1px solid var(--border); padding: 6px 10px; }
+:root[data-skin="institute"] .mode {
+  border: 1px solid transparent; border-radius: 14px; margin: 0 3px; padding: 6px 14px;
+  font-family: var(--sans); font-size: 12.5px; font-weight: 500;
+  letter-spacing: 0; text-transform: none; color: var(--ink-muted);
+}
+:root[data-skin="institute"] .mode .n { font-family: var(--mono); font-size: 10px; color: var(--ink-faint); }
+:root[data-skin="institute"] .mode:hover { background: var(--surface-alt); color: var(--ink); }
+:root[data-skin="institute"] .mode.on {
+  background: var(--blue-dim); border-color: var(--blue); color: var(--blue); font-weight: 600;
+}
+:root[data-skin="institute"] .mode.on::after { display: none; }
+
+/* ── left rail: numbered stages joined by a rule ───────────────── */
+:root[data-skin="institute"] .flow {
+  background: var(--surface); border-right: 1px solid var(--border); padding: 16px 10px;
+}
+:root[data-skin="institute"] .stagenode {
+  border-radius: 2px; margin: 0; padding: 9px 8px;
+  grid-template-columns: 24px 1fr; gap: 10px; align-items: center;
+}
+:root[data-skin="institute"] .stagenode .ord {
+  font-family: var(--serif); font-size: 11px; font-weight: 700;
+  width: 22px; height: 22px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--surface-alt); color: var(--ink-faint);
+  border: 1px solid var(--border-strong); text-align: center; padding: 0;
+}
+:root[data-skin="institute"] .stagenode.completed .ord { background: var(--green-dim); color: var(--green); border-color: var(--green); }
+:root[data-skin="institute"] .stagenode.running .ord   { background: var(--blue-dim);  color: var(--blue);  border-color: var(--blue); }
+:root[data-skin="institute"] .stagenode.failed .ord    { background: var(--maroon-dim);color: var(--maroon);border-color: var(--maroon); }
+:root[data-skin="institute"] .stagenode.warning .ord   { background: var(--gold-dim);  color: var(--gold);  border-color: var(--gold); }
+:root[data-skin="institute"] .stagenode .nm {
+  font-family: var(--sans); font-size: 12.5px; font-weight: 500;
+  letter-spacing: 0; text-transform: none; color: var(--ink-muted);
+}
+:root[data-skin="institute"] .stagenode.on { background: var(--surface-alt); box-shadow: none; }
+:root[data-skin="institute"] .stagenode.on .nm { color: var(--ink); font-weight: 600; }
+:root[data-skin="institute"] .stagenode .glyph { display: none; }
+
+/* ── content: serif headings, mono sub-labels ──────────────────── */
+:root[data-skin="institute"] .stage { background: var(--surface); }
+:root[data-skin="institute"] .stage-head {
+  background: var(--surface); border-bottom: 1px solid var(--border); padding: 18px 24px 12px;
+}
+:root[data-skin="institute"] .stage-head h2 {
+  font-family: var(--serif); font-size: 19px; font-weight: 700; letter-spacing: 0; color: var(--ink);
+}
+:root[data-skin="institute"] .stage-head .sub {
+  font-family: var(--mono); font-size: 11.5px; color: var(--ink-faint);
+}
+:root[data-skin="institute"] .work.pad { background: var(--surface); padding: 22px 24px; }
+:root[data-skin="institute"] .work.canvas { background: var(--surface); }
+:root[data-skin="institute"] .sec > h3 {
+  font-family: var(--serif); font-size: 15px; font-weight: 700; letter-spacing: 0;
+  text-transform: none; color: var(--ink); border-bottom: 1px solid var(--border); padding-bottom: 7px;
+}
+:root[data-skin="institute"] .tag {
+  font-family: var(--sans); font-size: 9.5px; font-weight: 600; letter-spacing: .05em;
+  text-transform: uppercase; color: var(--ink-faint);
+}
+:root[data-skin="institute"] .hint { font-size: 12.5px; color: var(--ink-faint); }
+
+/* ── controls: square, quiet, blue ─────────────────────────────── */
+:root[data-skin="institute"] .btn {
+  border-radius: 3px; font-family: var(--sans); font-size: 12.5px; font-weight: 600;
+  letter-spacing: 0; text-transform: none; padding: 7px 14px;
+  background: var(--surface); border: 1px solid var(--border-strong); color: var(--ink-muted);
+}
+:root[data-skin="institute"] .btn:hover:not(:disabled) { border-color: var(--ink); color: var(--ink); background: var(--surface-alt); }
+:root[data-skin="institute"] .btn.primary { background: var(--blue); border-color: var(--blue); color: #FFFFFF; }
+:root[data-skin="institute"] .btn.primary:hover:not(:disabled) { background: #17486D; border-color: #17486D; filter: none; }
+:root[data-skin="institute"] .btn.tertiary {
+  border-color: transparent; background: none; color: var(--blue); text-decoration: underline;
+}
+:root[data-skin="institute"] .btn.tertiary:hover:not(:disabled) { background: var(--blue-dim); color: #17486D; }
+:root[data-skin="institute"] .btn.danger { border-color: var(--maroon); color: var(--maroon); }
+:root[data-skin="institute"] .btn.danger:hover:not(:disabled) { background: var(--maroon); color: #FFFFFF; }
+:root[data-skin="institute"] .btn.tool { border-radius: 14px; padding: 6px 12px; font-size: 12px; font-weight: 500; }
+:root[data-skin="institute"] .btn.tool.on { background: var(--blue-dim); border-color: var(--blue); color: var(--blue); font-weight: 600; }
+:root[data-skin="institute"] *:focus-visible { outline: 2px solid var(--blue); outline-offset: 1px; }
+
+:root[data-skin="institute"] .input,
+:root[data-skin="institute"] .select,
+:root[data-skin="institute"] .textarea {
+  border-radius: 2px; border: 1px solid var(--border-strong); background: var(--surface);
+  font-family: var(--sans); font-size: 13px; padding: 7px 10px; color: var(--ink);
+}
+:root[data-skin="institute"] .field > label {
+  font-family: var(--sans); font-size: 12px; font-weight: 600;
+  letter-spacing: 0; text-transform: none; color: var(--ink);
+}
+
+/* ── surfaces and tables ───────────────────────────────────────── */
+:root[data-skin="institute"] .panel { border: 1px solid var(--border); border-radius: 3px; background: var(--surface); }
+:root[data-skin="institute"] .panel > header { background: var(--surface-alt); border-bottom: 1px solid var(--border); }
+:root[data-skin="institute"] .sheet { border-radius: 3px; border: 1px solid var(--border-strong); box-shadow: 0 6px 24px rgba(33, 30, 26, .18); }
+:root[data-skin="institute"] .tray { border-radius: 3px; border: 1px dashed var(--border-strong); background: var(--surface-alt); }
+:root[data-skin="institute"] .scrim { background: rgba(33, 30, 26, .48); }
+:root[data-skin="institute"] .context { background: var(--surface); border-left: 1px solid var(--border); }
+:root[data-skin="institute"] .ctx-tabs button {
+  font-family: var(--sans); font-size: 12px; font-weight: 600; letter-spacing: 0; text-transform: none;
+}
+:root[data-skin="institute"] .ctx-tabs button.on { color: var(--blue); box-shadow: inset 0 -2px 0 var(--blue); }
+
+:root[data-skin="institute"] table.grid th {
+  background: var(--surface-alt); color: var(--ink); border-bottom: 1px solid var(--border-strong);
+  font-family: var(--sans); font-size: 11.5px; font-weight: 700; letter-spacing: 0; text-transform: none;
+}
+:root[data-skin="institute"] table.grid td { font-size: 13px; border-bottom: 1px solid var(--border); }
+:root[data-skin="institute"] table.grid tbody tr:hover { background: var(--surface-alt); }
+:root[data-skin="institute"] table.grid tbody tr.sel { background: var(--blue-dim); }
+
+:root[data-skin="institute"] .st {
+  font-family: var(--sans); font-size: 11.5px; font-weight: 600; letter-spacing: 0;
+  text-transform: none; padding: 2px 8px; border-radius: 2px; border: 1px solid currentColor;
+}
+:root[data-skin="institute"] .st.completed, :root[data-skin="institute"] .st.valid { background: var(--green-dim); }
+:root[data-skin="institute"] .st.running { background: var(--blue-dim); }
+:root[data-skin="institute"] .st.warning { background: var(--gold-dim); }
+:root[data-skin="institute"] .st.failed, :root[data-skin="institute"] .st.invalid { background: var(--maroon-dim); }
+
+/* ── console and banners ───────────────────────────────────────── */
+:root[data-skin="institute"] .console { background: var(--surface); border-top: 1px solid var(--border); }
+:root[data-skin="institute"] .console-bar { background: var(--surface-alt); }
+:root[data-skin="institute"] .logbody { background: var(--surface); font-family: var(--mono); }
+:root[data-skin="institute"] .ln .n { color: var(--ink-faint); border-right-color: var(--border); }
+:root[data-skin="institute"] .ln .t { color: var(--ink-muted); }
+
+:root[data-skin="institute"] .trust-banner {
+  background: var(--blue-dim); border-bottom: 1px solid var(--border);
+  color: var(--ink-muted); font-family: var(--sans); font-size: 12.5px; padding: 9px 24px;
+}
+:root[data-skin="institute"] .trust-banner b { color: var(--blue); font-weight: 700; letter-spacing: 0; }
+:root[data-skin="institute"] .trust-banner .dot { background: var(--blue); }
+:root[data-skin="institute"] .synth {
+  background: var(--gold-dim); border-top: 2px solid var(--gold);
+  color: var(--ink); font-family: var(--sans); font-size: 12.5px; padding: 10px 24px;
+}
+:root[data-skin="institute"] .synth b { color: var(--gold); font-weight: 700; letter-spacing: 0; }
+:root[data-skin="institute"] .synth .to-real {
+  border: 1px solid var(--gold); color: var(--gold); border-radius: 3px; font-weight: 600; padding: 4px 12px;
+}
+:root[data-skin="institute"] .synth .to-real:hover { background: var(--gold); color: #FFFFFF; }
+:root[data-skin="institute"] .footbar { background: var(--surface-alt); border-top: 1px solid var(--border); }
+:root[data-skin="institute"] .token { border-radius: 2px; font-family: var(--sans); font-size: 12px; }

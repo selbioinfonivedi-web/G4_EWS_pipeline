@@ -184,7 +184,7 @@ def cmd_qc(args: argparse.Namespace) -> int:
             print(f"    {reason}: {count}")
     print(f"  per-{config.lineage_field} pass rate:")
     for lineage, (passed, total) in sorted(result.per_lineage.items(), key=lambda kv: -kv[1][1]):
-        print(f"    {lineage:<20} {passed:>4}/{total:<4} ({passed/total:.1%})")
+        print(f"    {lineage:<20} {passed:>4}/{total:<4} ({passed / total:.1%})")
     print(f"  wrote {result.report_path}")
     print(f"  wrote {result.passed_fasta_path}")
     return EXIT_OK
@@ -282,6 +282,277 @@ def cmd_dh1(args: argparse.Namespace) -> int:
     return EXIT_OK
 
 
+def _samples_for(config, exclude: str | None = None, *, annotate: bool = True, **kwargs):
+    """The corpus, read through the library rather than the web app.
+
+    Annotated by default: an unannotated corpus silently starves four of
+    the seven surveillance terms, and a caller that wants that has to ask
+    for it. Returns ``(samples, report)`` when annotating, where the
+    report may be ``None`` if annotation was blocked.
+    """
+    from .io.corpus import annotation_blocked_reason, load_annotated_samples, load_samples
+
+    excluded = tuple(x for x in (exclude or "").split(",") if x.strip())
+    if not annotate:
+        return load_samples(config, exclude_lineages=excluded), None
+
+    reason = annotation_blocked_reason(config)
+    if reason is not None:
+        print(f"    tip states unavailable: {reason}", file=sys.stderr)
+    return load_annotated_samples(config, exclude_lineages=excluded, **kwargs)
+
+
+def _dataset_payload(config) -> dict:
+    """The subset of the workstation payload the report card needs.
+
+    Deliberately assembled here from library calls only. The richer
+    payload the GUI serves adds the tree and derived tracks; the card
+    reports those sections as unavailable when they are absent, which is
+    the correct behaviour for a command-line run.
+    """
+    from .atlas.io import read_atlas_tsv
+    from .gating import evaluate_gate
+    from .io.corpus import lineage_counts, load_samples
+
+    samples = load_samples(config)
+    counts = lineage_counts(samples)
+    named = {k: v for k, v in counts.items() if k != "—"}
+    years = sorted({s.year for s in samples if s.year})
+    gate = evaluate_gate(config.ledger_path, config.pathogen, operational_mode=config.operational_mode)
+
+    loci = []
+    try:
+        if config.atlas_path and Path(config.atlas_path).is_file():
+            loci = [dict(row) for row in read_atlas_tsv(config.atlas_path)]
+    except Exception:  # noqa: BLE001 - an unreadable Atlas is reported as no loci
+        loci = []
+
+    n_complete = sum(1 for s in samples if s.year and s.country != "—")
+    return {
+        "identity": {
+            "pathogen": config.pathogen,
+            "display_name": config.display_name,
+            # The card reads these four and this payload did not supply
+            # them, so a command-line card showed blanks where the web
+            # card showed values -- the same corpus described two ways.
+            "genome_type": config.genome_type,
+            "genome_length": config.genome_length,
+            "atlas_version": config.atlas_version,
+            "n_raw": len(load_samples(config, restrict_to_aligned=False)),
+            "reference": config.reference_accession,
+            "n_samples": len(samples),
+            "n_lineages": len(named),
+            "n_countries": len({s.country for s in samples if s.country != "—"}),
+            "period": [years[0], years[-1]] if years else None,
+            "lineage_field": config.lineage_field,
+        },
+        "lineages": counts,
+        "countries": {},
+        "years": {},
+        "loci": loci,
+        "gate": {
+            "permission": gate.permission.value,
+            "permitted": gate.permitted,
+            "explanation": gate.explain(),
+            "supported_loci": list(gate.supported_loci),
+            "n_ledger_rows": gate.n_ledger_rows,
+        },
+        "floor": {
+            "n_sequences_in_window": {"value": len(samples), "floor": 30, "unit": "seq"},
+            "min_sequences_per_lineage": {
+                "value": min(named.values()) if named else 0,
+                "floor": 20,
+                "unit": "seq",
+                "which": min(named, key=named.get) if named else None,
+            },
+            "n_timepoints": {"value": len(years), "floor": 3, "unit": "yr"},
+            "metadata_completeness": {
+                "value": round(n_complete / len(samples), 4) if samples else 0,
+                "floor": 0.90,
+                "unit": "frac",
+            },
+        },
+        "observations": [],
+    }
+
+
+def cmd_stage5(args: argparse.Namespace) -> int:
+    """Stage 5 — the full downstream chain. Gated unless --force-unchecked."""
+    import json
+
+    from .pipeline.stage5_driver import run_stage5, run_stage5_unchecked
+
+    config = load_config(args.pathogen)
+    samples, report = _samples_for(
+        config,
+        args.exclude_lineages,
+        include_ineligible_loci=args.include_ineligible_loci,
+        detect_gains=not args.no_gains,
+    )
+    excluded = (*config.exclude_lineages, *(x for x in args.exclude_lineages.split(",") if x.strip()))
+    if excluded:
+        print(f"    excluding lineage(s): {', '.join(excluded)}  -> {len(samples)} genomes remain", file=sys.stderr)
+    if report is not None:
+        print(f"    {report.explain()}", file=sys.stderr)
+        for note in report.notes:
+            print(f"    NOTE: {note}", file=sys.stderr)
+
+    # Ineligible Atlas loci can demonstrate the chain but can never produce
+    # a surveillance finding, so they force the same downgrade the gate does.
+    downgraded = report is not None and not report.authoritative
+    if args.force_unchecked or downgraded:
+        why = "ineligible Atlas loci" if downgraded else "--force-unchecked"
+        print(f"WARNING: running unchecked ({why}). Results are marked non-authoritative.", file=sys.stderr)
+        result = run_stage5_unchecked(config.pathogen, samples, authoritative=False)
+    else:
+        try:
+            result = run_stage5(config, samples)
+        except ScoringNotPermittedError as exc:
+            print(str(exc))
+            return 3
+
+    for step in result.steps:
+        print(f"  [{step['status']:20}] {step['step']:22} {step['detail'][:90]}")
+    if args.out:
+        Path(args.out).write_text(json.dumps(result.as_dict(), indent=1))
+        print(f"\n    wrote {args.out}")
+    return 0
+
+
+def cmd_variants(args: argparse.Namespace) -> int:
+    """Stage 3 — call variants from the reference-pinned alignment.
+
+    Pathogen-agnostic. A pathogen-specific script existed for FMDV and the
+    Nextflow process invoked it, which is why the process could never run
+    for any other pathogen and was left unwired entirely.
+    """
+    import csv
+
+    from .atlas.io import read_atlas_tsv
+    from .io.corpus import aligned_path
+    from .io.fasta import read_fasta
+    from .variants.alignment_variant_caller import call_variants
+
+    config = load_config(args.pathogen)
+    path = Path(args.alignment) if args.alignment else aligned_path(config)
+    if path is None or not Path(path).is_file():
+        print(f"no alignment for {config.pathogen}; Stage 1 must run first", file=sys.stderr)
+        return 1
+
+    alignment = read_fasta(path)
+    reference_id = str(config.reference_accession)
+    reference = alignment.get(reference_id)
+    if reference is None:
+        print(f"reference {reference_id} is not in {path}", file=sys.stderr)
+        return 1
+
+    loci = []
+    if config.atlas_path and Path(config.atlas_path).is_file():
+        loci = [(r.atlas_id, r.genome_start, r.genome_end, r.structural_confidence.name)
+                for r in read_atlas_tsv(config.atlas_path)]
+
+    out = Path(args.out or "variants.tsv")
+    n_variants = 0
+    g4_rows: list[dict] = []
+    with out.open("w", newline="") as handle:
+        writer = csv.writer(handle, delimiter="\t")
+        writer.writerow(["accession", "position", "ref_base", "alt_base", "variant_type"])
+        for accession, seq in alignment.items():
+            if accession == reference_id:
+                continue
+            for v in call_variants(reference, seq):
+                writer.writerow([accession, v.position, v.ref_base, v.alt_base, v.variant_type.value])
+                n_variants += 1
+                for atlas_id, start, end, conf in loci:
+                    if start <= v.position <= end:
+                        g4_rows.append({
+                            "accession": accession, "atlas_id": atlas_id, "position": v.position,
+                            "ref_base": v.ref_base, "alt_base": v.alt_base,
+                            "variant_type": v.variant_type.value,
+                            "locus_start": start, "locus_end": end, "locus_confidence": conf,
+                        })
+
+    if args.g4_out:
+        fields = ["accession", "atlas_id", "position", "ref_base", "alt_base",
+                  "variant_type", "locus_start", "locus_end", "locus_confidence"]
+        with Path(args.g4_out).open("w", newline="") as handle:
+            w = csv.DictWriter(handle, fieldnames=fields, delimiter="\t")
+            w.writeheader()
+            w.writerows(g4_rows)
+
+    print(f"{n_variants} variants across {len(alignment) - 1} genomes -> {out}")
+    print(f"{len(g4_rows)} fall inside {len(loci)} Atlas locus/loci"
+          + (f" -> {args.g4_out}" if args.g4_out else ""))
+    return 0
+
+
+def cmd_dh3(args: argparse.Namespace) -> int:
+    """D.H3 — phylogenetic clustering of G4 transitions."""
+    import json
+
+    from .phylo.clade_growth import classify_clade_growth, growth_summary
+    from .validation.dh3_test import count_transitions, run_dh3
+
+    config = load_config(args.pathogen)
+    samples, _ = _samples_for(config)
+    by_lineage: dict[str, list[str]] = {}
+    for s in samples:
+        by_lineage.setdefault(s.lineage, []).append(s.accession)
+    dates = {s.accession: s.year for s in samples}
+    states = {s.accession: "present" for s in samples}
+
+    growth = classify_clade_growth(by_lineage, dates)
+    result = run_dh3(growth, count_transitions(by_lineage, states))
+    print(result.explain())
+    print("\n  clade trajectories:", growth_summary(growth)["by_trajectory"])
+    for caveat in result.caveats:
+        print(f"  caveat: {caveat}")
+    if args.out:
+        Path(args.out).write_text(json.dumps(result.as_dict(), indent=1))
+        print(f"\n    wrote {args.out}")
+    return 0 if result.verdict != "INSUFFICIENT_DATA" else 3
+
+
+def cmd_report_card(args: argparse.Namespace) -> int:
+    """Stage 6 — the pathogen report card. Never blocked; sections are."""
+    import json
+
+    from .reporting.report_card import build_report_card
+
+    config = load_config(args.pathogen)
+
+    # The card has always accepted a Stage 5 result; nothing passed one, so
+    # every run reported "Stage 5 has not been run" immediately after Stage 5
+    # had in fact run. The score is the point of the card, so it is fetched
+    # here rather than left to the reader to join up by hand.
+    stage5 = None
+    if args.stage5:
+        stage5 = json.loads(Path(args.stage5).read_text())
+        print(f"    using Stage 5 result from {args.stage5}", file=sys.stderr)
+    elif not args.no_stage5:
+        from .pipeline.stage5_driver import run_stage5
+
+        samples, report = _samples_for(config)
+        if report is not None:
+            print(f"    {report.explain()}", file=sys.stderr)
+        try:
+            stage5 = run_stage5(config, samples).as_dict()
+        except ScoringNotPermittedError:
+            stage5 = None  # the card reports the closed gate itself
+
+    card = build_report_card(_dataset_payload(config), stage5=stage5)
+    print(f"{card['display_name']}  —  scoring_permitted={card['scoring_permitted']}")
+    for section in card["sections"]:
+        mark = {"reported": "  ", "blocked": "!!", "unavailable": "--"}[section["status"]]
+        print(f"  {mark} {section['title']:44} {section['status']}")
+        if section["reason"]:
+            print(f"       {section['reason'][:96]}")
+    if args.out:
+        Path(args.out).write_text(json.dumps(card, indent=1))
+        print(f"\n    wrote {args.out}")
+    return 0
+
+
 def cmd_dashboard(args: argparse.Namespace) -> int:
     from .reporting.dashboard import build_dashboard, render_text_dashboard
 
@@ -292,9 +563,7 @@ def cmd_dashboard(args: argparse.Namespace) -> int:
 def cmd_power(args: argparse.Namespace) -> int:
     from .validation.power_analysis import fisher_exact_power, required_sample_size
 
-    result = fisher_exact_power(
-        args.n_locus, args.n_control, args.locus_rate, args.control_rate, alpha=args.alpha
-    )
+    result = fisher_exact_power(args.n_locus, args.n_control, args.locus_rate, args.control_rate, alpha=args.alpha)
     print(result.summary())
     if result.underpowered_analysis:
         needed = required_sample_size(args.locus_rate, args.control_rate, alpha=args.alpha)
@@ -448,6 +717,59 @@ def build_parser() -> argparse.ArgumentParser:
     power.add_argument("--control-rate", type=float, required=True, help="observed/assumed control disruption rate")
     power.add_argument("--alpha", type=float, default=0.05)
     power.set_defaults(func=cmd_power)
+    s5 = with_pathogen(
+        sub.add_parser("stage5", help="Stage 5 — metrics, outcomes, G4-EWS, detection, model comparison")
+    )
+    s5.add_argument("--out", help="write the full result as JSON here")
+    s5.add_argument(
+        "--exclude-lineages",
+        default="",
+        help="comma-separated lineages to drop before analysis, e.g. C. "
+        "Any exclusion must be recorded alongside the result.",
+    )
+    s5.add_argument(
+        "--include-ineligible-loci",
+        action="store_true",
+        help="assign tip states over Atlas loci below SC confidence. Exercises the chain "
+        "against real sequence; forces the result non-authoritative and can never "
+        "produce a surveillance finding.",
+    )
+    s5.add_argument(
+        "--no-gains",
+        action="store_true",
+        help="skip de-novo G4 prediction per genome (G4G becomes unavailable rather than zero)",
+    )
+    s5.add_argument(
+        "--force-unchecked",
+        action="store_true",
+        help="run without the D.H1 gate. Results are marked non-authoritative and "
+        "must not be reported as surveillance findings.",
+    )
+    s5.set_defaults(func=cmd_stage5)
+
+    var = with_pathogen(sub.add_parser("variants", help="Stage 3 — call variants from the alignment"))
+    var.add_argument("--alignment", help="alignment FASTA (default: the pathogen's conventional path)")
+    var.add_argument("--out", help="write the variant table here (default: variants.tsv)")
+    var.add_argument("--g4-out", help="also write the variant x Atlas-locus intersection here")
+    var.set_defaults(func=cmd_variants)
+
+    dh3 = with_pathogen(sub.add_parser("dh3", help="D.H3 — phylogenetic clustering of G4 transitions"))
+    dh3.add_argument("--out", help="write the result as JSON here")
+    dh3.set_defaults(func=cmd_dh3)
+
+    rc = with_pathogen(sub.add_parser("report-card", help="Stage 6 — the pathogen report card"))
+    rc.add_argument(
+        "--stage5",
+        help="path to a saved `stage5 --out` JSON, instead of running Stage 5 again",
+    )
+    rc.add_argument(
+        "--no-stage5",
+        action="store_true",
+        help="build the card without a surveillance score; the score sections report as unavailable",
+    )
+    rc.add_argument("--out", help="write the card as JSON here")
+    rc.set_defaults(func=cmd_report_card)
+
     with_pathogen(sub.add_parser("score", help="Stage 5 — scoring (blocked until D.H1 is SUPPORTED)")).set_defaults(
         func=cmd_score
     )

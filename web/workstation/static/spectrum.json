@@ -1,0 +1,362 @@
+{
+ "dark": {
+  "background": {
+   "void": "#02080A",
+   "canvas": "#071012",
+   "workspace": "#0F181A",
+   "surface": "#172023",
+   "panel": "#1F292B",
+   "hover": "#283234",
+   "select": "#333D3F"
+  },
+  "text": {
+   "primary": "#EEF4F5",
+   "secondary": "#BABFC0",
+   "tertiary": "#8A8F90",
+   "quaternary": "#636869",
+   "disabled": "#484D4E"
+  },
+  "line": {
+   "hairline": "#182022",
+   "rule": "#252D2F",
+   "edge": "#394244"
+  },
+  "workflow": {
+   "data": {
+    "rest": "#6F6E85",
+    "active": "#ADA3FF",
+    "wash": "#1E1C31",
+    "nm": "405",
+    "source": "405 nm violet diode",
+    "label": "Data"
+   },
+   "qc": {
+    "rest": "#647286",
+    "active": "#7FB3FF",
+    "wash": "#131F32",
+    "nm": "455",
+    "source": "Pacific Blue",
+    "label": "Quality control"
+   },
+   "genomic": {
+    "rest": "#5B7580",
+    "active": "#11C3F4",
+    "wash": "#05232D",
+    "nm": "488",
+    "source": "488 nm argon line",
+    "label": "Genomic analysis"
+   },
+   "evolution": {
+    "rest": "#5D786D",
+    "active": "#32CDA0",
+    "wash": "#07251B",
+    "nm": "517",
+    "source": "FAM / fluorescein",
+    "label": "Evolutionary analysis"
+   },
+   "network": {
+    "rest": "#677662",
+    "active": "#82C66A",
+    "wash": "#152310",
+    "nm": "553",
+    "source": "HEX / JOE",
+    "label": "Network analysis"
+   },
+   "model": {
+    "rest": "#77715A",
+    "active": "#CCB030",
+    "wash": "#241F06",
+    "nm": "583",
+    "source": "TAMRA",
+    "label": "Modelling"
+   },
+   "interpret": {
+    "rest": "#816C5D",
+    "active": "#F3984C",
+    "wash": "#2D1A0A",
+    "nm": "607",
+    "source": "ROX",
+    "label": "Interpretation"
+   },
+   "report": {
+    "rest": "#846966",
+    "active": "#FF8B81",
+    "wash": "#2F1715",
+    "nm": "670",
+    "source": "Cy5",
+    "label": "Reporting"
+   }
+  },
+  "status": {
+   "complete": "#6FC889",
+   "running": "#48BFF5",
+   "pending": "#6E7678",
+   "warning": "#E1A539",
+   "error": "#FF8B7D",
+   "significant": "#F683CE",
+   "emerging": "#FE8F5D",
+   "confidence-high": "#F188CC",
+   "confidence-medium": "#D39FBF",
+   "confidence-low": "#BFAAB6",
+   "complete-wash": "#0D2615",
+   "running-wash": "#042331",
+   "warning-wash": "#2B1D04",
+   "error-wash": "#321713",
+   "significant-wash": "#2E1726",
+   "emerging-wash": "#31180D"
+  },
+  "categorical": [
+   "#9888E5",
+   "#7565BB",
+   "#BCB2FF",
+   "#BAE5FF",
+   "#00B28B",
+   "#EFDDAD",
+   "#A66200",
+   "#C38D18"
+  ],
+  "categorical_extended": [
+   "#898DEA",
+   "#576EC0",
+   "#A4BBFF",
+   "#B0E8FF",
+   "#00ADB4",
+   "#51D5CE",
+   "#AF4F71",
+   "#DD7285",
+   "#DCE4B3",
+   "#7F7700",
+   "#E0B861",
+   "#B39615"
+  ],
+  "diverging": [
+   "#007FAC",
+   "#2C8DB8",
+   "#6199B6",
+   "#89A4B2",
+   "#AEAEAE",
+   "#B59793",
+   "#B98078",
+   "#BB675D",
+   "#BA4C42"
+  ],
+  "sequential_diversity": [
+   "#0B1F18",
+   "#16372B",
+   "#225040",
+   "#2E6C56",
+   "#3A886D",
+   "#48A585",
+   "#55C49E",
+   "#63E3B8",
+   "#8BFFD5"
+  ],
+  "sequential_density": [
+   "#0B1D26",
+   "#163442",
+   "#214C60",
+   "#2D6581",
+   "#3A80A2",
+   "#479CC5",
+   "#54B9E9",
+   "#80D4FF",
+   "#C6EBFF"
+  ],
+  "biology": {
+   "mutation": "#FF8B7D",
+   "mutation-synonymous": "#CCA7A1",
+   "clade": "#57C5C6",
+   "gene": "#789197",
+   "selection-positive": "#FF8B7D",
+   "selection-negative": "#2CC0FD",
+   "selection-neutral": "#6F7677",
+   "recombination": "#C699F8",
+   "diversity-high": "#48CBA1",
+   "diversity-low": "#394D45",
+   "emerging-variant": "#FE8F5D",
+   "outlier": "#FFDCF1",
+   "reference": "#E5E8E9",
+   "gap": "#323637"
+  }
+ },
+ "light": {
+  "background": {
+   "void": "#DBDFE1",
+   "canvas": "#FBFEFF",
+   "workspace": "#F1F6F7",
+   "surface": "#EAEFF0",
+   "panel": "#FFFFFF",
+   "hover": "#E4E8E9",
+   "select": "#DBDFE1"
+  },
+  "text": {
+   "primary": "#141819",
+   "secondary": "#3D4142",
+   "tertiary": "#5D6263",
+   "quaternary": "#7D8283",
+   "disabled": "#979C9D"
+  },
+  "line": {
+   "hairline": "#D7E2E4",
+   "rule": "#C7D2D4",
+   "edge": "#AFB9BC"
+  },
+  "workflow": {
+   "data": {
+    "rest": "#706F86",
+    "active": "#6758B5",
+    "wash": "#EAE8FF",
+    "nm": "405",
+    "source": "405 nm violet diode",
+    "label": "Data"
+   },
+   "qc": {
+    "rest": "#657387",
+    "active": "#2F67B9",
+    "wash": "#E0ECFF",
+    "nm": "455",
+    "source": "Pacific Blue",
+    "label": "Quality control"
+   },
+   "genomic": {
+    "rest": "#5C7782",
+    "active": "#007493",
+    "wash": "#D1F1FF",
+    "nm": "488",
+    "source": "488 nm argon line",
+    "label": "Genomic analysis"
+   },
+   "evolution": {
+    "rest": "#5E796E",
+    "active": "#007C5D",
+    "wash": "#D4F4E6",
+    "nm": "517",
+    "source": "FAM / fluorescein",
+    "label": "Evolutionary analysis"
+   },
+   "network": {
+    "rest": "#687763",
+    "active": "#3A7B1D",
+    "wash": "#DFF2D9",
+    "nm": "553",
+    "source": "HEX / JOE",
+    "label": "Network analysis"
+   },
+   "model": {
+    "rest": "#78725B",
+    "active": "#7B6800",
+    "wash": "#F2ECCF",
+    "nm": "583",
+    "source": "TAMRA",
+    "label": "Modelling"
+   },
+   "interpret": {
+    "rest": "#826D5E",
+    "active": "#9C5300",
+    "wash": "#FFE6D4",
+    "nm": "607",
+    "source": "ROX",
+    "label": "Interpretation"
+   },
+   "report": {
+    "rest": "#856A67",
+    "active": "#AC403B",
+    "wash": "#FFE4E1",
+    "nm": "670",
+    "source": "Cy5",
+    "label": "Reporting"
+   }
+  },
+  "status": {
+   "complete": "#14783F",
+   "running": "#006E95",
+   "pending": "#7A8284",
+   "warning": "#855C00",
+   "error": "#AC362E",
+   "significant": "#9F337F",
+   "emerging": "#A64000",
+   "confidence-high": "#9B3A7C",
+   "confidence-medium": "#825371",
+   "confidence-low": "#715E69",
+   "complete-wash": "#D9F6DF",
+   "running-wash": "#D8F1FF",
+   "warning-wash": "#FDEACE",
+   "error-wash": "#FFE6E3",
+   "significant-wash": "#FFE4F4",
+   "emerging-wash": "#FFE7DD"
+  },
+  "categorical": [
+   "#332F7E",
+   "#7773BC",
+   "#6BA7C9",
+   "#006678",
+   "#71102D",
+   "#B29D63",
+   "#705700",
+   "#9B771F"
+  ],
+  "categorical_extended": [
+   "#7D71BA",
+   "#7B3D89",
+   "#591E66",
+   "#9998CF",
+   "#009185",
+   "#65AF9C",
+   "#004937",
+   "#006B53",
+   "#711800",
+   "#B99964",
+   "#AC6C32",
+   "#596100"
+  ],
+  "diverging": [
+   "#006C93",
+   "#2185B0",
+   "#649CB9",
+   "#97B2C0",
+   "#C7C7C7",
+   "#C3A5A1",
+   "#BC837B",
+   "#B26056",
+   "#A63931"
+  ],
+  "sequential_diversity": [
+   "#E3F8EF",
+   "#BEE0D1",
+   "#99C9B5",
+   "#73B199",
+   "#4B9B7F",
+   "#138465",
+   "#006A4F",
+   "#00503B",
+   "#003728"
+  ],
+  "sequential_density": [
+   "#E3F5FF",
+   "#BDDCEE",
+   "#97C3DB",
+   "#72ABC9",
+   "#4A93B6",
+   "#147BA4",
+   "#006285",
+   "#004A65",
+   "#003347"
+  ],
+  "biology": {
+   "mutation": "#A8372E",
+   "mutation-synonymous": "#7B5A55",
+   "clade": "#007273",
+   "gene": "#728B91",
+   "selection-positive": "#A63931",
+   "selection-negative": "#006C93",
+   "selection-neutral": "#7B8183",
+   "recombination": "#764AA2",
+   "diversity-high": "#007558",
+   "diversity-low": "#AAC1B7",
+   "emerging-variant": "#A33F00",
+   "outlier": "#402235",
+   "reference": "#1D2020",
+   "gap": "#CDD2D3"
+  }
+ }
+}

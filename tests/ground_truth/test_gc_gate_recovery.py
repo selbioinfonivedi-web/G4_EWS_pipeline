@@ -56,7 +56,7 @@ def test_real_signal_beyond_gc_survives_adjustment() -> None:
         locus_p = min(1.0, control_p + 0.5)  # real extra effect, same GC
         loci.append(
             LocusControlData(
-                f"L{i+1}",
+                f"L{i + 1}",
                 _sample(locus_p, rng, _N_CLADES_PER_GROUP),
                 gc,
                 _sample(control_p, rng, _N_CLADES_PER_GROUP),
@@ -82,7 +82,7 @@ def test_signal_fully_explained_by_gc_does_not_survive_adjustment() -> None:
     for i, (locus_gc, control_gc) in enumerate(pair_gcs):
         loci.append(
             LocusControlData(
-                f"L{i+1}",
+                f"L{i + 1}",
                 _sample(_p_from_gc(locus_gc), rng, _N_CLADES_PER_GROUP),
                 locus_gc,
                 _sample(_p_from_gc(control_gc), rng, _N_CLADES_PER_GROUP),

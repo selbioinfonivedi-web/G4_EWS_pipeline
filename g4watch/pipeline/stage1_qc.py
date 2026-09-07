@@ -23,7 +23,7 @@ from pathlib import Path
 
 from ..config import ConfigError, PathogenConfig
 from ..io.fasta import read_fasta
-from ..qc.metadata_normalization import normalize_serotype
+from ..qc.metadata_normalization import LineageVocabulary
 from ..qc.sequence_qc import evaluate_sequence_qc
 
 QC_REPORT_FIELDS = [
@@ -55,20 +55,20 @@ class Stage1Result:
         return self.n_passed / self.n_total if self.n_total else 0.0
 
 
-def _normalize_lineage(config: PathogenConfig, raw: str | None) -> str:
-    """Normalise a lineage label.
+def _normalize_lineage(config: PathogenConfig, row: dict) -> str:
+    """Resolve a record's lineage label for the QC breakdown.
 
-    FMDV has a curated serotype normaliser (``O`` vs ``Type O`` vs
-    ``O/IND``); other pathogens have none yet, so their labels are only
-    whitespace-trimmed. Returning the raw label rather than inventing a
-    normaliser keeps the failure mode visible in the report instead of
-    hiding it behind a wrong mapping.
+    The primary ``lineage_field`` is consulted first, then the configured
+    fallback columns, against the pathogen's own declared vocabulary. A
+    pathogen that declares no vocabulary resolves nothing and its values
+    are only whitespace-trimmed, which keeps the gap visible rather than
+    hiding it behind a mapping borrowed from a different virus.
     """
-    if raw is None:
-        return ""
-    if config.lineage_field == "serotype":
-        return normalize_serotype(raw)
-    return raw.strip()
+    vocabulary = LineageVocabulary.from_config(config)
+    fields = [row.get(config.lineage_field, "")]
+    fields += [row.get(name, "") for name in config.lineage_fallback_fields]
+    resolved = vocabulary.resolve(*fields)
+    return resolved or (row.get(config.lineage_field, "") or "").strip()
 
 
 def run_stage1_qc(
@@ -129,7 +129,7 @@ def run_stage1_qc(
             {
                 "accession": accession,
                 "lineage_raw": row.get(lineage_field, ""),
-                "lineage_normalized": _normalize_lineage(config, row.get(lineage_field)),
+                "lineage_normalized": _normalize_lineage(config, row),
                 "country": row.get("country", ""),
                 "passed": result.passed,
                 "completeness_fraction": round(result.completeness_fraction, 4),

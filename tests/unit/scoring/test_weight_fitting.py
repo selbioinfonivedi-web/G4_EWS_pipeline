@@ -79,13 +79,16 @@ def test_collinear_predictors_still_fit_stably():
     assert max(magnitudes) < 20.0
 
 
-@pytest.mark.parametrize("bad_call", [
-    lambda o, y: fit_core_weights(o, y[:-1]),
-    lambda o, y: fit_core_weights([], []),
-    lambda o, y: fit_core_weights(o, [0.0] * len(y)),
-    lambda o, y: fit_core_weights(o, [2.0] * len(y)),
-    lambda o, y: fit_core_weights(o, y, strength=-1),
-])
+@pytest.mark.parametrize(
+    "bad_call",
+    [
+        lambda o, y: fit_core_weights(o, y[:-1]),
+        lambda o, y: fit_core_weights([], []),
+        lambda o, y: fit_core_weights(o, [0.0] * len(y)),
+        lambda o, y: fit_core_weights(o, [2.0] * len(y)),
+        lambda o, y: fit_core_weights(o, y, strength=-1),
+    ],
+)
 def test_invalid_inputs_are_rejected(bad_call):
     observations, outcomes = _observations(n=60)
     with pytest.raises(WeightFittingError):

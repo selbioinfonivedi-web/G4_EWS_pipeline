@@ -31,7 +31,7 @@ def test_no_real_difference_is_not_supported() -> None:
 def test_signal_explained_by_gc() -> None:
     rng = random.Random(7)
     loci = [
-        LocusControlData(f"L{i+1}", _sample(_p_from_gc(lg), rng), lg, _sample(_p_from_gc(cg), rng), cg)
+        LocusControlData(f"L{i + 1}", _sample(_p_from_gc(lg), rng), lg, _sample(_p_from_gc(cg), rng), cg)
         for i, (lg, cg) in enumerate([(0.75, 0.25), (0.70, 0.30), (0.80, 0.20)])
     ]
     result = run_dh1_gate(loci)
@@ -52,7 +52,7 @@ def test_real_signal_is_supported() -> None:
     for i, gc in enumerate(pair_gcs):
         control_p = _p_from_gc(gc)
         locus_p = min(1.0, control_p + 0.5)
-        loci.append(LocusControlData(f"L{i+1}", _sample(locus_p, rng, n), gc, _sample(control_p, rng, n), gc))
+        loci.append(LocusControlData(f"L{i + 1}", _sample(locus_p, rng, n), gc, _sample(control_p, rng, n), gc))
 
     result = run_dh1_gate(loci)
     assert result.pathogen_verdict == Dh1Verdict.SUPPORTED

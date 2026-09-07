@@ -15,12 +15,15 @@ from g4watch.warning.classifier import (
 OK = dict(structural_confidence=SC.EC, underpowered=False, gate_permitted=True)
 
 
-@pytest.mark.parametrize("alarms,expected", [
-    (0, WarningLevel.NONE),
-    (1, WarningLevel.WATCH),
-    (2, WarningLevel.ELEVATED),
-    (5, WarningLevel.HIGH),
-])
+@pytest.mark.parametrize(
+    "alarms,expected",
+    [
+        (0, WarningLevel.NONE),
+        (1, WarningLevel.WATCH),
+        (2, WarningLevel.ELEVATED),
+        (5, WarningLevel.HIGH),
+    ],
+)
 def test_level_escalates_with_persistence(alarms, expected):
     # Persistence, not a single crossing: one alarm in an autocorrelated
     # series is weak evidence.
@@ -95,12 +98,15 @@ def test_assessment_always_carries_its_evidence():
     assert "D.H1 gate permitted" in summary
 
 
-@pytest.mark.parametrize("alarms,n,expected", [
-    ((), 10, 0),
-    ((1, 7, 8, 9), 10, 3),
-    ((0, 1, 2), 10, 0),      # an old burst is not a current warning
-    ((8,), 10, 0),           # not reaching the present window
-    ((9,), 10, 1),
-])
+@pytest.mark.parametrize(
+    "alarms,n,expected",
+    [
+        ((), 10, 0),
+        ((1, 7, 8, 9), 10, 3),
+        ((0, 1, 2), 10, 0),  # an old burst is not a current warning
+        ((8,), 10, 0),  # not reaching the present window
+        ((9,), 10, 1),
+    ],
+)
 def test_count_trailing_alarms(alarms, n, expected):
     assert count_trailing_alarms(alarms, n) == expected

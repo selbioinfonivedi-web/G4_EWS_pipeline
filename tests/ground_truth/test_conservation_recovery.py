@@ -74,8 +74,10 @@ def test_clade_based_estimate_recovers_true_rate_and_beats_naive_estimate(tmp_pa
     tree_path.write_text(newick)
 
     n_total_tips = len(tip_states)
-    print(f"\nSimulated {n_total_tips} tips: {N_DISRUPTED_TIPS} Disrupted (1 oversampled lineage), "
-          f"{N_CONSERVED_TIPS} Conserved (1 undersampled lineage).")
+    print(
+        f"\nSimulated {n_total_tips} tips: {N_DISRUPTED_TIPS} Disrupted (1 oversampled lineage), "
+        f"{N_CONSERVED_TIPS} Conserved (1 undersampled lineage)."
+    )
 
     # --- naive estimator: measurably biased by oversampling ---
     naive_estimate = naive_tip_proportion(tip_states, "Disrupted")
@@ -93,9 +95,11 @@ def test_clade_based_estimate_recovers_true_rate_and_beats_naive_estimate(tmp_pa
 
     print(f"True (by construction): {TRUE_DISRUPTED_FRACTION:.3f}")
     print(f"Naive tip proportion:   {naive_estimate:.3f}  (bias: {abs(naive_estimate - TRUE_DISRUPTED_FRACTION):.3f})")
-    print(f"Clade-based (corrected): {corrected_result.value:.3f}  "
-          f"(bias: {abs(corrected_result.value - TRUE_DISRUPTED_FRACTION):.3f}, "
-          f"n_clades={corrected_result.n_total_clades})")
+    print(
+        f"Clade-based (corrected): {corrected_result.value:.3f}  "
+        f"(bias: {abs(corrected_result.value - TRUE_DISRUPTED_FRACTION):.3f}, "
+        f"n_clades={corrected_result.n_total_clades})"
+    )
 
     # 1. Exactly 2 clades -- unambiguous by construction (one clade of each
     #    state; there is no same-state merging question here at all).

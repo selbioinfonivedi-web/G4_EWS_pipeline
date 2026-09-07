@@ -29,6 +29,30 @@ corpus:
   # explicit "unknown" category and never folded into a named serotype.
   lineage_field: serotype
 
+  # Lineage naming rules for THIS pathogen. The code knows no pathogen's
+  # vocabulary; it normalises against whatever is declared here.
+  #
+  # The seven canonical FMDV serotypes. The set is closed and stable --
+  # no new serotype has been described since SAT 3 -- which is what makes
+  # resolving to it safe, unlike lineage or topotype naming.
+  lineage_vocabulary:
+    canonical: [O, A, C, ASIA1, SAT1, SAT2, SAT3]
+    # Species-name forms that appear glued to the front of a value. Both
+    # spellings occur in this corpus: the full organism name, and the
+    # "FMDV-" shorthand used in some /serotype values.
+    name_prefixes: [FOOTANDMOUTHDISEASEVIRUS, FMDV]
+    # Historical subtype labels: O1, A22, A24, C1, C3 -> parent serotype.
+    # The letter is the serotype; the digits are a subtype the per-lineage
+    # floor must not split on.
+    subtype_pattern: '^([OAC])\d+$'
+    # Only entries whose parent is unambiguous and verifiable. PANASIA is
+    # the Pan-Asia lineage of serotype O, confirmed by the organism field
+    # of all 11 such records reading "O" or an "O/..." isolate name.
+    aliases:
+      ASIA: ASIA1
+      PANASIA: O
+      PANASIAO: O
+
 qc:
   min_completeness_fraction: 0.90
   max_n_content_fraction: 0.05

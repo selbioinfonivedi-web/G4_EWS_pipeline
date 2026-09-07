@@ -39,7 +39,7 @@ from ..metrics.severity_weighted_disruption import classify_disruption_severity,
 from ..metrics.tip_state_classifier import TipState, classify_tip_state
 from ..phylo.ancestral_states import reconstruct_ancestral_states
 from ..phylo.clade_collapse import collapse_to_maximal_clades
-from ..qc.metadata_normalization import normalize_serotype
+from ..qc.metadata_normalization import LineageVocabulary
 from ..validation.control_regions import find_matched_control_region
 from ..validation.dh1_gate import Dh1GateResult, run_dh1_gate
 from ..validation.gc_confound_gate import LocusControlData
@@ -122,8 +122,25 @@ def _extract_year(raw: str) -> str:
     return ""
 
 
-def _normalize_lineage(config: PathogenConfig, raw: str) -> str:
-    return normalize_serotype(raw) if config.lineage_field == "serotype" else raw.strip()
+def _normalize_lineage(config: PathogenConfig, row: dict) -> str:
+    """Resolve one record's lineage for the Appendix C per-lineage floor.
+
+    Consults the primary lineage field first, then the configured
+    fallback columns, against the pathogen's OWN declared vocabulary.
+    Reading only the primary field made 269 of 848 aligned sequences in
+    one real corpus look as though they had no lineage at all, and split
+    real lineages across subtype and lineage labels -- both of which
+    distort the floor.
+
+    A pathogen that declares no vocabulary has its label only
+    whitespace-trimmed. That keeps the gap visible in the report rather
+    than hidden behind a mapping borrowed from a different virus.
+    """
+    field = config.lineage_field
+    vocabulary = LineageVocabulary.from_config(config)
+    fields = [row.get(field, "")]
+    fields += [row.get(name, "") for name in config.lineage_fallback_fields]
+    return vocabulary.resolve(*fields) or (row.get(field, "") or "").strip()
 
 
 def compute_corpus_minimum_data_stats(
@@ -141,7 +158,6 @@ def compute_corpus_minimum_data_stats(
     their zero/True defaults and must be overridden per locus by the
     caller — everything else here is corpus-wide.
     """
-    lineage_field = config.lineage_field
     with open(metadata_tsv, newline="") as handle:
         rows = list(csv.DictReader(handle, delimiter="\t"))
     aligned_rows = [row for row in rows if row["accession"] in aligned_ids]
@@ -151,16 +167,14 @@ def compute_corpus_minimum_data_stats(
             "The alignment and the metadata table are describing different corpora."
         )
 
-    n_missing_lineage = sum(1 for row in aligned_rows if not _normalize_lineage(config, row.get(lineage_field, "")))
+    n_missing_lineage = sum(1 for row in aligned_rows if not _normalize_lineage(config, row))
     named_counts: dict[str, int] = {}
     for row in aligned_rows:
-        normalized = _normalize_lineage(config, row.get(lineage_field, ""))
+        normalized = _normalize_lineage(config, row)
         if normalized:
             named_counts[normalized] = named_counts.get(normalized, 0) + 1
 
-    n_complete = sum(
-        1 for row in aligned_rows if row.get("collection_date") and row.get("country") and row.get("host")
-    )
+    n_complete = sum(1 for row in aligned_rows if row.get("collection_date") and row.get("country") and row.get("host"))
     years = {_extract_year(row.get("collection_date", "")) for row in aligned_rows}
     years.discard("")
 

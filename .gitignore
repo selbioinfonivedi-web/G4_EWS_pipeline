@@ -33,6 +33,18 @@ dag.svg
 # is the actual reproducibility record; `make vendor` restores and builds
 # PhiPack at its pinned commit. See docs/installation.md.
 vendor/phipack/
+# vendor/phipack-src/ IS committed — PhiPack has no package, no release
+# tarball and no versioned artifact, and Stage 1.5 is mandatory for every
+# pathogen, so a pinned clone is a single point of failure for the whole
+# gate. Only its build products are ignored.
+vendor/phipack-src/**/*.o
+vendor/phipack-src/Phi
+vendor/phipack-src/Profile
+vendor/phipack-src/ppma_2_bmp
+vendor/phipack-src/src/ppma_2_bmp/ppma_2_bmp
+vendor/phipack-src/*.log
+vendor/phipack-src/*.sites
+vendor/phipack-src/*.list
 # G4RNA Screener is kept as a local reference copy only -- it is Python 2
 # with a pickled PyBrain classifier and is NOT run by the pipeline. See
 # vendor/README.md and docs/revision_log.md R-01.
@@ -62,6 +74,22 @@ data/reference_genomes/*/corpus/serotype_o/
 !data/reference_genomes/*/corpus/*_metadata.tsv
 !data/reference_genomes/*/corpus/qc_report.tsv
 
+# --- Office lock files ---
+# LibreOffice writes these beside any open document; they are per-machine
+# and meaningless in a checkout.
+.~lock.*#
+
+# --- Superseded / local-only working files ---
+# Design history and personal working documents, kept on disk but not
+# pushed. The four mockups were the exploration that produced the single
+# consolidated workstation in web/workstation/; g4_redesign.html is the
+# supplied reference the institute skin was built from. All three are
+# inputs to a decision already made, not source.
+web/mockups/
+/g4_redesign.html
+/data_retrival_format.odt
+*.retired
+
 # --- Editor / OS ---
 .Rhistory
 .RData
@@ -69,3 +97,9 @@ data/reference_genomes/*/corpus/serotype_o/
 .DS_Store
 *.swp
 .idea/
+
+# local demo study for container smoke runs
+/.demo/
+
+# commit message drafts, local only
+/.commits/

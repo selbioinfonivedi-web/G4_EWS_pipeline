@@ -1,0 +1,464 @@
+/* G4-WATCH operator console.
+ *
+ * Design brief: a laboratory instrument panel, not a web dashboard.
+ * Structure is carried by hairline rules and a strict grid — there are no
+ * cards, no drop shadows and no rounded containers, because scientific
+ * figures and instrument fascias don't use them. Colour is reserved for
+ * things that encode state; the identity blue is chrome, never status.
+ *
+ * Type: Libre Franklin (a Franklin Gothic derivative — the voice of
+ * technical and scientific publishing) for everything structural, Roboto
+ * Mono for anything that is data: coordinates, accessions, exit codes,
+ * instrument output.
+ */
+
+/* ── tokens ─────────────────────────────────────────────────────── */
+:root {
+  /* Cool bench neutrals. Deliberately not cream — this is a lab, not a
+     letterpress studio. */
+  --paper:     #F6F8F8;
+  --panel:     #FFFFFF;
+  --panel-2:   #EFF2F2;
+  --panel-3:   #E5EAEA;
+
+  --ink:       #12181B;
+  --ink-2:     #3B484D;
+  --muted:     #5E6E73;
+  --faint:     #8B999D;
+
+  --rule:      #C9D2D4;
+  --rule-2:    #E1E7E7;
+  --rule-hard: #12181B;
+
+  /* Identity. Blueprint blue: technical, serious, and unmistakably not a
+     status colour. */
+  --accent:      #16457A;
+  --accent-weak: #E4EBF3;
+  --on-accent:   #FFFFFF;
+
+  /* Semantic. Used only to encode state. */
+  --halt:      #A5261C;
+  --halt-weak: #F7E4E2;
+  --on-halt:   #FFFFFF;
+  --warn:      #8A5A00;
+  --warn-weak: #F9EDD8;
+  --ok:        #1B6B47;
+  --ok-weak:   #E0EFE7;
+
+  --sans: "Libre Franklin", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --mono: "Roboto Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --gut: 18px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper:   #0D1214;
+    --panel:   #141B1E;
+    --panel-2: #1B2427;
+    --panel-3: #232E32;
+
+    --ink:     #E6EDED;
+    --ink-2:   #B6C3C5;
+    --muted:   #8A9A9E;
+    --faint:   #6B7C80;
+
+    --rule:      #2B383C;
+    --rule-2:    #212C30;
+    --rule-hard: #7E9196;
+
+    --accent:      #7FA9DC;
+    --accent-weak: #17252F;
+    --on-accent:   #0D1214;
+
+    --halt:      #E58E82;
+    --halt-weak: #2E1614;
+    --on-halt:   #0D1214;
+    --warn:      #D6A44E;
+    --warn-weak: #2C2210;
+    --ok:        #6DBE96;
+    --ok-weak:   #12271E;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0D1214; --panel: #141B1E; --panel-2: #1B2427; --panel-3: #232E32;
+  --ink: #E6EDED; --ink-2: #B6C3C5; --muted: #8A9A9E; --faint: #6B7C80;
+  --rule: #2B383C; --rule-2: #212C30; --rule-hard: #7E9196;
+  --accent: #7FA9DC; --accent-weak: #17252F; --on-accent: #0D1214;
+  --halt: #E58E82; --halt-weak: #2E1614; --on-halt: #0D1214;
+  --warn: #D6A44E; --warn-weak: #2C2210;
+  --ok: #6DBE96; --ok-weak: #12271E;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 13.5px;
+  line-height: 1.5;
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+h1, h2, h3, p, ol, ul, dl, dd { margin: 0; padding: 0; }
+ol, ul { list-style: none; }
+button, input, select { font: inherit; color: inherit; }
+
+/* Instrument focus: a hard square, never a glow. */
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+/* Micro-label: the engineering-drawing annotation. */
+.lab {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Section header sitting on its own rule, like a drawing callout. */
+.rule-head {
+  display: flex; align-items: center; gap: 10px;
+  padding: 13px var(--gut) 7px;
+  border-bottom: 1px solid var(--rule-hard);
+}
+.rule-head .lab { flex: none; }
+.rule-head .fill { flex: 1; }
+
+/* ── masthead ───────────────────────────────────────────────────── */
+.shell { display: grid; grid-template-rows: auto 1fr; height: 100vh; }
+
+.masthead {
+  display: flex; align-items: stretch;
+  background: var(--panel);
+  border-bottom: 2px solid var(--rule-hard);
+}
+
+.ident {
+  display: flex; align-items: center; gap: 12px;
+  padding: 0 20px; border-right: 1px solid var(--rule);
+}
+.ident svg { display: block; flex: none; }
+.ident h1 {
+  font-size: 17px; font-weight: 700; letter-spacing: .01em; line-height: 1;
+}
+.ident .sub {
+  font-family: var(--mono); font-size: 9.5px; letter-spacing: .13em;
+  text-transform: uppercase; color: var(--muted); margin-top: 3px;
+}
+
+/* Selector styled as an instrument control: label above, hard field. */
+.control {
+  display: flex; flex-direction: column; justify-content: center; gap: 3px;
+  padding: 9px 18px; border-right: 1px solid var(--rule);
+}
+.control select {
+  appearance: none;
+  background: var(--panel-2);
+  border: 1px solid var(--rule);
+  border-radius: 0;
+  padding: 5px 30px 5px 9px;
+  font-family: var(--mono); font-size: 12px; font-weight: 500;
+  letter-spacing: .04em;
+  cursor: pointer;
+  background-image: linear-gradient(45deg, transparent 50%, currentColor 50%),
+                    linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position: calc(100% - 15px) calc(50% + 1px), calc(100% - 10px) calc(50% + 1px);
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+}
+
+/* Tool availability as an indicator-lamp row. */
+.lamps { display: flex; align-items: center; gap: 0; padding: 0 6px; overflow-x: auto; }
+.lamp {
+  display: flex; flex-direction: column; align-items: center; gap: 5px;
+  padding: 11px 11px 9px; cursor: default; flex: none;
+}
+.lamp i {
+  width: 9px; height: 9px; display: block;
+  border: 1px solid var(--faint);
+}
+.lamp.on i { background: var(--ok); border-color: var(--ok); }
+.lamp.off i {
+  background: repeating-linear-gradient(
+    45deg, transparent, transparent 2px, var(--faint) 2px, var(--faint) 3px);
+}
+.lamp span {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .06em;
+  color: var(--muted); text-transform: lowercase;
+}
+.lamp.off span { text-decoration: line-through; text-decoration-thickness: 1px; }
+
+.masthead .fill { flex: 1; }
+
+/* ── bench (three columns) ──────────────────────────────────────── */
+.bench {
+  display: grid;
+  grid-template-columns: 372px minmax(0, 1fr) 296px;
+  min-height: 0;
+}
+@media (max-width: 1240px) { .bench { grid-template-columns: 344px minmax(0, 1fr); } .log { display: none; } }
+@media (max-width: 900px)  { .bench { grid-template-columns: 1fr; grid-auto-rows: minmax(0, 1fr); } }
+
+.protocol { background: var(--panel); border-right: 1px solid var(--rule); overflow-y: auto; min-height: 0; }
+.log { background: var(--panel); border-left: 1px solid var(--rule); overflow-y: auto; min-height: 0; }
+
+/* ── gate stamp ─────────────────────────────────────────────────── */
+/* A verdict block, set like a stamp on a laboratory record. */
+.stamp { margin: var(--gut); border: 1px solid var(--ink); padding: 0; }
+.stamp.blocked { border-color: var(--halt); background: var(--halt-weak); }
+.stamp.open    { border-color: var(--ok);   background: var(--ok-weak); }
+.stamp.unknown { border-color: var(--rule); background: var(--panel-2); }
+
+.stamp-top {
+  border-bottom: 1px solid currentColor;
+  padding: 6px 12px 5px;
+  font-family: var(--mono); font-size: 9px; letter-spacing: .2em; text-transform: uppercase;
+}
+.stamp.blocked .stamp-top { color: var(--halt); }
+.stamp.open    .stamp-top { color: var(--ok); }
+.stamp.unknown .stamp-top { color: var(--muted); }
+
+.stamp-body { padding: 11px 12px 12px; }
+.stamp-verdict {
+  font-size: 17px; font-weight: 700; letter-spacing: .015em; line-height: 1.15;
+  text-transform: uppercase;
+}
+.stamp.blocked .stamp-verdict { color: var(--halt); }
+.stamp.open    .stamp-verdict { color: var(--ok); }
+
+.stamp-code {
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: .04em;
+  color: var(--ink-2); margin-top: 4px;
+}
+.stamp-note { font-size: 12px; line-height: 1.5; color: var(--ink-2); margin-top: 9px; }
+.stamp-checks {
+  margin-top: 9px; padding-top: 8px; border-top: 1px dotted currentColor;
+  font-family: var(--mono); font-size: 10.5px; line-height: 1.6;
+}
+.stamp-checks b { font-weight: 500; color: var(--muted); }
+
+/* ── protocol list ──────────────────────────────────────────────── */
+.phase { padding: 0 0 4px; }
+.phase > .lab { display: block; padding: 15px var(--gut) 6px; }
+
+.step {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) auto;
+  column-gap: 10px;
+  align-items: baseline;
+  padding: 10px var(--gut) 11px;
+  border-top: 1px solid var(--rule-2);
+}
+.step:hover { background: var(--panel-2); }
+.step.off { opacity: .45; }
+
+/* Stage numerals in the hanging margin. The pipeline is a genuine
+   sequence, so the numbering carries information. */
+.step-no {
+  font-family: var(--mono); font-size: 11px; font-weight: 500;
+  color: var(--accent); letter-spacing: -.02em; text-align: right;
+  padding-top: 1px;
+}
+.step-no.util { color: var(--faint); }
+
+.step-main { min-width: 0; }
+.step-name {
+  display: block; width: 100%; text-align: left;
+  background: none; border: 0; padding: 0; cursor: pointer;
+  font-size: 13.5px; font-weight: 600; letter-spacing: .005em; line-height: 1.3;
+}
+.step-name:hover { color: var(--accent); }
+.step-desc { font-size: 11.5px; line-height: 1.45; color: var(--muted); margin-top: 3px; }
+
+.flags { display: inline-flex; gap: 5px; margin-left: 7px; vertical-align: 1px; }
+.flag {
+  font-family: var(--mono); font-size: 8.5px; letter-spacing: .1em; text-transform: uppercase;
+  padding: 1px 4px; border: 1px solid currentColor;
+}
+.flag.gate  { color: var(--warn); }
+.flag.write { color: var(--halt); }
+
+/* The run control: a hard instrument key. */
+.key {
+  font-family: var(--mono); font-size: 10.5px; font-weight: 500;
+  letter-spacing: .12em; text-transform: uppercase;
+  background: var(--panel-2); color: var(--ink-2);
+  border: 1px solid var(--rule); border-radius: 0;
+  padding: 5px 11px; cursor: pointer; white-space: nowrap;
+}
+.key:hover:not(:disabled) { background: var(--ink); color: var(--panel); border-color: var(--ink); }
+.key:disabled { opacity: .4; cursor: not-allowed; }
+.key.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.key.primary:hover:not(:disabled) { filter: brightness(1.15); }
+.key.stop { border-color: var(--halt); color: var(--halt); background: transparent; }
+.key.stop:hover:not(:disabled) { background: var(--halt); color: var(--panel); }
+.key.sm { padding: 3px 8px; font-size: 9.5px; }
+
+/* parameters */
+.params { grid-column: 2 / -1; display: none; padding: 11px 0 3px; }
+.step.open .params { display: block; }
+.params-inner { border-left: 2px solid var(--rule); padding-left: 12px; display: flex; flex-direction: column; gap: 11px; }
+
+.param { display: flex; flex-direction: column; gap: 3px; }
+.param > label { font-size: 11.5px; font-weight: 600; color: var(--ink-2); }
+.param .hint { font-size: 11px; line-height: 1.45; color: var(--muted); }
+.param input[type="text"] {
+  background: var(--panel-2); border: 1px solid var(--rule); border-radius: 0;
+  padding: 5px 8px; font-family: var(--mono); font-size: 11.5px; width: 100%;
+}
+.param.check { flex-direction: row; align-items: flex-start; gap: 8px; }
+.param.check input { margin: 2px 0 0; flex: none; accent-color: var(--accent); }
+.param.check > div { display: flex; flex-direction: column; gap: 2px; }
+
+.caution {
+  font-size: 11px; line-height: 1.45; color: var(--halt);
+  border-left: 2px solid var(--halt); padding: 2px 0 2px 9px; margin-left: -14px;
+}
+
+/* ── readout (centre) ───────────────────────────────────────────── */
+.readout { display: grid; grid-template-rows: auto 1fr auto; min-height: 0; background: var(--paper); }
+
+.readout-head {
+  display: flex; align-items: stretch;
+  background: var(--panel); border-bottom: 1px solid var(--rule-hard);
+}
+.readout-head .cell { padding: 8px 14px; border-right: 1px solid var(--rule); display: flex; flex-direction: column; gap: 3px; justify-content: center; }
+.readout-head .cell.grow { flex: 1; min-width: 0; border-right: 0; }
+.readout-head .val { font-family: var(--mono); font-size: 12px; letter-spacing: .02em; }
+.readout-head .cmd {
+  font-family: var(--mono); font-size: 12px; color: var(--ink-2);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.readout-head .act { display: flex; align-items: center; padding: 0 14px; }
+
+/* State as an instrument annunciator. */
+.annun {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--mono); font-size: 10.5px; font-weight: 500;
+  letter-spacing: .13em; text-transform: uppercase;
+}
+.annun::before { content: ""; width: 8px; height: 8px; border: 1px solid currentColor; flex: none; }
+.annun.idle       { color: var(--faint); }
+.annun.queued     { color: var(--muted); }
+.annun.running    { color: var(--accent); }
+.annun.running::before { background: var(--accent); animation: blink 1s steps(1, end) infinite; }
+.annun.succeeded  { color: var(--ok); }
+.annun.succeeded::before { background: var(--ok); }
+.annun.gate_closed{ color: var(--warn); }
+.annun.gate_closed::before { background: var(--warn); }
+.annun.failed     { color: var(--halt); }
+.annun.failed::before { background: var(--halt); }
+.annun.cancelled  { color: var(--faint); }
+@keyframes blink { 50% { opacity: .2 } }
+@media (prefers-reduced-motion: reduce) { .annun.running::before { animation: none } }
+
+/* The printout: instrument output on paper, with a numbered gutter.
+   Not a black terminal — this is a record, and it reads like one. */
+.printout {
+  overflow: auto; min-height: 0;
+  background: var(--panel);
+  font-family: var(--mono); font-size: 12px; line-height: 1.65;
+  padding: 10px 0 24px;
+}
+.pl { display: grid; grid-template-columns: 46px 14px minmax(0, 1fr); }
+.pl > .n {
+  text-align: right; padding-right: 10px;
+  color: var(--faint); font-size: 10.5px;
+  user-select: none;
+  border-right: 1px solid var(--rule-2);
+}
+.pl > .m { text-align: center; color: var(--faint); user-select: none; }
+.pl > .t { padding: 0 18px 0 6px; white-space: pre-wrap; word-break: break-word; }
+
+.pl.stderr > .t { color: var(--halt); }
+.pl.stderr > .m { color: var(--halt); font-weight: 700; }
+.pl.meta   > .t { color: var(--accent); }
+.pl.meta   > .m { color: var(--accent); }
+
+.printout .placeholder {
+  padding: 26px 24px; max-width: 62ch;
+  font-family: var(--sans); font-size: 13px; line-height: 1.6; color: var(--muted);
+}
+.printout .placeholder b { display: block; color: var(--ink); font-weight: 600; margin-bottom: 7px; }
+
+.verdict-band {
+  border-top: 1px solid var(--warn);
+  background: var(--warn-weak); color: var(--warn);
+  padding: 11px 18px; font-size: 12px; line-height: 1.5;
+}
+.verdict-band b { font-weight: 700; }
+
+.readout-foot {
+  display: flex; align-items: center; gap: 16px;
+  padding: 7px 14px; background: var(--panel);
+  border-top: 1px solid var(--rule-hard);
+  font-family: var(--mono); font-size: 10.5px; color: var(--muted);
+}
+.readout-foot label { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; letter-spacing: .06em; }
+.readout-foot input { accent-color: var(--accent); }
+.readout-foot .fill { flex: 1; }
+
+/* ── log column ─────────────────────────────────────────────────── */
+.run {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 10px;
+  padding: 9px var(--gut); border-bottom: 1px solid var(--rule-2); cursor: pointer;
+}
+.run:hover { background: var(--panel-2); }
+.run.sel { background: var(--accent-weak); box-shadow: inset 3px 0 0 var(--accent); }
+.run .rn { font-size: 12.5px; font-weight: 600; line-height: 1.3; }
+.run .rs { font-family: var(--mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; white-space: nowrap; }
+.run .rs.succeeded { color: var(--ok); }
+.run .rs.gate_closed { color: var(--warn); }
+.run .rs.failed { color: var(--halt); }
+.run .rs.running { color: var(--accent); }
+.run .rs.queued, .run .rs.cancelled { color: var(--faint); }
+.run .rm { grid-column: 1 / -1; font-family: var(--mono); font-size: 10px; color: var(--muted); }
+
+.file {
+  display: flex; justify-content: space-between; gap: 10px; align-items: baseline;
+  padding: 7px var(--gut); border-bottom: 1px solid var(--rule-2); cursor: pointer;
+}
+.file:hover { background: var(--panel-2); }
+.file .fp { font-family: var(--mono); font-size: 10.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.file .fs { font-family: var(--mono); font-size: 9.5px; color: var(--faint); white-space: nowrap; }
+
+.blank { padding: 14px var(--gut); font-size: 11.5px; line-height: 1.5; color: var(--muted); }
+
+/* ── overlay ────────────────────────────────────────────────────── */
+.scrim {
+  position: fixed; inset: 0; z-index: 50; padding: 28px;
+  background: rgba(18, 24, 27, .6);
+  display: grid; place-items: center;
+}
+.sheet {
+  background: var(--panel); border: 1px solid var(--ink);
+  max-width: 760px; width: 100%; max-height: 82vh;
+  display: flex; flex-direction: column; min-height: 0;
+}
+.sheet > header {
+  display: flex; align-items: center; justify-content: space-between; gap: 14px;
+  padding: 10px 16px; border-bottom: 2px solid var(--rule-hard);
+}
+.sheet > header h3 { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; }
+.sheet .content { padding: 16px; overflow: auto; min-height: 0; }
+.sheet .content.mono { font-family: var(--mono); font-size: 11.5px; line-height: 1.6; white-space: pre-wrap; word-break: break-word; color: var(--ink-2); }
+.sheet .prose { font-size: 13.5px; line-height: 1.6; color: var(--ink-2); }
+.sheet .argv {
+  display: block; font-family: var(--mono); font-size: 11.5px;
+  background: var(--panel-2); border-left: 2px solid var(--accent);
+  padding: 10px 12px; margin-top: 12px; color: var(--ink); word-break: break-all;
+}
+.sheet > footer { display: flex; justify-content: flex-end; gap: 8px; padding: 11px 16px; border-top: 1px solid var(--rule); }
+
+/* Foreground for a filled --halt surface. In dark mode --halt is a light
+   salmon, so a hardcoded white here would be unreadable. */
+.alert {
+  position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); z-index: 60;
+  background: var(--halt); color: var(--on-halt); border: 1px solid var(--halt);
+  padding: 8px 15px; font-family: var(--mono); font-size: 11.5px; max-width: 88vw;
+}

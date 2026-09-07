@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>G4 · Computational Genomics Workstation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Instrument+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=Public+Sans:wght@400;600;700&family=Roboto+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=Source+Sans+3:wght@400;500;600;700&family=Source+Code+Pro:wght@400;500&display=swap">
+<link rel="stylesheet" href="/workstation/static/spectrum.css">
+<link rel="stylesheet" href="/workstation/static/g4.css">
+<link rel="stylesheet" href="/workstation/static/shell.css">
+<link rel="stylesheet" href="/workstation/static/glass.css">
+<link rel="stylesheet" href="/workstation/static/redesign.css">
+<link rel="stylesheet" href="/workstation/static/portal.css">
+<link rel="stylesheet" href="/workstation/static/institute.css">
+<link rel="stylesheet" href="/workstation/static/flat.css">
+<link rel="stylesheet" href="/workstation/static/forecast.css">
+</head>
+<body>
+
+<canvas id="glassfield"></canvas>
+<div id="glassveil"></div>
+
+<div class="trust-banner"><span class="dot"></span><b>PROVENANCE</b><span id="trust-text">reading pipeline artifacts — no value on this screen is synthesised</span><span class="spacer"></span><span id="trust-commit"></span></div>
+
+<div class="app">
+
+  <!-- ═══ IDENTITY STRIP ══════════════════════════════════════════ -->
+  <header class="identity">
+    <div class="mark">
+      <svg width="19" height="19" viewBox="0 0 20 20" aria-hidden="true">
+        <g fill="none" stroke="currentColor" stroke-width="1">
+          <rect x="2.5" y="2.5" width="6" height="6"/><rect x="11.5" y="2.5" width="6" height="6"/>
+          <rect x="2.5" y="11.5" width="6" height="6"/><rect x="11.5" y="11.5" width="6" height="6"/>
+        </g><circle cx="10" cy="10" r="1.5" fill="currentColor"/>
+      </svg>
+      <div><h1>G4</h1><div class="sub" id="build">workstation</div></div>
+    </div>
+
+    <div class="idf"><span class="tag">Project</span><span class="v" id="id-project">untitled</span></div>
+    <div class="idf"><span class="tag">Organism</span><span class="v" id="id-organism">—</span></div>
+    <div class="idf"><span class="tag">Reference</span><span class="v" id="id-ref">—</span></div>
+    <div class="idf"><span class="tag">Genomes</span><span class="v" id="id-n">—</span></div>
+    <div class="idf"><span class="tag">Period</span><span class="v" id="id-period">—</span></div>
+    <div class="dirty" id="dirty" hidden><span class="dot"></span><span>Unsaved changes</span></div>
+
+    <div class="grow">
+      <div class="search" style="width:100%;max-width:360px">
+        <span class="glyph">⌕</span>
+        <input id="q" type="search" placeholder="Search samples, genes, mutations, lineages, files…" aria-label="Global search">
+        <select class="select scope" id="q-scope" style="width:auto;border:0;border-left:1px solid var(--edge)" aria-label="Search scope">
+          <option value="all">All</option><option value="samples">Samples</option>
+          <option value="lineages">Lineages</option><option value="loci">Loci</option>
+          <option value="countries">Countries</option><option value="files">Files</option>
+          <option value="analyses">Analyses</option><option value="projects">Projects</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="sysmon" id="sysmon" title="Live host telemetry"></div>
+    <div class="tools">
+      <select class="select" id="skin-pick" style="width:auto;font-size:10px" title="Visual skin"><option value="forecast">FORECAST</option><option value="institute">INSTITUTE</option><option value="portal">PORTAL</option><option value="redesign">DARK</option><option value="glass">GLASS</option><option value="flat">FLAT</option></select>
+      <button class="btn tertiary sm" id="btn-theme" title="Toggle light / dark">◐</button>
+      <button class="btn tertiary sm" id="btn-shortcuts" title="Keyboard shortcuts">⌘</button>
+      <button class="btn tertiary sm" id="btn-help" title="Help and documentation">?</button>
+    </div>
+  </header>
+
+  <!-- ═══ MODE BAR ════════════════════════════════════════════════ -->
+  <nav class="modes" id="modes" aria-label="Workspace mode"></nav>
+
+  <!-- ═══ WORKFLOW SPINE ══════════════════════════════════════════ -->
+  <nav class="flow" id="flow" aria-label="Pipeline stages">
+    <svg class="flow-svg" id="flow-svg" aria-hidden="true"></svg>
+    <div id="flow-nodes"></div>
+  </nav>
+
+  <!-- ═══ WORKSPACE ═══════════════════════════════════════════════ -->
+  <main class="stage">
+    <div class="stage-head">
+      <h2 id="stage-title">Data</h2>
+      <span class="sub" id="stage-sub"></span>
+      <div class="push" id="stage-tools"></div>
+    </div>
+    <div class="work" id="work"></div>
+    <div class="footbar" id="footbar"></div>
+  </main>
+
+  <!-- ═══ CONTEXT PANEL ═══════════════════════════════════════════ -->
+  <aside class="context" aria-label="Context">
+    <div class="ctx-tabs" id="ctx-tabs"></div>
+    <div class="ctx-body" id="ctx-body"></div>
+  </aside>
+
+  <!-- ═══ EXECUTION CONSOLE ═══════════════════════════════════════ -->
+  <section class="console" id="console" aria-label="Execution console">
+    <div class="console-bar">
+      <button class="btn tertiary sm" id="log-toggle" title="Show or hide the computation log">▲ LOG</button>
+      <span class="sep"></span>
+      <span class="st not-started" id="exec-state">not started</span>
+      <span class="sep"></span>
+      <div class="btn-row" id="exec-controls"></div>
+      <span class="sep"></span>
+      <span class="mono" id="exec-cmd" style="font-size:10.5px;color:var(--ink-3);max-width:34ch;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></span>
+      <div class="push">
+        <div class="telemetry" id="telemetry"></div>
+        <span class="sep"></span>
+        <select class="select" id="log-filter" style="width:auto;font-size:10px" aria-label="Filter log level">
+          <option value="all">ALL</option><option value="info">INFO</option>
+          <option value="warning">WARN</option><option value="error">ERROR</option>
+          <option value="success">SUCCESS</option><option value="debug">DEBUG</option>
+        </select>
+        <button class="btn tertiary sm" id="log-copy">Copy error</button>
+        <button class="btn tertiary sm" id="log-save">Download</button>
+        <button class="btn tertiary sm" id="log-clear">Clear</button>
+      </div>
+    </div>
+    <div class="logbody" id="log"></div>
+  </section>
+
+</div>
+
+<div class="notes" id="notes"></div>
+<div class="tip" id="tip" hidden></div>
+
+<script>
+/* SELF-DIAGNOSTIC. Inline, so it is never cached separately and never
+   depends on a stylesheet loading. It measures the shell after paint and
+   shows a report only when something is actually wrong — or always with
+   ?diag=1. Styled with inline attributes so no CSS rule can hide it. */
+(function () {
+  var errors = [];
+  window.addEventListener("error", function (e) {
+    errors.push((e.message || "error") + " @ " + (e.filename || "?").split("/").pop() + ":" + (e.lineno || "?"));
+  });
+  window.addEventListener("unhandledrejection", function (e) {
+    errors.push("promise: " + (e.reason && e.reason.message ? e.reason.message : e.reason));
+  });
+
+
+  /* ?diag=skins — apply every skin in turn and measure whether its text
+     is actually distinguishable from its own background. A shell can be
+     perfectly laid out and still look blank if the two resolve to the
+     same colour, which no geometry check would ever catch. */
+  function rgb(s) {
+    var m = (s || "").match(/[\d.]+/g);
+    if (!m) return null;
+    return [+m[0], +m[1], +m[2], m.length > 3 ? +m[3] : 1];
+  }
+  function lum(c) {
+    function f(v) { v /= 255; return v <= 0.04045 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); }
+    return 0.2126 * f(c[0]) + 0.7152 * f(c[1]) + 0.0722 * f(c[2]);
+  }
+  function ratio(a, b) {
+    if (!a || !b) return null;
+    var x = lum(a), y = lum(b), lo = Math.min(x, y), hi = Math.max(x, y);
+    return (hi + 0.05) / (lo + 0.05);
+  }
+  function effectiveBg(el) {
+    /* walk up until something is not transparent */
+    var node = el;
+    while (node && node !== document.documentElement) {
+      var c = rgb(getComputedStyle(node).backgroundColor);
+      if (c && c[3] > 0.05) return c;
+      node = node.parentElement;
+    }
+    var b = rgb(getComputedStyle(document.body).backgroundColor);
+    return b && b[3] > 0.05 ? b : [255, 255, 255, 1];
+  }
+
+  function auditSkins() {
+    var original = document.documentElement.getAttribute("data-skin");
+    var list = ["forecast", "institute", "portal", "redesign", "glass", "flat"];
+    var out = [];
+    list.forEach(function (skin) {
+      document.documentElement.setAttribute("data-skin", skin);
+      document.body.offsetHeight;                       /* force reflow */
+      var probes = [
+        [".identity h1", document.querySelector(".identity .mark h1")],
+        [".mode (tab)", document.querySelector(".mode")],
+        ["h2 title", document.querySelector(".stage-head h2")],
+        ["stage name", document.querySelector(".stagenode .nm")],
+      ];
+      var worst = 99, worstAt = "";
+      probes.forEach(function (pr) {
+        if (!pr[1]) return;
+        var cs = getComputedStyle(pr[1]);
+        var r = ratio(rgb(cs.color), effectiveBg(pr[1]));
+        if (r != null && r < worst) { worst = r; worstAt = pr[0]; }
+      });
+      var app = document.querySelector(".app").getBoundingClientRect();
+      out.push([skin, "text/bg contrast " + (worst === 99 ? "n/a" : worst.toFixed(2) + ":1 (" + worstAt + ")") +
+                      "   app " + Math.round(app.width) + "x" + Math.round(app.height) +
+                      (worst < 2 ? "   <-- INVISIBLE" : worst < 4.5 ? "   <-- low" : "")]);
+    });
+    if (original) document.documentElement.setAttribute("data-skin", original);
+    else document.documentElement.removeAttribute("data-skin");
+    return out;
+  }
+
+  function report() {
+    var force = /[?&]diag=(1|skins)/.test(location.search);
+    var app = document.querySelector(".app");
+    var rows = [];
+    var broken = false;
+
+    function measure(label, el) {
+      if (!el) { rows.push([label, "MISSING FROM DOM"]); broken = true; return null; }
+      var r = el.getBoundingClientRect();
+      var c = getComputedStyle(el);
+      var bad = r.width < 2 || r.height < 2 || c.display === "none" || c.visibility === "hidden" || +c.opacity === 0;
+      if (bad) broken = true;
+      rows.push([label,
+        Math.round(r.width) + "x" + Math.round(r.height) +
+        " @ " + Math.round(r.left) + "," + Math.round(r.top) +
+        "  display:" + c.display + "  z:" + c.zIndex + "  pos:" + c.position +
+        "  vis:" + c.visibility + "  op:" + c.opacity + (bad ? "   <-- PROBLEM" : "")]);
+      return r;
+    }
+
+    rows.push(["skin", document.documentElement.getAttribute("data-skin") || "(none set)"]);
+    try { rows.push(["saved skin", localStorage.getItem("g4-skin-v2") || "(none)"]); } catch (e) { rows.push(["saved skin", "localStorage blocked"]); }
+    rows.push(["viewport", innerWidth + "x" + innerHeight]);
+    rows.push(["stylesheets", document.styleSheets.length + " loaded"]);
+
+    var appRect = measure(".app", app);
+    [".identity", ".modes", ".flow", ".stage", ".context", ".console"].forEach(function (sel) {
+      measure(sel, document.querySelector(sel));
+    });
+
+    var modes = document.querySelector("#modes");
+    rows.push(["#modes children", modes ? modes.childElementCount : "missing"]);
+    var flow = document.querySelector("#flow-nodes");
+    rows.push(["#flow-nodes children", flow ? flow.childElementCount : "missing"]);
+    var work = document.querySelector("#work");
+    rows.push(["#work children", work ? work.childElementCount : "missing"]);
+    if (modes && modes.childElementCount === 0) broken = true;
+
+    /* what is actually painted at the centre of the shell? */
+    if (appRect && appRect.width > 4) {
+      var top = document.elementFromPoint(Math.round(appRect.left + appRect.width / 2),
+                                          Math.round(appRect.top + 60));
+      rows.push(["topmost element at shell centre",
+                 top ? (top.tagName.toLowerCase() + "." + (top.className || "").toString().split(" ")[0]) : "none"]);
+      if (top && (top.id === "glassfield" || top.id === "glassveil")) {
+        rows.push(["!!", "the background field is painting OVER the interface"]);
+        broken = true;
+      }
+    }
+    rows.push(["js errors", errors.length ? errors.join(" | ") : "none"]);
+
+    if (/[?&]diag=skins/.test(location.search)) {
+      rows.push(["", ""]);
+      rows.push(["— per-skin legibility —", ""]);
+      auditSkins().forEach(function (r) { rows.push(r); });
+      broken = true;
+    }
+
+    if (!broken && !force) return;
+
+    var box = document.createElement("div");
+    box.setAttribute("style",
+      "position:fixed;left:12px;top:12px;z-index:2147483647;max-width:min(760px,94vw);" +
+      "max-height:86vh;overflow:auto;background:#111;color:#eee;border:2px solid #E3A857;" +
+      "border-radius:4px;padding:14px 16px;font:12px/1.6 ui-monospace,Menlo,monospace;" +
+      "box-shadow:0 8px 40px rgba(0,0,0,.6)");
+    var html = "<div style='color:#E3A857;font-weight:700;letter-spacing:.12em;margin-bottom:8px'>" +
+               "G4 SHELL DIAGNOSTIC" + (broken ? " — PROBLEM DETECTED" : "") + "</div>";
+    rows.forEach(function (r) {
+      html += "<div><span style='color:#8FA098;display:inline-block;min-width:190px'>" +
+              r[0] + "</span>" + String(r[1]).replace(/</g, "&lt;") + "</div>";
+    });
+    html += "<div style='margin-top:12px;display:flex;gap:8px;flex-wrap:wrap'>" +
+            "<button id='diagFlat' style='font:inherit;background:#E3A857;color:#111;border:0;padding:6px 12px;border-radius:3px;cursor:pointer'>Force FLAT skin + reload</button>" +
+            "<button id='diagCopy' style='font:inherit;background:#333;color:#eee;border:1px solid #555;padding:6px 12px;border-radius:3px;cursor:pointer'>Copy report</button>" +
+            "<button id='diagClose' style='font:inherit;background:#333;color:#eee;border:1px solid #555;padding:6px 12px;border-radius:3px;cursor:pointer'>Close</button></div>";
+    box.innerHTML = html;
+    document.body.appendChild(box);
+    box.querySelector("#diagFlat").onclick = function () {
+      try { localStorage.setItem("g4-skin-v2", "flat"); } catch (e) {}
+      location.reload();
+    };
+    box.querySelector("#diagCopy").onclick = function () {
+      navigator.clipboard && navigator.clipboard.writeText(rows.map(function (r) { return r[0] + ": " + r[1]; }).join("\n"));
+      this.textContent = "Copied";
+    };
+    box.querySelector("#diagClose").onclick = function () { box.remove(); };
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", function () { setTimeout(report, 1200); });
+  } else { setTimeout(report, 1200); }
+})();
+</script>
+
+<script src="/workstation/static/g4.js"></script>
+</body>
+</html>

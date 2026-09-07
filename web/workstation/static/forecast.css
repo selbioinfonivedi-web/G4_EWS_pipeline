@@ -1,0 +1,345 @@
+/* ═══════════════════════════════════════════════════════════════════
+   FORECAST — the institutional/NCBI look from the EpiCollapse
+   genomic-forecasting design, ported to the G4-WATCH shell.
+
+   Activated by data-skin="forecast".
+
+   WHAT WAS CARRIED OVER. The source is a React single-file app for a
+   different project, so nothing of its markup applies here; what
+   transfers is the design language: a navy masthead over a pale grey
+   field, a folder-tab navigation strip, hairline-ruled tables with tiny
+   uppercase headers, 2-3px radii, and tabular numerals everywhere a
+   figure appears.
+
+   FOUR COLOURS WERE DARKENED. The source palette is styled inline, where
+   nothing enforces a contrast floor. Four of its values fail WCAG AA for
+   body text on white and are corrected here along their own hue by
+   binary search, so the design reads the same and the text is legible:
+
+       textTert   #718096 -> #5E6C80   (4.02 -> 4.50:1 on the nav band,
+                                       the darkest surface it appears on)
+       textMuted  #A0AEC0 -> #596C86   (2.26 -> 4.52:1 on the nav band)
+       yellow     #B7791F -> #926019   (3.64 -> 4.53:1 on the nav band)
+       blueLight  #3182CE -> #2E79C1   (4.03 -> 4.54:1)
+
+   The originals are kept as *-mark tokens for fills, strokes and
+   non-text marks, where 3:1 is the bar and the source values pass.
+   Verified with ?diag=skins.
+   ═══════════════════════════════════════════════════════════════════ */
+
+:root[data-skin="forecast"] {
+  /* structure */
+  --navy:        #1B2A4A;
+  --navy-light:  #243B67;
+  --navy-deep:   #15203A;
+  --blue:        #2B6CB0;
+  --blue-light:  #2E79C1;   /* corrected for AA */
+  --blue-pale:   #EBF4FF;
+  --nav-band:    #E8ECF1;
+
+  --paper:       #F7F8FA;
+  --surface:     #FFFFFF;
+  --surface-alt: #FAFBFC;
+  --border:      #D2D6DC;
+  --border-light:#E8EAED;
+
+  /* ink */
+  --ink:        #1A202C;
+  --ink-muted:  #4A5568;
+  --ink-faint:  #5E6C80;   /* corrected for AA */
+  --ink-dim:    #596C86;   /* corrected for AA */
+
+  /* status, each with the source's own wash */
+  --red:    #C53030;  --red-dim:    #FFF5F5;
+  --orange: #C05621;  --orange-dim: #FFFAF0;
+  --yellow: #926019;  --yellow-dim: #FFFFF0;   /* corrected for AA */
+  --green:  #276749;  --green-dim:  #F0FFF4;
+
+  /* originals, for marks and fills where 3:1 is the bar */
+  --yellow-mark: #B7791F;
+  --blue-mark:   #3182CE;
+  --faint-mark:  #718096;
+  --dim-mark:    #A0AEC0;
+
+  /* shell contract */
+  --bg-void:      #EDEFF3;
+  --bg-canvas:    #FFFFFF;
+  --bg-workspace: #F7F8FA;
+  --bg-surface:   #FFFFFF;
+  --bg-panel:     #FFFFFF;
+  --bg-hover:     #F2F4F7;
+  --bg-select:    #EBF4FF;
+
+  --text-primary:    #1A202C;
+  --text-secondary:  #4A5568;
+  --text-tertiary:   #5E6C80;
+  --text-quaternary: #596C86;
+  --text-disabled:   #A0AEC0;
+
+  --line-hairline: #EFF1F4;
+  --line-rule:     #E8EAED;
+  --line-edge:     #D2D6DC;
+
+  --st-complete: #276749;
+  --st-running:  #2B6CB0;
+  --st-warning:  #926019;
+  --st-error:    #C53030;
+
+  /* Data marks. Blue is the interface colour, so the categorical set
+     opens on red to keep series distinct from chrome. */
+  --cat-0: #C53030; --cat-1: #2B6CB0; --cat-2: #276749; --cat-3: #B7791F;
+  --cat-4: #C05621; --cat-5: #553C9A; --cat-6: #2C7A7B; --cat-7: #4A5568;
+
+  --flow-data-active:      #553C9A;
+  --flow-qc-active:        #2B6CB0;
+  --flow-genomic-active:   #276749;
+  --flow-evolution-active: #2C7A7B;
+  --flow-network-active:   #B7791F;
+  --flow-model-active:     #C05621;
+  --flow-interpret-active: #7C3AED;
+  --flow-report-active:    #C53030;
+
+  --accent: var(--blue);
+
+  --flow-genomic-wash: #EBF4FF;
+  --st-complete-wash:  #F0FFF4;
+  --st-warning-wash:   #FFFFF0;
+  --st-error-wash:     #FFF5F5;
+
+  --veil: 0;
+
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono: "SF Mono", "Cascadia Code", "Fira Code", "Source Code Pro", ui-monospace, Menlo, monospace;
+  --serif: var(--sans);
+  --display: var(--sans);
+}
+
+:root[data-skin="forecast"] body {
+  background: var(--paper);
+  font-family: var(--sans);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+/* The field and veil belong to the glass skin; this design is flat. */
+:root[data-skin="forecast"] #glassfield,
+:root[data-skin="forecast"] #glassveil { display: none; }
+
+:root[data-skin="forecast"] .identity,
+:root[data-skin="forecast"] .modes,
+:root[data-skin="forecast"] .flow,
+:root[data-skin="forecast"] .context,
+:root[data-skin="forecast"] .console,
+:root[data-skin="forecast"] .stage-head,
+:root[data-skin="forecast"] .footbar,
+:root[data-skin="forecast"] .panel,
+:root[data-skin="forecast"] .note,
+:root[data-skin="forecast"] .tip,
+:root[data-skin="forecast"] .trust-banner {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
+/* ── masthead: navy band, blue underscore ───────────────────────── */
+:root[data-skin="forecast"] .identity {
+  background: var(--navy);
+  border-bottom: 3px solid var(--blue);
+  color: #FFFFFF;
+}
+:root[data-skin="forecast"] .identity .mark h1 {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: -.02em;
+  color: #FFFFFF;
+}
+:root[data-skin="forecast"] .identity .mark .sub {
+  font-size: 10px;
+  letter-spacing: .04em;
+  text-transform: none;
+  color: #A9B6C9;
+}
+:root[data-skin="forecast"] .identity .mark,
+:root[data-skin="forecast"] .idf { border-right: 1px solid var(--navy-light); }
+:root[data-skin="forecast"] .idf { padding: 4px 16px; }
+:root[data-skin="forecast"] .idf .tag {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: #A9B6C9;
+}
+:root[data-skin="forecast"] .idf .val {
+  color: #FFFFFF;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── folder tabs ────────────────────────────────────────────────── */
+:root[data-skin="forecast"] .modes {
+  background: var(--nav-band);
+  border-bottom: 1px solid var(--border);
+  gap: 0;
+  padding-bottom: 0;
+}
+:root[data-skin="forecast"] .modes button {
+  padding: 8px 16px;
+  background: transparent;
+  color: var(--ink-muted);
+  border: none;
+  border-top: 2px solid transparent;
+  border-radius: 3px 3px 0 0;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  margin-bottom: -1px;
+}
+:root[data-skin="forecast"] .modes button:hover { color: var(--blue); }
+:root[data-skin="forecast"] .modes button[aria-selected="true"],
+:root[data-skin="forecast"] .modes button.on,
+:root[data-skin="forecast"] .modes button.active {
+  background: var(--surface);
+  color: var(--blue);
+  border-top: 2px solid var(--blue);
+  border-bottom: 1px solid var(--surface);
+  font-weight: 600;
+}
+
+/* ── panels ─────────────────────────────────────────────────────── */
+:root[data-skin="forecast"] .panel,
+:root[data-skin="forecast"] .card,
+:root[data-skin="forecast"] .console,
+:root[data-skin="forecast"] .context {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+}
+:root[data-skin="forecast"] .panel > h2,
+:root[data-skin="forecast"] .panel > h3,
+:root[data-skin="forecast"] .stage-head {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  border-bottom: 1px solid var(--border-light);
+  background: transparent;
+}
+
+/* ── tables: tiny uppercase headers, hairline rules ─────────────── */
+:root[data-skin="forecast"] table { border-collapse: collapse; width: 100%; }
+:root[data-skin="forecast"] th {
+  text-align: left;
+  padding: 6px 10px;
+  color: var(--ink-faint);
+  font-weight: 600;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  border-bottom: 2px solid var(--border);
+  white-space: nowrap;
+  user-select: none;
+  background: transparent;
+}
+:root[data-skin="forecast"] td {
+  padding: 7px 10px;
+  border-bottom: 1px solid var(--border-light);
+  font-size: 12px;
+  vertical-align: middle;
+}
+:root[data-skin="forecast"] tbody tr:hover { background: var(--bg-hover); }
+
+/* Every figure is a figure: align the digits. */
+:root[data-skin="forecast"] .num,
+:root[data-skin="forecast"] .val,
+:root[data-skin="forecast"] .metric,
+:root[data-skin="forecast"] td,
+:root[data-skin="forecast"] .kpi b { font-variant-numeric: tabular-nums; }
+
+/* ── controls ───────────────────────────────────────────────────── */
+:root[data-skin="forecast"] .select,
+:root[data-skin="forecast"] select,
+:root[data-skin="forecast"] input[type="text"],
+:root[data-skin="forecast"] input[type="search"] {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  color: var(--ink);
+  font-size: 12px;
+  padding: 5px 8px;
+}
+:root[data-skin="forecast"] .identity .select,
+:root[data-skin="forecast"] .identity input {
+  background: var(--navy-deep);
+  border: 1px solid var(--navy-light);
+  color: #FFFFFF;
+}
+:root[data-skin="forecast"] button.primary,
+:root[data-skin="forecast"] .btn.primary {
+  background: var(--blue);
+  border: 1px solid var(--blue);
+  color: #FFFFFF;
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: 600;
+}
+:root[data-skin="forecast"] button.primary:hover,
+:root[data-skin="forecast"] .btn.primary:hover { background: var(--navy-light); }
+:root[data-skin="forecast"] button,
+:root[data-skin="forecast"] .btn {
+  border-radius: 3px;
+  font-size: 12px;
+}
+
+/* ── badges: the source's uppercase risk chip ───────────────────── */
+:root[data-skin="forecast"] .badge,
+:root[data-skin="forecast"] .pill,
+:root[data-skin="forecast"] .tag-chip {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 2px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+:root[data-skin="forecast"] .badge.ok,
+:root[data-skin="forecast"] .badge.complete {
+  color: var(--green); background: var(--green-dim); border: 1px solid #27674922;
+}
+:root[data-skin="forecast"] .badge.warn,
+:root[data-skin="forecast"] .badge.warning {
+  color: var(--yellow); background: var(--yellow-dim); border: 1px solid #92601922;
+}
+:root[data-skin="forecast"] .badge.err,
+:root[data-skin="forecast"] .badge.error,
+:root[data-skin="forecast"] .badge.blocked {
+  color: var(--red); background: var(--red-dim); border: 1px solid #C5303022;
+}
+:root[data-skin="forecast"] .badge.info,
+:root[data-skin="forecast"] .badge.running {
+  color: var(--blue); background: var(--blue-pale); border: 1px solid #2B6CB022;
+}
+
+/* ── provenance banner ──────────────────────────────────────────── */
+:root[data-skin="forecast"] .trust-banner {
+  background: var(--blue-pale);
+  border-bottom: 1px solid var(--border);
+  color: var(--ink-muted);
+  font-size: 11px;
+}
+:root[data-skin="forecast"] .trust-banner b { color: var(--blue); letter-spacing: .06em; }
+
+/* ── footer ─────────────────────────────────────────────────────── */
+:root[data-skin="forecast"] .footbar {
+  background: var(--nav-band);
+  border-top: 1px solid var(--border);
+  color: var(--ink-faint);
+  font-size: 11px;
+}
+
+/* ── mono where a value is an identifier ────────────────────────── */
+:root[data-skin="forecast"] code,
+:root[data-skin="forecast"] .mono,
+:root[data-skin="forecast"] .accession { font-family: var(--mono); font-size: 11px; }

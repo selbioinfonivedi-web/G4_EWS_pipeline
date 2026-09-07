@@ -134,9 +134,9 @@ def _build_clonal_alignment(seed: int = 42, length: int = 300, n_per_clade: int 
 
     records = {}
     for i in range(n_per_clade):
-        records[f"A{i+1}"] = _mutate(p1, n_mutations=3, rng=rng)
+        records[f"A{i + 1}"] = _mutate(p1, n_mutations=3, rng=rng)
     for i in range(n_per_clade):
-        records[f"B{i+1}"] = _mutate(p2, n_mutations=3, rng=rng)
+        records[f"B{i + 1}"] = _mutate(p2, n_mutations=3, rng=rng)
     return records
 
 

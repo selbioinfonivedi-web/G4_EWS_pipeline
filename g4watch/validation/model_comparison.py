@@ -185,9 +185,7 @@ def likelihood_ratio_test(smaller: FittedModel, larger: FittedModel) -> Likeliho
             "compare them by AIC or held-out discrimination instead."
         )
     if larger.n_parameters <= smaller.n_parameters:
-        raise ModelComparisonError(
-            f"{larger.name} must have strictly more parameters than {smaller.name} for an LRT"
-        )
+        raise ModelComparisonError(f"{larger.name} must have strictly more parameters than {smaller.name} for an LRT")
     statistic = 2 * (larger.log_likelihood - smaller.log_likelihood)
     degrees_of_freedom = larger.n_parameters - smaller.n_parameters
     # A negative statistic means the larger model fit worse, which can only

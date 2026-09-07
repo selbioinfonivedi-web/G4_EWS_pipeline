@@ -1,0 +1,394 @@
+/* ═══════════════════════════════════════════════════════════════════
+   TETRAD — the G4-WATCH workstation design system.
+
+   Named for the G-tetrad: four guanines held in a plane by a central
+   cation. Four is the system's organising number — four grid steps, four
+   information depths, four severities.
+
+   THREE LAWS, which every component obeys:
+
+   1. CHROME IS ACHROMATIC; COLOUR IS DATA.
+      No hue appears in structure, navigation or typography. Hue is
+      reserved for lineage identity and for the four severities. This is
+      how a publication figure works, and it means a coloured pixel
+      always carries information.
+
+   2. SELECTION IS CONTRAST, NOT A COLOUR.
+      Brushing does not paint the selected set. It dims everything else
+      to --veil. Selection therefore composes across eight simultaneous
+      views without inventing eight highlight colours.
+
+   3. EVERYTHING SITS ON A COORDINATE.
+      Genome position and sample index are the two real axes of this
+      science, so they are the two axes of the interface. The rail at the
+      foot of the screen is not a widget; it is the coordinate space the
+      whole workstation is plotted in.
+
+   Dark is the base palette, not an inversion: this is an instrument
+   surface, and the light theme is the derived variant.
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* Tokens are generated and verified by scripts/design/spectrum.py and
+   arrive via spectrum.css. This layer only binds them to the names the
+   components use, so a palette change never touches a component rule.
+
+   LIGHT IS THE BASE. The reference tools in this field -- Nextstrain,
+   IGV, the UCSC browser, Geneious, Cytoscape -- are light, and every
+   figure exported from here lands on white paper. Dark is offered for
+   long visualisation sessions; it is not the identity. */
+:root {
+  --void:    var(--bg-void);
+  --ground:  var(--bg-workspace);
+  --plate:   var(--bg-surface);
+  --plate-2: var(--bg-hover);
+  --plate-3: var(--bg-select);
+
+  --ink:   var(--text-primary);
+  --ink-2: var(--text-secondary);
+  --ink-3: var(--text-tertiary);
+  --ink-4: var(--text-quaternary);
+
+  --hair:   var(--line-rule);
+  --hair-2: var(--line-hairline);
+  --edge:   var(--line-edge);
+
+  --block:   var(--st-error);
+  --caution: var(--st-warning);
+  --note:    var(--text-tertiary);
+  --ok:      var(--st-complete);
+
+  --l0: var(--cat-0); --l1: var(--cat-1); --l2: var(--cat-2); --l3: var(--cat-3);
+  --l4: var(--cat-4); --l5: var(--cat-5); --l6: var(--cat-6); --l7: var(--cat-7);
+
+  /* The printed graticule and the brushing veil are the only two values
+     that must differ by theme but have no home in the palette. */
+  --grid: rgba(20, 24, 25, .050);
+  --veil: .16;
+
+  --sans: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono: "DM Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --u: 4px;
+  --spine: 78px;
+  --obs: 326px;
+  --rail: 108px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --grid: rgba(233, 240, 241, .035); --veil: .13; }
+}
+:root[data-theme="dark"] { --grid: rgba(233, 240, 241, .035); --veil: .13; }
+
+/* ═══ reset ═══════════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 13px;
+  line-height: 1.45;
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+h1, h2, h3, p, dl, dd, figure { margin: 0; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+:focus-visible { outline: 1px solid var(--ink); outline-offset: 2px; }
+
+/* ═══ type roles ══════════════════════════════════════════════ */
+/* .tag — the instrument annotation. Never larger than 10px. */
+.tag {
+  font-family: var(--mono); font-size: 9px; font-weight: 400;
+  letter-spacing: .18em; text-transform: uppercase; color: var(--ink-3);
+}
+.num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+
+/* ═══ frame ═══════════════════════════════════════════════════ */
+.station {
+  display: grid;
+  grid-template-columns: var(--spine) minmax(0, 1fr) var(--obs);
+  grid-template-rows: auto minmax(0, 1fr) var(--rail);
+  grid-template-areas:
+    "specimen specimen specimen"
+    "spine    canvas   observe"
+    "rail     rail     rail";
+  height: 100vh;
+}
+
+/* ═══ 1 · SPECIMEN HEADER ═════════════════════════════════════
+   The dataset identity, set as a specimen label: a register of
+   field/value pairs divided by hairlines, not a navbar. */
+.specimen {
+  grid-area: specimen;
+  display: flex; align-items: stretch;
+  background: var(--plate);
+  border-bottom: 1px solid var(--edge);
+  overflow-x: auto;
+}
+.spec-mark {
+  display: flex; align-items: center; gap: calc(var(--u) * 2.5);
+  padding: 0 calc(var(--u) * 4);
+  border-right: 1px solid var(--hair); flex: none;
+}
+.spec-mark h1 { font-size: 14px; font-weight: 600; letter-spacing: .09em; line-height: 1; }
+.spec-mark .rev { font-family: var(--mono); font-size: 9px; color: var(--ink-3); letter-spacing: .12em; margin-top: 3px; }
+
+.spec-field {
+  display: flex; flex-direction: column; justify-content: center; gap: 2px;
+  padding: calc(var(--u) * 2) calc(var(--u) * 3.5);
+  border-right: 1px solid var(--hair-2); flex: none; min-width: 0;
+}
+.spec-field .v { font-family: var(--mono); font-size: 12px; color: var(--ink); white-space: nowrap; }
+.spec-field .v em { font-style: normal; color: var(--ink-3); }
+.spec-field.wide { flex: 1; }
+
+.spec-gate {
+  display: flex; align-items: center; gap: calc(var(--u) * 2);
+  padding: 0 calc(var(--u) * 4); margin-left: auto; flex: none;
+  border-left: 1px solid var(--hair);
+}
+.spec-gate .lamp { width: 7px; height: 7px; flex: none; }
+.spec-gate.blocked .lamp { background: var(--block); box-shadow: 0 0 0 3px color-mix(in srgb, var(--block) 22%, transparent); }
+.spec-gate.open    .lamp { background: var(--ok);    box-shadow: 0 0 0 3px color-mix(in srgb, var(--ok) 22%, transparent); }
+.spec-gate .txt { font-family: var(--mono); font-size: 10px; letter-spacing: .11em; text-transform: uppercase; }
+.spec-gate.blocked .txt { color: var(--block); }
+.spec-gate.open .txt { color: var(--ok); }
+
+/* ═══ 2 · WORKFLOW SPINE ══════════════════════════════════════
+   Vertical, with real branch geometry: Stage 2 and Stage 3 run in
+   parallel off the same parent, so the connector forks. Navigation
+   shaped like the pipeline it navigates. */
+.spine {
+  grid-area: spine;
+  background: var(--plate);
+  border-right: 1px solid var(--edge);
+  position: relative; overflow-y: auto; overflow-x: hidden;
+  padding: calc(var(--u) * 4) 0 calc(var(--u) * 6);
+}
+.spine-svg { position: absolute; inset: 0; width: 100%; pointer-events: none; }
+
+.node {
+  position: relative; z-index: 1;
+  display: flex; flex-direction: column; align-items: center; gap: calc(var(--u) * 1.5);
+  padding: calc(var(--u) * 2) 0;
+  width: 100%;
+}
+.node .glyph {
+  width: 22px; height: 22px; flex: none;
+  border: 1px solid var(--ink-4);
+  background: var(--ground);
+  display: grid; place-items: center;
+  transition: none;
+}
+.node .glyph::after { content: ""; width: 8px; height: 8px; }
+.node.done    .glyph { border-color: var(--ok); }
+.node.done    .glyph::after { background: var(--ok); }
+.node.blocked .glyph { border-color: var(--block); }
+.node.blocked .glyph::after { background: var(--block); clip-path: polygon(0 40%, 100% 40%, 100% 60%, 0 60%); }
+.node.warn    .glyph { border-color: var(--caution); }
+.node.warn    .glyph::after { background: var(--caution); clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+.node.idle    .glyph::after { background: var(--ink-4); clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); }
+.node.on .glyph { border-color: var(--ink); border-width: 2px; background: var(--plate-3); }
+
+.node .name {
+  font-family: var(--mono); font-size: 8.5px; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--ink-3); text-align: center; line-height: 1.3;
+  max-width: 70px;
+}
+.node.on .name { color: var(--ink); }
+.node:hover .name { color: var(--ink); }
+.node .ord {
+  position: absolute; left: 6px; top: calc(var(--u) * 2 + 4px);
+  font-family: var(--mono); font-size: 8px; color: var(--ink-4);
+}
+
+/* ═══ 3 · CANVAS ══════════════════════════════════════════════
+   Full bleed. A faint 4-unit graph grid, the way plate readers and
+   chart recorders print their own graticule. No card, no padding box. */
+.canvas {
+  grid-area: canvas;
+  position: relative; min-width: 0; min-height: 0;
+  background:
+    linear-gradient(var(--grid) 1px, transparent 1px) 0 0 / 100% calc(var(--u) * 8),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px) 0 0 / calc(var(--u) * 8) 100%,
+    var(--bg-canvas);
+  display: grid; grid-template-rows: auto minmax(0, 1fr) auto;
+}
+
+.canvas-head {
+  display: flex; align-items: baseline; gap: calc(var(--u) * 4);
+  padding: calc(var(--u) * 3) calc(var(--u) * 5) calc(var(--u) * 2);
+  border-bottom: 1px solid var(--hair);
+  background: var(--bg-canvas);
+}
+.canvas-head h2 { font-size: 14px; font-weight: 600; letter-spacing: .02em; }
+.canvas-head .sub { font-family: var(--mono); font-size: 10px; color: var(--ink-3); }
+.canvas-head .push { margin-left: auto; display: flex; gap: calc(var(--u) * 2); align-items: center; }
+
+.view { position: relative; min-height: 0; min-width: 0; overflow: hidden; }
+.view canvas { display: block; width: 100%; height: 100%; }
+.view svg { display: block; width: 100%; height: 100%; }
+.view.scroll { overflow: auto; }
+
+/* selection register — a live readout of the brush state */
+.register {
+  display: flex; align-items: center; gap: calc(var(--u) * 2); flex-wrap: wrap;
+  padding: calc(var(--u) * 2) calc(var(--u) * 5);
+  border-top: 1px solid var(--hair);
+  background: var(--plate);
+  min-height: 40px;
+}
+.token {
+  display: inline-flex; align-items: center; gap: calc(var(--u) * 1.5);
+  font-family: var(--mono); font-size: 10px; letter-spacing: .04em;
+  border: 1px solid var(--edge); padding: 2px 7px; color: var(--ink-2);
+}
+.token b { color: var(--ink); font-weight: 400; }
+.token .swatch { width: 7px; height: 7px; }
+.token button { color: var(--ink-4); font-size: 12px; line-height: 1; padding: 0 0 0 2px; }
+.token button:hover { color: var(--block); }
+.register .empty { font-family: var(--mono); font-size: 10px; color: var(--ink-4); letter-spacing: .04em; }
+
+/* ═══ 4 · OBSERVATION COLUMN ══════════════════════════════════
+   The interpretation layer. Entries are ruled observations carrying
+   the rule that produced them — not notifications. */
+.observe {
+  grid-area: observe;
+  background: var(--plate);
+  border-left: 1px solid var(--edge);
+  overflow-y: auto; min-height: 0;
+}
+.obs-head {
+  position: sticky; top: 0; z-index: 2;
+  display: flex; align-items: center; gap: calc(var(--u) * 2);
+  padding: calc(var(--u) * 3) calc(var(--u) * 4) calc(var(--u) * 2);
+  background: var(--plate); border-bottom: 1px solid var(--edge);
+}
+.obs-head .count { margin-left: auto; font-family: var(--mono); font-size: 10px; color: var(--ink-3); }
+
+.obs {
+  display: grid; grid-template-columns: 14px minmax(0, 1fr); gap: calc(var(--u) * 2.5);
+  padding: calc(var(--u) * 3.5) calc(var(--u) * 4);
+  border-bottom: 1px solid var(--hair-2); cursor: pointer; text-align: left; width: 100%;
+}
+.obs:hover { background: var(--plate-2); }
+.obs .sev { width: 10px; height: 10px; margin-top: 3px; border: 1px solid currentColor; }
+.obs.block   { color: var(--block); }
+.obs.caution { color: var(--caution); }
+.obs.note    { color: var(--note); }
+.obs.block .sev   { background: currentColor; }
+.obs.caution .sev { background: linear-gradient(135deg, currentColor 50%, transparent 50%); }
+
+.obs .t { font-size: 12.5px; font-weight: 600; color: var(--ink); line-height: 1.35; letter-spacing: .005em; }
+.obs .d { font-size: 11.5px; color: var(--ink-2); line-height: 1.5; margin-top: calc(var(--u) * 1.5); }
+.obs .r {
+  font-family: var(--mono); font-size: 9.5px; color: var(--ink-3);
+  margin-top: calc(var(--u) * 2); padding-left: calc(var(--u) * 2);
+  border-left: 1px solid var(--edge); word-break: break-word;
+}
+.obs .dom {
+  font-family: var(--mono); font-size: 8.5px; letter-spacing: .16em; text-transform: uppercase;
+  color: currentColor; margin-bottom: 3px;
+}
+
+/* ═══ 5 · COORDINATE RAIL ═════════════════════════════════════
+   Not a widget: the coordinate space the workstation is plotted in.
+   Left half is genome position, right half is time. Both brush. */
+.rail {
+  grid-area: rail;
+  display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  background: var(--plate);
+  border-top: 1px solid var(--edge);
+}
+.rail-pane { position: relative; min-width: 0; padding: calc(var(--u) * 2) calc(var(--u) * 5) calc(var(--u) * 1); }
+.rail-pane + .rail-pane { border-left: 1px solid var(--hair); }
+.rail-pane header { display: flex; align-items: baseline; gap: calc(var(--u) * 3); margin-bottom: calc(var(--u) * 1); }
+.rail-pane header .read { margin-left: auto; font-family: var(--mono); font-size: 10px; color: var(--ink-2); }
+.rail-pane svg { width: 100%; height: 62px; display: block; cursor: crosshair; }
+
+/* ═══ FLOATING CONSOLE ════════════════════════════════════════
+   Contextual analysis modules. Draggable, snapping to the 4-unit
+   grid, with a knurled title bar — a control console, not a modal. */
+.console {
+  position: fixed; z-index: 40;
+  width: 340px; max-height: 74vh;
+  background: var(--bg-panel);
+  border: 1px solid var(--edge);
+  display: flex; flex-direction: column; min-height: 0;
+}
+.console-bar {
+  display: flex; align-items: center; gap: calc(var(--u) * 2);
+  padding: calc(var(--u) * 1.5) calc(var(--u) * 2) calc(var(--u) * 1.5) calc(var(--u) * 3);
+  border-bottom: 1px solid var(--edge);
+  cursor: grab; user-select: none;
+  background: repeating-linear-gradient(
+    90deg, transparent, transparent 3px, var(--hair) 3px, var(--hair) 4px);
+}
+.console-bar:active { cursor: grabbing; }
+.console-bar h3 {
+  font-family: var(--mono); font-size: 9.5px; letter-spacing: .16em; text-transform: uppercase;
+  background: var(--plate); padding-right: calc(var(--u) * 2);
+}
+.console-bar .x { margin-left: auto; background: var(--plate); padding-left: calc(var(--u) * 2); color: var(--ink-3); font-family: var(--mono); }
+.console-bar .x:hover { color: var(--block); }
+.console-body { padding: calc(var(--u) * 3); overflow: auto; min-height: 0; display: flex; flex-direction: column; gap: calc(var(--u) * 3); }
+
+.ctl { display: flex; flex-direction: column; gap: calc(var(--u) * 1.5); }
+.ctl > label { font-family: var(--mono); font-size: 9.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); }
+.ctl .row { display: flex; align-items: center; gap: calc(var(--u) * 2); }
+.ctl input[type="range"] { flex: 1; accent-color: var(--ink); height: 2px; }
+.ctl output { font-family: var(--mono); font-size: 11px; min-width: 42px; text-align: right; }
+.ctl select, .ctl input[type="text"] {
+  background: var(--ground); border: 1px solid var(--edge); color: var(--ink);
+  font-family: var(--mono); font-size: 11px; padding: 4px 7px; border-radius: 0; width: 100%;
+}
+.switch { display: flex; align-items: center; gap: calc(var(--u) * 2); font-size: 11.5px; color: var(--ink-2); cursor: pointer; }
+.switch input { accent-color: var(--ink); }
+
+/* the plain instrument key */
+.k {
+  font-family: var(--mono); font-size: 9.5px; letter-spacing: .13em; text-transform: uppercase;
+  border: 1px solid var(--edge); color: var(--ink-2);
+  padding: 4px 9px; white-space: nowrap;
+}
+.k:hover { border-color: var(--ink); color: var(--ink); }
+.k.on { background: var(--ink); color: var(--ground); border-color: var(--ink); }
+.k.tiny { padding: 2px 6px; font-size: 8.5px; }
+
+.seg { display: inline-flex; }
+.seg .k + .k { border-left: 0; }
+
+/* history entries */
+.hist { display: flex; flex-direction: column; }
+.hist button {
+  display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 2px 8px;
+  padding: calc(var(--u) * 2) 0; border-bottom: 1px solid var(--hair-2); text-align: left;
+}
+.hist button:hover { background: var(--plate-2); }
+.hist .h1 { font-size: 11.5px; color: var(--ink); }
+.hist .h2 { font-family: var(--mono); font-size: 9.5px; color: var(--ink-3); grid-column: 1 / -1; }
+.hist .h3 { font-family: var(--mono); font-size: 9px; color: var(--ink-4); }
+
+/* ═══ tooltip ═════════════════════════════════════════════════ */
+.tip {
+  position: fixed; z-index: 60; pointer-events: none;
+  background: var(--void); border: 1px solid var(--edge);
+  padding: calc(var(--u) * 2) calc(var(--u) * 2.5);
+  font-family: var(--mono); font-size: 10.5px; line-height: 1.6; color: var(--ink);
+  max-width: 300px;
+}
+.tip .k2 { color: var(--ink-3); }
+.tip strong { font-weight: 400; }
+
+.legend { display: flex; flex-wrap: wrap; gap: calc(var(--u) * 1) calc(var(--u) * 3); }
+.legend button { display: inline-flex; align-items: center; gap: 5px; font-family: var(--mono); font-size: 10px; color: var(--ink-2); }
+.legend button:hover { color: var(--ink); }
+.legend button.off { opacity: .35; }
+.legend i { width: 8px; height: 8px; display: block; }
+
+.hint { font-size: 11px; color: var(--ink-3); line-height: 1.5; }
+.blank { padding: calc(var(--u) * 8) calc(var(--u) * 5); color: var(--ink-3); font-size: 12px; max-width: 54ch; line-height: 1.6; }
+
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }

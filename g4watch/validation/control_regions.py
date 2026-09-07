@@ -78,7 +78,9 @@ def find_matched_control_region(
                 candidate_seq, window=g4hunter_window, threshold=pqs_overlap_score_threshold
             ):
                 continue
-            candidates.append(ControlRegion(start=start, end=end, gc_content=candidate_gc, length=length, sequence=candidate_seq))
+            candidates.append(
+                ControlRegion(start=start, end=end, gc_content=candidate_gc, length=length, sequence=candidate_seq)
+            )
 
     if not candidates:
         return None

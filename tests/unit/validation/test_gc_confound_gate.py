@@ -32,7 +32,7 @@ def test_fdr_correction_is_applied_across_multiple_loci() -> None:
     rng = random.Random(1)
     loci = [
         LocusControlData(
-            f"L{i+1}",
+            f"L{i + 1}",
             _sample(0.8, rng, _N_CLADES_PER_GROUP),
             0.5,
             _sample(0.2, rng, _N_CLADES_PER_GROUP),
@@ -51,3 +51,44 @@ def test_reproducible_with_fixed_seed() -> None:
     loci1 = [LocusControlData("L1", _sample(0.7, rng1, 10), 0.5, _sample(0.3, rng1, 10), 0.5)]
     loci2 = [LocusControlData("L1", _sample(0.7, rng2, 10), 0.5, _sample(0.3, rng2, 10), 0.5)]
     assert gc_confound_gate(loci1) == gc_confound_gate(loci2)
+
+
+# ── BH invariants ───────────────────────────────────────────────────
+def test_adjusted_p_is_never_below_the_raw_p():
+    """BH multiplies by n/rank, which is >= 1, so the adjusted value can
+    never be smaller than the raw one. Floating point disagreed: at the
+    largest p-value the factor is n/n and `p * n / n` is not exactly p,
+    which landed one ULP low on a CI runner."""
+    from g4watch.validation.gc_confound_gate import _benjamini_hochberg
+
+    for values in (
+        [5.1012644645624864e-05],
+        [5.1012644645624864e-05, 1e-3, 0.02, 0.5],
+        [0.1, 0.2, 0.30000000000000004, 0.7, 0.9999999999999999],
+        [1e-12, 1e-9, 1e-6, 1e-3],
+    ):
+        adjusted = _benjamini_hochberg(values)
+        for raw, adj in zip(values, adjusted):
+            assert adj >= raw, f"{adj!r} < {raw!r}"
+
+
+def test_adjusted_p_never_exceeds_one():
+    from g4watch.validation.gc_confound_gate import _benjamini_hochberg
+
+    assert all(a <= 1.0 for a in _benjamini_hochberg([0.9, 0.95, 0.99, 1.0]))
+
+
+def test_adjusted_p_is_monotone_in_the_raw_p():
+    """Step-down monotonicity must survive the clamp."""
+    from g4watch.validation.gc_confound_gate import _benjamini_hochberg
+
+    values = [0.001, 0.004, 0.01, 0.03, 0.2, 0.6, 0.9]
+    adjusted = _benjamini_hochberg(values)
+    pairs = sorted(zip(values, adjusted))
+    assert all(a <= b for (_, a), (_, b) in zip(pairs, pairs[1:]))
+
+
+def test_a_single_locus_is_unchanged_by_correction():
+    from g4watch.validation.gc_confound_gate import _benjamini_hochberg
+
+    assert _benjamini_hochberg([0.037])[0] == 0.037

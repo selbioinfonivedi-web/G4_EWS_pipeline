@@ -10,7 +10,7 @@ readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }
 authors = [{ name = "ICAR-NIVEDI G4-WATCH" }]
-keywords = ["g-quadruplex", "genomic-surveillance", "virology", "phylogenetics", "fmdv"]
+keywords = ["g-quadruplex", "genomic-surveillance", "virology", "phylogenetics", "livestock"]
 classifiers = [
   "Development Status :: 4 - Beta",
   "Intended Audience :: Science/Research",
@@ -31,11 +31,26 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+# The web layer's dependencies, declared rather than assumed. They were
+# previously installed ad-hoc in CI and supplied locally by a venv created
+# with --system-site-packages, so `psutil` and `jinja2` resolved on a
+# developer machine and were missing on a clean runner -- the whole
+# tests/web suite failed to collect. A dependency the code imports belongs
+# in the metadata, not in a CI step.
+web = [
+  "fastapi>=0.110",
+  "uvicorn>=0.27",
+  "pydantic>=2.6",
+  "psutil>=5.9",
+  "jinja2>=3.1",
+]
 dev = [
+  "g4watch[web]",
   "pytest>=7.4",
   "pytest-cov>=4.1",
   "coverage[toml]>=7.4",
   "ruff>=0.4",
+  "httpx>=0.27",
 ]
 
 [project.scripts]

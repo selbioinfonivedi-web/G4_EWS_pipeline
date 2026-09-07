@@ -19,6 +19,7 @@ configurable would make them bypassable:
 
 from __future__ import annotations
 
+import os
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -28,6 +29,39 @@ import yaml
 from .phylo.recombination_screen import RecombinationTier
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
+
+
+def config_dir() -> Path:
+    """Where named pathogens (``"fmdv"``) are looked up.
+
+    Resolved at call time, in this order:
+
+    1. ``$G4WATCH_CONFIG_DIR``, when set — the explicit answer, and the one
+       a deployment should use.
+    2. ``<package parent>/config`` — correct in a repository checkout, where
+       the package sits beside the config directory.
+    3. ``./config`` relative to the working directory — correct for an
+       INSTALLED package, where the package lives in site-packages and its
+       parent holds no config at all.
+
+    Rule 3 exists because of a real failure: inside the core container the
+    package is installed, so rule 2 resolved to
+    ``/usr/local/lib/python3.12/site-packages/config`` and every named
+    pathogen failed with "Available pathogens: none". The image could not
+    run a single stage for any pathogen, even with the repository mounted
+    and the working directory set to it.
+    """
+    override = os.environ.get("G4WATCH_CONFIG_DIR")
+    if override:
+        return Path(override)
+    packaged = REPO_ROOT / "config"
+    if packaged.is_dir():
+        return packaged
+    return Path.cwd() / "config"
+
+
+#: Kept for callers that import it directly. Prefer :func:`config_dir`,
+#: which re-resolves rather than freezing the value at import time.
 CONFIG_DIR = REPO_ROOT / "config"
 
 # Top-level sections every pathogen config must define. Presence is
@@ -139,8 +173,74 @@ class PathogenConfig:
         return self.repo_root / str(raw)
 
     @property
+    def genome_type(self) -> str:
+        """Declared genome type, e.g. ``ssRNA_positive``.
+
+        A real property because consumers were reaching for it with
+        ``getattr(config, "genome_type", "")``. It is a required config
+        section but not a dataclass field, so that guess silently
+        returned the empty string everywhere and the workstation and the
+        report card both displayed a blank genome type.
+        """
+        return str(self.raw.get("genome_type") or "")
+
+    @property
+    def genome_length(self) -> int | None:
+        value = (self.raw.get("reference") or {}).get("genome_length")
+        return int(value) if value is not None else None
+
+    @property
+    def atlas_version(self) -> str:
+        """The Atlas version the config declares.
+
+        Read from the config rather than parsed out of the Atlas
+        filename: a file called ``atlas.tsv`` is perfectly valid and its
+        name says nothing about the version it holds.
+        """
+        return str((self.raw.get("atlas") or {}).get("version") or "")
+
+    @property
     def lineage_field(self) -> str:
         return self.raw["corpus"].get("lineage_field") or "lineage"
+
+    @property
+    def lineage_fallback_fields(self) -> tuple[str, ...]:
+        """Secondary metadata columns that may also carry the lineage.
+
+        Consulted in order when the primary ``lineage_field`` is blank or
+        less specific. The defaults are generic GenBank columns, not
+        anything pathogen-specific; a config may override the list.
+        """
+        raw = (self.raw.get("corpus") or {}).get("lineage_fallback_fields")
+        if raw is None:
+            return ("organism", "isolate", "strain")
+        if not isinstance(raw, list) or not all(isinstance(x, str) for x in raw):
+            raise ConfigError(
+                f"{self.path}:corpus.lineage_fallback_fields must be a list of strings, got {raw!r}"
+            )
+        return tuple(raw)
+
+    @property
+    def exclude_lineages(self) -> tuple[str, ...]:
+        """Lineages dropped before any statistic is computed.
+
+        Configured rather than passed on the command line because an
+        exclusion changes what every downstream number means, and a run
+        must be fully described by (commit, config, accession list). A
+        lineage that no longer circulates cannot be the subject of early
+        warning, and carrying it only to fail the per-lineage floor blocks
+        the analysis of everything that does. The CLI can still add to
+        this for an exploratory run; it cannot silently replace it.
+        """
+        raw = self.raw["corpus"].get("exclude_lineages") or []
+        if isinstance(raw, str):
+            raise ConfigError(
+                f"{self.path}:corpus.exclude_lineages must be a list, not a string "
+                f"(got {raw!r}); a bare string would silently exclude one character at a time"
+            )
+        if not isinstance(raw, list) or not all(isinstance(x, str) for x in raw):
+            raise ConfigError(f"{self.path}:corpus.exclude_lineages must be a list of strings, got {raw!r}")
+        return tuple(x.strip() for x in raw if x.strip())
 
     def require_provisioned(self) -> None:
         """Fail closed on a pathogen whose reference/corpus are not filled in.
@@ -253,11 +353,11 @@ def load_config(pathogen_or_path: str | Path, *, repo_root: Path | None = None) 
     if candidate.suffix in {".yaml", ".yml"}:
         path = candidate if candidate.is_absolute() else (Path.cwd() / candidate)
     else:
-        path = CONFIG_DIR / f"{str(pathogen_or_path).lower()}.yaml"
+        path = config_dir() / f"{str(pathogen_or_path).lower()}.yaml"
     repo_root = repo_root or _infer_repo_root(path.resolve())
 
     if not path.exists():
-        available = ", ".join(sorted(p.stem for p in CONFIG_DIR.glob("*.yaml"))) or "none"
+        available = ", ".join(sorted(p.stem for p in config_dir().glob("*.yaml"))) or "none"
         raise ConfigError(f"No config at {path}. Available pathogens: {available}")
 
     try:

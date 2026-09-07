@@ -135,3 +135,89 @@ def test_lsdv_is_high_priority_for_recombination():
     # Section 11 singles LSDV out: recombinant vaccine-like field strains
     # are a dominant feature of its evolution.
     assert load_config("lsdv").recombination_tier is RecombinationTier.HIGH_PRIORITY
+
+
+
+def test_exclude_lineages_defaults_to_empty(synthetic_config):
+    assert synthetic_config.exclude_lineages == ()
+
+
+def test_exclude_lineages_rejects_a_bare_string(config_factory):
+    """A string is iterable, so accepting one would exclude single
+    characters and look like it had worked."""
+    from g4watch.config import ConfigError
+
+    config = config_factory({"corpus": {"exclude_lineages": "C"}})
+    with pytest.raises(ConfigError, match="must be a list, not a string"):
+        _ = config.exclude_lineages
+
+
+def test_exclude_lineages_rejects_non_string_entries(config_factory):
+    from g4watch.config import ConfigError
+
+    config = config_factory({"corpus": {"exclude_lineages": ["C", 7]}})
+    with pytest.raises(ConfigError, match="list of strings"):
+        _ = config.exclude_lineages
+
+
+def test_exclude_lineages_strips_and_drops_blanks(config_factory):
+    config = config_factory({"corpus": {"exclude_lineages": [" C ", "", "A"]}})
+    assert config.exclude_lineages == ("C", "A")
+
+
+def test_genome_type_is_a_real_property_not_a_getattr_guess(synthetic_config):
+    """Consumers reached for it with getattr(config, "genome_type", ""),
+    which silently returned the empty string because it is a config
+    section rather than a dataclass field."""
+    assert synthetic_config.genome_type == "ssRNA_positive"
+
+
+def test_genome_length_and_atlas_version_read_from_the_config(synthetic_config):
+    assert synthetic_config.genome_length is not None
+    assert synthetic_config.atlas_version == "0.1"
+
+
+def test_atlas_version_is_not_derived_from_the_atlas_filename(config_factory):
+    """A file called atlas.tsv is valid and its name says nothing about
+    the version it holds."""
+    config = config_factory({"atlas": {"path": "atlases/atlas.tsv", "version": "3.2"}})
+    assert config.atlas_version == "3.2"
+
+
+# ── config directory resolution ─────────────────────────────────────
+def test_config_dir_prefers_the_environment_override(monkeypatch, tmp_path):
+    from g4watch.config import config_dir
+
+    monkeypatch.setenv("G4WATCH_CONFIG_DIR", str(tmp_path))
+    assert config_dir() == tmp_path
+
+
+def test_config_dir_falls_back_to_the_working_directory_when_installed(monkeypatch, tmp_path):
+    """Inside the core container the package is installed, so the
+    package-relative config directory does not exist and every named
+    pathogen failed with "Available pathogens: none". The image could not
+    run a stage for any pathogen even with the repository mounted."""
+    import g4watch.config as cfg
+
+    monkeypatch.delenv("G4WATCH_CONFIG_DIR", raising=False)
+    monkeypatch.setattr(cfg, "REPO_ROOT", tmp_path / "site-packages" / "g4watch")
+    monkeypatch.chdir(tmp_path)
+    (tmp_path / "config").mkdir()
+    assert cfg.config_dir() == tmp_path / "config"
+
+
+def test_config_dir_uses_the_checkout_layout_when_present(monkeypatch):
+    import g4watch.config as cfg
+
+    monkeypatch.delenv("G4WATCH_CONFIG_DIR", raising=False)
+    assert cfg.config_dir() == cfg.REPO_ROOT / "config"
+
+
+def test_the_unknown_pathogen_message_lists_what_is_actually_available(monkeypatch):
+    import pytest as _pytest
+
+    from g4watch.config import ConfigError, load_config
+
+    monkeypatch.delenv("G4WATCH_CONFIG_DIR", raising=False)
+    with _pytest.raises(ConfigError, match="fmdv"):
+        load_config("nosuchpathogen")

@@ -28,10 +28,7 @@ def test_signature_has_exactly_four_metric_parameters_no_lf_ge_ta() -> None:
     function signature and confirm there is no way to pass lineage
     frequency, geographic entropy, or temporal acceleration into it."""
     params = inspect.signature(g4_ews_core).parameters
-    metric_params = {
-        name for name, p in params.items()
-        if p.annotation in ("NormalizedMetric", NormalizedMetric)
-    }
+    metric_params = {name for name, p in params.items() if p.annotation in ("NormalizedMetric", NormalizedMetric)}
     assert metric_params == {"delta_g4c", "g4d", "g4g", "g4mb_star"}
     for forbidden in ("lineage_frequency", "geographic_entropy", "temporal_acceleration", "lf", "ge", "ta"):
         assert forbidden not in params

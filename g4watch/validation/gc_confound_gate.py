@@ -101,7 +101,19 @@ def _benjamini_hochberg(p_values: list[float]) -> list[float]:
     for rank in range(1, n + 1):
         i = order[n - rank]
         raw_rank = n - rank + 1
-        value = min(prev, p_values[i] * n / raw_rank)
+        value = min(prev, 1.0, p_values[i] * n / raw_rank)
+        # A BH-adjusted p-value is multiplied by n/rank, which is >= 1, so
+        # it can never fall below the raw p-value. Floating point does not
+        # know that: at raw_rank == n the factor is n/n, and `p * n / n`
+        # is not exactly p -- it landed one ULP low on a CI runner and
+        # broke the invariant (5.101264464562486e-05 < 5.1012644645624864e-05).
+        # Clamping restores the definition rather than widening a test
+        # tolerance to accommodate a value that should not exist.
+        #
+        # This cannot break the step-down monotonicity above: `prev` is the
+        # adjusted value of a LARGER raw p-value, and adjusted values are
+        # non-decreasing in p, so prev >= that larger p >= p_values[i].
+        value = max(value, p_values[i])
         adjusted[i] = value
         prev = value
     return adjusted

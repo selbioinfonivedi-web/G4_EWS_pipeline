@@ -64,10 +64,13 @@ def test_power_is_deterministic_for_a_given_seed():
     assert a.power == b.power
 
 
-@pytest.mark.parametrize("kwargs", [
-    dict(n_locus=0, n_control=10),
-    dict(n_locus=10, n_control=0),
-])
+@pytest.mark.parametrize(
+    "kwargs",
+    [
+        dict(n_locus=0, n_control=10),
+        dict(n_locus=10, n_control=0),
+    ],
+)
 def test_empty_group_is_rejected(kwargs):
     with pytest.raises(PowerAnalysisError, match="at least one observation"):
         fisher_exact_power(locus_rate=0.5, control_rate=0.4, **kwargs)

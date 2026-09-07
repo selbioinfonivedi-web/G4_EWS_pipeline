@@ -108,9 +108,7 @@ def _compute_clades(tip_sequences: dict, tree_path: Path, tree, start: int, end:
     ape::ace()) -> real clade collapse. Returns binary disruption indicators,
     one per informative clade. Mirrors scripts/python/run_dh1_fmdv.py's own
     real-data logic exactly, at synthetic-fixture scale."""
-    tip_states = {
-        name: classify_tip_state(REFERENCE, seq, start, end).value for name, seq in tip_sequences.items()
-    }
+    tip_states = {name: classify_tip_state(REFERENCE, seq, start, end).value for name, seq in tip_sequences.items()}
     if len(set(tip_states.values())) < 2:
         return []
     ancestral_run = reconstruct_ancestral_states(tree_path, tip_states)
@@ -135,7 +133,9 @@ def _run_pipeline(n_per_group: int) -> tuple[list[float], list[float], float, fl
     locus = records[0]
     assert locus.concordant_tool_count == 2, "fixture's PQS must be genuinely 2-tool concordant"
 
-    control = find_matched_control_region(REFERENCE, locus.genome_start, locus.genome_end, g4hunter_window=G4HUNTER_WINDOW)
+    control = find_matched_control_region(
+        REFERENCE, locus.genome_start, locus.genome_end, g4hunter_window=G4HUNTER_WINDOW
+    )
     assert control is not None, "fixture must have a findable GC-matched, PQS-free control region"
 
     tip_sequences, newick = _build_fixture(
@@ -150,9 +150,9 @@ def _run_pipeline(n_per_group: int) -> tuple[list[float], list[float], float, fl
         locus_values = _compute_clades(tip_sequences, tree_path, tree, locus.genome_start, locus.genome_end)
         control_values = _compute_clades(tip_sequences, tree_path, tree, control.start, control.end)
 
-    locus_gc = sum(
-        1 for c in REFERENCE[locus.genome_start - 1 : locus.genome_end].upper() if c in "GC"
-    ) / (locus.genome_end - locus.genome_start + 1)
+    locus_gc = sum(1 for c in REFERENCE[locus.genome_start - 1 : locus.genome_end].upper() if c in "GC") / (
+        locus.genome_end - locus.genome_start + 1
+    )
 
     return locus_values, control_values, locus_gc, control.gc_content, tip_sequences
 
@@ -164,7 +164,9 @@ def test_sufficient_fixture_clears_minimum_data_floor_and_runs_dh1() -> None:
     locus_values, control_values, locus_gc, control_gc, tip_sequences = _run_pipeline(n_per_group=20)
 
     assert len(locus_values) >= 3, "fixture must produce >=3 informative locus clades for this test to be meaningful"
-    assert len(control_values) >= 3, "fixture must produce >=3 informative control clades for this test to be meaningful"
+    assert len(control_values) >= 3, (
+        "fixture must produce >=3 informative control clades for this test to be meaningful"
+    )
 
     data = MinimumDataInput(
         n_sequences_in_window=len(tip_sequences),
@@ -178,11 +180,17 @@ def test_sufficient_fixture_clears_minimum_data_floor_and_runs_dh1() -> None:
         recombination_screen_completed=True,
     )
     gate_result = minimum_data_gate(data)
-    assert gate_result.passed_minimum_floor is True, f"expected the floor to pass, failing checks: {gate_result.failing_checks}"
+    assert gate_result.passed_minimum_floor is True, (
+        f"expected the floor to pass, failing checks: {gate_result.failing_checks}"
+    )
 
     locus_data = LocusControlData("SYN-LOCUS-1", locus_values, locus_gc, control_values, control_gc)
     dh1_result = run_dh1_gate([locus_data])
-    assert dh1_result.pathogen_verdict in {Dh1Verdict.SUPPORTED, Dh1Verdict.NOT_SUPPORTED, Dh1Verdict.SIGNAL_EXPLAINED_BY_GC}
+    assert dh1_result.pathogen_verdict in {
+        Dh1Verdict.SUPPORTED,
+        Dh1Verdict.NOT_SUPPORTED,
+        Dh1Verdict.SIGNAL_EXPLAINED_BY_GC,
+    }
     assert len(dh1_result.locus_results) == 1
 
 
