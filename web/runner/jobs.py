@@ -22,6 +22,7 @@ from dataclasses import dataclass, field
 from enum import Enum
 from pathlib import Path
 
+from . import audit
 from .commands import GATE_CLOSED_EXIT, REPO_ROOT, Command, resolve_executable
 
 MAX_LOG_LINES = 4000
@@ -192,6 +193,10 @@ class JobRunner:
         self.order.append(job.id)
         self._evict()
         job.emit("meta", f"$ {' '.join(argv)}")
+        # Recorded at submission, not only at completion: a job that is
+        # queued and then lost to a crash still happened, and an audit
+        # that only logs finished work cannot show that.
+        audit.record("queued", job)
         if self.current is not None:
             job.emit("meta", "Queued — another job is running. Stages share artifacts, so they run one at a time.")
         self._enqueue(job.id)
@@ -278,6 +283,7 @@ class JobRunner:
                 job.state = JobState.FAILED
                 job.finished = time.time()
                 job.emit("meta", f"Runner error: {exc}")
+                audit.record("failed", job)
                 self._close(job)
             finally:
                 self.current = None
@@ -288,12 +294,14 @@ class JobRunner:
             job.state = JobState.FAILED
             job.finished = time.time()
             job.emit("meta", f"{job.argv[0]!r} was not found. See docs/installation.md.")
+            audit.record("failed", job)
             self._close(job)
             return
         argv = [resolved, *job.argv[1:]]
 
         job.state = JobState.RUNNING
         job.started = time.time()
+        audit.record("started", job)
 
         env = dict(os.environ)
         env["PYTHONUNBUFFERED"] = "1"
@@ -334,6 +342,10 @@ class JobRunner:
             job.state = JobState.FAILED
 
         job.emit("meta", f"Exited with code {code} after {job.duration:.1f}s.")
+        # One row per terminal outcome. GATE_CLOSED is recorded as a
+        # finished run, not a failure: exit 3 is a correct scientific
+        # result and an audit that called it a failure would misreport it.
+        audit.record("cancelled" if job.state is JobState.CANCELLED else "finished", job)
         self._close(job)
 
     async def _pump(self, job: Job, stream: asyncio.StreamReader | None, name: str) -> None:

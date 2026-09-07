@@ -43,6 +43,9 @@ web = [
   "pydantic>=2.6",
   "psutil>=5.9",
   "jinja2>=3.1",
+  # Starlette needs it to parse a login form; without it the login
+  # route raises at request time rather than at import.
+  "python-multipart>=0.0.9",
 ]
 dev = [
   "g4watch[web]",
