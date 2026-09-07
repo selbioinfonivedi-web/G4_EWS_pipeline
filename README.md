@@ -63,8 +63,11 @@ Stage 4.5  GC-confound control gate ───────┴─ g4watch dh1
            ╔══════════════════════════════╗
            ║   GATE: D.H1  (Section 12)   ║
            ╚══════════════════════════════╝
-Stage 5    Scoring ───────────────────────── blocked until SUPPORTED
-Stage 6    Reporting ─────────────────────── g4watch dashboard  (gate status always shown)
+Stage 5    Scoring ───────────────────────── g4watch stage5   (gated)
+           7 G.2 terms · normalisation · outcome labels · weight fitting
+           M3/M4 scores · CUSUM/EWMA · D.H3 · M1-M4 comparison
+Stage 6    Reporting ─────────────────────── g4watch report-card
+           12 sections; a closed gate produces a card that says so
 ```
 
 Stage 1.5 has no skip flag. Reconstructing ancestral states across a
@@ -77,7 +80,7 @@ screen runs before phylogenetics for every pathogen.
 
 ```bash
 make install          # creates .venv and installs the package
-make vendor           # fetches and builds PhiPack at its pinned commit
+make vendor           # builds PhiPack from the vendored source (no network)
 make doctor           # reports which external tools are present
 
 g4watch config list
@@ -85,15 +88,41 @@ g4watch gate-status -p fmdv
 g4watch dashboard   -p fmdv
 ```
 
-Run the pipeline against the existing FMDV artifacts:
+Run the whole pipeline. `-profile docker` needs the images built once
+with `make containers`; `-profile conda_free` runs against the host.
 
 ```bash
-make run-fmdv
-# or explicitly:
-nextflow run workflow/main.nf -profile docker --pathogen fmdv \
-  --atlas       data/atlases/G4_Reference_Atlas_v1.0.fmdv.tsv \
-  --alignment   data/reference_genomes/fmdv/corpus/aligned/fmdv_qc_passed_aligned_to_ref.fasta \
-  --rooted_tree data/reference_genomes/fmdv/corpus/phylogenetics/fmdv_iqtree_rooted.nwk
+nextflow run workflow/main.nf -profile docker --pathogen <name-or-config.yaml>
+```
+
+Supplying pre-computed artifacts skips the stages that would rebuild
+them — useful when MAFFT and IQ-TREE are not installed:
+
+```bash
+nextflow run workflow/main.nf -profile docker --pathogen <name> \
+  --atlas       <atlas.tsv> \
+  --alignment   <aligned.fasta> \
+  --rooted_tree <rooted.nwk> \
+  --skip_qc --skip_phylogenetics
+```
+
+Corpus acquisition is a separate, deliberate entry point, so an analysis
+run never silently re-fetches and changes its own inputs:
+
+```bash
+nextflow run workflow/main.nf -entry ACQUISITION \
+  --pathogen <name> --accession_list <accessions.txt>
+```
+
+Individual stages are also available directly:
+
+```bash
+g4watch stage0 -p <name>          # build the Atlas
+g4watch variants -p <name>        # call variants from the alignment
+g4watch dh1 -p <name>             # the gated hypothesis test
+g4watch stage5 -p <name>          # the full downstream chain
+g4watch dh3 -p <name>             # phylogenetic clustering test
+g4watch report-card -p <name>     # the 12-section card
 ```
 
 A closed gate is a **successful** run. Stage 5 reports that scoring is
@@ -120,13 +149,14 @@ g4watch/          the Python package
   cli.py            the `g4watch` command
   pipeline/         config-driven stage runners
   atlas/ g4prediction/ phylo/ metrics/ validation/ scoring/ warning/ reporting/
-config/           one YAML per pathogen; fmdv is the only provisioned one
+config/           one YAML per pathogen, including its lineage vocabulary
 workflow/         Nextflow DSL2 — main.nf + modules/
 containers/       Dockerfiles, one per tool family
-web/              read-only FastAPI dashboard (Section 17)
+web/              runner (localhost only), workstation payload, read-only service
 docs/             installation, usage, methods, revision log
-tests/            unit/, ground_truth/, integration/, lint/, web/
-vendor/           PhiPack and pinned third-party versions
+tests/            unit/, ground_truth/, integration/, lint/, web/,
+                  workflow/ (orchestration), containers/ (image definitions)
+vendor/           phipack-src/ (vendored source) and pinned third-party versions
 data/             reference genomes, atlases, the testing ledger
 ```
 
@@ -135,6 +165,15 @@ data/             reference genomes, atlases, the testing ledger
 ## Design commitments
 
 These are enforced in code and tests, not by convention:
+
+**Pathogen-agnostic.** No pathogen's name, lineage vocabulary, thresholds
+or file paths appear in the library. Everything that differs between
+viruses — the reference, CDS bounds, QC thresholds, the lineage field and
+its canonical names, aliases and subtype grammar — is declared in
+`config/<pathogen>.yaml`. Adding a virus requires no Python. A pathogen
+that declares no lineage vocabulary resolves nothing rather than being
+scored against another virus's names.
+
 
 **Fail closed.** Missing tools, malformed configs and unprovisioned
 pathogens stop a run. Nothing is silently skipped or defaulted — a
@@ -184,6 +223,11 @@ pass has an honest denominator.
 | [docs/evidence_classification.md](docs/evidence_classification.md) | the two-axis confidence scheme |
 | [docs/methods_supplement.md](docs/methods_supplement.md) | metrics, gates and statistics |
 | [docs/revision_log.md](docs/revision_log.md) | every implementation-time correction |
+
+Architecture set (`docs/G4 architecture/`): document understanding,
+production architecture, dependency map, module reference, data model,
+algorithm specification, technology decisions, implementation roadmap,
+engineering record, open questions, and the Phase 1 finding.
 
 Design documents: `G4_WATCH_Build_Architecture.md`,
 `G4_WATCH_Concept_Paper_v2.md`, `G4_WATCH_Sprint_Plan.md`.
