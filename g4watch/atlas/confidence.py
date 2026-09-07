@@ -38,7 +38,16 @@ def structural_confidence(candidate: AtlasCandidate) -> StructuralConfidence:
     if candidate.biophysically_confirmed_formation:
         return StructuralConfidence.BC
 
-    score = candidate.g4hunter_score
+    # G4Hunter's SIGN IS THE STRAND, NOT THE QUALITY. The algorithm
+    # qualifies a window on ``s >= T or s <= -T`` and reports the sign as
+    # the strand, because a C-rich stretch on the given strand is a G-rich
+    # stretch -- a candidate G4 -- on the complement. Comparing the signed
+    # value against a positive threshold therefore excluded every
+    # minus-strand G4 from MC and SC no matter how strong it was: a locus
+    # scoring -2.5 with two concordant tools and 95% conservation was
+    # classified WC, while +2.5 on identical evidence was SC. Three of the
+    # four real FMDV loci are minus-strand.
+    score = abs(candidate.g4hunter_score) if candidate.g4hunter_score is not None else None
     conservation = candidate.conservation_pct_phylo
 
     if (

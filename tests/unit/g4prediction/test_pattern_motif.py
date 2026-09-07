@@ -89,3 +89,49 @@ def test_predict_finds_overlapping_candidates_when_a_tract_can_be_read_two_ways(
     seq = "GGGG" + "A" + "GGG" + "A" + "GGG" + "A" + "GGG"
     hits = predict(seq, min_loop=1, max_loop=7)
     assert len(hits) >= 1
+
+
+# ── strand symmetry ─────────────────────────────────────────────────
+def test_a_minus_strand_g4_is_detected():
+    """G4Hunter qualifies a window on |score| and reports the sign as the
+    strand. This detector matched only literal G-tracts, so it could never
+    corroborate a minus-strand G4Hunter hit and concordance was structurally
+    impossible for one whole strand."""
+    from g4watch.g4prediction.pattern_motif import predict
+
+    minus = "AAAA" + "CCCACCCACCCACCC" + "AAAA"  # revcomp of a canonical PQS
+    hits = predict(minus)
+    assert len(hits) == 1
+    assert hits[0].strand == "-"
+
+
+def test_minus_strand_coordinates_map_back_to_forward_space():
+    """A minus-strand hit must be directly comparable with a G4Hunter hit,
+    which reports forward coordinates."""
+    from g4watch.g4prediction.pattern_motif import predict
+
+    motif = "CCCACCCACCCACCC"
+    hits = predict("AAAA" + motif + "AAAA")
+    assert (hits[0].start, hits[0].end) == (4, 4 + len(motif))
+
+
+def test_a_palindromic_pair_is_found_on_both_strands():
+    from g4watch.g4prediction.pattern_motif import predict
+
+    seq = "GGGTGGGTGGGTGGG" + "TTTT" + "CCCACCCACCCACCC"
+    strands = {h.strand for h in predict(seq)}
+    assert strands == {"+", "-"}
+
+
+def test_single_strand_mode_is_still_available():
+    from g4watch.g4prediction.pattern_motif import predict
+
+    minus = "AAAA" + "CCCACCCACCCACCC" + "AAAA"
+    assert predict(minus, both_strands=False) == []
+
+
+def test_reverse_complement_handles_ambiguity_codes():
+    from g4watch.g4prediction.pattern_motif import reverse_complement
+
+    assert reverse_complement("ACGT") == "ACGT"
+    assert reverse_complement("GGGN") == "NCCC"

@@ -53,6 +53,17 @@ class PatternMotifHit:
     score: float
     tract_lengths: tuple[int, int, int, int]
     loop_lengths: tuple[int, int, int]
+    #: "+" when the G-tracts lie on the given strand, "-" when they lie on
+    #: the complement. Coordinates are always in FORWARD-strand space, so a
+    #: minus-strand hit can be compared directly with a G4Hunter hit.
+    strand: str = "+"
+
+
+_COMPLEMENT = str.maketrans("ACGTURYSWKMBDHVN", "TGCAAYRSWMKVHDBN")
+
+
+def reverse_complement(sequence: str) -> str:
+    return sequence.upper().translate(_COMPLEMENT)[::-1]
 
 
 def _build_pattern(min_tract: int, min_loop: int, max_loop: int) -> re.Pattern[str]:
@@ -81,16 +92,59 @@ def predict(
     min_tract_length: int = DEFAULT_MIN_TRACT_LENGTH,
     min_loop: int = DEFAULT_MIN_LOOP,
     max_loop: int = DEFAULT_MAX_LOOP,
+    *,
+    both_strands: bool = True,
 ) -> list[PatternMotifHit]:
     """Finds every position where the canonical 4-tract PQS motif matches,
     case-insensitively. Loop content may be any nucleotide (per the
-    canonical N(x) definition); tract characters must be G (case-insensitive)."""
+    canonical N(x) definition); tract characters must be G (case-insensitive).
+
+    BOTH STRANDS ARE SCANNED BY DEFAULT, and this is not a refinement -- it
+    is required for concordance to mean anything. G4Hunter is inherently
+    strand-symmetric: it qualifies a window on ``s >= T or s <= -T``, and
+    reports the sign as the strand, because a C-rich stretch on the given
+    strand is a G-rich stretch, and therefore a candidate G4, on the
+    complement. This detector matched only literal G-tracts, so it could
+    never corroborate a minus-strand G4Hunter hit. The two tools were
+    scanning different strand universes, which drove ``concordant_tool_count``
+    to 1 for every minus-strand locus and capped it below SC eligibility
+    forever -- measured on the real FMDV Atlas as "pattern-motif-concordant
+    in 0/8 genomes" for all three minus-strand loci.
+
+    Coordinates of a minus-strand hit are mapped back into forward-strand
+    space so they can be compared with a G4Hunter hit directly. Its
+    ``sequence`` is the G-rich text as read on the complement, because that
+    is the strand the tetrads actually form on.
+    """
     if min_tract_length < 1:
         raise ValueError("min_tract_length must be >= 1")
     if min_loop < 0 or max_loop < min_loop:
         raise ValueError("require 0 <= min_loop <= max_loop")
 
     seq = sequence.upper()
+    hits = _scan_one_strand(seq, min_tract_length, min_loop, max_loop, "+")
+    if both_strands:
+        n = len(seq)
+        for hit in _scan_one_strand(reverse_complement(seq), min_tract_length, min_loop, max_loop, "-"):
+            # [s, e) on the reverse complement maps to [n-e, n-s) forward.
+            hits.append(
+                PatternMotifHit(
+                    start=n - hit.end,
+                    end=n - hit.start,
+                    sequence=hit.sequence,
+                    score=hit.score,
+                    tract_lengths=hit.tract_lengths,
+                    loop_lengths=hit.loop_lengths,
+                    strand="-",
+                )
+            )
+        hits.sort(key=lambda h: (h.start, h.end, h.strand))
+    return hits
+
+
+def _scan_one_strand(
+    seq: str, min_tract_length: int, min_loop: int, max_loop: int, strand: str
+) -> list[PatternMotifHit]:
     pattern = _build_pattern(min_tract_length, min_loop, max_loop)
 
     hits: list[PatternMotifHit] = []
@@ -109,6 +163,7 @@ def predict(
                 score=score_motif(tract_lengths, loop_lengths),
                 tract_lengths=tract_lengths,
                 loop_lengths=loop_lengths,
+                strand=strand,
             )
         )
     return hits

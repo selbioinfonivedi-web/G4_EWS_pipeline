@@ -77,9 +77,7 @@ def test_sc_requires_conservation_even_if_not_yet_computed() -> None:
     """conservation_pct_phylo is None before Sprint 6's phylogenetics run
     (e.g. a freshly Stage-0-built Atlas). Must not be misclassified SC on
     absent data."""
-    candidate = _candidate(
-        concordant_tool_count=2, g4hunter_score=1.9, conservation_pct_phylo=None
-    )
+    candidate = _candidate(concordant_tool_count=2, g4hunter_score=1.9, conservation_pct_phylo=None)
     assert structural_confidence(candidate) is not StructuralConfidence.SC
 
 
@@ -130,3 +128,53 @@ def test_weak_candidate_in_known_functional_region_is_still_wc() -> None:
     )
     assert structural_confidence(candidate) is StructuralConfidence.WC
     assert functional_context(candidate) is FunctionalContext.KNOWN_FUNCTIONAL
+
+
+# ── strand symmetry ─────────────────────────────────────────────────
+def _cand(score, tools=2, conservation=95.0):
+    from g4watch.atlas.schema import AtlasCandidate
+
+    return AtlasCandidate(
+        concordant_tool_count=tools, g4hunter_score=score, conservation_pct_phylo=conservation
+    )
+
+
+def test_a_minus_strand_locus_is_classified_like_its_plus_strand_mirror():
+    """G4Hunter's sign is the STRAND, not the quality. Comparing the signed
+    score against a positive threshold classified a locus scoring -2.5 with
+    two concordant tools and 95% conservation as WC, while +2.5 on identical
+    evidence was SC. Three of the four real FMDV loci are minus-strand."""
+    from g4watch.atlas.confidence import structural_confidence
+
+    for magnitude in (1.6, 1.9, 2.5):
+        assert structural_confidence(_cand(magnitude)) == structural_confidence(_cand(-magnitude))
+
+
+def test_a_strong_minus_strand_locus_reaches_sc():
+    from g4watch.atlas.confidence import structural_confidence
+    from g4watch.atlas.schema import StructuralConfidence
+
+    assert structural_confidence(_cand(-2.5)) is StructuralConfidence.SC
+
+
+def test_a_strong_single_tool_minus_strand_locus_reaches_mc():
+    from g4watch.atlas.confidence import structural_confidence
+    from g4watch.atlas.schema import StructuralConfidence
+
+    assert structural_confidence(_cand(-1.9, tools=1)) is StructuralConfidence.MC
+
+
+def test_magnitude_still_matters_after_the_sign_is_removed():
+    """abs() must not turn a weak locus into a strong one."""
+    from g4watch.atlas.confidence import structural_confidence
+    from g4watch.atlas.schema import StructuralConfidence
+
+    assert structural_confidence(_cand(-0.9, tools=1)) is StructuralConfidence.WC
+    assert structural_confidence(_cand(-1.3, tools=1)) is StructuralConfidence.WC
+
+
+def test_a_missing_score_does_not_raise():
+    from g4watch.atlas.confidence import structural_confidence
+    from g4watch.atlas.schema import StructuralConfidence
+
+    assert structural_confidence(_cand(None, tools=2)) is StructuralConfidence.WC
