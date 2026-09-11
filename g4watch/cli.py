@@ -22,7 +22,6 @@ apart from a failure.
 from __future__ import annotations
 
 import argparse
-import shutil
 import subprocess
 import sys
 from dataclasses import replace
@@ -31,6 +30,7 @@ from pathlib import Path
 from . import __version__
 from .config import ConfigError, PathogenConfig, available_pathogens, load_config
 from .gating import ScoringNotPermittedError
+from .tools import resolve_executable
 
 EXIT_OK = 0
 EXIT_ERROR = 1
@@ -74,7 +74,7 @@ def cmd_doctor(args: argparse.Namespace) -> int:
 
     missing = []
     for tool, purpose in EXTERNAL_TOOLS:
-        path = shutil.which(tool)
+        path = resolve_executable(tool)
         print(f"  {tool:<18}: {path or 'NOT FOUND'}   ({purpose})")
         if path is None:
             missing.append(tool)
@@ -84,7 +84,7 @@ def cmd_doctor(args: argparse.Namespace) -> int:
     if not phi.exists():
         missing.append("PhiPack")
 
-    if shutil.which("Rscript"):
+    if resolve_executable("Rscript"):
         probe = subprocess.run(
             ["Rscript", "-e", 'cat(as.character(packageVersion("ape")))'],
             capture_output=True,
@@ -585,6 +585,50 @@ def _stratify(config, aligned_path: Path, tree_path: Path, lineage: str):
     print(f"  ledger key: {stratified_pathogen_key(config.pathogen, wanted)}  "
           "(a stratified verdict cannot open the pathogen's own gate)")
     return fasta_out, tree_out, stratified_pathogen_key(config.pathogen, wanted)
+
+
+def cmd_align(args: argparse.Namespace) -> int:
+    """Stage 1 — align the QC-passed corpus to the reference."""
+    from .pipeline.stage1_align import run_alignment
+
+    config = _load(args)
+    qc_passed = _resolve(config, args.qc_passed, f"{config.pathogen.lower()}_qc_passed.fasta")
+    result = run_alignment(
+        config,
+        qc_passed_fasta=qc_passed,
+        out_dir=Path(args.out) if args.out else None,
+        threads=args.threads,
+    )
+    print(f"Stage 1 alignment — {config.pathogen}")
+    print(f"  input : {qc_passed}")
+    print(f"  output: {result.outputs['alignment']}")
+    print(f"  log   : {result.log_path}")
+    return EXIT_OK
+
+
+def cmd_phylogenetics(args: argparse.Namespace) -> int:
+    """Stage 2 — maximum-likelihood tree, then TreeTime rooting."""
+    from .pipeline.stage1_align import run_phylogenetics
+
+    config = _load(args)
+    alignment = _resolve(
+        config, args.alignment, "aligned", f"{config.pathogen.lower()}_qc_passed_aligned_to_ref.fasta"
+    )
+    dates = Path(args.dates) if args.dates else _resolve(config, None, "phylogenetics", "dates.csv")
+    result = run_phylogenetics(
+        config,
+        alignment=alignment,
+        dates_csv=dates if Path(dates).is_file() else None,
+        out_dir=Path(args.out) if args.out else None,
+        threads=args.threads,
+    )
+    print(f"Stage 2 phylogenetics — {config.pathogen}")
+    for name, path in result.outputs.items():
+        print(f"  {name:<16} {path}")
+    if "divergence_tree" not in result.outputs:
+        print("  NOTE: no dates file, so TreeTime did not run and no rooted tree was written.")
+        print("        D.H1 reads the rooted tree; it is not substituted with the unrooted one.")
+    return EXIT_OK
 
 
 def cmd_atlas_conservation(args: argparse.Namespace) -> int:
@@ -1113,6 +1157,19 @@ def build_parser() -> argparse.ArgumentParser:
     var.add_argument("--out", help="write the variant table here (default: variants.tsv)")
     var.add_argument("--g4-out", help="also write the variant x Atlas-locus intersection here")
     var.set_defaults(func=cmd_variants)
+
+    aln = with_pathogen(sub.add_parser("align", help="Stage 1 — align the corpus to the reference"))
+    aln.add_argument("--qc-passed", help="QC-passed FASTA (default: under the corpus directory)")
+    aln.add_argument("--out", help="output directory (default: <corpus>/aligned)")
+    aln.add_argument("--threads", type=int, default=4)
+    aln.set_defaults(func=cmd_align)
+
+    phy = with_pathogen(sub.add_parser("phylogenetics", help="Stage 2 — ML tree and TreeTime rooting"))
+    phy.add_argument("--alignment", help="aligned FASTA")
+    phy.add_argument("--dates", help="dates CSV for TreeTime")
+    phy.add_argument("--out", help="output directory (default: <corpus>/phylogenetics)")
+    phy.add_argument("--threads", type=int, default=4)
+    phy.set_defaults(func=cmd_phylogenetics)
 
     con = with_pathogen(sub.add_parser(
         "atlas-conservation",

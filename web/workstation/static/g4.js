@@ -89,9 +89,9 @@ const STAGES = [
   { id: "data",     ord: "01", name: "Data",           needs: [],            cmd: null,            mode: "input" },
   { id: "valid",    ord: "02", name: "Validation",     needs: ["data"],      cmd: null,            mode: "validate" },
   { id: "qc",       ord: "03", name: "QC",             needs: ["valid"],     cmd: "qc",            mode: "run" },
-  { id: "prep",     ord: "04", name: "Preprocessing",  needs: ["qc"],        cmd: null,            mode: "run", tools: ["mafft"] },
+  { id: "prep",     ord: "04", name: "Preprocessing",  needs: ["qc"],        cmd: "align",         mode: "run", tools: ["mafft"] },
   { id: "genomic",  ord: "05", name: "Genomic",        needs: ["qc"],        cmd: "stage0",        mode: "run" },
-  { id: "phylo",    ord: "06", name: "Phylogenetics",  needs: ["prep"],      cmd: null,            mode: "run", tools: ["iqtree2"] },
+  { id: "phylo",    ord: "06", name: "Phylogenetics",  needs: ["prep"],      cmd: "phylogenetics", mode: "run", tools: ["iqtree2", "treetime"] },
   { id: "evo",      ord: "07", name: "Evolution",      needs: ["phylo"],     cmd: "recombination", mode: "run" },
   { id: "model",    ord: "08", name: "Modelling",      needs: ["evo"],       cmd: "dh1",           mode: "run" },
   { id: "interp",   ord: "09", name: "Interpretation", needs: ["model"],     cmd: "score",         mode: "interpret", gated: true },
@@ -1350,20 +1350,63 @@ async function runStage(st) {
     $("#log-toggle").textContent = "▼ LOG";
   } catch (e) { notify("error", `${st.name} could not start`, e.message); }
 }
+/* A stage with no executable command has NOT run. It used to be marked
+   complete and the spine turned green: "Pipeline complete" was reported
+   having built no alignment and no tree. That looked correct only because
+   those artifacts already existed on disk from earlier CLI runs — on a
+   fresh pathogen it sailed past both and scored whatever was lying there.
+
+   Preprocessing and Phylogenetics are the two: they shell out to MAFFT,
+   IQ-TREE and TreeTime, which the workstation does not drive. The honest
+   states are "supplied" (the artifact exists, someone else made it) and
+   "cannot run here" — never "complete". */
+function suppliedArtifact(stage) {
+  const d = S.data;
+  if (!d) return null;
+  if (stage.id === "prep") return d.tracks_available?.alignment ?? (d.identity?.n_samples > 0);
+  if (stage.id === "phylo") return !!d.tree;
+  return null;
+}
+
 async function startAll() {
   const todo = STAGES.filter((s) => !S.completed.has(s.id) && !S.skipped.has(s.id) && stageStatus(s) !== "blocked");
   if (!todo.length) return notify("success", "Nothing to run", "Every reachable stage is complete.");
   notify("running", "Running pipeline", `${todo.length} stage${todo.length !== 1 ? "s" : ""}, in dependency order.`);
+  const supplied = [];
   for (const st of todo) {
     if (simulated(st)) { await runSimulated(st); continue; }
-    if (!st.cmd) { S.completed.add(st.id); renderSpine(); continue; }
+    if (!st.cmd) {
+      const present = suppliedArtifact(st);
+      if (present === false) {
+        log("error", `${st.name}: no executable step in this build and no artifact on disk.`);
+        notify("error", "Pipeline halted", `${st.name} cannot run here and its output is missing. `
+          + `Build it with the Nextflow workflow, or supply it under data/, then rescan.`);
+        return;
+      }
+      if (present === true) {
+        supplied.push(st.name);
+        S.completed.add(st.id);
+        log("meta", `${st.name}: not run — artifact already present, taken as supplied.`);
+        renderSpine();
+        continue;
+      }
+      // Nothing to run and nothing to check: leave it alone rather than
+      // claiming either way.
+      log("meta", `${st.name}: no executable step in this build; skipped, not completed.`);
+      S.skipped.add(st.id);
+      renderSpine();
+      continue;
+    }
     await runOnce(st);
     if (!S.completed.has(st.id)) {
       notify("warning", "Pipeline halted", `${st.name} did not complete; later stages were not started.`);
       return;
     }
   }
-  notify("success", "Pipeline complete", "Every reachable stage finished. Open 06 Interpret for the verdict.");
+  notify("success", "Pipeline finished",
+    "Every runnable stage finished."
+    + (supplied.length ? ` ${supplied.join(" and ")} were NOT run — existing artifacts were used.` : "")
+    + " Open 06 Interpret for the verdict.");
   setMode("interpret");
 }
 
@@ -2327,12 +2370,48 @@ async function rescanInputs() {
   notify("success", "Folder rescanned", `${S.inputs.length} candidate input files found under data/, results/ and config/.`);
 }
 
+/* Upload. The tray used to accept a drop and then say it had not taken
+   it, and Browse said the same: the only way in was to copy files into
+   data/ by hand. The GUI asked for a sequence it had no way to receive.
+
+   Staging is not adopting. Files land in data/uploads/ and are indexed;
+   a pathogen's corpus changes by editing its config, never by someone
+   dropping a file onto a panel. */
+async function uploadFiles(fileList) {
+  const files = Array.from(fileList || []);
+  if (!files.length) return;
+  notify("running", "Uploading", `${files.length} file(s)…`);
+  const ok = [], failed = [];
+  for (const f of files) {
+    const body = new FormData();
+    body.append("file", f);
+    try {
+      const r = await fetch("/api/upload", { method: "POST", body });
+      const d = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(d.detail || `HTTP ${r.status}`);
+      ok.push(d);
+      log("success", `staged ${d.path} (${bytes(d.bytes)})`);
+    } catch (e) {
+      failed.push(`${f.name}: ${e.message}`);
+      log("error", `upload failed — ${f.name}: ${e.message}`);
+    }
+  }
+  if (ok.length) await rescanInputs();
+  if (failed.length) {
+    notify("error", `${failed.length} upload(s) refused`, failed.join(" · "));
+  } else {
+    notify("success", `${ok.length} file(s) staged`,
+      "Written to data/uploads/ and indexed. Validate them, then point a config at them — "
+      + "uploading does not change any pathogen's corpus.");
+  }
+}
+
 function browseFiles() {
   const i = el("input", { type: "file", multiple: true });
-  i.onchange = () => notImplemented(`${i.files.length} file(s) selected. Server-side upload is not implemented in this build — the workstation reads files already inside the project directory. Copy them into data/ and press Rescan.`);
+  i.onchange = () => uploadFiles(i.files);
   i.click();
 }
-function dropped(e) { notImplemented(`${e.dataTransfer.files.length} file(s) dropped. Upload is not wired: copy into data/ and rescan.`); }
+function dropped(e) { uploadFiles(e.dataTransfer.files); }
 function clearStaged() { S.validations = {}; renderWork(); notify("success", "Cleared", "Validation results cleared for this session."); }
 function importUrl() { sheet("Import from URL", el("div", { class: "stack" }, field("URL", el("input", { class: "input", placeholder: "https://…/sequences.fasta" })), el("p", { class: "hint", text: "Not wired in this build: the console has no outbound fetch capability by design." })), btn("tertiary", "Close", closeSheet)); }
 function importAccession() { sheet("Import accession", el("div", { class: "stack" }, field("Accessions", el("textarea", { class: "textarea", placeholder: "AY593823.1\nPQ587570.1" })), el("p", { class: "hint", text: "Not wired: NCBI fetch would need network access and an API key. scripts/ holds the acquisition tooling." })), btn("tertiary", "Close", closeSheet)); }

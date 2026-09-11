@@ -915,6 +915,72 @@ it runs against. The image was rebuilt.
 
 ---
 
+## R-24 — The workstation reported stages complete that it had never run
+
+**Found by asking a plain question of the interface: can a sequence be put
+in and the chain run to the end? Neither half was true.**
+
+**Input was not wired.** `browseFiles`, the drag-and-drop tray, Import URL
+and Import accession were all stubs that accepted the gesture and then
+said the gesture had not worked. The only way in was to copy files into
+`data/` by hand and press Rescan — an interface asking for a sequence it
+had no way to receive.
+
+**Two stages had no executable step.** `Preprocessing` (MAFFT) and
+`Phylogenetics` (IQ-TREE/TreeTime) carried `cmd: null`, because both
+existed only inside Nextflow modules and there was no CLI command for
+either.
+
+**And Run-all marked them complete anyway.** The loop read:
+
+    if (!st.cmd) { S.completed.add(st.id); renderSpine(); continue; }
+
+so the spine turned green and "Pipeline complete" was reported having
+built no alignment and no tree. This looked correct on FMDV 2026 only
+because those artifacts already existed from earlier CLI runs. On a fresh
+pathogen it would have sailed past both and scored whatever happened to be
+lying in the corpus directory — the exact failure mode the project's
+fail-closed commitment exists to prevent, in the one place a reader is
+most likely to trust the display.
+
+**Implementation does:**
+
+* `g4watch align` and `g4watch phylogenetics`
+  (`pipeline/stage1_align.py`), with invocations deliberately identical to
+  `workflow/modules/alignment.nf` and `phylogenetics.nf`. Two code paths
+  that build a tree slightly differently would be worse than one that
+  cannot be driven from the UI: the results would diverge and nothing
+  would say so. TreeTime roots the DIVERGENCE tree, per R-16.
+* `POST /api/upload`, staging into `data/uploads/` behind an extension
+  allowlist, a 512 MB ceiling and basename sanitisation. A partial upload
+  is deleted rather than left to index as a truncated corpus.
+* Run-all no longer fakes completion. A command-less stage whose artifact
+  exists is recorded as **supplied** — used, not run, and said so in the
+  summary. One whose artifact is missing **halts the pipeline**. Neither
+  is ever "complete".
+
+**Staging is not adopting.** An uploaded file is indexed and nothing more;
+a pathogen's corpus changes by editing its config. The endpoint says so in
+its own response, and a test asserts that uploading leaves
+`corpus_sequences_fasta` untouched.
+
+**A tool that was installed was being reported missing.** `shutil.which`
+searches PATH, and a virtualenv's `bin` is only on PATH when the
+environment is activated — but `.venv/bin/g4watch` runs fine without
+activation, since the shebang picks the interpreter and leaves PATH alone.
+So `doctor` printed `treetime : NOT FOUND` for a treetime sitting beside
+the `g4watch` being run, and every stage shelling out to it failed with a
+message telling the operator to install what they already had.
+`g4watch/tools.py::resolve_executable` looks beside the interpreter first,
+then PATH. `web/runner/commands.py` had already solved this for `g4watch`
+itself; this is that rule applied to every external tool.
+
+**Still not wired, and still saying so:** Import URL and Import accession.
+Both need outbound network access the console deliberately does not have.
+`scripts/` holds the acquisition tooling.
+
+---
+
 ## Current pathogen status
 
 As of 2026-09-11. No pathogen has an open gate.

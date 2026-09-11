@@ -19,7 +19,7 @@ import json
 from contextlib import asynccontextmanager
 from pathlib import Path
 
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, File, HTTPException, Request, UploadFile
 from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, RedirectResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
@@ -33,6 +33,10 @@ from .jobs import JobRunner
 
 STATIC_DIR = Path(__file__).resolve().parent / "static"
 WORKSTATION_DIR = Path(__file__).resolve().parents[1] / "workstation" / "static"
+REPO_ROOT = Path(__file__).resolve().parents[2]
+
+#: Module-level so the dependency is not constructed in a default argument.
+_UPLOAD_FIELD = File(...)
 
 #: External tools the pipeline shells out to, and the stage that needs each.
 EXTERNAL_TOOLS = {
@@ -245,6 +249,70 @@ def create_app() -> FastAPI:
     @app.get("/api/inputs")
     def inputs() -> list[dict]:
         return wb.scan_inputs()
+
+    #: Extensions the tray accepts. Anything else is refused by name before
+    #: a byte is written — the console indexes project inputs, it is not a
+    #: general file drop.
+    UPLOAD_SUFFIXES = {
+        ".fasta", ".fa", ".fas", ".fna", ".txt", ".csv", ".tsv",
+        ".nwk", ".newick", ".nex", ".nexus", ".gb", ".gbk", ".vcf", ".gff",
+    }
+    #: 512 MB. A whole-genome viral corpus is a few tens of MB; this is
+    #: generous for that and still refuses an accidental multi-gigabyte drop.
+    UPLOAD_MAX_BYTES = 512 * 1024 * 1024
+
+    @app.post("/api/upload")
+    async def upload(file: UploadFile = _UPLOAD_FIELD) -> dict:
+        """Stage a file into data/uploads/ so the workstation can index it.
+
+        Until now the tray accepted a drop and then said upload was not
+        wired, and Browse said the same: the only way in was to copy files
+        into data/ by hand and press Rescan. The GUI asked for a sequence
+        it had no way to receive.
+
+        The file lands in data/uploads/ under a sanitised basename. It is
+        NOT written anywhere a config points at: staging is not the same as
+        adopting, and a corpus is changed by editing its config, not by
+        someone dropping a file onto a panel.
+        """
+        raw_name = Path(file.filename or "").name
+        stem = "".join(c for c in Path(raw_name).stem if c.isalnum() or c in "._-").strip("._-")
+        suffix = Path(raw_name).suffix.lower()
+        if not stem or suffix not in sorted(UPLOAD_SUFFIXES):
+            raise HTTPException(
+                status_code=400,
+                detail=f"{raw_name!r} is not an accepted input. Allowed: "
+                       + ", ".join(sorted(UPLOAD_SUFFIXES)),
+            )
+
+        target_dir = REPO_ROOT / "data" / "uploads"
+        target_dir.mkdir(parents=True, exist_ok=True)
+        target = target_dir / f"{stem}{suffix}"
+
+        written = 0
+        try:
+            with target.open("wb") as handle:
+                while chunk := await file.read(1024 * 1024):
+                    written += len(chunk)
+                    if written > UPLOAD_MAX_BYTES:
+                        raise HTTPException(
+                            status_code=413,
+                            detail=f"{raw_name!r} exceeds the {UPLOAD_MAX_BYTES // (1024*1024)} MB limit.",
+                        )
+                    handle.write(chunk)
+        except HTTPException:
+            # A partial file is worse than none: it would index and validate
+            # as a truncated corpus.
+            target.unlink(missing_ok=True)
+            raise
+
+        return {
+            "path": str(target.relative_to(REPO_ROOT)),
+            "name": target.name,
+            "bytes": written,
+            "note": "Staged under data/uploads/. Validate it, then point a config at it — "
+                    "uploading does not change any pathogen's corpus.",
+        }
 
     @app.get("/api/validate")
     def validate(path: str) -> dict:

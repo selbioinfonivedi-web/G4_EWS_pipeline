@@ -129,3 +129,4 @@ deliverables/ppt_assets/_partial_*.pptx
 # and the deck itself is published one level up, never here
 deliverables/ppt_assets/*.pptx
 results/stratified/
+data/uploads/
