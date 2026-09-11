@@ -78,7 +78,8 @@ const MODES = [
   { id: "run",       n: "04", label: "Run",          accent: "evolution" },
   { id: "visualize", n: "05", label: "Visualize",    accent: "network" },
   { id: "interpret", n: "06", label: "Interpret",    accent: "interpret" },
-  { id: "report",    n: "07", label: "Report",       accent: "report" },
+  { id: "surveil",   n: "07", label: "Surveillance", accent: "evolution" },
+  { id: "report",    n: "08", label: "Report",       accent: "report" },
 ];
 
 /* ═══ PIPELINE ════════════════════════════════════════════════════
@@ -424,7 +425,8 @@ function drawSpineEdges() {
 /* ═══ WORKSPACE ═══════════════════════════════════════════════════ */
 const WORK = {
   input: workInput, validate: workValidate, configure: workConfigure,
-  run: workRun, visualize: workVisualize, interpret: workInterpret, report: workReport,
+  run: workRun, visualize: workVisualize, interpret: workInterpret,
+  surveil: workSurveillance, report: workReport,
 };
 
 function renderWork() {
@@ -1039,6 +1041,123 @@ function workInterpret(host) {
     dh1Panel(),
     el("div", { style: "height:22px" }),
     evidenceChain(),
+  );
+}
+
+/* ── surveillance output ──────────────────────────────────────────────
+   The scores, the control limits and the warning level: the end of the
+   chain, and until now unreachable from this interface. /api/stage5
+   existed and nothing ever called it, so a reader could see the corpus,
+   the tree and the gate but never what the pipeline actually computed.
+
+   A closed gate returns 409, which is a correct outcome and is rendered
+   as one. ─────────────────────────────────────────────────────────── */
+async function loadStage5() {
+  if (STAGE5.state === "loading") return;
+  STAGE5.state = "loading";
+  renderWork();
+  try {
+    STAGE5.data = await api(`/api/stage5/${S.pathogen}`);
+    STAGE5.state = "ok";
+  } catch (e) {
+    STAGE5.blocked = String(e.message || e);
+    STAGE5.state = "blocked";
+  }
+  renderWork();
+}
+const STAGE5 = { state: "idle", data: null, blocked: "" };
+
+/* A limit fitted to a short baseline is a working figure, not a
+   calibrated false-alarm rate. The interval is rendered at the same
+   weight as the limit so the two cannot be read apart. */
+function limitPanel(label, chart) {
+  if (!chart || chart.error) {
+    return el("div", { style: "padding:10px 0;border-bottom:1px solid var(--hair)" },
+      el("p", { class: "tag", text: label }),
+      el("p", { style: "font-size:12px;color:var(--st-error)", text: chart?.error || "not calibrated" }));
+  }
+  const short = chart.short_baseline;
+  const iv = chart.control_limit_interval;
+  return el("div", { style: "padding:10px 0;border-bottom:1px solid var(--hair)" },
+    el("p", { class: "tag", text: label }),
+    el("div", { style: "display:flex;gap:22px;align-items:baseline;flex-wrap:wrap;margin-top:3px" },
+      el("span", { style: "font-size:19px;font-weight:600", text: `h = ${chart.control_limit}` }),
+      iv ? el("span", { class: "mono", style: `font-size:12px;color:var(--st-warning)`,
+        text: `resampled 5–95%: ${iv[0]} – ${iv[1]}` }) : null,
+      el("span", { class: "mono", style: "font-size:11px;color:var(--ink-3)",
+        text: `${chart.n_alarms} alarm(s) · baseline ${chart.baseline_windows}`
+              + (chart.monitored_windows != null ? ` · monitored ${chart.monitored_windows}` : "") }),
+    ),
+    short ? el("p", {
+      style: "font-size:11.5px;line-height:1.55;max-width:88ch;margin-top:6px;padding-left:10px;border-left:2px solid var(--st-warning);color:var(--st-warning)",
+      text: chart.caveat || "Short baseline: the nominal ARL is not achieved." }) : null,
+  );
+}
+
+function sparkline(series, key) {
+  const values = series.map((s) => s[key]).filter((v) => v != null);
+  if (values.length < 2) return el("span", { class: "hint", text: "—" });
+  const lo = Math.min(...values), hi = Math.max(...values), span = hi - lo || 1;
+  const W = 260, H = 34;
+  const pts = values.map((v, i) =>
+    `${(i / (values.length - 1)) * W},${H - ((v - lo) / span) * H}`).join(" ");
+  return svg("svg", { width: W, height: H, viewBox: `0 0 ${W} ${H}` },
+    svg("polyline", { points: pts, fill: "none", stroke: "var(--ink)", "stroke-width": 1.4 }));
+}
+
+function workSurveillance(host) {
+  $("#stage-title").textContent = "Surveillance output";
+  $("#stage-tools").replaceChildren(
+    btn("secondary", STAGE5.state === "loading" ? "Running…" : "Run Stage 5", loadStage5,
+        STAGE5.state === "loading", "Metrics → scores → control charts → warning level"),
+  );
+
+  if (STAGE5.state === "idle") {
+    host.append(el("p", { class: "blank" }, el("b", { text: "Not run." }),
+      "Stage 5 computes the seven G.2 terms, fits weights, scores each window and calibrates the control charts. It is not run automatically because it reads every genome in the corpus."));
+    return;
+  }
+  if (STAGE5.state === "loading") {
+    host.append(el("p", { class: "blank" }, el("b", { text: "Running…" }),
+      "Annotating tip states over the scoring-eligible Atlas loci, then scoring each window."));
+    return;
+  }
+  if (STAGE5.state === "blocked") {
+    host.append(el("div", { style: "border:1px solid var(--st-error);padding:16px 18px" },
+      el("p", { class: "tag", style: "color:var(--st-error)", text: "SCORING BLOCKED" }),
+      el("p", { style: "font-size:12.5px;color:var(--ink-2);line-height:1.6;margin-top:8px;max-width:84ch",
+        text: STAGE5.blocked }),
+      el("p", { class: "hint", style: "margin-top:10px",
+        text: "This is a successful run, not an error. The gate refused, and no score was produced." })));
+    return;
+  }
+
+  const d = STAGE5.data;
+  const det = d.detection || {};
+  host.append(
+    d.authoritative ? null : el("p", {
+      style: "font-size:12.5px;line-height:1.6;max-width:88ch;padding:9px 12px;margin-bottom:16px;border-left:2px solid var(--st-warning);color:var(--st-warning)",
+      text: "NON-AUTHORITATIVE. These numbers demonstrate the machinery on this corpus. They are not a surveillance finding and no alert level derived from them is actionable." }),
+
+    el("div", { class: "sec" }, el("h3", { text: "Score series" }),
+      el("div", { style: "display:flex;gap:30px;align-items:center;flex-wrap:wrap" },
+        el("div", {}, el("p", { class: "tag", text: "G4-EWS core (M3)" }),
+          sparkline(d.score_series || [], "g4_ews_core")),
+        el("div", {}, el("p", { class: "tag", text: "Integrated (M4)" }),
+          sparkline(d.score_series || [], "integrated_score"))),
+      el("p", { class: "hint", text: `${(d.score_series || []).length} scored windows.` })),
+
+    el("div", { style: "height:20px" }),
+    el("div", { class: "sec" }, el("h3", { text: "Detection — control limits" }),
+      limitPanel("CUSUM", det.cusum), limitPanel("EWMA", det.ewma)),
+
+    el("div", { style: "height:20px" }),
+    el("div", { class: "sec" }, el("h3", { text: "Chain" }),
+      ...(d.steps || []).map((s) => el("div", {
+        style: "display:grid;grid-template-columns:150px 190px 1fr;gap:12px;padding:5px 0;border-bottom:1px solid var(--hair)" },
+        el("span", { class: "mono", style: "font-size:11px;color:var(--ink-3)", text: s.step }),
+        el("span", { class: "mono", style: `font-size:11px;color:var(--${/ok|l2_/.test(s.status) ? "st-complete" : "st-warning"})`, text: s.status }),
+        el("span", { style: "font-size:11.5px;color:var(--ink-2)", text: String(s.detail || "").slice(0, 200) })))),
   );
 }
 

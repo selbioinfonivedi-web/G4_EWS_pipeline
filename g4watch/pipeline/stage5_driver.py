@@ -361,6 +361,16 @@ def run_stage5_unchecked(
             "lambda": round(float(eparams.lambda_), 3),
             "control_limit": round(float(eparams.control_limit), 4),
             "achieved_arl": round(float(eparams.achieved_arl), 2),
+            # The same short-baseline reporting CUSUM carries. Omitting it
+            # here left the EWMA limit looking calibrated while the CUSUM
+            # limit beside it carried a caveat — two limits fitted to the
+            # same eight observations, only one of them admitting it.
+            "baseline_windows": len(baseline),
+            "monitored_windows": len(series) - len(baseline),
+            "short_baseline": eparams.short_baseline,
+            "control_limit_interval": eparams.control_limit_interval,
+            "limit_uncertainty_ratio": eparams.limit_uncertainty_ratio,
+            "caveat": eparams.caveat(),
         }
         out.note("ewma", "ok", f"{len(e_alarms)} EWMA alarms.")
     except Exception as exc:  # noqa: BLE001

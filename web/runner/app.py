@@ -419,12 +419,19 @@ def create_app() -> FastAPI:
             raise HTTPException(status_code=404, detail=str(exc)) from exc
 
         from g4watch.gating import ScoringNotPermittedError
-        from g4watch.metrics.surveillance_metrics import Sample
-        from web.workstation.dataset import build_dataset
+        from g4watch.io.corpus import load_annotated_samples
 
-        payload = build_dataset(pathogen)
-        samples = [Sample(accession=s["a"], lineage=s["l"], country=s["c"], year=s["y"]) for s in payload["samples"]]
+        # ANNOTATED, like the CLI. This used to rebuild Sample objects from
+        # the workstation payload, which carries only accession, lineage,
+        # country and year — no per-genome G4 tip states and no mutation
+        # counts. Six of the seven G.2 terms read exactly those fields, so
+        # the API would have returned a result with only `lf` populated
+        # while `g4watch stage5` on the same corpus returned all seven.
+        # Same pathogen, same data, two different answers, and the thinner
+        # one arriving through the interface a reader actually looks at.
+        samples, _report = load_annotated_samples(config)
         try:
+            # run_stage5 reads the detection block from the config itself.
             return run_stage5(config, samples).as_dict()
         except ScoringNotPermittedError as exc:
             raise HTTPException(status_code=409, detail=str(exc)) from exc

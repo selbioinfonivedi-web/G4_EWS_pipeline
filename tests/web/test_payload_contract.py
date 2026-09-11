@@ -9,6 +9,7 @@ JavaScript that reads it, in both directions.
 
 from __future__ import annotations
 
+import inspect
 import re
 from pathlib import Path
 
@@ -23,6 +24,16 @@ G4_JS = Path(__file__).resolve().parents[2] / "web" / "workstation" / "static" /
 #: rather than scraped, so adding a panel that reads a key nobody produces
 #: is a test edit someone has to make deliberately.
 INTERPRET_KEYS = ("gate", "floor", "dh1", "recombination", "variants", "molecular_clock")
+
+
+@pytest.fixture
+def client():
+    from fastapi.testclient import TestClient
+
+    from web.runner.app import create_app
+
+    with TestClient(create_app()) as c:
+        yield c
 
 
 @pytest.fixture(scope="module")
@@ -89,3 +100,87 @@ def test_a_blocked_gate_still_carries_its_reason(payload):
     assert gate["explanation"].strip()
     if not gate["permitted"]:
         assert "BLOCKED" in gate["permission"]
+
+
+# ── the API and the CLI must compute the same thing ─────────────────
+def test_the_stage5_route_annotates_its_samples():
+    """The route used to rebuild Sample objects from the workstation
+    payload, which carries only accession/lineage/country/year. Six of the
+    seven G.2 terms read per-genome tip states and mutation counts, so the
+    API returned a result with only `lf` populated while `g4watch stage5`
+    on the same corpus returned all seven — the thinner answer arriving
+    through the interface a reader actually looks at."""
+    import inspect
+
+    from web.runner import app as runner_app
+
+    source = inspect.getsource(runner_app.create_app)
+    start = source.index("def stage5")
+    body = source[start : source.index("@app.get", start + 1)]
+    assert "load_annotated_samples" in body, (
+        "the stage5 route no longer annotates its samples; six of the seven "
+        "surveillance terms will come back empty"
+    )
+    assert "Sample(accession=" not in body, (
+        "the route is rebuilding bare Sample objects again"
+    )
+
+
+def test_a_bare_sample_starves_the_surveillance_terms():
+    """The property behind the test above, demonstrated rather than
+    asserted about source text: without states, the terms are None."""
+    import g4watch.metrics.surveillance_metrics as sm
+
+    bare = [
+        sm.Sample(accession=f"A{i}", lineage="O", country="X", year=2000 + i // 10)
+        for i in range(60)
+    ]
+    metrics = sm.compute_window_metrics(bare)
+    populated = {
+        term for m in metrics for term in sm.TERM_FIELDS if getattr(m, term) is not None
+    }
+    assert populated <= {"lf"}, (
+        f"expected only lineage-frequency to survive without tip states, got {populated}"
+    )
+
+
+def test_a_closed_gate_returns_409_not_an_error(client):
+    """A blocked pathogen is a correct outcome, not a failure."""
+    from g4watch.config import available_pathogens
+
+    if "fmdv2026" not in available_pathogens():
+        pytest.skip("the 2026 corpus config is not present")
+    response = client.get("/api/stage5/fmdv2026")
+    assert response.status_code in (409, 200)
+    if response.status_code == 409:
+        assert "BLOCKED" in response.json()["detail"]
+
+
+def test_both_control_charts_report_their_baseline_the_same_way():
+    """Two limits fitted to the same eight observations, only one of them
+    admitting it, is worse than neither admitting it — the one carrying a
+    caveat makes the other look calibrated by contrast."""
+    import g4watch.pipeline.stage5_driver as driver
+
+    source = inspect.getsource(driver.run_stage5_unchecked)
+    for field in ("short_baseline", "control_limit_interval", "caveat", "baseline_windows"):
+        assert source.count(f'"{field}"') >= 2, (
+            f"{field!r} is reported for only one control chart"
+        )
+
+
+def test_the_surveillance_mode_is_reachable_from_the_ui():
+    """/api/stage5 existed for a whole phase with no caller: the scores,
+    the control limits and the warning level were computed and unreachable
+    from the interface."""
+    source = G4_JS.read_text(encoding="utf-8")
+    assert "/api/stage5/" in source, "nothing in the UI calls the stage5 endpoint"
+    assert "workSurveillance" in source
+    assert "surveil:" in source, "the surveillance mode is not in the WORK dispatch map"
+
+
+def test_the_ui_renders_the_limit_uncertainty_not_just_the_limit():
+    """A short-baseline limit shown bare reads as a calibrated threshold."""
+    source = G4_JS.read_text(encoding="utf-8")
+    assert "control_limit_interval" in source
+    assert "caveat" in source
