@@ -797,6 +797,58 @@ p-values at all; the second is why they do not open the gate; the third
 is why the earlier numbers should not be quoted; the fourth is a
 provenance concern that the corrected controls happen to have retired.
 
+### Cross-check against the global source data (2026-09-11)
+
+The 2026 corpus was verified against `fmdvmetadata/global_genomes_*`, the
+raw download it was built from. It is faithful: the 936 accessions are
+identical, one sequence (OR338613.1) was dropped for 15.8% N-content, and
+the 936th row of the alignment is the reference itself. The 79 Indian
+genomes are a subset of the global set. `exclude_lineages` removes SAT3
+(4) and C (1), giving the 930 the floor is evaluated on.
+
+**Lineage resolution is complete, and that is new.** All 936 records
+resolve to a canonical serotype; none is unknown. 28 records carry
+`serotype: OTHER` in the metadata and resolve to A from their isolate
+names (`A/VIT/...`, Vietnamese 2017-2019) — every one of the 28 carries an
+explicit serotype token, so the fallback is recovering real information
+rather than guessing. Compare the 848-sequence corpus, where 269 (32%) had
+no serotype at all and the per-lineage floor failed as a result.
+
+**The clade-level measure is not fooled by reference idiosyncrasy,**
+which this cross-check demonstrates directly:
+
+| locus | tips differing from reference | clade disruption rate | verdict |
+|---|---|---|---|
+| G4-004 | 53% | 0.775 | SIGNAL_OPPOSITE_DIRECTION |
+| G4-015 | 82% | 0.306 | SIGNAL_EXPLAINED_BY_GC |
+| G4-025 | 98% | 0.111 | SIGNAL_EXPLAINED_BY_GC |
+
+G4-025 is the instructive one. 98% of genomes differ from the reference
+there — only 22 of 935 match it — yet its clade rate is 0.111, because
+that is one ancient fixed difference in which O1 Manisa is simply the
+outlier, not repeated independent change. A tip-counting metric would have
+called it the most disrupted locus in the Atlas. G4-004 shows the
+opposite: the reference matches the plurality (435 genomes) and the
+commonest variant is a single C->T, yet the clade rate is 0.775 — many
+independent transitions. That locus is genuinely labile, which is what
+makes its verdict worth taking seriously.
+
+**The caveat this raises, and it is a real one.** G4-004's disruption is
+strongly serotype-structured:
+
+    ASIA1  3/95   = 0.03        O     295/532 = 0.55
+    SAT2   70/70  = 1.00        A      98/188 = 0.52
+    SAT1   28/45  = 0.62        India  46/79  = 0.58
+
+Asia1 is essentially invariant at this locus and SAT2 is completely
+diverged, while the reference's own serotype O sits at 55%. This is not
+reference bias — Asia1 matches the O reference more closely than O does —
+but it does mean D.H1 is pooling lineages that behave very differently.
+The pathogen-level verdict treats the corpus as one population. **Before
+FMDV2026-G4-004 is interpreted biologically, D.H1 should be run per
+serotype.** Pakistan's apparent 8% disruption is an artifact of this: 73
+of its 131 genomes are Asia 1.
+
 **EBV** was added as a cross-species check on a GC-rich dsDNA genome.
 Stage 0 and Stage 1 are complete; Stages 1.5 onward are not run, because
 IQ-TREE2 and TreeTime are not installed in this environment. The config
