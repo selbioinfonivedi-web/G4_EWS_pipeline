@@ -426,7 +426,10 @@ def cmd_stage5(args: argparse.Namespace) -> int:
     if args.force_unchecked or downgraded:
         why = "ineligible Atlas loci" if downgraded else "--force-unchecked"
         print(f"WARNING: running unchecked ({why}). Results are marked non-authoritative.", file=sys.stderr)
-        result = run_stage5_unchecked(config.pathogen, samples, authoritative=False)
+        result = run_stage5_unchecked(
+            config.pathogen, samples, authoritative=False,
+            detection=(config.raw.get("detection") or {}),
+        )
         # The unchecked path skips the gate, so the reason must still be
         # attached here -- otherwise the run that most needs the caveat is
         # the only one without it.

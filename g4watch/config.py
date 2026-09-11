@@ -87,7 +87,16 @@ _REQUIRED_SECTIONS = frozenset(
     }
 )
 
-_KNOWN_SECTIONS = _REQUIRED_SECTIONS | {"taxonomy_id", "provisioned", "provisioning_notes"}
+#: Optional top-level sections. ``detection`` carries the control-chart
+#: calibration settings (baseline_fraction, min_baseline_windows) for
+#: pathogens whose sampling cadence cannot reach the default baseline
+#: length — see g4watch/scoring/cusum.py.
+_KNOWN_SECTIONS = _REQUIRED_SECTIONS | {
+    "taxonomy_id",
+    "provisioned",
+    "provisioning_notes",
+    "detection",
+}
 
 
 class ConfigError(ValueError):

@@ -855,6 +855,66 @@ M4 1.0) are computed on 8 windows and should not be read as precise.
 
 ---
 
+## R-23 — Control limits calibrate on an annual cadence, with the uncertainty attached
+
+**Design said** (Section 13.5): calibrate the CUSUM and EWMA control
+limits by moving-block bootstrap to a target ARL of 200, refusing on
+fewer than 20 baseline observations because a limit fitted to fewer is
+dominated by the baseline's own sampling noise.
+
+**The problem that refusal creates.** FMDV whole-genome submissions carry
+year-only collection dates, so the score series is annual. A 26-year
+corpus yields at most 22 scored windows and about 11 baseline
+observations, and **no window width fixes this**: the dates have no
+sub-annual resolution to cut on. Twenty is not a bar this surveillance
+cadence can reach, so the architecture's guard did not protect a decision
+— it removed the detection stage entirely, permanently, for this pathogen.
+
+**Implementation does:** `min_baseline` is selectable down to
+`ABSOLUTE_MIN_BASELINE = 8`, declared per pathogen in a `detection:` block.
+Below `STRICT_MIN_BASELINE = 20` the limit is additionally bootstrapped
+over resampled baselines and the interval it moves across is attached to
+the result, together with a caveat that states plainly that the nominal
+ARL is not achieved and the real false-alarm rate is unknown.
+
+**Why an interval rather than just a lower threshold.** Lowering the
+number alone would produce a control limit that looks exactly like a
+calibrated one and is not. The interval is the honest output, and on this
+corpus it is damning enough to be worth printing:
+
+    baseline observations      8
+    control limit              4.30
+    resampled 5-95 percentile  1.06 - 4.49
+    width / limit              0.80
+
+The alarm threshold would have landed anywhere in a four-fold range had
+the baseline years come out differently. Synthetic series show the same
+shape: the ratio is 0.79 at n=14, 1.21 at n=11, 2.26 at n=8.
+
+**What is refused, and stays refused.** Below 8 observations the moving
+block bootstrap has too few blocks to resample and calibration raises —
+`min_baseline=1` in a config still gets 8, because the floor is enforced
+in code rather than trusted to the config. And the nominal target ARL is
+never reported as achieved on a short baseline; `caveat()` denies it in
+the result itself, so the disclaimer travels with the number.
+
+**Cost, stated plainly.** FMDV 2026 now produces an alarm decision, and
+that decision rests on a threshold with a four-fold uncertainty. This is
+weaker than the architecture intended and is the correct trade only
+because the alternative was no detection stage at all on any annually
+sampled pathogen. A reader must not quote an alarm from this corpus as
+having a controlled false-alarm rate. The gate is separately closed, so
+nothing here is authoritative in any case.
+
+**Found by the container suite, not by the unit tests.** Adding
+`detection:` to the configs broke `tests/containers/test_images.py`: the
+shipped `g4watch/core` image carried the previous `_KNOWN_SECTIONS` and
+rejected the new key while reading the host's config directory. That test
+exists to catch exactly this drift between a built image and the configs
+it runs against. The image was rebuilt.
+
+---
+
 ## Current pathogen status
 
 As of 2026-09-11. No pathogen has an open gate.

@@ -134,3 +134,22 @@ dh1_gate:
 # 20-sequences-per-lineage floor). This flag stays false until that
 # changes. Flipping it does not bypass the ledger check.
 operational_mode: false
+
+# Detection-chart calibration. FMDV whole-genome submissions carry
+# year-only collection dates, so the score series is annual and cannot be
+# made longer by narrowing the window: 26 years of corpus yields at most
+# ~22 scored windows and ~11 baseline observations. The architecture's
+# default of 20 is unreachable on this cadence.
+#
+# Lowering it does NOT make the limit trustworthy, and nothing here
+# pretends otherwise. Below 20 the control limit is additionally
+# bootstrapped over resampled baselines and the interval it moves across
+# is reported, along with an explicit caveat that the nominal ARL is not
+# achieved. On this corpus that interval spans roughly a factor of three:
+# the threshold is a working figure, not a calibrated false-alarm rate.
+#
+# 8 is the absolute floor in code; below it the block bootstrap has too
+# few blocks to resample and calibration refuses outright.
+detection:
+  baseline_fraction: 0.5
+  min_baseline_windows: 8
