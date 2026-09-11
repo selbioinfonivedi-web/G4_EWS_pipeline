@@ -751,6 +751,110 @@ and only the header gained columns.
 
 ---
 
+## R-21 — `conservation_pct_phylo` was never computed, and that is why no score ever existed
+
+**The actual reason no pathogen could ever produce a surveillance score.
+Not the D.H1 gate.**
+
+**Design said:** `structural_confidence` promotes a locus to SC when it
+clears a conservation threshold; scoring eligibility is "SC and above"
+(Appendix B).
+
+**Implementation did:** write `conservation_pct_phylo=None` on every code
+path, with the comment "Stage 6 populates it". Nothing in Stage 6
+populated it. There was no conservation function anywhere in the package.
+
+**The consequence, which had been invisible:** no locus in any Atlas had
+ever reached SC, so `select_scoring_eligible` returned an empty list for
+every pathogen, and Stage 5 could not have produced a score even with an
+open gate. Every discussion of the gate as "the blocker" was looking at
+the wrong thing:
+
+    FMDV2026   67 loci   MC 66, WC 1      scoring-eligible 0
+    FMDV        4 loci   MC  3, WC 1      scoring-eligible 0
+    EBV      1410 loci   MC 1380, WC 30   scoring-eligible 0
+
+**Implementation does:** `g4watch/atlas/conservation.py`, exposed as
+`g4watch atlas-conservation`, which computes the column and re-tiers the
+Atlas in one step (separating them would recreate the R-19 drift).
+
+**The definition, and the two obvious implementations it rules out.** Both
+failure modes were measured on the real corpus first:
+
+* **Reference identity is wrong.** FMDV2026-G4-025 differs from the
+  reference in 98% of genomes — only 22 of 935 match it — because O1
+  Manisa is the outlier there. "Percent matching the reference" scores it
+  2% conserved; it is in fact 86.3% conserved among the genomes that are
+  not the reference.
+* **Tip counting is wrong.** 532 serotype O genomes against 45 SAT1. Any
+  per-tip average describes what has been sequenced, not the virus — the
+  same non-independence defect Section 5.1 fixes for the metrics.
+
+So conservation is the **mean pairwise percent identity of the locus span
+across phylogenetically independent representatives**: no reference in the
+comparison, one vote per clade rather than one per genome. Representatives
+are chosen by repeatedly splitting the largest clade, ties broken on
+sorted tip labels so the set is identical across runs.
+
+**Deliberately NOT `1 - clade_disruption_rate`.** That would make SC
+eligibility a restatement of the D.H1 outcome, and a locus would qualify
+as high-confidence precisely because it behaves as the hypothesis under
+test predicts. The two measures answer different questions and are
+allowed to disagree — FMDV2026-G4-004 is the most conserved of the three
+loci examined at 94.9% *and* has the highest clade disruption rate at
+0.775, which is exactly what a locus whose G4 is destroyed by single
+substitutions in a G-run looks like.
+
+**Result:** FMDV2026 43 of 67 loci reach SC; FMDV 2 of 4. EBV cannot be
+done yet — conservation needs a tree, and EBV's phylogenetics have not
+been run.
+
+**Cost, stated plainly.** SC is reachable only because R-11 relaxed the
+operating point. Under the original rule (>= 2 concordant tools) nothing
+could reach SC regardless of conservation, because only one predictor is
+wired. So scoring eligibility currently rests on a judgment call made
+against 3 confirmed loci from 1 virus. That is recorded here rather than
+left for a reader to reconstruct from two separate entries.
+
+---
+
+## R-22 — With eligible loci the chain runs; the alarm threshold is what now blocks
+
+Running Stage 5 on FMDV 2026 after R-21, with `--force-unchecked` so the
+closed gate does not stop it:
+
+    surveillance_metrics   22 of 26 windows estimated all seven terms
+    normalisation          16 windows z-scored against a trailing baseline
+    design_matrix          26 windows with terms and an observable outcome
+    weight_fitting         l2-penalised logistic, fitted on the training split
+    scoring                16 windows scored: M3 core and M4 integrated
+    cusum                  FAILED - needs 20 baseline observations, got 8
+    ewma                   FAILED - needs 20 baseline observations, got 8
+    model_comparison       M1-M4 fitted on 18 windows, 8 held out
+
+**Scores now exist for the first time.** 16 windows carry a `g4_ews_core`
+and an `integrated_score`. What does not exist is an alarm: CUSUM and EWMA
+refuse to calibrate a control limit on 8 baseline observations, because a
+limit fitted to that few is dominated by the baseline's own sampling
+noise. Without a calibrated limit there is no threshold, no alarm, and no
+warning level — so the chain produces scores and stops short of an early
+warning.
+
+**This is a structural limit of the corpus, not a threshold to lower.**
+The windows are annual and span 2000-2025, of which 16 score. Reaching 20
+baseline observations would need roughly forty scored annual windows.
+Sub-annual windows would reach it sooner but need denser temporal
+sampling than this corpus has.
+
+**And the model comparison does not support the G4 terms.** M4 beats M2 on
+the likelihood-ratio test (chi2 = 11.44, df = 4, p = 0.022) but not on
+held-out AUC, and the decision rule requires both. `g4_adds_value` is
+False and the recorded verdict is "G4 terms do not add demonstrable value
+over the conventional model". The held-out AUCs (M1 1.0, M2 1.0, M3 0.5,
+M4 1.0) are computed on 8 windows and should not be read as precise.
+
+---
+
 ## Current pathogen status
 
 As of 2026-09-11. No pathogen has an open gate.
@@ -796,6 +900,45 @@ moot for the deciding locus). The first is why this corpus produced
 p-values at all; the second is why they do not open the gate; the third
 is why the earlier numbers should not be quoted; the fourth is a
 provenance concern that the corrected controls happen to have retired.
+
+### Stratified D.H1 within serotype O (2026-09-11)
+
+The pooled run mixes lineages that behave very differently at
+FMDV2026-G4-004 (Asia1 0.03, SAT2 1.00, O 0.55), so D.H1 was re-run on
+serotype O alone — 532 genomes, tree pruned, recorded under the ledger key
+``FMDV2026:O``. Two results, pointing opposite ways.
+
+**The wrong-direction effect is not a pooling artifact. It replicates.**
+
+                          pooled (930)      serotype O only (532)
+    locus rate               0.775                0.811
+    control rate             0.287                0.396
+    GC-adjusted p_fdr        1.08e-09             6.30e-05
+
+With lineage structure removed entirely, FMDV2026-G4-004 is still
+significantly more disrupted than its matched, same-compartment controls.
+Whatever it is, it is not an artifact of comparing Asia1 against SAT2.
+
+**And D.H1's own direction is the majority direction.** Of the 18 loci
+that reached a p-value within serotype O, **14 have
+``locus_rate < control_rate``** — G4 loci more conserved than their
+matched controls, which is exactly what D.H1 predicts. None survives FDR
+correction: the largest gaps are G4-003 (0.200 vs 0.616, p_fdr 0.49),
+G4-023 (0.222 vs 0.469) and G4-013 (0.167 vs 0.450).
+
+That pattern — direction predominantly right, significance absent — is
+what an underpowered real effect looks like, and it is also what noise
+looks like. It is recorded as an observation, not a finding, and it must
+not be quoted as support for D.H1: 14-of-18 is not a test, and running one
+after seeing these numbers would be the selection-on-outcome the
+pre-specification rules exist to prevent. If it is to be tested, the test
+has to be declared first, on a corpus this one did not generate.
+
+**The ledger key is doing its job.** ``FMDV2026:O`` holds 37 rows;
+``evaluate_gate`` for ``FMDV2026`` still reads 111 rows and still reports
+``BLOCKED_SIGNAL_OPPOSITE_DIRECTION``. A stratified verdict cannot open
+the pathogen's gate, which is the property that makes stratified analysis
+safe to run at all.
 
 ### Cross-check against the global source data (2026-09-11)
 

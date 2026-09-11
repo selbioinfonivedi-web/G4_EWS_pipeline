@@ -28,13 +28,20 @@ made about it:**
 trusting a flag. Stage 5 (scoring) and Stage 6 (scored reporting) refuse
 to run until they hold, and editing the workflow cannot open the gate.
 
-**Current status — no pathogen has an open gate.**
+**Current status — no pathogen has an open gate, and no early warning is
+produced.** Surveillance scores now compute for FMDV 2026 (16 windows,
+M3 and M4) because `conservation_pct_phylo` is finally populated and 43
+loci reach SC. No alarm threshold can be calibrated on them — CUSUM and
+EWMA need 20 baseline observations and the corpus yields 8 — so the chain
+produces scores and stops short of a warning level. See
+`docs/revision_log.md` R-21 and R-22.
 
 | Pathogen | Corpus | D.H1 verdict | Scoring |
 |---|---|---|---|
 | FMDV | 848 aligned | `INSUFFICIENT_DATA` | blocked |
 | FMDV2026 | 936 aligned | `SIGNAL_OPPOSITE_DIRECTION` | blocked |
 | EBV | 209 aligned | not run (Atlas only) | blocked |
+| FMDV2026:O | 532 aligned | `SIGNAL_OPPOSITE_DIRECTION` (stratified; cannot open the FMDV2026 gate) | blocked |
 | LSDV · PPRV · NDV · CSFV | scaffold configs | not run | blocked |
 
 ```

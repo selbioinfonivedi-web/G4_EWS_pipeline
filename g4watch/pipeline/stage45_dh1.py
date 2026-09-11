@@ -411,14 +411,23 @@ def run_stage45_dh1(
     ledger_path: Path | None = None,
     recombination_screen_completed: bool,
     write_ledger: bool = True,
+    pathogen_override: str | None = None,
 ) -> Stage45Result:
     """Run Stage 4, Stage 4.5 and the D.H1 gate for one pathogen.
 
     ``recombination_screen_completed`` is a required keyword rather than a
     defaulted one: the Appendix C floor checks it, and a caller that
     forgot to run Stage 1.5 must not be able to imply it ran by omission.
+
+    ``pathogen_override`` is the name the ledger rows are written under. A
+    stratified run passes ``"<PATHOGEN>:<LINEAGE>"`` so that one lineage's
+    verdict cannot be read as the pathogen's — ``evaluate_gate`` matches on
+    this name and honours only the latest run, so sharing the key would let
+    a single serotype open the whole pathogen's gate. See
+    g4watch/phylo/subset.py.
     """
     config.require_provisioned()
+    ledger_pathogen = pathogen_override or config.pathogen
 
     atlas_path = atlas_path or config.atlas_path
     metadata_tsv = metadata_tsv or config.corpus_metadata_tsv
@@ -508,7 +517,7 @@ def run_stage45_dh1(
             gate_result = minimum_data_gate(replace(base_input, control_region_found=False))
             per_locus_gate[locus.atlas_id] = gate_result
             ledger_rows.append(
-                _ledger_row(config.pathogen, locus.atlas_id, timestamp, gate_result, None, (), 0)
+                _ledger_row(ledger_pathogen, locus.atlas_id, timestamp, gate_result, None, (), 0)
             )
             reports.append(
                 LocusReport(
@@ -601,7 +610,7 @@ def run_stage45_dh1(
         else:
             ledger_rows.append(
                 _ledger_row(
-                    config.pathogen, locus.atlas_id, timestamp, gate_result, None,
+                    ledger_pathogen, locus.atlas_id, timestamp, gate_result, None,
                     control_summary, n_same,
                 )
             )
@@ -644,7 +653,7 @@ def run_stage45_dh1(
             provenance, n_same_for_locus = per_locus_controls.get(result.locus_id, ((), ""))
             ledger_rows.append(
                 _ledger_row(
-                    config.pathogen, result.locus_id, timestamp, per_locus_gate[result.locus_id], result,
+                    ledger_pathogen, result.locus_id, timestamp, per_locus_gate[result.locus_id], result,
                     provenance, n_same_for_locus,
                 )
             )

@@ -25,6 +25,7 @@ import argparse
 import shutil
 import subprocess
 import sys
+from dataclasses import replace
 from pathlib import Path
 
 from . import __version__
@@ -220,6 +221,10 @@ def cmd_dh1(args: argparse.Namespace) -> int:
     aligned = _resolve(config, args.alignment, "aligned", f"{config.pathogen.lower()}_qc_passed_aligned_to_ref.fasta")
     tree = _resolve(config, args.tree, "phylogenetics", f"{config.pathogen.lower()}_iqtree_rooted.nwk")
 
+    pathogen_override = None
+    if args.lineage:
+        aligned, tree, pathogen_override = _stratify(config, aligned, tree, args.lineage)
+
     result = run_stage45_dh1(
         config,
         aligned_fasta=aligned,
@@ -228,6 +233,7 @@ def cmd_dh1(args: argparse.Namespace) -> int:
         ledger_path=Path(args.ledger) if args.ledger else None,
         recombination_screen_completed=args.recombination_screen_completed,
         write_ledger=not args.no_ledger,
+        pathogen_override=pathogen_override,
     )
 
     stats = result.corpus_stats
@@ -513,6 +519,155 @@ def cmd_variants(args: argparse.Namespace) -> int:
     print(f"{len(g4_rows)} fall inside {len(loci)} Atlas locus/loci"
           + (f" -> {args.g4_out}" if args.g4_out else ""))
     return 0
+
+
+def _stratify(config, aligned_path: Path, tree_path: Path, lineage: str):
+    """Restrict the alignment and tree to one lineage for a stratified D.H1.
+
+    Returns (alignment path, tree path, ledger pathogen key). The key is
+    ``<PATHOGEN>:<LINEAGE>`` so a stratified verdict cannot open the
+    pathogen's own gate — see g4watch/phylo/subset.py.
+    """
+    import csv as _csv
+    from collections import Counter
+
+    from Bio import Phylo
+
+    from .io.fasta import read_fasta
+    from .phylo.subset import stratified_pathogen_key, write_subset
+    from .qc.metadata_normalization import LineageVocabulary
+
+    wanted = lineage.strip().upper()
+    vocabulary = LineageVocabulary.from_config(config)
+    metadata_path = config.corpus_metadata_tsv
+    if metadata_path is None or not Path(metadata_path).is_file():
+        raise ConfigError(f"--lineage needs corpus.metadata_tsv, which is missing: {metadata_path}")
+
+    delimiter = "," if str(metadata_path).endswith(".csv") else "\t"
+    keep, seen = set(), Counter()
+    with open(metadata_path, newline="") as handle:
+        for row in _csv.DictReader(handle, delimiter=delimiter):
+            resolved = (
+                vocabulary.resolve(*[row.get(f, "") or "" for f in
+                                     (config.lineage_field, *config.lineage_fallback_fields)])
+                or ""
+            ).upper()
+            seen[resolved or "(unresolved)"] += 1
+            if resolved == wanted:
+                accession = (row.get("accession") or "").strip()
+                if accession:
+                    # Metadata sometimes drops the version suffix while the
+                    # alignment keeps it. Match on both spellings rather
+                    # than silently selecting nothing.
+                    keep.add(accession)
+                    keep.add(accession.split(".")[0])
+
+    if not keep:
+        raise ConfigError(
+            f"no corpus record resolves to lineage {wanted!r}. Present: "
+            + ", ".join(f"{k}={v}" for k, v in seen.most_common())
+        )
+
+    aligned = {name.split()[0]: seq for name, seq in read_fasta(aligned_path).items()}
+    keep |= {a for a in aligned if a.split(".")[0] in keep}
+    tree = Phylo.read(str(tree_path), "newick")
+
+    out_dir = Path("results") / "stratified" / f"{config.pathogen.lower()}_{wanted.lower()}"
+    label = f"{config.pathogen.lower()}_{wanted.lower()}"
+    fasta_out, tree_out = write_subset(
+        aligned, tree, keep, config.reference_accession, out_dir, label
+    )
+    n_kept = sum(1 for a in aligned if a in keep)
+    print(f"Stratified run — lineage {wanted}: {n_kept} genomes (+ reference), tree pruned.")
+    print(f"  ledger key: {stratified_pathogen_key(config.pathogen, wanted)}  "
+          "(a stratified verdict cannot open the pathogen's own gate)")
+    return fasta_out, tree_out, stratified_pathogen_key(config.pathogen, wanted)
+
+
+def cmd_atlas_conservation(args: argparse.Namespace) -> int:
+    """Populate ``conservation_pct_phylo``, then re-tier the Atlas.
+
+    This column was written as None by every code path, and SC requires it.
+    No locus in any Atlas had ever reached SC, so nothing was
+    scoring-eligible and no surveillance score could be produced for any
+    pathogen even with an open D.H1 gate. See revision log R-21.
+
+    Reclassification runs in the same command because conservation feeds
+    the tier directly: leaving them separate means an Atlas that carries
+    fresh conservation values but stale tiers, which is the drift R-19
+    exists to prevent.
+    """
+    from Bio import Phylo
+
+    from .atlas.conservation import (
+        choose_representatives,
+        conservation_for_span,
+    )
+    from .atlas.io import read_atlas_tsv, write_atlas_tsv
+    from .atlas.reclassify import reclassify
+    from .io.fasta import read_fasta
+
+    config = _load(args)
+    atlas_path = Path(args.atlas) if args.atlas else config.atlas_path
+    records = read_atlas_tsv(atlas_path)
+    if not records:
+        print(f"{atlas_path} contains no Atlas records.", file=sys.stderr)
+        return 1
+
+    aligned_path = _resolve(
+        config, args.alignment, "aligned", f"{config.pathogen.lower()}_qc_passed_aligned_to_ref.fasta"
+    )
+    tree_path = _resolve(config, args.tree, "phylogenetics", f"{config.pathogen.lower()}_rooted.nwk")
+    for label, path in (("alignment", aligned_path), ("tree", tree_path)):
+        if not path.is_file():
+            print(f"{label} not found: {path}", file=sys.stderr)
+            return 1
+
+    aligned = {name.split()[0]: seq for name, seq in read_fasta(aligned_path).items()}
+    tree = Phylo.read(str(tree_path), "newick")
+    representatives = choose_representatives(tree, args.representatives)
+
+    print(f"Atlas conservation — {config.pathogen}")
+    print(f"  atlas  : {atlas_path}")
+    print(f"  tree   : {tree_path}")
+    print(f"  {len(representatives)} representatives drawn from {len(aligned)} aligned genomes")
+    print("  measure: mean pairwise identity across representatives — no reference in the")
+    print("           comparison, one vote per clade rather than one per genome.")
+
+    updated, unusable = [], []
+    for record in records:
+        result = conservation_for_span(
+            aligned, representatives, record.genome_start, record.genome_end, record.atlas_id
+        )
+        if not result.usable:
+            unusable.append(record.atlas_id)
+            updated.append(record)
+            continue
+        updated.append(replace(record, conservation_pct_phylo=result.conservation_pct))
+
+    values = [r.conservation_pct_phylo for r in updated if r.conservation_pct_phylo is not None]
+    if values:
+        values_sorted = sorted(values)
+        print(f"  computed for {len(values)}/{len(records)} loci — "
+              f"min {values_sorted[0]:.1f}%, median {values_sorted[len(values_sorted)//2]:.1f}%, "
+              f"max {values_sorted[-1]:.1f}%")
+    if unusable:
+        # Left as None, never as 0.0: no callable base is missing data, and
+        # 0% conservation is a claim about the sequence.
+        print(f"  {len(unusable)} locus/loci had no comparable positions and keep conservation = empty")
+
+    result = reclassify(updated)
+    print(f"  re-tiered: {result.summary().splitlines()[0]}")
+    for line in result.summary().splitlines()[1:]:
+        print(f"  {line}")
+
+    if args.dry_run:
+        print(f"\n  --dry-run: {atlas_path} NOT modified.")
+        return EXIT_OK
+
+    write_atlas_tsv(result.records, atlas_path)
+    print(f"\n  Wrote {atlas_path}")
+    return EXIT_OK
 
 
 def cmd_atlas_reclassify(args: argparse.Namespace) -> int:
@@ -885,6 +1040,11 @@ def build_parser() -> argparse.ArgumentParser:
         "omitting it makes the floor fail, which is the intended fail-closed behaviour.",
     )
     dh1.add_argument("--no-ledger", action="store_true", help="do not append to the ledger (dry run)")
+    dh1.add_argument(
+        "--lineage",
+        help="restrict the analysis to one lineage (e.g. --lineage O). Records under "
+        "<PATHOGEN>:<LINEAGE> so a stratified verdict cannot open the pathogen's gate.",
+    )
     dh1.set_defaults(func=cmd_dh1)
 
     ledger_parser = sub.add_parser("ledger", help="the study-wide testing ledger (append-only)")
@@ -950,6 +1110,18 @@ def build_parser() -> argparse.ArgumentParser:
     var.add_argument("--out", help="write the variant table here (default: variants.tsv)")
     var.add_argument("--g4-out", help="also write the variant x Atlas-locus intersection here")
     var.set_defaults(func=cmd_variants)
+
+    con = with_pathogen(sub.add_parser(
+        "atlas-conservation",
+        help="compute conservation_pct_phylo for every locus, then re-tier",
+    ))
+    con.add_argument("--atlas", help="Atlas TSV (default: atlas.path from config)")
+    con.add_argument("--alignment", help="aligned FASTA (reference must be present)")
+    con.add_argument("--tree", help="rooted Newick tree")
+    con.add_argument("--representatives", type=int, default=60,
+                     help="phylogenetically spread genomes to compare (default: 60)")
+    con.add_argument("--dry-run", action="store_true", help="report without writing")
+    con.set_defaults(func=cmd_atlas_conservation)
 
     rec = with_pathogen(sub.add_parser(
         "atlas-reclassify",
