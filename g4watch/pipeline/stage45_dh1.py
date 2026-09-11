@@ -41,7 +41,11 @@ from ..metrics.tip_state_classifier import TipState, classify_tip_state
 from ..phylo.ancestral_states import reconstruct_ancestral_states
 from ..phylo.clade_collapse import collapse_to_maximal_clades
 from ..qc.metadata_normalization import LineageVocabulary
-from ..validation.control_regions import find_matched_control_region
+from ..validation.control_regions import (
+    DEFAULT_N_CONTROLS,
+    compartment_of,
+    find_matched_control_regions,
+)
 from ..validation.dh1_gate import DEFAULT_DECISION_RULE, Dh1GateResult, run_dh1_gate
 from ..validation.gc_confound_gate import LocusControlData
 from ..validation.minimum_data_gate import MinimumDataInput, MinimumDataResult, minimum_data_gate
@@ -59,6 +63,15 @@ LEDGER_FIELDS = [
     "locus_disruption_rate",
     "control_disruption_rate",
     "underpowered",
+    # CONTROL PROVENANCE (added 2026-09-11, revision log R-20). Which
+    # regions a locus was tested against is the single most consequential
+    # choice in this test, and it was not recorded anywhere durable: when
+    # the selector turned out to be drawing 36 of 37 controls from the 5'
+    # UTR, no ledger row showed it. A verdict whose comparison arm cannot
+    # be reconstructed from the record is not auditable.
+    "n_controls",
+    "control_regions",
+    "n_controls_same_compartment",
 ]
 
 INSUFFICIENT_DATA = "INSUFFICIENT_DATA"
@@ -70,6 +83,8 @@ class LocusReport:
 
     atlas_id: str
     control_found: bool
+    #: The first (best-ranked) control, kept so existing readers and the
+    #: printed report keep working unchanged.
     control_start: int | None
     control_end: int | None
     control_gc: float | None
@@ -89,6 +104,15 @@ class LocusReport:
     strand: str = "+"
     structural_confidence: str = ""
     n_carriers: int | None = None
+    #: Every matched control, as (start, end, gc, compartment). A locus is
+    #: now compared against several, so reporting only the first would hide
+    #: what the test actually used.
+    controls: tuple[tuple[int, int, float, str], ...] = ()
+    #: The locus's own compartment, and how many controls share it. A
+    #: control drawn from a different compartment is a weaker comparison
+    #: and the reader is told, rather than it being silently equivalent.
+    compartment: str = ""
+    n_controls_same_compartment: int = 0
 
 
 @dataclass(frozen=True)
@@ -201,6 +225,21 @@ def select_analysis_loci(atlas: list, min_carriers: int = DEFAULT_MIN_CARRIERS) 
     return included, excluded
 
 
+def _cds_bounds(config: PathogenConfig) -> tuple[int, int] | None:
+    """The reference CDS span, or None when the pathogen declares none.
+
+    None is a legitimate answer, not a missing value: a pathogen without
+    declared CDS bounds has no compartment structure this code can know
+    about, and the control selector then applies no compartment preference
+    rather than inventing a boundary to prefer.
+    """
+    reference = (config.raw.get("reference") or {})
+    start, end = reference.get("cds_start"), reference.get("cds_end")
+    if isinstance(start, int) and isinstance(end, int) and 0 < start < end:
+        return (start, end)
+    return None
+
+
 def compute_corpus_minimum_data_stats(
     config: PathogenConfig,
     aligned_ids: set[str],
@@ -302,12 +341,26 @@ def binary_disruption_values(clades) -> list[float]:
     ]
 
 
-def _ledger_row(pathogen: str, atlas_id: str, timestamp: str, gate_result: MinimumDataResult, dh1_result) -> dict:
+def _ledger_row(
+    pathogen: str,
+    atlas_id: str,
+    timestamp: str,
+    gate_result: MinimumDataResult,
+    dh1_result,
+    controls: tuple[tuple[int, int, float, str], ...] = (),
+    n_controls_same_compartment: int | str = "",
+) -> dict:
     """One ledger row per locus (Section 13.6).
 
     ``dh1_result`` is None when the minimum-data floor halted this locus
     before the gate ran — the row records that plainly rather than a
     fabricated p-value.
+
+    ``controls`` carries the provenance as (start, end, gc, compartment)
+    per control. It defaults to empty so the helper stays callable in
+    isolation, but every pipeline path passes it: a recorded verdict whose
+    comparison arm is unknown cannot be audited, which is exactly the
+    position R-20 found every earlier run in.
     """
     return {
         "pathogen": pathogen,
@@ -322,6 +375,10 @@ def _ledger_row(pathogen: str, atlas_id: str, timestamp: str, gate_result: Minim
         "locus_disruption_rate": dh1_result.locus_disruption_rate if dh1_result else "",
         "control_disruption_rate": dh1_result.control_disruption_rate if dh1_result else "",
         "underpowered": dh1_result.underpowered if dh1_result else "",
+        "n_controls": len(controls),
+        # Compact and reconstructable: "start-end@gc" per control.
+        "control_regions": ";".join(f"{start}-{end}@{gc:.4f}" for start, end, gc, _ in controls),
+        "n_controls_same_compartment": n_controls_same_compartment,
     }
 
 
@@ -420,24 +477,39 @@ def run_stage45_dh1(
     ledger_rows: list[dict] = []
     loci_data: list[LocusControlData] = []
     per_locus_gate: dict[str, MinimumDataResult] = {}
+    #: Control provenance per locus, so the ledger row written after the
+    #: gate runs can still say what the locus was compared against.
+    per_locus_controls: dict[str, tuple[tuple, int]] = {}
     reports: list[LocusReport] = []
 
+    # The CDS span, so a control is drawn from the locus's own compartment
+    # rather than from whatever qualifying window sits nearest the genome's
+    # 5' end. See revision log R-20.
+    cds_bounds = _cds_bounds(config)
+    n_controls = int(control_config.get("n_controls", DEFAULT_N_CONTROLS))
+
     for locus in atlas:
-        control = find_matched_control_region(
+        controls = find_matched_control_regions(
             reference_seq,
             locus.genome_start,
             locus.genome_end,
+            locus_id=locus.atlas_id,
+            n_controls=n_controls,
+            cds_bounds=cds_bounds,
             length_tolerance=float(control_config.get("length_tolerance", 0.10)),
             gc_tolerance=float(control_config.get("gc_tolerance", 0.05)),
             pqs_overlap_score_threshold=float(control_config.get("pqs_overlap_score_threshold", 0.80)),
             exclusion_buffer=int(control_config.get("exclusion_buffer", 50)),
             g4hunter_window=hunter_window,
         )
+        control = controls[0] if controls else None
 
         if control is None:
             gate_result = minimum_data_gate(replace(base_input, control_region_found=False))
             per_locus_gate[locus.atlas_id] = gate_result
-            ledger_rows.append(_ledger_row(config.pathogen, locus.atlas_id, timestamp, gate_result, None))
+            ledger_rows.append(
+                _ledger_row(config.pathogen, locus.atlas_id, timestamp, gate_result, None, (), 0)
+            )
             reports.append(
                 LocusReport(
                     atlas_id=locus.atlas_id,
@@ -456,6 +528,9 @@ def run_stage45_dh1(
                     strand=locus.strand,
                     structural_confidence=locus.structural_confidence.name,
                     n_carriers=locus_carrier_count(locus),
+                    controls=(),
+                    compartment=compartment_of(locus.genome_start, locus.genome_end, cds_bounds),
+                    n_controls_same_compartment=0,
                 )
             )
             continue
@@ -463,12 +538,31 @@ def run_stage45_dh1(
         _, locus_clades = compute_clades_for_region(
             aligned, reference_seq, tree, Path(rooted_tree), locus.genome_start, locus.genome_end
         )
-        _, control_clades = compute_clades_for_region(
-            aligned, reference_seq, tree, Path(rooted_tree), control.start, control.end
-        )
+
+        # One reconstruction per control, pooled. Each control observation
+        # keeps its own GC alongside it: the pooled model reads GC per row,
+        # and attributing a clade's disruption to another control's GC
+        # would put the confounder estimate on the wrong footing.
+        control_values: list[float] = []
+        control_gc_values: list[float] = []
+        for region in controls:
+            _, region_clades = compute_clades_for_region(
+                aligned, reference_seq, tree, Path(rooted_tree), region.start, region.end
+            )
+            region_values = binary_disruption_values(region_clades)
+            control_values.extend(region_values)
+            control_gc_values.extend([region.gc_content] * len(region_values))
+
         locus_values = binary_disruption_values(locus_clades)
-        control_values = binary_disruption_values(control_clades)
         locus_gc = _gc(reference_seq[locus.genome_start - 1 : locus.genome_end])
+        mean_control_gc = (
+            sum(control_gc_values) / len(control_gc_values) if control_gc_values else control.gc_content
+        )
+        locus_compartment = compartment_of(locus.genome_start, locus.genome_end, cds_bounds)
+        control_summary = tuple(
+            (r.start, r.end, r.gc_content, compartment_of(r.start, r.end, cds_bounds)) for r in controls
+        )
+        n_same = sum(1 for entry in control_summary if entry[3] == locus_compartment)
 
         gate_result = minimum_data_gate(
             replace(
@@ -484,7 +578,14 @@ def run_stage45_dh1(
         tested = gate_result.passed_minimum_floor and bool(locus_values) and bool(control_values)
         if tested:
             loci_data.append(
-                LocusControlData(locus.atlas_id, locus_values, locus_gc, control_values, control.gc_content)
+                LocusControlData(
+                    locus.atlas_id,
+                    locus_values,
+                    locus_gc,
+                    control_values,
+                    mean_control_gc,
+                    control_gc_values=control_gc_values,
+                )
             )
             # Descriptive only (Section 5.1 weighting): reuses the clades
             # already computed, so no second reconstruction subprocess.
@@ -498,7 +599,13 @@ def run_stage45_dh1(
             weighted = g4d_phylo_weighted(locus_clades, tip_severities)
             severity_summary = f"{weighted.status} ({weighted.value})"
         else:
-            ledger_rows.append(_ledger_row(config.pathogen, locus.atlas_id, timestamp, gate_result, None))
+            ledger_rows.append(
+                _ledger_row(
+                    config.pathogen, locus.atlas_id, timestamp, gate_result, None,
+                    control_summary, n_same,
+                )
+            )
+        per_locus_controls[locus.atlas_id] = (control_summary, n_same)
 
         reports.append(
             LocusReport(
@@ -506,7 +613,7 @@ def run_stage45_dh1(
                 control_found=True,
                 control_start=control.start,
                 control_end=control.end,
-                control_gc=control.gc_content,
+                control_gc=mean_control_gc,
                 locus_gc=locus_gc,
                 n_locus_clades=len(locus_values),
                 n_control_clades=len(control_values),
@@ -518,6 +625,9 @@ def run_stage45_dh1(
                 strand=locus.strand,
                 structural_confidence=locus.structural_confidence.name,
                 n_carriers=locus_carrier_count(locus),
+                controls=control_summary,
+                compartment=locus_compartment,
+                n_controls_same_compartment=n_same,
             )
         )
 
@@ -531,8 +641,12 @@ def run_stage45_dh1(
             ),
         )
         for result in dh1.locus_results:
+            provenance, n_same_for_locus = per_locus_controls.get(result.locus_id, ((), ""))
             ledger_rows.append(
-                _ledger_row(config.pathogen, result.locus_id, timestamp, per_locus_gate[result.locus_id], result)
+                _ledger_row(
+                    config.pathogen, result.locus_id, timestamp, per_locus_gate[result.locus_id], result,
+                    provenance, n_same_for_locus,
+                )
             )
 
     if write_ledger:

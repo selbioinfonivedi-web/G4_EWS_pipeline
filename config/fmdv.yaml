@@ -111,6 +111,11 @@ control_regions:
   gc_tolerance: 0.05
   pqs_overlap_score_threshold: 0.80
   exclusion_buffer: 50
+  # See config/fmdv2026.yaml and revision log R-20 for why this is not 1.
+  # Briefly: one control per locus left the pooled GC model's reference
+  # category built from repeated windows, and the single control arm was
+  # the binding constraint on power.
+  n_controls: 5
 
 atlas:
   version: "1.0"

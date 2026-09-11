@@ -970,7 +970,7 @@ function dh1Panel() {
 
     el("div", { class: "scroll-x" },
       el("table", { class: "grid" },
-        el("thead", {}, el("tr", {}, ...["Locus", "Verdict", "raw p", "GC-adj p (FDR)", "locus rate", "control rate", "Flags"]
+        el("thead", {}, el("tr", {}, ...["Locus", "Verdict", "raw p", "GC-adj p (FDR)", "locus rate", "control rate", "Controls", "Flags"]
           .map((head) => el("th", { text: head })))),
         el("tbody", {}, ...h.loci.map((row) => el("tr", {},
           el("td", { class: "mono", text: row.atlas_id }),
@@ -981,6 +981,20 @@ function dh1Panel() {
           el("td", { class: "num", style: row.gc_adjusted_p_fdr != null && row.gc_adjusted_p_fdr < (h.alpha ?? 0.05) ? "font-weight:600" : "", text: pv(row.gc_adjusted_p_fdr) }),
           el("td", { class: "num", text: rate(row.locus_rate) }),
           el("td", { class: "num", text: rate(row.control_rate) }),
+          /* Control provenance. Which regions a locus was compared
+             against turned out to be the most consequential choice in the
+             whole test, and for every run before R-20 it was recorded
+             nowhere — so a run that lacks it says so rather than showing
+             a blank that reads as "none". */
+          el("td", { style: "font-size:10.5px" },
+            row.n_controls == null
+              ? el("span", { class: "st skipped", title: "this run predates control provenance being recorded", text: "not recorded" })
+              : el("span", {
+                  class: row.n_controls_same_compartment === row.n_controls ? "st" : "st invalid",
+                  title: row.control_regions.join("  ") || "no control regions recorded",
+                  text: `${row.n_controls_same_compartment}/${row.n_controls} same compartment`,
+                }),
+          ),
           el("td", { style: "font-size:10.5px" },
             row.underpowered ? el("span", { class: "st invalid", text: "underpowered" }) : null,
             !row.minimum_data_passed ? el("span", { class: "st skipped", title: row.failing_checks.join(", "),

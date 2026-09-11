@@ -547,6 +547,39 @@ the first would discard the most specific finding in the run. A tie is
 not supportive either — D.H1 asks for lower, and "not higher" is not
 lower.
 
+**CORRECTION, AND THEN ITS RETRACTION — both kept, because the sequence
+matters.**
+
+*2026-09-11, first correction:* when R-20 found that control selection was
+broken, I recorded here that the wrong-direction result was more likely an
+artifact of the comparison than a biological signal — the locus had been
+measured against nt 7-31, a window in the structured 5' UTR at the genome
+terminus with 11 informative clades against the locus's 71.
+
+*2026-09-11, after the re-run: that was wrong, and the original reading
+stands.* Under five matched CDS controls the effect did not weaken. It got
+substantially stronger:
+
+                        bad control (nt 7-31)   5 CDS controls
+    locus rate                  0.775               0.775
+    control rate                0.545               0.287
+    raw Fisher p                0.1385              2.17e-09
+    GC-adjusted p_fdr           9.69e-07            1.08e-09
+
+The broken control had been *masking* the effect, not manufacturing it.
+Note especially the raw Fisher p: it was non-significant at 0.1385 purely
+because the control arm held 11 clades, which is exactly the diagnosis
+R-13 gave when it changed the decision rule. With a real control arm the
+raw and pooled tests now agree, and FMDV2026-G4-004 would be
+SIGNAL_OPPOSITE_DIRECTION under the original `conjunction` rule too — so
+the verdict no longer depends on that post-hoc rule change at all.
+
+FMDV2026-G4-004 being markedly more disrupted than matched, GC-equal,
+same-compartment controls is a real observation about this corpus. It is
+evidence against D.H1 at that locus, and it is the kind of pattern
+positive selection produces. It is not a bug, and it is now the most
+interesting result the project has.
+
 **Consequences recorded rather than tidied away:** the FMDV 2026 verdict
 became SIGNAL_OPPOSITE_DIRECTION, `operational_mode` went back to false,
 and `on_block` went back to `refuse` — `annotate` was defensible when the
@@ -608,6 +641,116 @@ change cannot leave this silently behind.
 
 ---
 
+## R-20 — Control selection was collapsing every control onto the genome's 5' end
+
+**The most consequential defect found so far. It invalidates the control
+arm of every D.H1 run the project has produced, including the one R-18
+corrected.**
+
+**Design said** (Concept Paper v2 Section 6.1): for each Atlas locus, a
+matched non-G4 control region — matched on length and GC content.
+
+**Implementation did:** exactly that, and then chose between the matches
+with
+
+    return min(candidates, key=lambda c: abs(c.gc_content - locus_gc))
+
+**Why that one line broke three separate things.**
+
+*Ties were broken by position.* GC fraction over a ~25 nt window is a
+coarse, heavily tied quantity, candidates were enumerated from position 1
+upward, and Python's `min()` keeps the first of equal keys. For
+FMDV2026-G4-004 there were 7,927 qualifying candidates, **443 of them tied
+at a perfect GC match of 0.000000, and 374 of those inside the CDS** — the
+locus's own compartment. The function returned nt 7-31, in the 5' UTR,
+solely because it was enumerated first. Across the 2026 corpus, **36 of 37
+controls landed in the 5' UTR**, and the same few windows served many
+loci: nt 3-27 was the control for four different loci, nt 15-42 for four
+more, nt 7-31 for two.
+
+*The controls were not comparable.* FMDV's 5' UTR is ~1100 nt of highly
+structured RNA — S-fragment, poly-C tract, pseudoknots, IRES — under
+constraints that have nothing to do with a polyprotein coding locus.
+Matching on GC and length does not make two regions comparable when one is
+structural RNA and the other is protein-coding.
+
+*One control per locus, often the same one.* `gc_confound_gate` fits one
+pooled model in which controls are the reference category across every
+locus at once. When a handful of 5'-terminal windows are the control for
+many loci, those rows are not independent observations and the model's
+precision is overstated. The single control arm was also chronically thin
+— 11 informative clades against the locus's 71 — because the extreme 5'
+terminus is where submitted sequences are most often truncated.
+
+**Implementation does:** `find_matched_control_regions` returns several
+mutually non-overlapping controls per locus, preferring the locus's own
+compartment (5'UTR / CDS / 3'UTR, from the config's declared CDS span),
+ranking by GC distance within that compartment, and breaking the
+remaining — common — ties with a blake2b hash seeded on the locus's own
+id. `blake2b` and not `hash()`, because Python salts string hashing per
+process and a control set that changed between runs would make a published
+verdict unreproducible.
+
+For FMDV2026-G4-004 the controls became nt 1696-1720, 4969-4993,
+6041-6065, 6530-6554 and 7561-7585 — all CDS, all at GC 0.6800 exactly,
+spread across the genome instead of stacked at its start.
+
+**A pathogen that declares no CDS bounds** resolves every region to
+`UNKNOWN` and gets no compartment preference, rather than having a
+boundary invented for it. EBV is in exactly that position.
+
+**Each control observation now carries its own GC** into the pooled model
+(`LocusControlData.control_gc_values`, aligned element-for-element with
+the clade values). With several controls their GC values differ, and
+broadcasting a single figure across them would hand the model a confounder
+value that no row actually has. Misaligned lists raise rather than
+silently pairing a clade's disruption with another control's GC.
+
+**Cost, stated plainly.** Six ancestral-state reconstructions per locus
+instead of two, so a D.H1 run is roughly three times longer. That is the
+correct trade: the previous runtime bought a comparison that was not
+measuring what it claimed to.
+
+**What this means for earlier results.** Every D.H1 verdict computed
+before this change rests on a control arm drawn from the wrong part of the
+genome. The superseded rows stay in the ledger — `evaluate_gate` reads
+only the latest run — but they should not be quoted.
+
+**What the re-run actually produced.** The pathogen verdict is unchanged,
+SIGNAL_OPPOSITE_DIRECTION, but almost nothing else is:
+
+* FMDV2026-G4-004's effect strengthened by more than two orders of
+  magnitude and its raw and GC-adjusted tests now agree (see R-18). The
+  broken control was masking it.
+* 18 loci reached a p-value, against 15 before. Five pooled controls clear
+  the `n_control_informative_clades` floor where one thin 5'-terminal
+  window did not, so loci that were halted as INSUFFICIENT_DATA are now
+  actually tested.
+* Two loci became SIGNAL_EXPLAINED_BY_GC — FMDV2026-G4-015 (0.306 vs
+  0.726) and G4-025 (0.111 vs 0.538). Both are substantially MORE
+  conserved than their controls, which is the direction D.H1 predicts, and
+  in both cases GC adjustment removes the effect. Under the old controls
+  neither was visible at all. These are the first loci this project has
+  seen that point the right way, and the GC gate is doing exactly the job
+  it exists to do on them.
+* FMDV2026-G4-020 sits at p_fdr = 0.077, also in the predicted direction.
+
+So the corrected controls did not rescue D.H1, and they did not overturn
+the finding against it. They made both sides of the picture visible for
+the first time.
+
+**The ledger now records control provenance.** `n_controls`,
+`control_regions` and `n_controls_same_compartment` were added, because
+when the selector was drawing 36 of 37 controls from the 5' UTR, no
+ledger row showed it. A recorded verdict whose comparison arm cannot be
+reconstructed from the record is not auditable. `ledger.migrate()` brings
+an older file forward: existing rows get `""` in the new columns, which is
+the truthful value — that provenance was not recorded when those runs
+happened. No row is added, removed or altered; append-only refers to rows,
+and only the header gained columns.
+
+---
+
 ## Current pathogen status
 
 As of 2026-09-11. No pathogen has an open gate.
@@ -615,7 +758,7 @@ As of 2026-09-11. No pathogen has an open gate.
 | Pathogen | Config | Corpus | D.H1 verdict | Scoring |
 |---|---|---|---|---|
 | FMDV | provisioned | 848 aligned | `INSUFFICIENT_DATA` — Asia1, Pan Asia O and C all below the 20-sequences-per-lineage floor | blocked |
-| FMDV2026 | provisioned | 936 aligned | `SIGNAL_OPPOSITE_DIRECTION` — one locus significant against the hypothesis, 14 `NOT_SUPPORTED`, 22 halted at the floor | blocked |
+| FMDV2026 | provisioned | 936 aligned | `SIGNAL_OPPOSITE_DIRECTION` — one locus significant against the hypothesis, two `SIGNAL_EXPLAINED_BY_GC` in its favour, 15 `NOT_SUPPORTED`, 19 halted at the floor | blocked |
 | EBV | provisioned | 209 aligned | not run — Atlas built (1410 loci), phylogenetics not run | blocked |
 | LSDV | scaffold | — | not run | blocked |
 | PPRV | scaffold | — | not run | blocked |
@@ -630,16 +773,29 @@ under the per-lineage floor. Overall corpus size cannot average that away
 
 **FMDV2026** is a different finding. The larger corpus clears the floor:
 all five circulating serotypes pass (O 532, A 188, Asia1 95, SAT2 70,
-SAT1 45) and 15 of the 37 pre-specified loci reached a p-value. One locus
-produced a strong GC-adjusted effect — and it runs against D.H1.
-FMDV2026-G4-004 is *more* disrupted than its matched control (0.775 vs
-0.545) at p_fdr = 9.7e-07. Under the gate as it stood, that was recorded
-as `SUPPORTED` and set `operational_mode: true`; see R-18.
+SAT1 45) and 18 of the 37 pre-specified loci reached a p-value against
+five matched, same-compartment controls each.
 
-Two entries in that corpus's history are worth reading together: R-15
-(the excluded-lineage bug that had been halting every locus at the floor)
-and R-18 (the missing direction check). The first is why this corpus
-produced p-values at all; the second is why they do not open the gate.
+*Against D.H1:* FMDV2026-G4-004 is *more* disrupted than its controls,
+0.775 against 0.287, at p_fdr = 1.08e-09. The raw Fisher test agrees
+(p = 2.17e-09), so this verdict does not depend on the post-hoc decision
+rule of R-13.
+
+*For D.H1, and then not:* G4-015 (0.306 vs 0.726) and G4-025 (0.111 vs
+0.538) are both markedly more conserved than their controls — the
+predicted direction — and GC adjustment removes both. They are the first
+loci this project has seen pointing the right way, and the GC gate does
+to them exactly what it exists to do. G4-020 is close behind at
+p_fdr = 0.077, same direction.
+
+Four entries in that corpus's history are worth reading together: R-15
+(the excluded-lineage bug that had been halting every locus at the
+floor), R-18 (the missing direction check), R-20 (control selection
+collapsing onto the 5' UTR), and R-13 (the decision-rule change, now
+moot for the deciding locus). The first is why this corpus produced
+p-values at all; the second is why they do not open the gate; the third
+is why the earlier numbers should not be quoted; the fourth is a
+provenance concern that the corrected controls happen to have retired.
 
 **EBV** was added as a cross-species check on a GC-rich dsDNA genome.
 Stage 0 and Stage 1 are complete; Stages 1.5 onward are not run, because

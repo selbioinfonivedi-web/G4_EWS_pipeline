@@ -425,6 +425,12 @@ def _dh1_or_none(config) -> dict | None:
         except (TypeError, ValueError):
             return None
 
+    def _int_or_none(value):
+        try:
+            return int(value)
+        except (TypeError, ValueError):
+            return None
+
     loci = [
         {
             "atlas_id": row.get("atlas_id", ""),
@@ -439,6 +445,12 @@ def _dh1_or_none(config) -> dict | None:
             "minimum_data_passed": (row.get("minimum_data_passed") or "").strip().lower() == "true",
             "failing_checks": [c for c in (row.get("minimum_data_failing_checks") or "").split(";") if c],
             "underpowered": (row.get("underpowered") or "").strip().lower() == "true",
+            # Control provenance. Empty for runs predating R-20, which is
+            # the honest value — it was not recorded then — and the UI says
+            # "not recorded" rather than implying zero controls.
+            "n_controls": _int_or_none(row.get("n_controls")),
+            "control_regions": [r for r in (row.get("control_regions") or "").split(";") if r],
+            "n_controls_same_compartment": _int_or_none(row.get("n_controls_same_compartment")),
         }
         for row in latest
     ]

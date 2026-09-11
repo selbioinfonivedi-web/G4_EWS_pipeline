@@ -421,6 +421,11 @@ bullets(s, x, y + Inches(1.35), Inches(6.0), Inches(4.1), [
         {"size": 12.5, "font": "Consolas", "color": NAVY}),
     (1, "Each locus's dummy tested by likelihood-ratio test (full model vs. that dummy "
         "removed), then Benjamini–Hochberg FDR-corrected across all loci.", {"size": 13.5}),
+    (0, "How the controls are chosen — the load-bearing step", {"bold": True, "size": 15, "color": RED}),
+    (1, "5 matched controls per locus, drawn from the locus's OWN compartment (5'UTR / CDS / "
+        "3'UTR), non-overlapping, ties broken by a hash of the locus id rather than by position. "
+        "Matching on GC and length alone had put 36 of 37 FMDV 2026 controls in the structured "
+        "5' UTR — ties were resolved by enumeration order, which starts at nt 1.", {"size": 13}),
     (0, "Why pooled, not per-pair:", {"bold": True, "size": 14.5}),
     (1, "a single locus-control pair has only 2 distinct GC values — GC and locus identity "
         "are perfectly collinear and unidentifiable alone.", {"size": 13.5}),
@@ -846,6 +851,15 @@ bullets(s, x, y, w, Inches(2.6), [
         "reported as no effect."),
     (1, "Two unit tests asserted the inverted behaviour, so the suite agreed with the code and both "
         "disagreed with the hypothesis. Corrected together."),
+    (0, "And the controls that verdict was measured against were the wrong ones", {"bold": True, "size": 16, "color": RED}),
+    (1, "Control selection resolved GC ties by enumeration order, which starts at nt 1 — so 36 of 37 "
+        "controls landed in the structured 5' UTR, several shared between loci. For the one locus "
+        "that mattered there were 443 candidates tied at a PERFECT GC match and 374 of them inside "
+        "the CDS; it was given nt 7-31. Every D.H1 verdict computed before this rests on that."),
+    (1, "Re-run with 5 matched CDS controls per locus, the wrong-direction effect did not vanish — it "
+        "strengthened by two orders of magnitude (control rate 0.545 -> 0.287; p_fdr 9.7e-07 -> "
+        "1.1e-09). The bad control had been masking it. Raw and GC-adjusted tests now agree, so the "
+        "verdict no longer depends on the post-hoc rule change either.", {"color": TEAL}),
 ], size=14)
 bullets(s, x, y + Inches(2.75), w, Inches(2.1), [
     (0, "The SC threshold was relaxed on cross-species evidence — a judgment call, not a ROC fit", {"bold": True, "size": 16, "color": AMBER}),
@@ -882,8 +896,10 @@ bullets(s, Inches(0.6), Inches(1.6), Inches(12.1), Inches(5.4), [
         "needs 30 across 4 families with stated coordinates — the next required validation step, "
         "not yet performed.", {"color": WHITE, "size": 15}),
     (0, "No pathogen currently has an open gate", {"bold": True, "size": 18, "color": AMBER}),
-    (1, "FMDV: INSUFFICIENT_DATA. FMDV 2026: SIGNAL_OPPOSITE_DIRECTION. Every surveillance score in "
-        "this deck is machinery described, not a result claimed.", {"color": WHITE, "size": 15}),
+    (1, "FMDV: INSUFFICIENT_DATA. FMDV 2026: SIGNAL_OPPOSITE_DIRECTION — one locus significantly "
+        "AGAINST the hypothesis, two in its favour that GC adjustment explains away. Every "
+        "surveillance score in this deck is machinery described, not a result claimed.",
+        {"color": WHITE, "size": 15}),
 ], size=15, line_spacing=1.15, space_after=10)
 footer_box = add_text(s, Inches(0.6), Inches(7.1), Inches(11), Inches(0.3),
          "G4-WATCH — ICAR-NIVEDI  ·  technical briefing  ·  all figures traced to the implemented codebase",

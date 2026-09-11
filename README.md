@@ -52,17 +52,36 @@ that away, which is exactly what the floor exists to catch. No p-value
 was produced for any locus, because the test never ran.
 
 **FMDV 2026 (936 sequences) — `SIGNAL_OPPOSITE_DIRECTION`.** The larger
-corpus clears the floor: all five circulating serotypes pass, and 15 of
-37 pre-specified loci reached a p-value. One locus, FMDV2026-G4-004,
-shows a strong effect that survives GC adjustment (p_fdr = 9.7e-07) — and
-it points the wrong way. That locus is *more* disrupted than its matched
-control (0.775 vs 0.545), which is evidence against D.H1 rather than for
-it. The remaining 14 tested loci are `NOT_SUPPORTED`.
+corpus clears the floor: all five circulating serotypes pass, and 18 of
+37 pre-specified loci reached a p-value.
 
-That verdict is the output of a defect fixed in this phase: both
-underlying tests are two-sided, the gate never compared the two
-disruption rates, and it had already recorded this locus as `SUPPORTED`.
-See `docs/revision_log.md` R-18.
+One locus, FMDV2026-G4-004, shows a very strong effect that survives GC
+adjustment — and it points the wrong way. It is *more* disrupted than its
+five matched CDS controls (0.775 vs 0.287, p_fdr = 1.1e-09), which is
+evidence against D.H1 rather than for it.
+
+Three loci point the *predicted* way. FMDV2026-G4-015 (0.306 vs 0.726)
+and G4-025 (0.111 vs 0.538) are markedly more conserved than their
+controls, and in both cases GC adjustment removes the effect —
+`SIGNAL_EXPLAINED_BY_GC`, which is precisely the job that gate exists to
+do. G4-020 sits just outside significance in the same direction
+(p_fdr = 0.077). The remaining 15 tested loci are `NOT_SUPPORTED`.
+
+Two defects had to be fixed before any of those numbers meant anything,
+and both are worth reading before quoting a result:
+
+* the gate never compared the two disruption rates, so a locus more
+  disrupted than its control was recorded as `SUPPORTED`
+  (`docs/revision_log.md` R-18);
+* control selection broke GC ties by position, putting 36 of 37 controls
+  in the structured 5' UTR — for G4-004 there were 443 candidates tied at
+  a *perfect* GC match, 374 of them in the CDS, and it was handed nt 7-31
+  (R-20).
+
+Every D.H1 verdict produced before those fixes rests on a control arm
+drawn from the wrong part of the genome. Fixing the controls did not
+weaken the wrong-direction finding — it strengthened it by two orders of
+magnitude, because the bad control had been masking it.
 
 The four verdicts are kept strictly distinct throughout, because they
 mean different things and conflating them would misrepresent the result:

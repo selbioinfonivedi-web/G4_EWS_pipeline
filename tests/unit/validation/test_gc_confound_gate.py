@@ -11,6 +11,8 @@ from __future__ import annotations
 
 import random
 
+import pytest
+
 from g4watch.validation.gc_confound_gate import LocusControlData, gc_confound_gate
 
 _N_CLADES_PER_GROUP = 20
@@ -92,3 +94,56 @@ def test_a_single_locus_is_unchanged_by_correction():
     from g4watch.validation.gc_confound_gate import _benjamini_hochberg
 
     assert _benjamini_hochberg([0.037])[0] == 0.037
+
+
+# ── R-20: per-observation control GC ─────────────────────────────────
+def test_each_control_observation_carries_its_own_gc():
+    """With several matched controls per locus their GC values differ, and
+    the pooled model reads GC per row. Broadcasting one figure across them
+    would hand the model a confounder value no row actually has."""
+    data = LocusControlData(
+        locus_id="L1",
+        locus_clade_values=[1.0, 0.0, 1.0],
+        locus_gc=0.70,
+        control_clade_values=[0.0, 1.0, 0.0, 1.0],
+        control_gc=0.60,
+        control_gc_values=[0.55, 0.58, 0.62, 0.65],
+    )
+    assert data.control_gc_per_value() == [0.55, 0.58, 0.62, 0.65]
+
+
+def test_a_single_control_broadcasts_its_gc():
+    """Callers with one control pass control_gc alone and must keep working."""
+    data = LocusControlData("L1", [1.0, 0.0], 0.70, [0.0, 1.0, 0.0], 0.60)
+    assert data.control_gc_per_value() == [0.60, 0.60, 0.60]
+
+
+def test_misaligned_gc_values_raise_rather_than_silently_mispair():
+    """If the lists drift out of step, a clade's disruption gets attributed
+    to another control's GC — wrong, and invisible in the output."""
+    data = LocusControlData(
+        locus_id="L1",
+        locus_clade_values=[1.0],
+        locus_gc=0.7,
+        control_clade_values=[0.0, 1.0, 0.0],
+        control_gc=0.6,
+        control_gc_values=[0.55, 0.58],
+    )
+    with pytest.raises(ValueError, match="element-for-element"):
+        data.control_gc_per_value()
+
+
+def test_the_pooled_model_uses_the_per_row_gc():
+    """End to end: two runs differing only in the per-row GC must not give
+    identical results, or the values are being ignored."""
+    def _run(gc_values):
+        return gc_confound_gate([
+            LocusControlData("L1", [1.0] * 12 + [0.0] * 3, 0.72,
+                             [0.0] * 12 + [1.0] * 3, 0.60, control_gc_values=gc_values),
+            LocusControlData("L2", [1.0] * 6 + [0.0] * 6, 0.55,
+                             [1.0] * 6 + [0.0] * 6, 0.52),
+        ])[0].p_value
+
+    flat = _run([0.60] * 15)
+    varied = _run([0.40] * 7 + [0.80] * 8)
+    assert flat != varied, "per-observation GC is not reaching the model"

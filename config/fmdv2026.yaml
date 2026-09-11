@@ -75,6 +75,20 @@ control_regions:
   gc_tolerance: 0.05
   pqs_overlap_score_threshold: 0.8
   exclusion_buffer: 50
+  # Controls drawn per locus. More than one because the pooled GC model
+  # treats controls as its reference category across every locus at once:
+  # when one window serves as the control for many loci those rows are not
+  # independent, and the model's precision is overstated. A single control
+  # arm was also the binding constraint on power far more often than the
+  # locus arm -- 11 informative clades against 71 on this corpus.
+  #
+  # Controls are drawn from the locus's own compartment (5'UTR / CDS /
+  # 3'UTR) where one is available. See revision log R-20: matching on GC
+  # and length alone put 36 of 37 controls in the structured 5' UTR.
+  #
+  # Cost: six ancestral-state reconstructions per locus instead of two, so
+  # a D.H1 run takes roughly three times as long.
+  n_controls: 5
 atlas:
   version: '1.0'
   path: data/atlases/G4_Reference_Atlas_v2.0.fmdv2026.tsv

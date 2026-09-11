@@ -254,7 +254,16 @@ def cmd_dh1(args: argparse.Namespace) -> int:
         if not report.control_found:
             print("  No matched control region found — locus not testable for D.H1.")
         else:
-            print(f"  Matched control: nt {report.control_start}-{report.control_end} (GC={report.control_gc:.3f})")
+            same = report.n_controls_same_compartment
+            total = len(report.controls)
+            print(
+                f"  Locus compartment: {report.compartment or 'n/a'}  "
+                f"({same}/{total} controls share it)"
+            )
+            print(f"  Matched controls ({total}, mean GC={report.control_gc:.3f}):")
+            for start, end, gc, compartment in report.controls:
+                flag = "" if compartment == report.compartment else "   <-- different compartment"
+                print(f"    nt {start}-{end}  GC={gc:.3f}  {compartment}{flag}")
             rate = report.locus_disruption_rate
             crate = report.control_disruption_rate
             print(
@@ -594,7 +603,13 @@ def cmd_calibrate(args: argparse.Namespace) -> int:
         ))
         # Negatives matched exactly as the pipeline matches D.H1 controls,
         # so calibration uses the contrast the pipeline actually draws.
-        control = find_matched_control_region(sequence, start, end)
+        #
+        # locus_id is passed so the tie-break is seeded per locus rather
+        # than falling back to enumeration order, which starts at nt 1 and
+        # gave every locus a control from the genome's 5' end (R-20). No
+        # cds_bounds: these validation genomes carry no declared CDS span,
+        # so no compartment preference applies and none is invented.
+        control = find_matched_control_region(sequence, start, end, locus_id=row["locus_id"])
         if control is not None:
             c_score, c_tools = score_region(sequence, control.start, control.end)
             negatives.append(ScoredLocus(
