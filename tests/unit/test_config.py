@@ -117,12 +117,39 @@ def test_shipped_configs_all_validate():
         load_config(name)
 
 
-def test_fmdv_is_the_only_provisioned_config():
-    # The other four are scaffolds carrying architectural decisions but no
-    # fabricated accessions. If one becomes provisioned, this test should
-    # be updated deliberately, not silently.
-    provisioned = [name for name in available_pathogens() if load_config(name).provisioned]
-    assert provisioned == ["fmdv"]
+def test_a_provisioned_config_points_at_files_that_exist():
+    """The invariant that matters, rather than a fixed list of names.
+
+    The previous version asserted fmdv was the only provisioned config and
+    said in its own comment that adding one should update it deliberately.
+    A 2026 FMDV corpus of 936 genomes did, so the check is now the thing it
+    was really protecting: `provisioned: true` must mean the reference and
+    corpus are actually on disk, and a scaffold must not claim otherwise.
+    """
+    from pathlib import Path
+
+    for name in available_pathogens():
+        config = load_config(name)
+        if not config.provisioned:
+            continue
+        assert config.reference_fasta and Path(config.reference_fasta).is_file(), (
+            f"{name} is provisioned but its reference FASTA is missing"
+        )
+        assert config.corpus_metadata_tsv and Path(config.corpus_metadata_tsv).is_file(), (
+            f"{name} is provisioned but its corpus metadata is missing"
+        )
+
+
+def test_scaffold_configs_carry_provisioning_notes():
+    """A scaffold must say what a curator still has to supply, rather than
+    failing later with a missing-file error."""
+    for name in available_pathogens():
+        config = load_config(name)
+        if config.provisioned:
+            continue
+        assert config.raw.get("provisioning_notes", "").strip(), (
+            f"{name} is a scaffold with no note saying what it needs"
+        )
 
 
 def test_fmdv_operational_mode_is_off():

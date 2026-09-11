@@ -1,0 +1,4 @@
+locus_id	virus	accession	start	end	strand	evidence	coordinate_provenance	citation	notes
+HIV1-LTR-5U3	HIV-1	NC_001802.1	360	387	+	biophysical	derived	Perrone et al. 2013 JACS; Piekna-Przybylska et al. 2014 NAR	LTR-III/IV G4 in the 5' U3. Coordinates DERIVED by locating the G4Hunter hit inside the published region, not quoted from the paper.
+HIV1-NEF	HIV-1	NC_001802.1	8613	8648	+	biophysical	derived	Perrone et al. 2013 JACS	nef-coding G4. Coordinates DERIVED as above.
+HIV1-LTR-3U3	HIV-1	NC_001802.1	9006	9044	+	biophysical	derived	Piekna-Przybylska et al. 2014 NAR	LTR G4 in the 3' U3. Coordinates DERIVED as above.

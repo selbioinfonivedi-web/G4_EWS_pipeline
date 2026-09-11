@@ -152,10 +152,18 @@ def cmd_stage0(args: argparse.Namespace) -> int:
     from .pipeline.stage0_atlas import run_stage0
 
     config = _load(args)
-    result = run_stage0(config, output_path=Path(args.out) if args.out else None, force=args.force)
+    result = run_stage0(
+        config,
+        output_path=Path(args.out) if args.out else None,
+        force=args.force,
+        survey_alignment=Path(args.survey) if args.survey else None,
+        min_survey_carriers=args.min_carriers,
+    )
     print(f"Stage 0 — {config.pathogen} Atlas v{result.atlas_version}")
     print(f"  reference : {result.reference_accession} ({result.reference_length} nt)")
     print(f"  loci found: {len(result.records)}")
+    if result.survey_note:
+        print(f"  survey    : {result.survey_note}")
     for record in result.records:
         print(
             f"    {record.atlas_id}  nt {record.genome_start}-{record.genome_end}  "
@@ -404,6 +412,18 @@ def cmd_stage5(args: argparse.Namespace) -> int:
         why = "ineligible Atlas loci" if downgraded else "--force-unchecked"
         print(f"WARNING: running unchecked ({why}). Results are marked non-authoritative.", file=sys.stderr)
         result = run_stage5_unchecked(config.pathogen, samples, authoritative=False)
+        # The unchecked path skips the gate, so the reason must still be
+        # attached here -- otherwise the run that most needs the caveat is
+        # the only one without it.
+        from .gating import evaluate_gate
+        from .pipeline.stage5_driver import annotate_gate_status
+
+        annotate_gate_status(
+            result,
+            evaluate_gate(
+                config.ledger_path, config.pathogen, operational_mode=config.operational_mode
+            ),
+        )
     else:
         try:
             result = run_stage5(config, samples)
@@ -483,6 +503,156 @@ def cmd_variants(args: argparse.Namespace) -> int:
     print(f"{n_variants} variants across {len(alignment) - 1} genomes -> {out}")
     print(f"{len(g4_rows)} fall inside {len(loci)} Atlas locus/loci"
           + (f" -> {args.g4_out}" if args.g4_out else ""))
+    return 0
+
+
+def cmd_atlas_reclassify(args: argparse.Namespace) -> int:
+    """Bring a stored Atlas's tiers in line with the current classifier.
+
+    Changing a threshold in confidence.py does not change any Atlas
+    already on disk, and nothing in the file records which rule wrote it.
+    This is the supported way to close that gap without a re-scan, which
+    would discard curated conservation and the multi-genome survey notes
+    the D.H1 analysis set is selected from (R-05, R-11).
+    """
+    from .atlas.io import read_atlas_tsv, write_atlas_tsv
+    from .atlas.reclassify import reclassify
+
+    config = _load(args)
+    atlas_path = Path(args.atlas) if args.atlas else config.atlas_path
+    records = read_atlas_tsv(atlas_path)
+    if not records:
+        print(f"{atlas_path} contains no Atlas records.", file=sys.stderr)
+        return 1
+
+    result = reclassify(records)
+    print(f"Atlas reclassification — {config.pathogen}")
+    print(f"  file: {atlas_path}")
+    print(f"  {result.summary()}")
+
+    if not result.changed:
+        print("\n  Already current. Nothing written.")
+        return EXIT_OK
+
+    if args.dry_run:
+        print(f"\n  --dry-run: {atlas_path} NOT modified.")
+        for transition in result.transitions[: args.show]:
+            print(f"    {transition.atlas_id}: {transition.before} -> {transition.after}")
+        if len(result.transitions) > args.show:
+            print(f"    ... and {len(result.transitions) - args.show} more")
+        return EXIT_OK
+
+    write_atlas_tsv(result.records, atlas_path)
+    print(f"\n  Wrote {atlas_path}")
+    print(
+        "  Recorded: only structural_confidence changed, and only within WC/MC/SC. "
+        "EC, BC and AA were preserved because the evidence behind them has no column "
+        "in the TSV; functional_context was not recomputed for the same reason."
+    )
+    return EXIT_OK
+
+
+def cmd_calibrate(args: argparse.Namespace) -> int:
+    """Measure the structural-confidence operating point against known G4s.
+
+    Reports; never changes a threshold. Moving one is a scientific
+    decision needing sign-off and a revision-log entry -- and moving it
+    while looking at the loci it would admit is the failure the whole
+    framework exists to prevent.
+    """
+    from .io.fasta import read_fasta
+    from .validation.calibration import (
+        ScoredLocus,
+        build_report,
+        load_confirmed_set,
+        score_region,
+    )
+    from .validation.control_regions import find_matched_control_region
+
+    rows = load_confirmed_set(args.set)
+    if not rows:
+        print(f"no confirmed loci in {args.set}", file=sys.stderr)
+        return 1
+
+    genomes: dict[str, str] = {}
+    for path in Path(args.genomes).glob("*.fasta"):
+        for name, seq in read_fasta(path).items():
+            genomes[name.split()[0]] = seq.upper()
+
+    positives, negatives, missing = [], [], []
+    for row in rows:
+        sequence = genomes.get(row["accession"])
+        if sequence is None:
+            missing.append(row["accession"])
+            continue
+        start, end = int(row["start"]), int(row["end"])
+        score, tools = score_region(sequence, start, end)
+        positives.append(ScoredLocus(
+            locus_id=row["locus_id"], virus=row["virus"], is_positive=True,
+            g4hunter_score=score, n_tools=tools,
+            provenance=row.get("coordinate_provenance", ""),
+        ))
+        # Negatives matched exactly as the pipeline matches D.H1 controls,
+        # so calibration uses the contrast the pipeline actually draws.
+        control = find_matched_control_region(sequence, start, end)
+        if control is not None:
+            c_score, c_tools = score_region(sequence, control.start, control.end)
+            negatives.append(ScoredLocus(
+                locus_id=f"{row['locus_id']}-control", virus=row["virus"],
+                is_positive=False, g4hunter_score=c_score, n_tools=c_tools,
+            ))
+
+    report = build_report(positives, negatives, min_tools=args.min_tools)
+
+    print("=" * 74)
+    print("G4 THRESHOLD CALIBRATION")
+    print("=" * 74)
+    if missing:
+        print(f"  genome not found for: {', '.join(sorted(set(missing)))}")
+    print(f"  {report.explain()}")
+    print()
+    print(f"  {'locus':18} {'virus':8} {'|G4H|':>7} {'tools':>6}  provenance")
+    for p in report.positives:
+        magnitude = f"{p.magnitude:.3f}" if p.g4hunter_score is not None else "MISSED"
+        print(f"  {p.locus_id:18} {p.virus:8} {magnitude:>7} {p.n_tools:6}  {p.provenance}")
+
+    print()
+    print("  CURRENT RULE (|G4Hunter| >= 1.5 AND >= 2 tools):")
+    print(f"    sensitivity to confirmed G4s = {report.sensitivity_at(1.5, 2):.0%}")
+    print("  Same score bar, tool requirement dropped:")
+    print(f"    sensitivity = {report.sensitivity_at(1.5, 1):.0%}")
+
+    # Operating points are printed ONLY for a usable set. On three
+    # positives and three negatives the predictor missed entirely, the
+    # curve is degenerate and its best row reads "|G4H| >= 0.00, J=+1.00"
+    # -- a number that is arithmetically true, meaningless, and exactly
+    # the sort of thing that survives being screenshotted away from the
+    # warning printed beside it.
+    if report.usable and report.curve and report.negatives:
+        print()
+        print("  Operating points by Youden's J (sensitivity + specificity - 1):")
+        best = sorted(report.curve, key=lambda r: -r["youden_j"])[:5]
+        for row in best:
+            print(f"    |G4H| >= {row['threshold']:.2f}  sens={row['sensitivity']:.0%}  "
+                  f"spec={row['specificity']:.0%}  J={row['youden_j']:+.2f}")
+
+    if not report.usable:
+        print()
+        print("  NOT USABLE FOR SETTING A THRESHOLD:")
+        for reason in report.blocking_reasons:
+            print(f"    - {reason}")
+        print("  See data/calibration/README.md for what a usable set needs.")
+    if args.out:
+        import json
+
+        Path(args.out).write_text(json.dumps({
+            "usable": report.usable,
+            "blocking_reasons": list(report.blocking_reasons),
+            "positives": [vars(p) for p in report.positives],
+            "negatives": [vars(n) for n in report.negatives],
+            "curve": report.curve,
+        }, indent=1))
+        print(f"\n    wrote {args.out}")
     return 0
 
 
@@ -663,6 +833,19 @@ def build_parser() -> argparse.ArgumentParser:
         help="overwrite an existing Atlas. A re-scan drops curated conservation values and "
         "multi-genome evidence notes, so this is never the default.",
     )
+    s0.add_argument(
+        "--survey",
+        help="alignment FASTA to scan beyond the reference. Catalogues loci a single "
+        "reference genome cannot show — a lineage-restricted locus is invisible to a "
+        "one-genome scan however strongly supported.",
+    )
+    s0.add_argument(
+        "--min-carriers",
+        type=int,
+        default=2,
+        help="genomes that must carry a surveyed locus before it enters the Atlas "
+        "(default: 2, so one genome's artefact cannot promote itself)",
+    )
     s0.set_defaults(func=cmd_stage0)
 
     qc = with_pathogen(sub.add_parser("qc", help="Stage 1 — sequence QC over the corpus"))
@@ -752,6 +935,27 @@ def build_parser() -> argparse.ArgumentParser:
     var.add_argument("--out", help="write the variant table here (default: variants.tsv)")
     var.add_argument("--g4-out", help="also write the variant x Atlas-locus intersection here")
     var.set_defaults(func=cmd_variants)
+
+    rec = with_pathogen(sub.add_parser(
+        "atlas-reclassify",
+        help="recompute a stored Atlas's WC/MC/SC tiers with the current classifier",
+    ))
+    rec.add_argument("--atlas", help="Atlas TSV (default: atlas.path from config)")
+    rec.add_argument("--dry-run", action="store_true",
+                     help="report what would change without writing")
+    rec.add_argument("--show", type=int, default=15,
+                     help="transitions to list under --dry-run (default: 15)")
+    rec.set_defaults(func=cmd_atlas_reclassify)
+
+    cal = sub.add_parser("calibrate", help="measure the SC operating point against known G4s")
+    cal.add_argument("--set", default="data/calibration/confirmed_viral_g4s.tsv",
+                     help="curated confirmed-G4 TSV")
+    cal.add_argument("--genomes", default="data/reference_genomes/_validation",
+                     help="directory of reference FASTA files")
+    cal.add_argument("--min-tools", type=int, default=1,
+                     help="tool count required when drawing the ROC curve")
+    cal.add_argument("--out", help="write the full report as JSON here")
+    cal.set_defaults(func=cmd_calibrate)
 
     dh3 = with_pathogen(sub.add_parser("dh3", help="D.H3 — phylogenetic clustering of G4 transitions"))
     dh3.add_argument("--out", help="write the result as JSON here")

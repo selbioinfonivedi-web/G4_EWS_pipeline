@@ -14,6 +14,7 @@ the interface feel broken.
 from __future__ import annotations
 
 import csv
+import re
 from collections import Counter
 from functools import lru_cache
 from pathlib import Path
@@ -27,11 +28,51 @@ GAP = set("-.Nn")
 
 
 def _paths(pathogen: str) -> dict[str, Path]:
-    base = REPO_ROOT / "data" / "reference_genomes" / pathogen / "corpus"
+    """Artifact locations, derived from the pathogen's own config.
+
+    This used to build them from ``data/reference_genomes/<pathogen>/corpus``,
+    which assumed every pathogen keeps its corpus in a directory named after
+    itself. A second FMDV corpus in ``corpus_2026`` was therefore invisible
+    to every track view even though the files were there: the payload
+    reported the alignment MISSING and the tracks silently returned nothing.
+    The config already records where the corpus lives, so ask it.
+    """
+    from g4watch.config import ConfigError, load_config
+
+    try:
+        config = load_config(pathogen)
+        base = Path(config.corpus_metadata_tsv).parent
+        stem = pathogen.lower()
+    except (ConfigError, TypeError, AttributeError):
+        base = REPO_ROOT / "data" / "reference_genomes" / pathogen / "corpus"
+        stem = pathogen
+
+    def _first(*candidates: Path) -> Path:
+        """The first candidate that exists, else the first (for the error)."""
+        for candidate in candidates:
+            if candidate.is_file():
+                return candidate
+        return candidates[0]
+
     return {
-        "alignment": base / "aligned" / f"{pathogen}_qc_passed_aligned_to_ref.fasta",
-        "mldist": base / "phylogenetics" / f"{pathogen}_iqtree.mldist",
+        "alignment": _first(
+            base / "aligned" / f"{stem}_qc_passed_aligned_to_ref.fasta",
+            base / "aligned" / f"{pathogen}_qc_passed_aligned_to_ref.fasta",
+        ),
+        "mldist": _first(
+            base / "phylogenetics" / f"{stem}_iqtree.mldist",
+            base / "phylogenetics" / f"{pathogen}_iqtree.mldist",
+        ),
         "ancestral": base / "phylogenetics" / "ancestral_serotype_reconstruction.tsv",
+        "variants": _first(
+            base / "variants" / f"{stem}_variants_all.tsv",
+            base / "variants" / f"{pathogen}_variants_all.tsv",
+        ),
+        "g4_variants": _first(
+            base / "variants" / f"{stem}_g4_variant_intersection.tsv",
+            base / "variants" / f"{pathogen}_g4_variant_intersection.tsv",
+        ),
+        "recombination": base / "recombination" / "recombination_screen.log",
     }
 
 
@@ -360,3 +401,121 @@ def geography(samples: list[dict]) -> dict:
         "unplaced": dict(unplaced.most_common()),
         "n_unplaced": sum(unplaced.values()),
     }
+
+
+# ── Stage 1.5 and Stage 3, surfaced ─────────────────────────────────
+def recombination(pathogen: str) -> dict | None:
+    """The PHI screen's verdict, or None if the screen has not run.
+
+    Surfaced because Stage 1.5 gates the validity of everything
+    phylogenetic downstream: reconstructing ancestral states across a
+    recombinant alignment reconstructs a history that never happened. A
+    reader looking at a tree deserves to see whether that check passed,
+    rather than having to know it exists and go find the log.
+    """
+    path = _paths(pathogen)["recombination"]
+    if not path.is_file():
+        return None
+    text = path.read_text()
+    found: dict = {"log_path": str(path), "raw": text.strip()[-800:]}
+    for pattern, key, cast in (
+        (r"([0-9]+) sequences", "n_sequences", int),
+        (r"([0-9]+) informative sites", "n_informative_sites", int),
+        (r"p\s*=\s*([0-9.eE+-]+)", "p_value", float),
+        (r"tier:\s*(\w+)", "tier", str),
+        (r"significant:\s*(\w+)", "significant", lambda v: v.strip().lower() == "true"),
+    ):
+        match = re.search(pattern, text)
+        if match:
+            try:
+                found[key] = cast(match.group(1))
+            except (ValueError, TypeError):
+                pass
+    found["interpretation"] = (
+        "Significant recombination detected. A single tree does not describe this corpus; "
+        "phylogenetic results downstream are not trustworthy until it is partitioned."
+        if found.get("significant")
+        else "No significant recombination detected, so a single tree is a defensible "
+             "description of this corpus."
+    )
+    return found
+
+
+def variant_summary(pathogen: str) -> dict | None:
+    """Counts from Stage 3, including the share falling inside Atlas loci.
+
+    Deliberately a summary and not the table: the FMDV 2026 variant file is
+    over a million rows, and shipping that to a browser would be a way of
+    appearing to show the data while making it unreadable.
+    """
+    paths = _paths(pathogen)
+    if not paths["variants"].is_file():
+        return None
+
+    total = 0
+    by_type: dict[str, int] = {}
+    genomes: set[str] = set()
+    with paths["variants"].open() as handle:
+        reader = csv.DictReader(handle, delimiter="\t")
+        for row in reader:
+            total += 1
+            by_type[row.get("variant_type", "?")] = by_type.get(row.get("variant_type", "?"), 0) + 1
+            genomes.add(row.get("accession", ""))
+
+    in_g4 = 0
+    per_locus: dict[str, int] = {}
+    if paths["g4_variants"].is_file():
+        with paths["g4_variants"].open() as handle:
+            for row in csv.DictReader(handle, delimiter="\t"):
+                in_g4 += 1
+                per_locus[row.get("atlas_id", "?")] = per_locus.get(row.get("atlas_id", "?"), 0) + 1
+
+    return {
+        "n_variants": total,
+        "n_genomes": len(genomes),
+        "by_type": by_type,
+        "n_in_atlas_loci": in_g4,
+        "fraction_in_atlas_loci": (in_g4 / total) if total else None,
+        "per_locus": dict(sorted(per_locus.items(), key=lambda kv: -kv[1])[:20]),
+        "mean_per_genome": (total / len(genomes)) if genomes else None,
+    }
+
+
+def molecular_clock(pathogen: str) -> dict | None:
+    """TreeTime's root-to-tip regression, or None if dating has not run.
+
+    Surfaced because a weak clock quietly undermines anything that reads
+    calendar time, and the number lives in a file nobody opens. On the
+    FMDV 2026 corpus the fit is r^2 = 0.06 with 55 outliers: the rate
+    estimate is not usable for dating, and any statement of the form "this
+    lineage expanded over N years" inherits that uncertainty. Reporting it
+    beside the tree is the difference between a caveat and a surprise.
+    """
+    base = _paths(pathogen)["mldist"].parent
+    path = base / "treetime_output" / "molecular_clock.txt"
+    if not path.is_file():
+        return None
+    text = path.read_text()
+    found: dict = {"path": str(path)}
+    for pattern, key in ((r"--rate:\s*([0-9.eE+-]+)", "rate"),
+                         (r"--r\^2:\s*([0-9.eE+-]+)", "r_squared")):
+        match = re.search(pattern, text)
+        if match:
+            try:
+                found[key] = float(match.group(1))
+            except ValueError:
+                pass
+    outliers = base / "treetime_output" / "outliers.tsv"
+    if outliers.is_file():
+        found["n_outliers"] = max(0, sum(1 for _ in outliers.open()) - 1)
+
+    r2 = found.get("r_squared")
+    found["usable_for_dating"] = bool(r2 is not None and r2 >= 0.5)
+    found["interpretation"] = (
+        f"Weak temporal signal (r^2 = {r2}). Root-to-tip divergence barely tracks "
+        "sampling date, so the time-scaling is unreliable and any date-dependent "
+        "result inherits that uncertainty. Topology and rooting are unaffected."
+        if r2 is not None and r2 < 0.5
+        else f"Clock fit r^2 = {r2}."
+    )
+    return found

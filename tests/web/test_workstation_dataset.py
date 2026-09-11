@@ -386,3 +386,221 @@ def test_missing_artifact_reports_unavailable_not_zero(client):
     """A pathogen with no alignment must 409, never return empty tracks."""
     assert client.get("/api/tracks/lsdv").status_code == 409
     assert client.get("/api/ordination/lsdv").status_code == 409
+
+
+# ── Stage 1.5 and Stage 3 in the payload ────────────────────────────
+def test_artifact_paths_come_from_the_config_not_the_pathogen_name():
+    """_paths built them from data/reference_genomes/<pathogen>/corpus,
+    which assumed every pathogen keeps its corpus in a directory named
+    after itself. A second FMDV corpus in corpus_2026 was invisible to
+    every track view even though the files were there."""
+    from pathlib import Path
+
+    from g4watch.config import available_pathogens
+    from web.workstation.tracks import _paths
+
+    if "fmdv2026" not in available_pathogens():
+        pytest.skip("the 2026 corpus config is not present")
+    resolved = _paths("fmdv2026")
+    assert "corpus_2026" in str(resolved["alignment"]), (
+        f"resolved to {resolved['alignment']}, which is not where the config points"
+    )
+    assert Path(resolved["alignment"]).is_file()
+
+
+def test_the_recombination_verdict_is_surfaced():
+    """Stage 1.5 decides whether a single tree describes the corpus at
+    all. A reader looking at a tree should not have to know a log exists."""
+    from g4watch.config import available_pathogens
+    from web.workstation.tracks import recombination
+
+    if "fmdv2026" not in available_pathogens():
+        pytest.skip("the 2026 corpus config is not present")
+    result = recombination("fmdv2026")
+    if result is None:
+        pytest.skip("the recombination screen has not been run")
+    assert result["n_sequences"] > 0
+    assert 0.0 <= result["p_value"] <= 1.0
+    assert isinstance(result["significant"], bool)
+    assert "recombination" in result["interpretation"].lower()
+
+
+def test_a_missing_recombination_screen_returns_none_not_a_guess():
+    from web.workstation.tracks import recombination
+
+    assert recombination("no-such-pathogen") is None
+
+
+def test_the_variant_summary_is_a_summary_not_the_table():
+    """The 2026 variant file is over a million rows. Shipping it to a
+    browser would look like showing the data while making it unreadable."""
+    from g4watch.config import available_pathogens
+    from web.workstation.tracks import variant_summary
+
+    if "fmdv2026" not in available_pathogens():
+        pytest.skip("the 2026 corpus config is not present")
+    result = variant_summary("fmdv2026")
+    if result is None:
+        pytest.skip("variants have not been called")
+    assert result["n_variants"] > 0
+    assert result["n_genomes"] > 0
+    assert 0.0 <= result["fraction_in_atlas_loci"] <= 1.0
+    assert len(result["per_locus"]) <= 20, "the whole table is being shipped"
+
+
+def test_the_payload_carries_both_stages():
+    from g4watch.config import available_pathogens, load_config
+    from web.workstation.dataset import build_dataset
+
+    if "fmdv2026" not in available_pathogens():
+        pytest.skip("the 2026 corpus config is not present")
+    if not load_config("fmdv2026").corpus_metadata_tsv:
+        pytest.skip("no corpus")
+    payload = build_dataset("fmdv2026")
+    assert "recombination" in payload
+    assert "variants" in payload
+
+
+def test_the_molecular_clock_fit_is_surfaced():
+    """A weak clock quietly undermines anything reading calendar time, and
+    the number lives in a file nobody opens."""
+    from g4watch.config import available_pathogens
+    from web.workstation.tracks import molecular_clock
+
+    if "fmdv2026" not in available_pathogens():
+        pytest.skip("the 2026 corpus config is not present")
+    clock = molecular_clock("fmdv2026")
+    if clock is None:
+        pytest.skip("dating has not been run")
+    assert clock["rate"] > 0
+    assert 0.0 <= clock["r_squared"] <= 1.0
+    assert isinstance(clock["usable_for_dating"], bool)
+
+
+def test_a_weak_clock_is_flagged_as_unusable_for_dating():
+    from g4watch.config import available_pathogens
+    from web.workstation.tracks import molecular_clock
+
+    if "fmdv2026" not in available_pathogens():
+        pytest.skip("the 2026 corpus config is not present")
+    clock = molecular_clock("fmdv2026")
+    if clock is None or clock["r_squared"] >= 0.5:
+        pytest.skip("clock is not weak in this checkout")
+    assert clock["usable_for_dating"] is False
+    assert "unreliable" in clock["interpretation"]
+
+
+def test_a_missing_clock_returns_none():
+    from web.workstation.tracks import molecular_clock
+
+    assert molecular_clock("no-such-pathogen") is None
+
+
+# ── the D.H1 rows behind the verdict ────────────────────────────────
+def test_dh1_payload_reports_the_rows_the_gate_read(tmp_path):
+    """The gate reports one word. The panel must report the rows behind
+    it, and must not disagree with the gate about which run is current."""
+    from web.workstation.dataset import _dh1_or_none
+
+    ledger = tmp_path / "ledger.tsv"
+    ledger.write_text(
+        "pathogen\tatlas_id\ttest\ttimestamp\tminimum_data_passed\t"
+        "minimum_data_failing_checks\tverdict\traw_p_value\t"
+        "gc_adjusted_p_value_fdr\tlocus_disruption_rate\t"
+        "control_disruption_rate\tunderpowered\n"
+        # a superseded earlier run — must not appear
+        "XV\tXV-G4-001\tD.H1\t2026-01-01T00:00:00+00:00\tTrue\t\tSUPPORTED\t0.01\t0.001\t0.2\t0.8\tFalse\n"
+        "XV\tXV-G4-001\tD.H1\t2026-02-01T00:00:00+00:00\tTrue\t\tNOT_SUPPORTED\t0.4\t0.6\t0.5\t0.5\tFalse\n"
+        "XV\tXV-G4-002\tD.H1\t2026-02-01T00:00:00+00:00\tFalse\tn_timepoints\tINSUFFICIENT_DATA\t\t\t\t\tFalse\n"
+    )
+
+    class _Config:
+        pathogen = "XV"
+        ledger_path = ledger
+        raw = {"dh1_gate": {"alpha": 0.05, "decision_rule": "gc_adjusted", "locus_selection": {"min_carriers": 20}}}
+
+    out = _dh1_or_none(_Config())
+    assert out["timestamp"] == "2026-02-01T00:00:00+00:00"
+    assert out["n_loci"] == 2, "an earlier, superseded run leaked into the current one"
+    assert out["verdict_counts"] == {"NOT_SUPPORTED": 1, "INSUFFICIENT_DATA": 1}
+    assert out["rests_on"] == []
+    assert out["decision_rule"] == "gc_adjusted"
+    assert out["min_carriers"] == 20
+
+
+def test_a_locus_halted_at_the_floor_carries_no_p_value(tmp_path):
+    """INSUFFICIENT_DATA means the test never ran. 0.0 is a p-value a
+    reader would act on, so the field must be empty, not zero."""
+    from web.workstation.dataset import _dh1_or_none
+
+    ledger = tmp_path / "ledger.tsv"
+    ledger.write_text(
+        "pathogen\tatlas_id\ttest\ttimestamp\tminimum_data_passed\t"
+        "minimum_data_failing_checks\tverdict\traw_p_value\t"
+        "gc_adjusted_p_value_fdr\tlocus_disruption_rate\t"
+        "control_disruption_rate\tunderpowered\n"
+        "XV\tXV-G4-001\tD.H1\t2026-02-01T00:00:00+00:00\tFalse\tmin_sequences_per_lineage;n_timepoints\t"
+        "INSUFFICIENT_DATA\t\t\t\t\tFalse\n"
+    )
+
+    class _Config:
+        pathogen = "XV"
+        ledger_path = ledger
+        raw = {}
+
+    row = _dh1_or_none(_Config())["loci"][0]
+    assert row["raw_p"] is None and row["gc_adjusted_p_fdr"] is None
+    assert row["tested"] is False
+    assert row["failing_checks"] == ["min_sequences_per_lineage", "n_timepoints"]
+
+
+def test_rests_on_names_every_supported_locus(tmp_path):
+    """A verdict carried by one locus and one carried by twenty are
+    indistinguishable until they are named."""
+    from web.workstation.dataset import _dh1_or_none
+
+    ledger = tmp_path / "ledger.tsv"
+    rows = "".join(
+        f"XV\tXV-G4-00{i}\tD.H1\t2026-02-01T00:00:00+00:00\tTrue\t\t"
+        f"{'SUPPORTED' if i == 1 else 'NOT_SUPPORTED'}\t0.01\t0.00{i}\t0.2\t0.8\tFalse\n"
+        for i in (1, 2, 3)
+    )
+    ledger.write_text(
+        "pathogen\tatlas_id\ttest\ttimestamp\tminimum_data_passed\t"
+        "minimum_data_failing_checks\tverdict\traw_p_value\t"
+        "gc_adjusted_p_value_fdr\tlocus_disruption_rate\t"
+        "control_disruption_rate\tunderpowered\n" + rows
+    )
+
+    class _Config:
+        pathogen = "XV"
+        ledger_path = ledger
+        raw = {}
+
+    assert _dh1_or_none(_Config())["rests_on"] == ["XV-G4-001"]
+
+
+def test_no_ledger_means_none_not_an_empty_table(tmp_path):
+    """An unrun gate is not a passed gate, and it is not an empty result
+    either. The UI must be able to tell the two apart."""
+    from web.workstation.dataset import _dh1_or_none
+
+    class _Config:
+        pathogen = "XV"
+        ledger_path = tmp_path / "does-not-exist.tsv"
+        raw = {}
+
+    assert _dh1_or_none(_Config()) is None
+
+
+def test_the_payload_carries_the_dh1_rows():
+    from g4watch.config import available_pathogens, load_config
+    from web.workstation.dataset import build_dataset
+
+    if "fmdv" not in available_pathogens():
+        pytest.skip("fmdv config is not present")
+    if not load_config("fmdv").corpus_metadata_tsv:
+        pytest.skip("no corpus")
+    skip_without_real_corpus()
+    payload = build_dataset("fmdv")
+    assert "dh1" in payload

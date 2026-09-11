@@ -491,8 +491,62 @@ def _mc_to_dict(result: Any) -> dict:
 
 
 def run_stage5(config, samples: list[sm.Sample], **kwargs) -> Stage5Result:
-    """Gated entry point. Refuses unless D.H1 permits scoring for this pathogen."""
-    from ..gating import assert_scoring_permitted
+    """Gated entry point.
 
-    assert_scoring_permitted(config.ledger_path, config.pathogen, operational_mode=config.operational_mode)
-    return run_stage5_unchecked(config.pathogen, samples, authoritative=True, **kwargs)
+    Refuses unless D.H1 permits scoring, UNLESS the pathogen config sets
+    ``dh1_gate.on_block: annotate``. In that mode a closed gate does not
+    stop the run; it produces the result with ``authoritative=False`` and
+    the gate's own reason recorded as the first step, so the disclaimer
+    cannot be separated from the numbers by anyone reading them later.
+
+    The default is still to refuse. Annotating is weaker: a reader can
+    ignore a caveat but cannot ignore a missing file. It is opt-in per
+    pathogen so that choosing it is a recorded decision rather than a
+    property of the system.
+    """
+    from ..gating import DEFAULT_ON_BLOCK, assert_scoring_permitted
+
+    on_block = (config.raw.get("dh1_gate") or {}).get("on_block", DEFAULT_ON_BLOCK)
+    status = assert_scoring_permitted(
+        config.ledger_path,
+        config.pathogen,
+        operational_mode=config.operational_mode,
+        on_block=on_block,
+    )
+    result = run_stage5_unchecked(
+        config.pathogen, samples, authoritative=status.permitted, **kwargs
+    )
+    annotate_gate_status(result, status)
+    return result
+
+
+def annotate_gate_status(result: Stage5Result, status) -> Stage5Result:
+    """Prepend the gate's reason to a non-authoritative result.
+
+    A caveat that appears on only one code path is worse than none,
+    because its absence then reads as evidence there was nothing to
+    caveat. This was exactly the case: `--include-ineligible-loci` routes
+    through ``run_stage5_unchecked`` and skipped the annotation entirely,
+    so the run that most needed the disclaimer was the one without it.
+    Both entry points call this.
+
+    Prepended rather than appended so it is the first thing any reader of
+    ``steps`` meets, before a single number.
+    """
+    if status is None or getattr(status, "permitted", False):
+        return result
+    if result.steps and result.steps[0].get("step") == "d.h1_gate":
+        return result
+    result.steps.insert(0, {
+        "step": "d.h1_gate",
+        "status": "not_permitted",
+        "detail": status.explain(),
+        "permission": status.permission.value,
+        "consequence": (
+            "Scores below are a demonstration of the machinery on this corpus. "
+            "They are NOT a surveillance finding, no alert level derived from them "
+            "is actionable, and they must not be reported as evidence that the "
+            "underlying hypothesis holds."
+        ),
+    })
+    return result

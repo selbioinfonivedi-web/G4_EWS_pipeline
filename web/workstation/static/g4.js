@@ -846,6 +846,151 @@ function renderRegister() {
 }
 
 /* ── 06 · INTERPRET ─────────────────────────────────────────────── */
+/* ── qualifying evidence ──────────────────────────────────────────────
+   Three checks decide how much weight the gate's verdict can carry, and
+   all three used to live in log files nobody opens:
+
+     Stage 1.5  recombination — whether ONE tree describes this corpus at
+                all. Reconstructing ancestral states across a recombinant
+                alignment reconstructs a history that never happened.
+     Stage 2    molecular clock — whether calendar time means anything
+                here. A weak fit does not invalidate the topology, but it
+                does invalidate every statement of the form "over N years".
+     Stage 3    variants — how much of the observed variation the Atlas
+                loci actually cover.
+
+   They are rendered beside the verdict rather than behind a link,
+   because a reader who has to go looking for a caveat will not find it.
+   A missing artifact says so; nothing is defaulted or drawn empty.
+   ─────────────────────────────────────────────────────────────────── */
+function evidenceRow(label, stage, state, headline, detail, extra) {
+  const colour = { ok: "--st-complete", warn: "--st-warning", bad: "--st-error", none: "--ink-3" }[state];
+  return el("div", { style: "display:grid;grid-template-columns:118px 1fr;gap:16px;padding:11px 0;border-bottom:1px solid var(--hair)" },
+    el("div", {},
+      el("p", { class: "tag", text: stage }),
+      el("p", { style: "font-size:12.5px;font-weight:600;margin-top:2px", text: label })),
+    el("div", {},
+      el("p", { style: `font-size:12.5px;font-weight:600;color:var(${colour})`, text: headline }),
+      detail ? el("p", { class: "mono", style: "font-size:11px;color:var(--ink-3);margin-top:3px", text: detail }) : null,
+      extra ? el("p", { style: "font-size:11.5px;color:var(--ink-2);line-height:1.55;margin-top:5px;max-width:88ch", text: extra }) : null),
+  );
+}
+
+function evidenceChain() {
+  const d = S.data, rows = [];
+  const r = d.recombination;
+  rows.push(r == null
+    ? evidenceRow("Recombination", "Stage 1.5", "none", "Not run",
+        null, "The screen is mandatory before phylogenetics. Until it has run, nothing downstream of the tree has been qualified.")
+    : evidenceRow("Recombination", "Stage 1.5", r.significant ? "bad" : "ok",
+        r.significant ? "Recombination detected" : "No significant recombination",
+        `PHI  p = ${r.p_value}  ·  ${r.n_sequences} sequences  ·  ${r.n_informative_sites} informative sites  ·  tier ${r.tier}`,
+        r.interpretation));
+
+  const c = d.molecular_clock;
+  rows.push(c == null
+    ? evidenceRow("Molecular clock", "Stage 2", "none", "Not dated", null,
+        "No time-scaled tree was built, so no result here depends on calendar time.")
+    : evidenceRow("Molecular clock", "Stage 2", c.usable_for_dating ? "ok" : "warn",
+        c.usable_for_dating ? "Clock usable for dating" : "Weak temporal signal",
+        `rate = ${c.rate} subs/site/yr  ·  r² = ${c.r_squared}` + (c.n_outliers != null ? `  ·  ${c.n_outliers} outliers` : ""),
+        c.interpretation));
+
+  const v = d.variants;
+  rows.push(v == null
+    ? evidenceRow("Variants", "Stage 3", "none", "Not called", null,
+        "No variant table, so the share of variation falling inside Atlas loci is unknown.")
+    : evidenceRow("Variants", "Stage 3", "ok",
+        `${v.n_variants.toLocaleString()} variants across ${v.n_genomes.toLocaleString()} genomes`,
+        `mean ${v.mean_per_genome != null ? v.mean_per_genome.toFixed(1) : "—"} per genome  ·  ` +
+        `${v.n_in_atlas_loci.toLocaleString()} inside Atlas loci` +
+        (v.fraction_in_atlas_loci != null ? ` (${(v.fraction_in_atlas_loci * 100).toFixed(2)}%)` : ""),
+        null));
+
+  return el("div", { class: "sec" },
+    el("h3", { text: "Qualifying evidence — what the verdict rests on" }), ...rows);
+}
+
+/* ── the D.H1 rows themselves ─────────────────────────────────────────
+   The gate reports one word. These are the rows it read to get there.
+   A verdict carried by a single locus and a verdict carried by twenty
+   are indistinguishable until the table is shown, which is why the
+   count is stated in words above it rather than left to be counted.
+   ─────────────────────────────────────────────────────────────────── */
+const DH1_COLOUR = {
+  SUPPORTED: "--st-complete",
+  /* Evidence AGAINST the hypothesis, not an absence of evidence for it.
+     Coloured as the strongest signal on the panel, because it is. */
+  SIGNAL_OPPOSITE_DIRECTION: "--st-significant",
+  NOT_SUPPORTED: "--st-error",
+  SIGNAL_EXPLAINED_BY_GC: "--st-warning",
+  INSUFFICIENT_DATA: "--ink-3",
+};
+const pv = (x) => x == null ? "—" : x < 0.001 ? x.toExponential(1) : x.toFixed(4);
+const rate = (x) => x == null ? "—" : x.toFixed(3);
+
+function dh1Panel() {
+  const h = S.data.dh1;
+  if (!h) {
+    return el("div", { class: "sec" }, el("h3", { text: "D.H1 — per-locus results" }),
+      el("p", { class: "blank" }, el("b", { text: "The gate has not been run." }),
+        "The testing ledger records no D.H1 result for this pathogen. An unrun gate is not a passed gate, and nothing is shown in place of the rows that do not exist yet."));
+  }
+  const counts = Object.entries(h.verdict_counts).sort((a, b) => b[1] - a[1]);
+  const rests = h.rests_on.length;
+
+  return el("div", { class: "sec" },
+    el("h3", { text: "D.H1 — per-locus results" }),
+    el("p", { class: "mono", style: "font-size:11px;color:var(--ink-3)",
+      text: `rule ${h.decision_rule}  ·  α = ${h.alpha}  ·  analysis set = loci in ≥ ${h.min_carriers ?? "—"} genomes  ·  ` +
+            `${h.n_tested}/${h.n_loci} reached a p-value  ·  run ${h.timestamp ? h.timestamp.slice(0, 19).replace("T", " ") : "—"}` }),
+
+    el("div", { style: "display:flex;gap:8px;flex-wrap:wrap;margin:4px 0 2px" },
+      ...counts.map(([verdict, n]) => el("span", { class: "token",
+        style: `border-color:var(${DH1_COLOUR[verdict] || "--ink-3"});color:var(${DH1_COLOUR[verdict] || "--ink-3"})` },
+        el("b", { text: String(n) }), " " + verdict))),
+
+    /* A locus MORE disrupted than its control contradicts D.H1. Saying so
+       in a sentence matters more than the row it sits on: the table shows
+       a very small p-value beside a very clear verdict, and a reader
+       skimming for significance will find the first before the second. */
+    ...(S.data.dh1.loci.filter((r) => r.verdict === "SIGNAL_OPPOSITE_DIRECTION").map((r) =>
+      el("p", { style: "font-size:12.5px;line-height:1.6;max-width:86ch;padding:9px 12px;border-left:2px solid var(--st-significant);color:var(--st-significant)",
+        text: `${r.atlas_id} shows a real, GC-adjusted effect (p_fdr = ${pv(r.gc_adjusted_p_fdr)}) that runs AGAINST D.H1: `
+            + `it is MORE disrupted than its matched control (${rate(r.locus_rate)} vs ${rate(r.control_rate)}), not less. `
+            + `D.H1 predicts lower disruption, so this is evidence against the hypothesis — not a small p-value in its favour, `
+            + `and not an absence of evidence. It cannot open the gate.` }))),
+
+    /* The sentence that stops a one-locus result reading like a corpus-wide one. */
+    rests === 0 ? null : el("p", {
+      style: `font-size:12.5px;line-height:1.6;max-width:86ch;padding:9px 12px;border-left:2px solid var(--st-${rests < 3 ? "warning" : "complete"});color:var(--${rests < 3 ? "st-warning" : "ink-2"})`,
+      text: rests === 1
+        ? `The SUPPORTED verdict rests on a SINGLE locus, ${h.rests_on[0]}. Every score derived downstream inherits that locus's fragility — check its control-clade count in the table below before reading any number as a corpus-wide finding.`
+        : `The SUPPORTED verdict rests on ${rests} loci: ${h.rests_on.join(", ")}.` }),
+
+    el("div", { class: "scroll-x" },
+      el("table", { class: "grid" },
+        el("thead", {}, el("tr", {}, ...["Locus", "Verdict", "raw p", "GC-adj p (FDR)", "locus rate", "control rate", "Flags"]
+          .map((head) => el("th", { text: head })))),
+        el("tbody", {}, ...h.loci.map((row) => el("tr", {},
+          el("td", { class: "mono", text: row.atlas_id }),
+          el("td", {}, el("span", { style: `color:var(${DH1_COLOUR[row.verdict] || "--ink-3"});font-weight:600;font-size:11px`, text: row.verdict })),
+          /* Empty, never 0. A locus halted at the floor has no p-value,
+             and 0.0 is a p-value a reader would act on. */
+          el("td", { class: "num", text: pv(row.raw_p) }),
+          el("td", { class: "num", style: row.gc_adjusted_p_fdr != null && row.gc_adjusted_p_fdr < (h.alpha ?? 0.05) ? "font-weight:600" : "", text: pv(row.gc_adjusted_p_fdr) }),
+          el("td", { class: "num", text: rate(row.locus_rate) }),
+          el("td", { class: "num", text: rate(row.control_rate) }),
+          el("td", { style: "font-size:10.5px" },
+            row.underpowered ? el("span", { class: "st invalid", text: "underpowered" }) : null,
+            !row.minimum_data_passed ? el("span", { class: "st skipped", title: row.failing_checks.join(", "),
+              text: "floor: " + (row.failing_checks.join(", ") || "failed") }) : null),
+        )))),
+    ),
+    el("p", { class: "hint", text: `Read from ${h.ledger_path}. Nothing on this panel is recomputed — these are the rows the gate itself read, so it cannot disagree with the verdict above.` }),
+  );
+}
+
 function workInterpret(host) {
   if (!S.data) { host.append(el("p", { class: "blank", text: "No dataset." })); return; }
   const g = S.data.gate, floor = S.data.floor;
@@ -876,6 +1021,10 @@ function workInterpret(host) {
         );
       }),
     ),
+    el("div", { style: "height:22px" }),
+    dh1Panel(),
+    el("div", { style: "height:22px" }),
+    evidenceChain(),
   );
 }
 

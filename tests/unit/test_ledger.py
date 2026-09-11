@@ -122,8 +122,17 @@ def test_summarize_empty_ledger(tmp_path):
 
 
 def test_real_fmdv_ledger_is_readable_and_complete():
+    """The ledger is STUDY-WIDE: one file recording every test this project
+    has run, across every pathogen. This test previously asserted that every
+    row in it was FMDV, which held only while FMDV was the sole pathogen to
+    have run the gate and contradicted the module's own contract the moment
+    a second one did. What matters is that the FMDV rows are present and
+    well-formed, not that nothing else shares the file."""
     from g4watch.config import load_config
 
     rows = read_rows(load_config("fmdv").ledger_path)
-    assert rows, "the FMDV ledger should record the real D.H1 run"
-    assert all(row["pathogen"] == "FMDV" for row in rows)
+    assert rows, "the ledger should record the real D.H1 runs"
+    fmdv = [row for row in rows if row["pathogen"] == "FMDV"]
+    assert fmdv, "the FMDV ledger rows are missing"
+    assert all(row["test"] == "D.H1" for row in fmdv)
+    assert all(row["atlas_id"] for row in fmdv)

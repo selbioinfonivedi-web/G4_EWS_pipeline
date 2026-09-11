@@ -28,25 +28,53 @@ made about it:**
 trusting a flag. Stage 5 (scoring) and Stage 6 (scored reporting) refuse
 to run until they hold, and editing the workflow cannot open the gate.
 
-**Current status — FMDV: `INSUFFICIENT_DATA`. Scoring is blocked.**
+**Current status — no pathogen has an open gate.**
+
+| Pathogen | Corpus | D.H1 verdict | Scoring |
+|---|---|---|---|
+| FMDV | 848 aligned | `INSUFFICIENT_DATA` | blocked |
+| FMDV2026 | 936 aligned | `SIGNAL_OPPOSITE_DIRECTION` | blocked |
+| EBV | 209 aligned | not run (Atlas only) | blocked |
+| LSDV · PPRV · NDV · CSFV | scaffold configs | not run | blocked |
 
 ```
-$ g4watch gate-status -p fmdv
-D.H1 GATE: SCORING BLOCKED  [BLOCKED_INSUFFICIENT_DATA]
+$ g4watch gate-status -p fmdv2026
+D.H1 GATE: SCORING BLOCKED  [BLOCKED_SIGNAL_OPPOSITE_DIRECTION]
 ```
 
-That is a real finding about corpus composition, not a pipeline failure.
-The FMDV corpus holds 848 aligned sequences, but 269 (32%) have no
-serotype recorded at all, and among those that do, three serotypes
-(Asia1, Pan Asia O, C) fall below the 20-sequences-per-lineage floor.
-Overall corpus size cannot average that away — which is exactly what the
-floor exists to catch. No p-value was produced for any locus, because
-the test never ran.
+Both FMDV results are real findings, not pipeline failures, and they are
+different findings.
 
-`INSUFFICIENT_DATA` is kept strictly distinct from `NOT_SUPPORTED`
-throughout: the first means the test could not be run, the second means
-it ran and the hypothesis failed. Neither permits scoring, but they mean
-very different things and conflating them would misrepresent the result.
+**FMDV (848 sequences) — `INSUFFICIENT_DATA`.** 269 sequences (32%) have
+no serotype recorded, and among those that do, three serotypes fall below
+the 20-sequences-per-lineage floor. Overall corpus size cannot average
+that away, which is exactly what the floor exists to catch. No p-value
+was produced for any locus, because the test never ran.
+
+**FMDV 2026 (936 sequences) — `SIGNAL_OPPOSITE_DIRECTION`.** The larger
+corpus clears the floor: all five circulating serotypes pass, and 15 of
+37 pre-specified loci reached a p-value. One locus, FMDV2026-G4-004,
+shows a strong effect that survives GC adjustment (p_fdr = 9.7e-07) — and
+it points the wrong way. That locus is *more* disrupted than its matched
+control (0.775 vs 0.545), which is evidence against D.H1 rather than for
+it. The remaining 14 tested loci are `NOT_SUPPORTED`.
+
+That verdict is the output of a defect fixed in this phase: both
+underlying tests are two-sided, the gate never compared the two
+disruption rates, and it had already recorded this locus as `SUPPORTED`.
+See `docs/revision_log.md` R-18.
+
+The four verdicts are kept strictly distinct throughout, because they
+mean different things and conflating them would misrepresent the result:
+
+| Verdict | Meaning |
+|---|---|
+| `INSUFFICIENT_DATA` | the test could not be run |
+| `NOT_SUPPORTED` | it ran; no significant difference |
+| `SIGNAL_EXPLAINED_BY_GC` | a raw effect that GC adjustment removed |
+| `SIGNAL_OPPOSITE_DIRECTION` | a real effect, running against the hypothesis |
+
+None of them permits scoring.
 
 ---
 
@@ -60,6 +88,7 @@ Stage 2    Phylogenomics + ancestral states  IQ-TREE2 / TreeTime
 Stage 3    Variant analysis
 Stage 4    G4 surveillance metrics ────────┐
 Stage 4.5  GC-confound control gate ───────┴─ g4watch dh1
+           (two-sided tests + an explicit direction check)
            ╔══════════════════════════════╗
            ║   GATE: D.H1  (Section 12)   ║
            ╚══════════════════════════════╝
@@ -118,6 +147,9 @@ Individual stages are also available directly:
 
 ```bash
 g4watch stage0 -p <name>          # build the Atlas
+g4watch stage0 -p <name> --survey <aligned.fasta>   # and survey the corpus
+g4watch atlas-reclassify -p <name>   # bring a stored Atlas up to date
+g4watch calibrate                    # measure the SC operating point
 g4watch variants -p <name>        # call variants from the alignment
 g4watch dh1 -p <name>             # the gated hypothesis test
 g4watch stage5 -p <name>          # the full downstream chain

@@ -25,6 +25,7 @@ Order of operations, and why it is this order:
 from __future__ import annotations
 
 import csv
+import re
 from dataclasses import dataclass, replace
 from datetime import UTC, datetime
 from pathlib import Path
@@ -41,7 +42,7 @@ from ..phylo.ancestral_states import reconstruct_ancestral_states
 from ..phylo.clade_collapse import collapse_to_maximal_clades
 from ..qc.metadata_normalization import LineageVocabulary
 from ..validation.control_regions import find_matched_control_region
-from ..validation.dh1_gate import Dh1GateResult, run_dh1_gate
+from ..validation.dh1_gate import DEFAULT_DECISION_RULE, Dh1GateResult, run_dh1_gate
 from ..validation.gc_confound_gate import LocusControlData
 from ..validation.minimum_data_gate import MinimumDataInput, MinimumDataResult, minimum_data_gate
 
@@ -80,6 +81,14 @@ class LocusReport:
     minimum_data: MinimumDataResult
     severity_weighted_g4d: str | None
     tested: bool
+    #: Reported covariates, not filters. Strand in particular: a G4 on the
+    #: minus strand of a positive-sense ssRNA genome exists only on the
+    #: replication intermediate, so its biological reading is conditional
+    #: on G4 formation during that phase. That is an argument to report,
+    #: not one to settle by excluding the locus from the analysis.
+    strand: str = "+"
+    structural_confidence: str = ""
+    n_carriers: int | None = None
 
 
 @dataclass(frozen=True)
@@ -143,6 +152,55 @@ def _normalize_lineage(config: PathogenConfig, row: dict) -> str:
     return vocabulary.resolve(*fields) or (row.get(field, "") or "").strip()
 
 
+
+
+#: Number of carrying genomes a surveyed locus must have to enter the
+#: pre-specified D.H1 analysis set. See ``select_analysis_loci``.
+DEFAULT_MIN_CARRIERS = 20
+
+_CARRIERS_RE = re.compile(r"Carried by (\d+) genome")
+
+
+def locus_carrier_count(locus) -> int | None:
+    """Genomes recorded as carrying this locus, or None if not surveyed.
+
+    Read from the evidence note the multi-genome survey writes. A
+    reference-native locus has no such note and returns None -- it was
+    found in the reference itself, which is a different kind of evidence
+    from "N genomes carry it".
+    """
+    match = _CARRIERS_RE.search(locus.evidence_note or "")
+    return int(match.group(1)) if match else None
+
+
+def select_analysis_loci(atlas: list, min_carriers: int = DEFAULT_MIN_CARRIERS) -> tuple[list, list]:
+    """Split an Atlas into the pre-specified analysis set and the rest.
+
+    THE RULE, stated so it can be pre-registered: a locus enters the
+    analysis set if it is present in at least ``min_carriers`` genomes of
+    the corpus at the time of G4 calling, IRRESPECTIVE OF SCORE OR STRAND.
+    A reference-native locus is always included.
+
+    WHY A RULE AND NOT A JUDGEMENT. Benjamini-Hochberg spends power on
+    every locus tested, so the size of this set changes what counts as
+    significant for all of them: on the 2026 FMDV Atlas the cutoff for the
+    smallest p-value is 0.00075 across 67 loci against 0.00152 across 33.
+    Choosing the set after seeing the p-values would be selecting on the
+    outcome. Carrier count is a property of the corpus, knowable before
+    any test runs, which is what makes it pre-specifiable.
+
+    Score and strand are deliberately NOT part of the rule. Filtering on
+    score would couple the analysis set to the very threshold under
+    question, and filtering on strand would decide a biological argument
+    by exclusion rather than reporting it as a covariate.
+    """
+    included, excluded = [], []
+    for locus in atlas:
+        carriers = locus_carrier_count(locus)
+        (included if carriers is None or carriers >= min_carriers else excluded).append(locus)
+    return included, excluded
+
+
 def compute_corpus_minimum_data_stats(
     config: PathogenConfig,
     aligned_ids: set[str],
@@ -166,6 +224,20 @@ def compute_corpus_minimum_data_stats(
             f"None of the {len(aligned_ids)} aligned sequence IDs appear in {metadata_tsv}. "
             "The alignment and the metadata table are describing different corpora."
         )
+
+    # Honour the config's declared exclusions. `load_samples` applies
+    # corpus.exclude_lineages and this did not, so a lineage excluded by
+    # the config was still counted against the per-lineage floor: on the
+    # 2026 FMDV corpus SAT3 (4) and C (1) were excluded in config and yet
+    # failed min_sequences_per_lineage, halting every locus at
+    # INSUFFICIENT_DATA while the five circulating serotypes all cleared
+    # the floor. One rule, two code paths, and only one of them knew.
+    excluded = {name.strip().upper() for name in config.exclude_lineages if name.strip()}
+    if excluded:
+        aligned_rows = [
+            row for row in aligned_rows
+            if (_normalize_lineage(config, row) or "").upper() not in excluded
+        ]
 
     n_missing_lineage = sum(1 for row in aligned_rows if not _normalize_lineage(config, row))
     named_counts: dict[str, int] = {}
@@ -319,6 +391,20 @@ def run_stage45_dh1(
     if not atlas:
         raise ConfigError(f"{atlas_path} contains no Atlas records — run Stage 0 first.")
 
+    # The PRE-SPECIFIED analysis set. Benjamini-Hochberg spends power on
+    # every locus tested, so this choice changes what counts as
+    # significant for all of them and must be fixed before any p-value
+    # exists. The rule and its threshold live in the config, not here.
+    selection = (config.raw.get("dh1_gate") or {}).get("locus_selection") or {}
+    min_carriers = int(selection.get("min_carriers", DEFAULT_MIN_CARRIERS))
+    atlas, excluded_loci = select_analysis_loci(atlas, min_carriers)
+    if not atlas:
+        raise ConfigError(
+            f"{atlas_path}: no locus meets the pre-specified analysis rule "
+            f"(>= {min_carriers} carrying genomes). Lower dh1_gate.locus_selection.min_carriers "
+            "deliberately, or survey a larger corpus — do not relax it after seeing results."
+        )
+
     base_input, named_counts, n_missing = compute_corpus_minimum_data_stats(
         config,
         set(aligned.keys()),
@@ -367,6 +453,9 @@ def run_stage45_dh1(
                     minimum_data=gate_result,
                     severity_weighted_g4d=None,
                     tested=False,
+                    strand=locus.strand,
+                    structural_confidence=locus.structural_confidence.name,
+                    n_carriers=locus_carrier_count(locus),
                 )
             )
             continue
@@ -426,12 +515,21 @@ def run_stage45_dh1(
                 minimum_data=gate_result,
                 severity_weighted_g4d=severity_summary,
                 tested=tested,
+                strand=locus.strand,
+                structural_confidence=locus.structural_confidence.name,
+                n_carriers=locus_carrier_count(locus),
             )
         )
 
     dh1: Dh1GateResult | None = None
     if loci_data:
-        dh1 = run_dh1_gate(loci_data, alpha=config.dh1_alpha)
+        dh1 = run_dh1_gate(
+            loci_data,
+            alpha=config.dh1_alpha,
+            decision_rule=(config.raw.get("dh1_gate") or {}).get(
+                "decision_rule", DEFAULT_DECISION_RULE
+            ),
+        )
         for result in dh1.locus_results:
             ledger_rows.append(
                 _ledger_row(config.pathogen, result.locus_id, timestamp, per_locus_gate[result.locus_id], result)
