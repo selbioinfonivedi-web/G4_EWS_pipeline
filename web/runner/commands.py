@@ -337,15 +337,66 @@ COMMANDS: tuple[Command, ...] = (
         summary="Stage 0 through Stage 6 as one orchestrated run. A closed gate completes normally.",
         argv=NF,
         options=(
+            # Nextflow's own options take a single dash and are declared
+            # here like any other, so the whitelist covers them too. The
+            # command previously offered none of them, which meant every
+            # run silently used the `standard` profile: no containers, host
+            # tools only, and no way to say otherwise from the console.
+            Option("profile", "-profile", "str", "Execution profile",
+                   "docker and singularity use the built images; conda_free runs against host tools.",
+                   placeholder="docker"),
+            Option("resume", "-resume", "flag", "Resume the previous run",
+                   "Reuses cached task results. Safe: Nextflow revalidates inputs.", default=False),
+            # Pre-computed inputs. Supplying one SKIPS the stage that would
+            # rebuild it, rather than rebuilding and possibly changing a
+            # published input.
             Option("alignment", "--alignment", "path", "Pre-computed alignment", "Skips the alignment stage."),
             Option("rooted_tree", "--rooted_tree", "path", "Pre-computed rooted tree", "Skips phylogenetics."),
             Option("atlas", "--atlas", "path", "Pre-built Atlas TSV", "Skips Stage 0."),
+            Option("reference", "--reference", "path", "Reference FASTA", "Required when aligning."),
+            Option("dates", "--dates", "path", "TreeTime dates CSV", "Required when building the tree."),
             Option("skip_qc", "--skip_qc", "flag", "Corpus is already QC-filtered", default=False),
+            Option("skip_alignment", "--skip_alignment", "flag", "Skip alignment", default=False),
+            Option("skip_phylogenetics", "--skip_phylogenetics", "flag", "Skip phylogenetics", default=False),
+            # Stage 5 options, mirroring the CLI flags. Both force a
+            # non-authoritative result and neither can produce a
+            # surveillance finding.
+            Option("force_unchecked", "--force_unchecked", "flag", "Run Stage 5 without the D.H1 gate",
+                   "Results are marked non-authoritative.", default=False),
+            Option("include_ineligible_loci", "--include_ineligible_loci", "flag",
+                   "Include Atlas loci below SC", "Forces a non-authoritative result.", default=False),
+            Option("exclude_lineages", "--exclude_lineages", "str", "Lineages to drop",
+                   "Comma-separated; unioned with the config. Any exclusion must be recorded."),
+            # Tool parameters. Changing these changes the result, so they
+            # are exposed rather than buried in nextflow.config.
+            Option("iqtree_model", "--iqtree_model", "str", "IQ-TREE model", placeholder="GTR+F+I+G4"),
+            Option("iqtree_bootstrap", "--iqtree_bootstrap", "int", "Bootstrap replicates"),
+            Option("seed", "--seed", "int", "Random seed", "Part of the run's identity; fixed by default."),
             Option("outdir", "--outdir", "path", "Results directory", "Defaults to results/."),
         ),
         requires_tools=("nextflow",),
+        gate_aware=True,
         mutates=True,
         danger_note="A full run writes results/ and appends ledger rows.",
+    ),
+    Command(
+        key="acquisition",
+        stage="Acquisition",
+        title="Fetch a corpus (Nextflow)",
+        summary=(
+            "Download sequences for an accession list. A separate entry point on purpose: an "
+            "analysis run must never silently re-fetch and change its own inputs."
+        ),
+        argv=(*NF, "-entry", "ACQUISITION"),
+        options=(
+            Option("accession_list", "--accession_list", "path", "Accession list",
+                   "One accession per line."),
+            Option("profile", "-profile", "str", "Execution profile", placeholder="docker"),
+            Option("outdir", "--outdir", "path", "Results directory"),
+        ),
+        requires_tools=("nextflow",),
+        mutates=True,
+        danger_note="Writes a new corpus. It does not adopt it: a config must be pointed at it.",
     ),
 )
 

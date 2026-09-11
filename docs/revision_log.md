@@ -981,6 +981,67 @@ Both need outbound network access the console deliberately does not have.
 
 ---
 
+## R-25 — The orchestrated run was registered and unreachable
+
+**Design said** (Section 16): the pipeline is a Nextflow DAG. One work
+directory, one provenance trace, one resume point.
+
+**Implementation did:** register a `workflow` command in the runner's
+whitelist that nothing ever called. The workstation fetched
+`/api/commands` at boot, stored it, and drove stages one CLI step at a
+time. The orchestrated path the architecture specifies was present in the
+API and absent from the interface.
+
+**Two things were wrong with the command itself, both invisible while it
+had no caller:**
+
+* **No `-profile`.** `argv` was `nextflow run workflow/main.nf` with no
+  profile option at all, so any run it launched would have used
+  `standard` — host tools, no containers — whatever the operator
+  intended, and nothing would have said so. The docker and singularity
+  profiles exist precisely so a run uses pinned image versions; silently
+  bypassing them makes two runs incomparable for a reason the trace does
+  not record.
+* **Five of ~15 parameters exposed.** `reference`, `dates`,
+  `skip_alignment`, `skip_phylogenetics`, `force_unchecked`,
+  `include_ineligible_loci`, `exclude_lineages`, `iqtree_model`,
+  `iqtree_bootstrap` and `seed` were all unreachable. A parameter that
+  changes the result but cannot be set from the console is a parameter
+  the console quietly decides on the operator's behalf.
+
+**Implementation does:** the command exposes every meaningful parameter,
+`-profile` and `-resume` among them, and is marked `gate_aware` so exit
+code 3 renders as a closed gate rather than a crash. `acquisition` is a
+second command on `-entry ACQUISITION`, separate on purpose: an analysis
+run must never silently re-fetch and change its own inputs.
+
+Nextflow's own options keep their single dash. Rendering `-profile` as
+`--profile` would make Nextflow treat it as a pipeline parameter and
+ignore the profile entirely — a test pins this, because the failure is
+silent and the run still succeeds.
+
+**The workstation gained a Nextflow panel** in the Run mode: profile
+selection with what each profile means, resume, the pre-computed-artifact
+toggles, an explicit unchecked-Stage-5 switch that labels itself, and a
+"Show command" view so the operator can see the argv before running it.
+
+**`paths` was added to the dataset payload** so the panel can supply
+`--atlas/--alignment/--rooted_tree`. Supplying one SKIPS the stage that
+would rebuild it, which is the point: rebuilding a published alignment can
+change it and nothing downstream would report that it had. Only paths that
+exist on disk are offered — a key present but missing would be passed as
+`--alignment <missing>` and fail the run's input check, which is worse
+than rebuilding. `_paths` has no rooted-tree entry, so the resolver looks
+beside the tree artifacts it does know about, preferring the
+divergence-rooted tree D.H1 actually reads (R-16).
+
+**Verified end to end rather than asserted:** a run launched through
+`POST /api/run` with `-profile conda_free -resume` and all three artifacts
+supplied executed CALL_VARIANTS and RECOMBINATION_SCREEN to completion and
+proceeded into DH1_GATE.
+
+---
+
 ## Current pathogen status
 
 As of 2026-09-11. No pathogen has an open gate.

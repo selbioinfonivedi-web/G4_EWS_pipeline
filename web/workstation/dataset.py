@@ -388,6 +388,12 @@ def build_dataset(pathogen: str) -> dict:
         # A weak clock undermines anything reading calendar time, and the
         # number otherwise lives in a file nobody opens.
         "molecular_clock": _clock_or_none(config.pathogen),
+        # Where this pathogen's artifacts actually live, repo-relative.
+        # The Nextflow panel supplies them as --atlas/--alignment/
+        # --rooted_tree so the orchestrated run SKIPS the stages that would
+        # rebuild them; without the paths it would silently supply nothing
+        # and quietly rebuild a published alignment instead.
+        "paths": _artifact_paths(config),
         # The per-locus D.H1 evidence behind the gate's one-word verdict.
         # `gate` says SUPPORTED or BLOCKED; this says which loci, on what
         # p-values, against how many control clades. A verdict resting on
@@ -396,6 +402,47 @@ def build_dataset(pathogen: str) -> dict:
         "dh1": _dh1_or_none(config),
         "observations": observe(samples, named, years, countries, loci, floor, gate),
     }
+
+
+def _artifact_paths(config) -> dict:
+    """Repo-relative paths to the artifacts a run may supply rather than rebuild.
+
+    Only paths that actually exist are returned. A key present but absent
+    from disk would be passed to Nextflow as ``--alignment <missing>`` and
+    fail the run's input check, which is a worse outcome than rebuilding.
+    """
+    from .tracks import _paths
+
+    try:
+        resolved = _paths(config.pathogen.lower())
+    except Exception:  # noqa: BLE001 - a pathogen with no corpus has no artifacts
+        return {}
+
+    # _paths has no rooted-tree entry, so look beside the tree artifacts
+    # it does know about. The divergence-rooted tree is preferred: it is
+    # the one D.H1 reads (revision log R-16).
+    phylo_dir = Path(resolved["mldist"]).parent if resolved.get("mldist") else None
+    stem = config.pathogen.lower()
+    rooted = None
+    if phylo_dir:
+        for name in (f"{stem}_rooted_div.nwk", f"{stem}_rooted.nwk", f"{stem}_iqtree_rooted.nwk"):
+            if (phylo_dir / name).is_file():
+                rooted = phylo_dir / name
+                break
+
+    out: dict[str, str] = {}
+    candidates = {
+        "alignment": resolved.get("alignment"),
+        "rooted_tree": rooted,
+        "atlas": getattr(config, "atlas_path", None),
+    }
+    for name, path in candidates.items():
+        if path and Path(path).is_file():
+            try:
+                out[name] = str(Path(path).resolve().relative_to(REPO_ROOT))
+            except ValueError:
+                out[name] = str(path)
+    return out
 
 
 def _dh1_or_none(config) -> dict | None:

@@ -737,6 +737,123 @@ function workConfigure(host) {
   );
 }
 
+/* ── Nextflow orchestration ───────────────────────────────────────────
+   The stage table above runs one CLI step at a time. This runs the whole
+   DAG as Nextflow sees it: one work directory, one provenance trace, one
+   resume point. The command was registered in the runner's whitelist and
+   no part of the interface had ever called it, so the orchestrated path —
+   the one the architecture actually specifies — was unreachable here.
+
+   Profile matters enough to be a first-class control rather than a
+   default: `standard` runs against host tools, `docker` and `singularity`
+   use the built images. Running the wrong one silently produces results
+   from different tool versions. */
+const NF = {
+  profile: "conda_free",
+  resume: true,
+  supply: { alignment: true, rooted_tree: true, atlas: true },
+  force_unchecked: false,
+};
+
+const NF_PROFILES = [
+  ["conda_free", "host tools, no containers"],
+  ["docker", "the built images — needs `make containers`"],
+  ["singularity", "the built images, rootless"],
+  ["standard", "host tools, default resources"],
+  ["test", "the synthetic demo corpus"],
+];
+
+/* Supplying a pre-computed artifact SKIPS the stage that would rebuild
+   it. That is the point: rebuilding a published alignment or tree can
+   change it, and nothing downstream would report that it had. */
+function nfOptions() {
+  const o = { profile: NF.profile, resume: NF.resume };
+  const d = S.data;
+  if (NF.supply.atlas && d?.identity?.atlas_version) o.atlas = d.paths?.atlas;
+  if (NF.supply.alignment && d?.paths?.alignment) o.alignment = d.paths.alignment;
+  if (NF.supply.rooted_tree && d?.paths?.rooted_tree) o.rooted_tree = d.paths.rooted_tree;
+  if (NF.force_unchecked) o.force_unchecked = true;
+  for (const k of Object.keys(o)) if (o[k] == null || o[k] === false) delete o[k];
+  return o;
+}
+
+async function runWorkflow() {
+  const cmd = (S.commands || []).find((c) => c.key === "workflow");
+  if (!cmd) return notify("error", "Unavailable", "The runner does not expose the workflow command.");
+  const missing = (cmd.requires_tools || []).filter((t) => !(S.env?.tools?.[t]?.present));
+  if (missing.length) {
+    return notify("error", "Nextflow not available",
+      `${missing.join(", ")} not found on PATH. Install it, or run the stages individually.`);
+  }
+  try {
+    const job = await api("/api/run", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ command: "workflow", pathogen: S.pathogen, options: nfOptions() }),
+    });
+    attach(job.id, { id: "workflow", name: "Nextflow pipeline", cmd: "workflow" });
+    $("#console").classList.add("open");
+    $("#log-toggle").textContent = "▼ LOG";
+    notify("running", "Nextflow started", `profile ${NF.profile}. A closed gate completes normally.`);
+  } catch (e) {
+    notify("error", "Could not start", e.message);
+  }
+}
+
+function nfPanel() {
+  const present = !!S.env?.tools?.nextflow?.present;
+  const row = (label, control, hint) =>
+    el("div", { style: "display:grid;grid-template-columns:190px 1fr;gap:14px;align-items:center;padding:7px 0;border-bottom:1px solid var(--hair)" },
+      el("span", { style: "font-size:12.5px", text: label }),
+      el("div", {}, control, hint ? el("div", { class: "hint", text: hint }) : null));
+
+  const profileSelect = el("select", { class: "select",
+    onchange: (e) => { NF.profile = e.target.value; renderWork(); } },
+    ...NF_PROFILES.map(([v, why]) => el("option", { value: v, text: `${v} — ${why}`, selected: v === NF.profile })));
+
+  const supplyBox = (key, label) => el("label", { style: "display:flex;gap:7px;align-items:center;font-size:12px;margin-right:16px" },
+    el("input", { type: "checkbox", checked: NF.supply[key],
+      onchange: (e) => { NF.supply[key] = e.target.checked; renderWork(); } }),
+    el("span", { text: label }));
+
+  return el("div", { class: "sec" },
+    el("h3", { text: "Nextflow — run the whole DAG" }),
+    el("p", { class: "hint", style: "max-width:88ch",
+      text: "One work directory, one provenance trace, one resume point. A closed D.H1 gate completes "
+          + "normally and exits 0: Stage 5 reports that scoring is blocked and Stage 6 publishes the verdict." }),
+    row("Execution profile", profileSelect,
+        NF.profile === "docker" || NF.profile === "singularity"
+          ? "Needs the images built once with `make containers`."
+          : "Runs against whatever tools are on PATH."),
+    row("Resume", el("label", { style: "display:flex;gap:7px;align-items:center;font-size:12px" },
+      el("input", { type: "checkbox", checked: NF.resume, onchange: (e) => { NF.resume = e.target.checked; } }),
+      el("span", { text: "reuse cached task results" })),
+      "Nextflow revalidates inputs, so this cannot serve a stale result for changed data."),
+    row("Supply existing artifacts",
+      el("div", { style: "display:flex;flex-wrap:wrap" },
+        supplyBox("atlas", "Atlas"), supplyBox("alignment", "Alignment"), supplyBox("rooted_tree", "Rooted tree")),
+      "Supplying one SKIPS the stage that would rebuild it. Rebuilding a published alignment or tree can change it."),
+    row("Run Stage 5 unchecked",
+      el("label", { style: "display:flex;gap:7px;align-items:center;font-size:12px" },
+        el("input", { type: "checkbox", checked: NF.force_unchecked,
+          onchange: (e) => { NF.force_unchecked = e.target.checked; renderWork(); } }),
+        el("span", { class: NF.force_unchecked ? "st invalid" : "", text: "bypass the D.H1 gate" })),
+      NF.force_unchecked
+        ? "The result is marked non-authoritative and can never be a surveillance finding."
+        : "Leave off. The gate refusing is a correct outcome, not a failure."),
+    el("div", { class: "btn-row", style: "margin-top:12px" },
+      btn("primary", "Run pipeline (Nextflow)", runWorkflow, !present,
+          present ? "nextflow run workflow/main.nf" : "nextflow is not on PATH"),
+      btn("tertiary", "Show command", () => sheet("Command",
+        el("pre", { style: "font-family:var(--mono);font-size:11.5px;white-space:pre-wrap;margin:0",
+          text: "nextflow run workflow/main.nf --pathogen " + S.pathogen + " "
+                + Object.entries(nfOptions()).map(([k, v]) =>
+                    (k === "profile" ? "-profile " + v : k === "resume" ? "-resume" :
+                     v === true ? "--" + k : "--" + k + " " + v)).join(" ") })))),
+    present ? null : el("p", { class: "blank" }, el("b", { text: "Nextflow not found." }),
+      "Install it to run the orchestrated pipeline, or run the stages individually above."),
+  );
+}
+
 /* ── 04 · RUN ───────────────────────────────────────────────────── */
 function workRun(host) {
   $("#stage-title").textContent = "Execution";
@@ -771,7 +888,11 @@ function workRun(host) {
       );
     })),
   );
-  host.append(el("div", { class: "sec" }, el("h3", { text: "Pipeline stages" }), el("div", { class: "scroll-x" }, table)));
+  host.append(
+    el("div", { class: "sec" }, el("h3", { text: "Pipeline stages" }), el("div", { class: "scroll-x" }, table)),
+    el("div", { style: "height:22px" }),
+    nfPanel(),
+  );
 }
 
 /* ── 05 · VISUALIZE ─────────────────────────────────────────────── */
