@@ -184,3 +184,32 @@ def test_the_ui_renders_the_limit_uncertainty_not_just_the_limit():
     source = G4_JS.read_text(encoding="utf-8")
     assert "control_limit_interval" in source
     assert "caveat" in source
+
+
+def test_the_report_mode_fetches_the_server_card():
+    """The UI used to assemble an HTML 'report' in the browser from four
+    fields — display name, section list, gate sentence, params dump — and
+    call it the report. The real 12-section card, each section carrying
+    its own status and the reason it is withheld, sat behind
+    /api/report-card with no caller."""
+    source = G4_JS.read_text(encoding="utf-8")
+    assert "/api/report-card/" in source, "the UI does not fetch the server report card"
+    assert "fetchReportCard" in source
+    assert "<h1>G4 report —" not in source, "the browser-assembled stand-in survives"
+
+
+def test_the_report_card_has_every_section_with_a_status(client):
+    """Twelve sections, and a withheld one says why rather than vanishing."""
+    from g4watch.config import available_pathogens
+
+    if "fmdv2026" not in available_pathogens():
+        pytest.skip("the 2026 corpus config is not present")
+    response = client.get("/api/report-card/fmdv2026")
+    if response.status_code != 200:
+        pytest.skip("report card unavailable in this checkout")
+    card = response.json()
+    assert len(card["sections"]) == 12
+    for section in card["sections"]:
+        assert section["status"], f"{section['key']} has no status"
+        if section["status"] == "blocked":
+            assert section["reason"], f"{section['key']} is blocked without saying why"

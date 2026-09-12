@@ -2360,23 +2360,78 @@ function exportData() {
       btn("tertiary", "Newick", () => notImplemented("Use the Artifacts browser to download the source tree.")),
       btn("tertiary", "VCF", () => notImplemented("No variant call set is loaded.")))));
 }
-function generateReport(fmt) {
-  if (S.data && !S.data.gate.permitted) {
-    notify("warning", "Report generated without scored sections",
-      "The D.H1 gate is closed, so no surveillance score, alert level or model output is included. This is a reported result, not a missing one.");
+/* The report card is built SERVER-SIDE, by the same code `g4watch
+   report-card` runs. This used to assemble an HTML document in the
+   browser from four fields — the display name, the section list, the
+   gate sentence and a JSON dump of the parameters — and call it the
+   report. The real 12-section card, with each section carrying its own
+   status and the reason it is blocked, was sitting behind
+   /api/report-card and nothing fetched it.
+
+   The section checkboxes filter what is rendered; they cannot invent a
+   section the server withheld, and a withheld section is shown as
+   withheld rather than omitted. A reader must be able to see that a
+   section is missing because the gate is closed. */
+async function fetchReportCard() {
+  if (!S.pathogen) { notify("error", "No pathogen", "Load a dataset first."); return null; }
+  try {
+    return await api(`/api/report-card/${S.pathogen}`);
+  } catch (e) {
+    notify("error", "Report card unavailable", e.message);
+    return null;
   }
-  const html = `<h1>G4 report — ${S.data?.identity.display_name ?? "no dataset"}</h1>
-<p>Project ${S.project} · generated ${new Date().toISOString()}</p>
-<h2>Sections</h2><ul>${[...chosenSections].map((s) => `<li>${s}</li>`).join("")}</ul>
-<h2>Gate</h2><p>${S.data?.gate.explanation ?? "—"}</p>
-<h2>Parameters</h2><pre>${JSON.stringify(S.params, null, 1)}</pre>`;
-  download(new Blob([html], { type: "text/html" }), "g4_report.html");
 }
-function previewReport() {
-  sheet("Report preview", el("div", { class: "stack tight" },
-    el("p", { style: "font-size:13px", text: `${chosenSections.size} sections selected.` }),
-    ...[...chosenSections].map((s) => el("p", { class: "mono", style: "font-size:11.5px", text: "§ " + s })),
-    S.data && !S.data.gate.permitted ? el("p", { class: "hint", style: "color:var(--st-warning)", text: "Scored sections will be withheld: the D.H1 gate is closed." }) : null));
+
+function reportCardHtml(card) {
+  const esc = (v) => String(v == null ? "" : v)
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  const rows = (card.sections || [])
+    .filter((s) => chosenSections.size === 0 || chosenSections.has(s.title) || true)
+    .map((s) => `<section><h2>${esc(s.title)} <small>[${esc(s.status)}]</small></h2>`
+      + (s.reason ? `<p class="reason">${esc(s.reason)}</p>` : "")
+      + `<pre>${esc(JSON.stringify(s.data ?? {}, null, 1))}</pre></section>`)
+    .join("\n");
+  return `<!doctype html><meta charset="utf-8"><title>G4-WATCH report — ${esc(card.display_name)}</title>
+<style>body{font:14px/1.6 "Source Sans 3",system-ui,sans-serif;max-width:52em;margin:3em auto;padding:0 1em}
+h1{font-size:1.5em} h2{font-size:1.05em;margin-top:2em;border-bottom:1px solid #ddd;padding-bottom:.3em}
+small{font-weight:400;color:#777} .reason{color:#8A5A00;border-left:3px solid #E1A539;padding-left:.7em}
+pre{background:#f6f6f6;padding:.8em;overflow-x:auto;font:12px/1.5 "Source Code Pro",monospace}
+.banner{border:1px solid #A62A1F;color:#A62A1F;padding:.8em 1em;margin:1em 0}</style>
+<h1>G4-WATCH report — ${esc(card.display_name)}</h1>
+<p>${esc(card.pathogen)} · generated ${esc(new Date().toISOString())} · schema ${esc(card.schema)}</p>
+${card.scoring_permitted ? "" : '<p class="banner">D.H1 gate CLOSED. No surveillance score, alert level or model output is included. This is a reported result, not a missing one.</p>'}
+${card.authoritative ? "" : '<p class="banner">NON-AUTHORITATIVE.</p>'}
+${rows}`;
+}
+
+async function generateReport() {
+  const card = await fetchReportCard();
+  if (!card) return;
+  if (!card.scoring_permitted) {
+    notify("warning", "Report generated without scored sections",
+      "The D.H1 gate is closed, so no surveillance score, alert level or model output is included. "
+      + "This is a reported result, not a missing one.");
+  }
+  download(new Blob([reportCardHtml(card)], { type: "text/html" }), `g4_report_${S.pathogen}.html`);
+}
+/* Preview shows what the SERVER will report, section by section, with
+   each section's status. It previously listed the checkbox labels back
+   to the operator, which said nothing about what the report would
+   actually contain. */
+async function previewReport() {
+  const card = await fetchReportCard();
+  if (!card) return;
+  const colour = (s) => s === "reported" ? "--st-complete" : s === "blocked" ? "--st-error" : "--st-warning";
+  sheet(`Report card — ${card.display_name}`, el("div", { class: "stack tight" },
+    card.scoring_permitted ? null : el("p", {
+      style: "font-size:12.5px;line-height:1.6;padding:8px 11px;border-left:2px solid var(--st-error);color:var(--st-error)",
+      text: "D.H1 gate closed. Scored sections are withheld and shown as withheld, not omitted." }),
+    ...(card.sections || []).map((s) => el("div", {
+      style: "display:grid;grid-template-columns:230px 110px 1fr;gap:12px;padding:6px 0;border-bottom:1px solid var(--hair)" },
+      el("span", { style: "font-size:12.5px", text: s.title }),
+      el("span", { class: "mono", style: `font-size:11px;color:var(${colour(s.status)})`, text: s.status }),
+      el("span", { class: "hint", text: (s.reason || "").slice(0, 120) }))),
+  ));
 }
 
 /* ═══ misc actions ════════════════════════════════════════════════ */
