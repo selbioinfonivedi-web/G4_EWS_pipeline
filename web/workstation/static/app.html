@@ -6,21 +6,21 @@
 <title>G4 · Computational Genomics Workstation</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Instrument+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=Public+Sans:wght@400;600;700&family=Roboto+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=Source+Sans+3:wght@400;500;600;700&family=Source+Code+Pro:wght@400;500&display=swap">
+<!-- Three families, not ten. The page was requesting DM Mono, IBM Plex
+     Mono, IBM Plex Sans, Instrument Sans, Space Grotesk, Public Sans,
+     Roboto Mono, Source Serif 4, Source Sans 3 and Source Code Pro,
+     and the default skin used none of them for body text. These are
+     the ones the remaining skins actually name. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&family=Source+Code+Pro:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&display=swap">
 <link rel="stylesheet" href="/workstation/static/spectrum.css">
 <link rel="stylesheet" href="/workstation/static/g4.css">
 <link rel="stylesheet" href="/workstation/static/shell.css">
-<link rel="stylesheet" href="/workstation/static/glass.css">
 <link rel="stylesheet" href="/workstation/static/redesign.css">
-<link rel="stylesheet" href="/workstation/static/portal.css">
 <link rel="stylesheet" href="/workstation/static/institute.css">
-<link rel="stylesheet" href="/workstation/static/flat.css">
 <link rel="stylesheet" href="/workstation/static/forecast.css">
 </head>
 <body>
 
-<canvas id="glassfield"></canvas>
-<div id="glassveil"></div>
 
 <div class="trust-banner"><span class="dot"></span><b>PROVENANCE</b><span id="trust-text">reading pipeline artifacts — no value on this screen is synthesised</span><span class="spacer"></span><span id="trust-commit"></span></div>
 
@@ -60,7 +60,7 @@
 
     <div class="sysmon" id="sysmon" title="Live host telemetry"></div>
     <div class="tools">
-      <select class="select" id="skin-pick" style="width:auto;font-size:10px" title="Visual skin"><option value="forecast">FORECAST</option><option value="institute">INSTITUTE</option><option value="portal">PORTAL</option><option value="redesign">DARK</option><option value="glass">GLASS</option><option value="flat">FLAT</option></select>
+      <select class="select" id="skin-pick" style="width:auto;font-size:10px" title="Visual skin"><option value="forecast">FORECAST</option><option value="institute">INSTITUTE</option><option value="redesign">DARK</option></select>
       <button class="btn tertiary sm" id="btn-theme" title="Toggle light / dark">◐</button>
       <button class="btn tertiary sm" id="btn-shortcuts" title="Keyboard shortcuts">⌘</button>
       <button class="btn tertiary sm" id="btn-help" title="Help and documentation">?</button>
@@ -171,7 +171,7 @@
 
   function auditSkins() {
     var original = document.documentElement.getAttribute("data-skin");
-    var list = ["forecast", "institute", "portal", "redesign", "glass", "flat"];
+    var list = ["forecast", "institute", "redesign"];
     var out = [];
     list.forEach(function (skin) {
       document.documentElement.setAttribute("data-skin", skin);
@@ -243,10 +243,6 @@
                                           Math.round(appRect.top + 60));
       rows.push(["topmost element at shell centre",
                  top ? (top.tagName.toLowerCase() + "." + (top.className || "").toString().split(" ")[0]) : "none"]);
-      if (top && (top.id === "glassfield" || top.id === "glassveil")) {
-        rows.push(["!!", "the background field is painting OVER the interface"]);
-        broken = true;
-      }
     }
     rows.push(["js errors", errors.length ? errors.join(" | ") : "none"]);
 
@@ -272,13 +268,13 @@
               r[0] + "</span>" + String(r[1]).replace(/</g, "&lt;") + "</div>";
     });
     html += "<div style='margin-top:12px;display:flex;gap:8px;flex-wrap:wrap'>" +
-            "<button id='diagFlat' style='font:inherit;background:#E3A857;color:#111;border:0;padding:6px 12px;border-radius:3px;cursor:pointer'>Force FLAT skin + reload</button>" +
+            "<button id='diagFlat' style='font:inherit;background:#E3A857;color:#111;border:0;padding:6px 12px;border-radius:3px;cursor:pointer'>Force FORECAST skin + reload</button>" +
             "<button id='diagCopy' style='font:inherit;background:#333;color:#eee;border:1px solid #555;padding:6px 12px;border-radius:3px;cursor:pointer'>Copy report</button>" +
             "<button id='diagClose' style='font:inherit;background:#333;color:#eee;border:1px solid #555;padding:6px 12px;border-radius:3px;cursor:pointer'>Close</button></div>";
     box.innerHTML = html;
     document.body.appendChild(box);
     box.querySelector("#diagFlat").onclick = function () {
-      try { localStorage.setItem("g4-skin-v2", "flat"); } catch (e) {}
+      try { localStorage.setItem("g4-skin-v2", "forecast"); } catch (e) {}
       location.reload();
     };
     box.querySelector("#diagCopy").onclick = function () {

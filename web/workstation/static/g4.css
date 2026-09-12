@@ -18,8 +18,14 @@
 
 :root {
   --u: 4px;
-  --sans: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
-  --mono: "DM Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  /* Repointed to the Source family. These previously named IBM Plex /
+     Space Grotesk / DM Mono / Instrument Sans, none of which the page
+     loads any more — so each fell straight through to a system font
+     and reintroduced exactly the flattening the forecast skin was
+     fixed for. Skins should differ by colour and density, not by
+     typeface. */
+  --sans: "Source Sans 3", "Helvetica Neue", Arial, sans-serif;
+  --mono: "Source Code Pro", ui-monospace, "SF Mono", Menlo, monospace;
   --ink: var(--text-primary);
   --ink-2: var(--text-secondary);
   --ink-3: var(--text-tertiary);

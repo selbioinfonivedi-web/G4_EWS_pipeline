@@ -175,7 +175,6 @@ function applySkin(skin) {
   localStorage.setItem("g4-skin-v2", skin);
   const pick = $("#skin-pick");
   if (pick) pick.value = skin;
-  if (skin === "glass") startField(); else stopField();
   if (S.mode === "visualize") renderWork();
 }
 
@@ -210,115 +209,14 @@ function wireChrome() {
     if (e.key === "?") helpSheet();
     if (e.key === "l") $("#log-toggle").click();
   });
-  addEventListener("resize", debounce(() => { if (S.mode === "visualize") renderWork(); renderSpine(); startField(); }, 150));
+  addEventListener("resize", debounce(() => { if (S.mode === "visualize") renderWork(); renderSpine(); }, 150));
   addEventListener("beforeunload", (e) => { if (S.dirty) { e.preventDefault(); e.returnValue = ""; } });
 }
 
-/* ═══ LUMINOUS FIELD (glass skin) ═════════════════════════════════
-   The same disjoint-clade cut used in the studio: a cut of the tree, so
-   no halo is nested inside another and the field cannot saturate. It
-   sits behind the glass at low opacity — atmosphere that happens to be
-   the dataset. */
-let FIELD = null;
-
-function startField() {
-  const cv = $("#glassfield");
-  if (!cv || !S.data?.tree) return;
-  const dpr = Math.min(devicePixelRatio || 1, 2);
-  cv.width = innerWidth * dpr; cv.height = innerHeight * dpr;
-  const g = cv.getContext("2d");
-  g.setTransform(dpr, 0, 0, dpr, 0, 0);
-  FIELD = { g, w: innerWidth, h: innerHeight };
-  drawGlassField();
-}
-function stopField() { FIELD = null; }
-
-function glassCells() {
-  const t = S.data.tree, W = FIELD.w, H = FIELD.h;
-  const cx = W * 0.5, cy = H * 0.5, R = Math.min(W, H) * 0.42;
-  const pos = (n) => {
-    const a = n.y * Math.PI * 2 - Math.PI / 2, r = (0.16 + n.x * 0.84) * R;
-    return { x: cx + Math.cos(a) * r, y: cy + Math.sin(a) * r };
-  };
-  const kids = new Map();
-  for (const n of t.nodes) if (n.p != null) { if (!kids.has(n.p)) kids.set(n.p, []); kids.get(n.p).push(n.i); }
-  const members = new Array(t.nodes.length);
-  const order = [], stack = [[0, false]];
-  while (stack.length) {
-    const [i, done] = stack.pop();
-    if (done) { order.push(i); continue; }
-    stack.push([i, true]);
-    for (const c of kids.get(i) || []) stack.push([c, false]);
-  }
-  for (const i of order) {
-    const n = t.nodes[i];
-    if (n.s >= 0) { members[i] = [n.s]; continue; }
-    const out = [];
-    for (const k of kids.get(i) || []) out.push(...members[k]);
-    members[i] = out;
-  }
-  const tips = t.nodes.filter((n) => n.s >= 0).map((n) => ({ ...pos(n), s: n.s }));
-  const byS = new Map(tips.map((tp) => [tp.s, tp]));
-  const cells = [], queue = [0];
-  while (queue.length) {
-    const i = queue.shift(), m = members[i];
-    if (m.length > 90 && (kids.get(i) || []).length) { queue.push(...kids.get(i)); continue; }
-    if (m.length < 6) continue;
-    const tally = new Map();
-    let sx = 0, sy = 0;
-    for (const si of m) {
-      const L = S.data.samples[si].l;
-      tally.set(L, (tally.get(L) || 0) + 1);
-      const tp = byS.get(si);
-      if (tp) { sx += tp.x; sy += tp.y; }
-    }
-    const dom = [...tally.entries()].sort((a, b) => b[1] - a[1])[0];
-    cells.push({ x: sx / m.length, y: sy / m.length, n: m.length, lineage: dom[0] });
-  }
-  return { tips, cells, pos, nodes: t.nodes };
-}
-
-function drawGlassField() {
-  if (!FIELD || !S.data?.tree) return;
-  const { g, w, h } = FIELD;
-  g.clearRect(0, 0, w, h);
-  const cream = false;   // cream skin retired
-  const bg = g.createRadialGradient(w / 2, h / 2, 0, w / 2, h / 2, Math.max(w, h) * 0.7);
-  if (cream) {
-    bg.addColorStop(0, "#FBF6EA"); bg.addColorStop(0.6, "#F2EADA"); bg.addColorStop(1, "#E6DAC4");
-  } else {
-    bg.addColorStop(0, "#161E3C"); bg.addColorStop(0.6, "#0C1226"); bg.addColorStop(1, "#070A14");
-  }
-  g.fillStyle = bg; g.fillRect(0, 0, w, h);
-
-  const { tips, cells, pos, nodes } = glassCells();
-  g.lineWidth = 0.5;
-  g.strokeStyle = cream ? "rgba(150,128,96,0.16)" : "rgba(157,180,255,0.09)";
-  for (const n of nodes) {
-    if (n.p == null) continue;
-    const a = pos(n), b = pos(nodes[n.p]);
-    g.beginPath(); g.moveTo(b.x, b.y); g.lineTo(a.x, a.y); g.stroke();
-  }
-  for (const c of cells) {
-    const r = 14 + Math.sqrt(c.n) * 7;
-    const col = css(`--cat-${S.order.indexOf(c.lineage) % 8}`) || "#9DB4FF";
-    const grd = g.createRadialGradient(c.x, c.y, 0, c.x, c.y, r);
-    grd.addColorStop(0, rgba(col, 0.26)); grd.addColorStop(0.5, rgba(col, 0.09)); grd.addColorStop(1, rgba(col, 0));
-    g.fillStyle = grd; g.beginPath(); g.arc(c.x, c.y, r, 0, 7); g.fill();
-  }
-  for (const tp of tips) {
-    const col = css(`--cat-${S.order.indexOf(S.data.samples[tp.s].l) % 8}`);
-    g.shadowBlur = 4; g.shadowColor = col;
-    g.fillStyle = rgba(col, 0.85);
-    g.beginPath(); g.arc(tp.x, tp.y, 1.2, 0, 7); g.fill();
-  }
-  g.shadowBlur = 0;
-}
-function rgba(hex, a) {
-  const h = (hex || "#9DB4FF").trim().replace("#", "");
-  const n = parseInt(h.length === 3 ? h.split("").map((c) => c + c).join("") : h, 16);
-  return `rgba(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255},${a})`;
-}
+/* The luminous canvas field was removed with the glass skin: a
+   requestAnimationFrame loop painting halos behind a translucent
+   shell, costing a repaint every frame on a page whose job is to
+   show numbers. Nothing else referenced it. */
 
 /* ═══ IDENTITY + TELEMETRY ════════════════════════════════════════ */
 function renderIdentity() {
