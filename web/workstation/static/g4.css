@@ -24,8 +24,8 @@
      and reintroduced exactly the flattening the forecast skin was
      fixed for. Skins should differ by colour and density, not by
      typeface. */
-  --sans: "Source Sans 3", "Helvetica Neue", Arial, sans-serif;
-  --mono: "Source Code Pro", ui-monospace, "SF Mono", Menlo, monospace;
+  --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
   --ink: var(--text-primary);
   --ink-2: var(--text-secondary);
   --ink-3: var(--text-tertiary);
