@@ -370,3 +370,36 @@ def test_no_analysis_image_sets_a_non_shell_entrypoint(name):
         assert "bash" in line or "sh" in line, (
             f"{name} sets {line!r}; Nextflow cannot run its task script under it"
         )
+
+
+def test_the_web_backend_image_has_its_template_and_upload_dependencies():
+    """`docker compose up` had never worked: web/backend/app.py imports
+    fastapi.templating.Jinja2Templates, starlette raises "jinja2 must be
+    installed to use Jinja2Templates" at import time, and the container
+    crash-looped while the proxy served 502. jinja2 was missing because
+    FastAPI does not depend on it -- only its templating module does, and
+    python-multipart fails later still, only when an upload arrives."""
+    from pathlib import Path
+
+    dockerfile = Path("containers/Dockerfile.web-backend").read_text()
+    assert "jinja2" in dockerfile, "the backend image cannot import Jinja2Templates"
+    assert "python-multipart" in dockerfile, "the upload endpoint cannot parse form data"
+
+
+def test_what_the_backend_imports_is_installed_in_its_image():
+    """The property behind the test above: anything web/backend imports at
+    module scope must be in the image, or the container dies on start."""
+    import re
+    from pathlib import Path
+
+    source = Path("web/backend/app.py").read_text()
+    dockerfile = Path("containers/Dockerfile.web-backend").read_text()
+    third_party = {
+        "jinja2": r"Jinja2Templates",
+        "python-multipart": r"UploadFile|File\(",
+    }
+    for package, pattern in third_party.items():
+        if re.search(pattern, source):
+            assert package in dockerfile, (
+                f"web/backend/app.py uses {pattern} but {package} is not installed in the image"
+            )
