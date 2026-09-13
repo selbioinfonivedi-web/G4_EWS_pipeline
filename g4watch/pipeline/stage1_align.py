@@ -159,6 +159,7 @@ def run_phylogenetics(
     out_dir: Path | None = None,
     threads: int = 4,
     reuse_tree: bool = True,
+    bootstrap: bool = True,
 ) -> StepResult:
     """IQ-TREE 2 then TreeTime, as phylogenetics.nf runs them.
 
@@ -183,12 +184,24 @@ def run_phylogenetics(
     command = [
         iqtree, "-s", str(alignment),
         "-m", str(phylo.get("model", "GTR+F+I+G4")),
-        "-B", str(phylo.get("bootstrap_replicates", 1000)),
         "-nt", str(threads),
         "-seed", str(phylo.get("seed", 20250823)),
         "-pre", str(prefix),
         "--redo",
     ]
+    # Ultrafast bootstrap is computation ON TOP OF the ML search, not part
+    # of it: the treefile is the same ML topology either way, annotated
+    # with support values. D.H1 never reads those -- clade collapse works
+    # from tip states and the ancestral reconstruction, and support values
+    # are node labels nothing consults.
+    #
+    # So a run whose purpose is a D.H1 verdict can skip it and get the same
+    # tree far sooner. A run whose purpose is a PUBLISHED phylogeny cannot:
+    # without support values there is no way to say how much of the
+    # topology to trust. Hence a flag rather than a config change, and the
+    # result records which it was.
+    if bootstrap:
+        command[6:6] = ["-B", str(phylo.get("bootstrap_replicates", 1000))]
 
     # Reuse a tree that is already newer than the alignment it was built
     # from. IQ-TREE ran unconditionally with --redo, so asking for the

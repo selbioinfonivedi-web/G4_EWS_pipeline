@@ -656,6 +656,7 @@ def cmd_phylogenetics(args: argparse.Namespace) -> int:
         out_dir=Path(args.out) if args.out else None,
         threads=args.threads,
         reuse_tree=not args.redo,
+        bootstrap=not args.no_bootstrap,
     )
     print(f"Stage 2 phylogenetics — {config.pathogen}")
     for name, path in result.outputs.items():
@@ -1204,6 +1205,10 @@ def build_parser() -> argparse.ArgumentParser:
     phy.add_argument("--dates", help="dates CSV for TreeTime")
     phy.add_argument("--out", help="output directory (default: <corpus>/phylogenetics)")
     phy.add_argument("--threads", type=int, default=4)
+    phy.add_argument("--no-bootstrap", action="store_true",
+                     help="skip ultrafast bootstrap. The ML topology is identical; only support "
+                          "values are omitted, and D.H1 never reads them. Much faster. A published "
+                          "phylogeny needs them — rebuild with bootstrap before quoting a tree.")
     phy.add_argument("--redo", action="store_true",
                      help="rebuild the ML tree even if one newer than the alignment exists")
     phy.set_defaults(func=cmd_phylogenetics)
