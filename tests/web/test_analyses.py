@@ -215,3 +215,55 @@ def test_deleting_an_analysis_removes_it(client):
     aid = _create(client).json()["id"]
     assert client.delete(f"/api/analyses/{aid}").json()["deleted"] is True
     assert client.get(f"/api/analyses/{aid}").status_code == 404
+
+
+# ── the GUI surface ─────────────────────────────────────────────────
+G4_JS = REPO_ROOT / "web" / "workstation" / "static" / "g4.js"
+
+
+def test_the_analyses_mode_exists_and_is_dispatched():
+    """The endpoints existed with no surface, which is the same defect
+    /api/stage5 and /api/report-card had: the server does the real work
+    and the interface cannot reach it."""
+    source = G4_JS.read_text(encoding="utf-8")
+    assert 'id: "analyses"' in source, "no Analyses mode in the mode bar"
+    assert "analyses: workAnalyses" in source, "the mode is not in the WORK dispatch map"
+
+
+def test_the_ui_calls_every_analysis_endpoint():
+    source = G4_JS.read_text(encoding="utf-8")
+    for endpoint in ("/api/analyses", "/validate", "/launch", "/cancel", "/results"):
+        assert endpoint in source, f"the UI never calls {endpoint}"
+
+
+def test_the_ui_surfaces_completeness_and_its_caveat():
+    """A partial corpus must not be silently presented as whole genomes."""
+    source = G4_JS.read_text(encoding="utf-8")
+    assert "anCompletenessBadge" in source
+    assert "comp.caveat" in source
+
+
+def test_the_ui_shows_the_reproducibility_record():
+    source = G4_JS.read_text(encoding="utf-8")
+    for field in ("git_commit", "sha256", "nextflow_version", "pipeline_version"):
+        assert field in source, f"{field} is recorded but never shown"
+
+
+def test_the_ui_polls_only_while_something_is_live():
+    """A dashboard that polls a finished run forever is wrong about what
+    it is watching."""
+    source = G4_JS.read_text(encoding="utf-8")
+    assert "!a.terminal" in source
+
+
+def test_every_status_has_a_colour():
+    """An unmapped status renders in the fallback and reads as inactive."""
+    import re
+
+    from web.store import ALL_STATUSES
+
+    source = G4_JS.read_text(encoding="utf-8")
+    block = re.search(r"const AN_STATUS_COLOUR = \{(.*?)\};", source, re.S)
+    assert block, "AN_STATUS_COLOUR is missing"
+    for status in ALL_STATUSES:
+        assert status in block.group(1), f"{status} has no colour"

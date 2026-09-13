@@ -72,6 +72,7 @@ const mark = () => { S.dirty = true; $("#dirty").hidden = false; };
 
 /* ═══ MODES ═══════════════════════════════════════════════════════ */
 const MODES = [
+  { id: "analyses",  n: "00", label: "Analyses",     accent: "data" },
   { id: "input",     n: "01", label: "Data input",   accent: "data" },
   { id: "validate",  n: "02", label: "Validation",   accent: "qc" },
   { id: "configure", n: "03", label: "Configure",    accent: "genomic" },
@@ -322,7 +323,7 @@ function drawSpineEdges() {
 
 /* ═══ WORKSPACE ═══════════════════════════════════════════════════ */
 const WORK = {
-  input: workInput, validate: workValidate, configure: workConfigure,
+  analyses: workAnalyses, input: workInput, validate: workValidate, configure: workConfigure,
   run: workRun, visualize: workVisualize, interpret: workInterpret,
   surveil: workSurveillance, report: workReport,
 };
@@ -463,6 +464,272 @@ function inputSpec() {
     body);
   body.hidden = !open;
   return panel;
+}
+
+/* ── ANALYSES ─────────────────────────────────────────────────────────
+   The unit of work a researcher creates, as opposed to a `job`, which is
+   one process the runner executed. An analysis outlives its job: it
+   survives a restart, records what it ran on by checksum, and keeps its
+   error text after the job has been evicted from the runner's ring.
+
+   The endpoints existed and had no surface, which is the same defect
+   /api/stage5 and /api/report-card had: the server does the real work and
+   the interface cannot reach it. ─────────────────────────────────── */
+const AN = { list: [], selected: null, detail: null, creating: false,
+             form: { name: "", pathogen: "", inputs: [] },
+             profile: "conda_free", resume: true, busy: "" };
+
+const AN_STATUS_COLOUR = {
+  QUEUED: "--ink-3", VALIDATING: "--st-running", RUNNING: "--st-running",
+  COMPLETED: "--st-complete", FAILED: "--st-error", CANCELLED: "--ink-3",
+};
+
+const when = (t) => t ? new Date(t * 1000).toLocaleString() : "—";
+
+async function anRefresh() {
+  try { AN.list = await api("/api/analyses"); } catch (e) { AN.list = []; }
+  if (AN.selected) {
+    try { AN.detail = await api(`/api/analyses/${AN.selected}/results`); }
+    catch { AN.detail = null; }
+  }
+  if (S.mode === "analyses") renderWork();
+}
+
+/* Poll only while something is live. A dashboard that polls a finished
+   run forever is a dashboard that is wrong about what it is watching. */
+let AN_TIMER = null;
+function anPoll() {
+  clearInterval(AN_TIMER);
+  AN_TIMER = setInterval(() => {
+    if (S.mode !== "analyses") { clearInterval(AN_TIMER); return; }
+    if (AN.list.some((a) => !a.terminal)) anRefresh();
+  }, 4000);
+}
+
+async function anCreate() {
+  const f = AN.form;
+  if (!f.name.trim()) return notify("error", "Name required", "Give the analysis a name you will recognise later.");
+  if (!f.pathogen) return notify("error", "Pathogen required", "Select which pathogen this analysis is for.");
+  AN.busy = "creating"; renderWork();
+  try {
+    const created = await api("/api/analyses", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name: f.name, pathogen: f.pathogen, inputs: f.inputs }),
+    });
+    AN.selected = created.id;
+    AN.creating = false;
+    AN.form = { name: "", pathogen: f.pathogen, inputs: [] };
+    notify("success", "Analysis created", `${created.name} — validate its inputs next.`);
+    await anValidate(created.id);
+  } catch (e) {
+    notify("error", "Could not create", e.message);
+  } finally { AN.busy = ""; await anRefresh(); }
+}
+
+async function anValidate(id) {
+  AN.busy = "validating"; renderWork();
+  try {
+    const out = await api(`/api/analyses/${id}/validate`, { method: "POST" });
+    AN.validation = out;
+    if (out.valid) notify("success", "Inputs valid", "Ready to launch.");
+    else notify("error", `${out.errors.length} problem(s) with the inputs`, out.errors[0] || "");
+  } catch (e) {
+    notify("error", "Validation failed", e.message);
+  } finally { AN.busy = ""; await anRefresh(); }
+}
+
+async function anLaunch(id) {
+  AN.busy = "launching"; renderWork();
+  try {
+    await api(`/api/analyses/${id}/launch`, {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ profile: AN.profile, resume: AN.resume }),
+    });
+    notify("running", "Nextflow started", `profile ${AN.profile}. A closed D.H1 gate completes normally.`);
+    anPoll();
+  } catch (e) {
+    notify("error", "Launch refused", e.message);
+  } finally { AN.busy = ""; await anRefresh(); }
+}
+
+async function anCancel(id) {
+  try { await api(`/api/analyses/${id}/cancel`, { method: "POST" }); }
+  catch (e) { notify("error", "Cancel failed", e.message); }
+  await anRefresh();
+}
+
+/* Upload straight into the form, so a file goes from the researcher's
+   disk to a declared input without a detour through the file tray. */
+async function anUpload(fileList, role) {
+  const files = Array.from(fileList || []);
+  if (!files.length) return;
+  for (const file of files) {
+    const body = new FormData();
+    body.append("file", file);
+    try {
+      const r = await fetch("/api/upload", { method: "POST", body });
+      const d = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(d.detail || `HTTP ${r.status}`);
+      AN.form.inputs.push({ path: d.path, role });
+      notify("success", "Staged", `${d.name} (${bytes(d.bytes)}) as ${role}`);
+    } catch (e) { notify("error", `Upload refused — ${file.name}`, e.message); }
+  }
+  renderWork();
+}
+
+function anCompletenessBadge(comp) {
+  if (!comp) return null;
+  const bad = comp.category !== "complete";
+  return el("div", { style: `margin-top:6px;padding:8px 11px;border-left:2px solid var(--${bad ? "st-warning" : "st-complete"})` },
+    el("p", { style: `font-size:12.5px;font-weight:600;color:var(--${bad ? "st-warning" : "st-complete"})`,
+              text: comp.description }),
+    comp.caveat ? el("p", { style: "font-size:11.5px;line-height:1.55;color:var(--ink-2);margin-top:4px;max-width:84ch",
+                            text: comp.caveat }) : null);
+}
+
+function anCreateForm() {
+  const f = AN.form;
+  const pathogens = (S.pathogens || []).filter((p) => p.provisioned);
+  if (!f.pathogen && pathogens.length) f.pathogen = pathogens[0].name;
+
+  const fileBtn = (role, label) => btn("secondary", label, () => {
+    const i = el("input", { type: "file", multiple: true });
+    i.onchange = () => anUpload(i.files, role);
+    i.click();
+  });
+
+  return el("div", { class: "sec" },
+    el("h3", { text: "New analysis" }),
+    field("Analysis name", el("input", { class: "input", value: f.name, placeholder: "FMDV 2026 surveillance",
+      onchange: (e) => { f.name = e.target.value; } })),
+    field("Pathogen", el("select", { class: "select", onchange: (e) => { f.pathogen = e.target.value; } },
+      ...pathogens.map((p) => el("option", { value: p.name, text: `${p.name} — ${p.display_name}`,
+                                             selected: p.name === f.pathogen })))),
+    field("Sequence data",
+      el("div", { class: "btn-row" }, fileBtn("sequences", "Upload FASTA"),
+         fileBtn("reference", "Upload reference (optional)"),
+         fileBtn("metadata", "Upload metadata (optional)")),
+      "Uploads are staged under data/uploads/ and recorded by SHA-256. Leaving this empty runs "
+      + "against the pathogen's configured corpus."),
+    f.inputs.length ? el("div", { style: "margin-top:8px" },
+      ...f.inputs.map((i, idx) => el("div", { style: "display:flex;gap:10px;align-items:center;padding:4px 0" },
+        el("span", { class: "mono", style: "font-size:11px", text: i.path }),
+        el("span", { class: "st", text: i.role }),
+        btn("tertiary sm", "Remove", () => { f.inputs.splice(idx, 1); renderWork(); })))) : null,
+    el("div", { class: "btn-row", style: "margin-top:12px" },
+      btn("primary", AN.busy === "creating" ? "Creating…" : "Create analysis", anCreate, !!AN.busy),
+      btn("tertiary", "Cancel", () => { AN.creating = false; renderWork(); })),
+  );
+}
+
+function anValidationPanel() {
+  const v = AN.validation;
+  if (!v) return null;
+  return el("div", { class: "sec" }, el("h3", { text: "Input validation" }),
+    el("p", { style: `font-size:12.5px;font-weight:600;color:var(--st-${v.valid ? "complete" : "error"})`,
+              text: v.valid ? "All inputs valid." : `${v.errors.length} problem(s) found.` }),
+    ...v.errors.map((e) => el("p", { style: "font-size:12px;line-height:1.55;color:var(--st-error);padding-left:10px;border-left:2px solid var(--st-error);margin-top:5px;max-width:88ch", text: e })),
+    ...v.reports.map((r) => el("div", { style: "padding:8px 0;border-bottom:1px solid var(--hair)" },
+      el("p", { class: "mono", style: "font-size:11.5px", text: `${r.path}  [${r.role}]  ${r.status}` }),
+      r.n_records != null ? el("p", { class: "hint",
+        text: `${r.n_records.toLocaleString()} records · ${(r.total_bases || 0).toLocaleString()} bases` }) : null,
+      anCompletenessBadge(r.completeness))),
+  );
+}
+
+function anDetail() {
+  const d = AN.detail;
+  if (!d) return null;
+  const a = d.analysis;
+  const row = (k, v) => el("div", { style: "display:grid;grid-template-columns:180px 1fr;gap:12px;padding:4px 0" },
+    el("span", { class: "hint", text: k }),
+    el("span", { class: "mono", style: "font-size:11.5px", text: String(v ?? "—") }));
+
+  return el("div", {},
+    el("div", { class: "sec" }, el("h3", { text: a.name }),
+      el("div", { style: "display:flex;gap:16px;align-items:baseline;flex-wrap:wrap" },
+        el("span", { style: `font-size:19px;font-weight:600;color:var(${AN_STATUS_COLOUR[a.status]})`, text: a.status }),
+        el("span", { class: "mono", style: "font-size:11px;color:var(--ink-3)",
+          text: `${a.pathogen} · ${a.id} · ${a.duration ? clock(a.duration) : "not started"}` })),
+      a.error ? el("p", { style: "font-size:12px;line-height:1.6;color:var(--st-error);padding:8px 11px;margin-top:8px;border-left:2px solid var(--st-error);white-space:pre-wrap;max-width:90ch", text: a.error }) : null,
+      d.gate ? el("p", { style: `font-size:12px;margin-top:8px;color:var(--${d.gate.permitted ? "st-complete" : "st-warning"})`,
+                         text: `D.H1 gate: ${d.gate.permission}` }) : null,
+      el("div", { class: "btn-row", style: "margin-top:12px" },
+        btn("secondary", "Validate", () => anValidate(a.id), !!AN.busy),
+        btn("primary", AN.busy === "launching" ? "Launching…" : "Launch pipeline",
+            () => anLaunch(a.id), !!AN.busy || a.status === "RUNNING"),
+        btn("danger", "Cancel", () => anCancel(a.id), a.terminal),
+        btn("tertiary", "Refresh", anRefresh)),
+      el("div", { style: "display:flex;gap:18px;align-items:center;margin-top:10px;flex-wrap:wrap" },
+        el("label", { style: "display:flex;gap:6px;align-items:center;font-size:12px" },
+          el("span", { text: "profile" }),
+          el("select", { class: "select", style: "width:auto",
+            onchange: (e) => { AN.profile = e.target.value; } },
+            ...["conda_free", "docker", "singularity", "standard"].map((p) =>
+              el("option", { value: p, text: p, selected: p === AN.profile })))),
+        el("label", { style: "display:flex;gap:6px;align-items:center;font-size:12px" },
+          el("input", { type: "checkbox", checked: AN.resume,
+                        onchange: (e) => { AN.resume = e.target.checked; } }),
+          el("span", { text: "resume" })))),
+
+    el("div", { style: "height:18px" }),
+    /* Reproducibility. Enough to re-run from the record alone, which is
+       the point of recording it at all. */
+    el("div", { class: "sec" }, el("h3", { text: "Reproducibility" }),
+      row("created", when(a.created_at)), row("started", when(a.started_at)),
+      row("finished", when(a.finished_at)), row("git commit", a.git_commit),
+      row("pipeline version", a.pipeline_version), row("nextflow", a.nextflow_version),
+      row("exit code", a.exit_code), row("output directory", a.outdir),
+      ...a.inputs.map((i) => row(`input · ${i.role}`,
+        `${i.path}  sha256:${(i.sha256 || "").slice(0, 16)}…`))),
+
+    el("div", { style: "height:18px" }),
+    el("div", { class: "sec" }, el("h3", { text: `Output files (${d.n_files})` }),
+      d.n_files === 0
+        ? el("p", { class: "hint", text: "No outputs yet." })
+        : el("div", { class: "scroll-x" }, el("table", { class: "grid" },
+            el("thead", {}, el("tr", {}, ...["File", "Size", ""].map((h) => el("th", { text: h })))),
+            el("tbody", {}, ...d.files.map((f) => el("tr", {},
+              el("td", { class: "mono", text: f.path.split("/").slice(-2).join("/") }),
+              el("td", { class: "num", text: bytes(f.bytes) }),
+              el("td", {}, btn("tertiary sm", "View", () => previewFile(f.path))))))))),
+  );
+}
+
+function workAnalyses(host) {
+  $("#stage-title").textContent = "Analyses";
+  $("#stage-sub").textContent = `${AN.list.length} recorded · persisted across restarts`;
+  $("#stage-tools").replaceChildren(
+    btn("primary", "+ New analysis", () => { AN.creating = true; AN.validation = null; renderWork(); }),
+    btn("tertiary", "Refresh", anRefresh),
+  );
+
+  if (AN.creating) { host.append(anCreateForm()); return; }
+
+  const table = el("table", { class: "grid" },
+    el("thead", {}, el("tr", {}, ...["Name", "Pathogen", "Status", "Created", "Duration", ""]
+      .map((h) => el("th", { text: h })))),
+    el("tbody", {}, ...AN.list.map((a) => el("tr", { class: a.id === AN.selected ? "sel" : "" },
+      el("td", {}, el("b", { text: a.name })),
+      el("td", { class: "mono dim", text: a.pathogen }),
+      el("td", {}, el("span", { style: `color:var(${AN_STATUS_COLOUR[a.status]});font-weight:600;font-size:11px`, text: a.status })),
+      el("td", { class: "mono dim", style: "font-size:11px", text: when(a.created_at) }),
+      el("td", { class: "num", text: a.duration ? clock(a.duration) : "—" }),
+      el("td", {}, btn("tertiary sm", "Open", () => { AN.selected = a.id; anRefresh(); }))))),
+  );
+
+  host.append(
+    AN.list.length
+      ? el("div", { class: "sec" }, el("h3", { text: "Analyses" }), el("div", { class: "scroll-x" }, table))
+      : el("p", { class: "blank" }, el("b", { text: "No analyses yet." }),
+          "An analysis records what was run, on which inputs by checksum, with which parameters, and what came out. "
+          + "Create one to run the pipeline from here rather than from a terminal."),
+    AN.validation ? el("div", { style: "height:18px" }) : null,
+    anValidationPanel(),
+    AN.detail ? el("div", { style: "height:18px" }) : null,
+    anDetail(),
+  );
+  anPoll();
 }
 
 /* ── 01 · DATA INPUT ────────────────────────────────────────────── */

@@ -634,7 +634,21 @@ def cmd_phylogenetics(args: argparse.Namespace) -> int:
     alignment = _resolve(
         config, args.alignment, "aligned", f"{config.pathogen.lower()}_qc_passed_aligned_to_ref.fasta"
     )
+    # Build dates.csv if it is not already there. Without it TreeTime does
+    # not run, no rooted tree is written, and D.H1 -- which reads the
+    # rooted tree -- cannot run at all. Deriving it from the corpus
+    # metadata the pathogen already declares is better than requiring the
+    # operator to produce a file by hand for every pathogen.
     dates = Path(args.dates) if args.dates else _resolve(config, None, "phylogenetics", "dates.csv")
+    if not Path(dates).is_file():
+        from .io.fasta import read_fasta
+        from .pipeline.stage1_align import build_dates_csv
+
+        aligned_for_dates = read_fasta(alignment)
+        dates, n_dated = build_dates_csv(config, aligned_for_dates, Path(dates))
+        print(f"  dates    : built {n_dated}/{len(aligned_for_dates)} dated sequences -> {dates}")
+        if n_dated < 3:
+            print("  NOTE: too few dated sequences for TreeTime; it will be skipped.")
     result = run_phylogenetics(
         config,
         alignment=alignment,

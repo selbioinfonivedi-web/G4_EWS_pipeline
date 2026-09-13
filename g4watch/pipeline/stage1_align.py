@@ -95,6 +95,62 @@ def run_alignment(
     return StepResult("alignment", {"alignment": alignment}, log_path, command)
 
 
+def build_dates_csv(
+    config: PathogenConfig,
+    aligned: dict[str, str],
+    out_path: Path,
+) -> tuple[Path, int]:
+    """Write TreeTime's dates.csv from the corpus metadata.
+
+    A SECOND filter, distinct from sequence QC. A record can clear the QC
+    gate on completeness, N-content and year precision and still carry a
+    date string TreeTime cannot convert, so the two cannot be merged
+    without either loosening QC or feeding TreeTime values it will reject.
+
+    Undated sequences are omitted rather than imputed. TreeTime roots by
+    regressing divergence on sampling date, and inventing a date for a
+    sequence that has none puts a fabricated point into that regression.
+
+    Replaces scripts/python/build_treetime_dates.py, which hard-coded
+    every FMDV path and defined no argument parser -- the same defect that
+    made the acquisition module silently rewrite the FMDV corpus.
+    """
+    import csv as _csv
+    import re
+
+    metadata_path = config.corpus_metadata_tsv
+    if metadata_path is None or not Path(metadata_path).is_file():
+        raise ConfigError(f"dates need corpus.metadata_tsv, which is missing: {metadata_path}")
+
+    aligned_ids = {name.split()[0] for name in aligned}
+    year_re = re.compile(r"(?<!\d)(1[6-9]\d{2}|20\d{2})(?!\d)")
+    delimiter = "," if str(metadata_path).endswith(".csv") else "\t"
+
+    rows: list[tuple[str, str]] = []
+    with open(metadata_path, newline="") as handle:
+        for record in _csv.DictReader(handle, delimiter=delimiter):
+            accession = (record.get("accession") or "").strip()
+            if not accession:
+                continue
+            # Metadata sometimes drops the version suffix the alignment keeps.
+            candidates = {accession, accession.split(".")[0]}
+            match = next((a for a in aligned_ids if a in candidates or a.split(".")[0] in candidates), None)
+            if match is None:
+                continue
+            raw = (record.get("collection_date") or "").strip()
+            found = year_re.search(raw)
+            if not found:
+                continue
+            rows.append((match, found.group(1)))
+
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    with out_path.open("w", newline="") as handle:
+        writer = _csv.writer(handle)
+        writer.writerow(["name", "date"])
+        writer.writerows(rows)
+    return out_path, len(rows)
+
+
 def run_phylogenetics(
     config: PathogenConfig,
     *,
