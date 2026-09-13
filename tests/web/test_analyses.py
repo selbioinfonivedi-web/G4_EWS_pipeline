@@ -267,3 +267,21 @@ def test_every_status_has_a_colour():
     assert block, "AN_STATUS_COLOUR is missing"
     for status in ALL_STATUSES:
         assert status in block.group(1), f"{status} has no colour"
+
+
+def test_an_unprovisioned_pathogen_gives_its_checklist_not_a_typeerror(client):
+    """An unprovisioned config has reference.fasta set to null, and
+    reaching read_fasta with None surfaced a Python TypeError -- a reason,
+    technically, and useless to whoever reads it. The config's own
+    provisioning checklist is the actionable answer."""
+    from g4watch.config import available_pathogens
+
+    if "lsdv" not in available_pathogens():
+        pytest.skip("lsdv scaffold config is not present")
+    aid = _create(client, pathogen="lsdv").json()["id"]
+    out = client.post(f"/api/analyses/{aid}/validate").json()
+    assert out["valid"] is False
+    message = out["errors"][0]
+    assert "not provisioned" in message
+    assert "Required before this config can run" in message
+    assert "TypeError" not in message and "NoneType" not in message

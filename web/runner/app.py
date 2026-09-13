@@ -334,16 +334,25 @@ def create_app() -> FastAPI:
         reports: list[dict] = []
         errors: list[str] = []
 
+        reference_length = None
         try:
             config = load_config(analysis.pathogen)
+            # Ask the config first. An unprovisioned pathogen has
+            # reference.fasta set to null, and reaching read_fasta with
+            # None surfaced a Python TypeError -- technically a reason,
+            # and useless to the person reading it. require_provisioned
+            # raises with the config's own provisioning checklist.
+            config.require_provisioned()
             reference = read_fasta(config.reference_fasta)
             reference_length = len(next(iter(reference.values())))
-        except (ConfigError, StopIteration, OSError, TypeError) as exc:
+        except ConfigError as exc:
+            errors.append(str(exc))
+        except (StopIteration, OSError, TypeError) as exc:
             errors.append(
-                f"Cannot read the reference genome for {analysis.pathogen!r}: {exc}. "
+                f"Cannot read the reference genome for {analysis.pathogen!r} "
+                f"({config.reference_fasta if 'config' in dir() else '?'}): {exc}. "
                 "Completeness cannot be judged without it."
             )
-            reference_length = None
 
         for item in analysis.inputs:
             path = REPO_ROOT / item.path
