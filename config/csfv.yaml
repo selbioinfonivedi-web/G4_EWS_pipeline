@@ -56,12 +56,13 @@ recombination:
 phylogenetics:
   tool: iqtree2
   model: GTR+F+I+G4
-  # REDUCED from the architecture's 1000, deliberately and with sign-off,
-  # for the multi-pathogen APPLICATION validation. 200 replicates give
-  # usable support at a fraction of the runtime; FMDV, the scientific
-  # headline pathogen, stays at 1000. Any published CSFV tree must be
-  # rebuilt at 1000 first.
-  bootstrap_replicates: 200
+  # 1000, not fewer. IQ-TREE's ultrafast bootstrap REFUSES -B below 1000
+  # ("#replicates must be >= 1000"), so reducing it is not available as a
+  # runtime lever for UFBoot at all. The alternative, standard
+  # nonparametric bootstrap (-b), is slower per replicate and would take
+  # longer at 200 than UFBoot does at 1000. Recorded here because the
+  # reduction was planned, attempted, and turned out to be impossible.
+  bootstrap_replicates: 1000
   seed: 20250823
   outgroup: null
   ancestral_states: required
