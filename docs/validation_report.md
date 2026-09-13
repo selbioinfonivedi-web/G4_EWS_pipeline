@@ -56,18 +56,40 @@ means D.H1 refused, which is a correct scientific outcome.
 
 Measured from files on disk.
 
-| Pathogen | Genome type | Reference | Fetched | QC passed | Aligned | Mbases | Disk MB |
-|---|---|---|---|---|---|---|---|
-| FMDV | ssRNA+ | 8,206 nt | 1,107 | 847 | 848 | 9.0 | 120.3 |
-| FMDV2026 | ssRNA+ | 8,206 nt | 936 | 935 | 936 | 7.6 | 109.4 |
-| CSFV | ssRNA+ | 12,301 nt | 974 | 896 | 897 | 11.6 | 66.6 |
-| PPRV | ssRNA− | 15,948 nt | 115 | 73 | 74 | 1.8 | 11.4 |
-| NDV | ssRNA− | 15,186 nt | 1,798 | 1,583 | 1,584 | 27.3 | 127.8 |
-| EBV | dsDNA | 171,823 nt | 210 | 208 | 209 | 35.8 | 115.6 |
+| Pathogen | Genome type | Reference | Fetched | QC | Aligned | Atlas loci |
+|---|---|---|---|---|---|---|
+| FMDV | ssRNA+ | 8,206 nt | 1,107 | 847 | 848 | 4 |
+| FMDV2026 | ssRNA+ | 8,206 nt | 936 | 935 | 936 | 67 |
+| CSFV | ssRNA+ | 12,301 nt | 974 | 896 | 897 | 18 |
+| BVDV | ssRNA+ | 12,573 nt | 389 | 326 | 327 | 24 |
+| PRRSV | ssRNA+ | 15,428 nt | 600 | 538 | — | 24 |
+| PPRV | ssRNA− | 15,948 nt | 115 | 73 | 74 | 43 |
+| NDV | ssRNA− | 15,186 nt | 1,798 | 1,583 | 1,584 | 22 |
+| RABV | ssRNA− | 11,932 nt | 600 | 531 | 532 | 16 |
+| EBV | dsDNA | 171,823 nt | 210 | 208 | 209 | 1,410 |
+| ASFV | dsDNA | 181,187 nt | 60 | 57 | — | 136 |
+| BTV | dsRNA segmented | 2,921 nt | 500 | 480 | 481 | **0** |
 
-**Totals: 5,140 sequences, 93.1 Mbases, 551 MB.** Six pathogens spanning
-positive- and negative-sense RNA and dsDNA, 8 kb to 172 kb, and corpus
-sizes from 115 to 1,798.
+**Totals: 7,289 sequences fetched, 5,888 aligned, across 11 provisioned
+pathogens.** Four genome architectures — positive-sense RNA, negative-sense
+RNA, double-stranded DNA and a segmented dsRNA virus — from a 2.9 kb
+segment to a 181 kb genome, with corpora from 60 to 1,798 sequences.
+
+### Two findings the framework produced unaided
+
+**BTV is segmented, and the classifier said so.** Bluetongue has ten
+RefSeq records, one per segment, and no whole-genome reference to be
+reference-relative against. A size-based query returned a mixture of
+segments 1–6; the completeness classifier reported it as *"Mixed corpus
+(130 complete, 270 partial), median coverage 68%"* — correctly refusing to
+treat six different segments as one genome. The config now analyses one
+segment (2, VP2) against its own reference, which is the honest unit.
+
+**BTV segment 2 yields zero G4 loci, and that is a result.** It is 41.4%
+GC with a longest G-run of 5; at the configured G4Hunter threshold of 1.2
+there are genuinely no qualifying windows (3 at 0.9, 15 at 0.7). The
+framework reports nothing rather than lowering a threshold until
+something appears.
 
 ### Completeness
 
