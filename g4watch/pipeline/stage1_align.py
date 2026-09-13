@@ -151,6 +151,20 @@ def build_dates_csv(
     return out_path, len(rows)
 
 
+def _iqtree_finished(log_path: Path) -> bool:
+    """Did IQ-TREE run to completion, or was it interrupted?
+
+    IQ-TREE prints "Date and Time:" as its last line and reports the total
+    wall-clock time when it finishes. A killed run leaves neither, but DOES
+    leave a treefile -- so the file's existence says nothing about whether
+    the ML search converged.
+    """
+    if not log_path.is_file():
+        return False
+    tail = log_path.read_text(errors="replace")[-4000:]
+    return "Total wall-clock time used:" in tail or "Date and Time:" in tail
+
+
 def run_phylogenetics(
     config: PathogenConfig,
     *,
@@ -208,9 +222,18 @@ def run_phylogenetics(
     # rooted tree -- the only output that was actually missing -- rebuilt
     # the whole ML tree first, hours of work to reach a TreeTime call that
     # takes minutes. `reuse_tree=False` forces a rebuild.
+    #
+    # EXISTENCE IS NOT COMPLETION. IQ-TREE writes a treefile during the
+    # run, before the ML search has finished: an interrupted run leaves a
+    # parsimony or BIONJ starting tree at exactly the path a finished run
+    # would. Reusing that would hand D.H1 a starting tree while reporting
+    # it as the ML tree, and nothing downstream could tell. The log's own
+    # completion marker is the only honest test, so an unfinished run is
+    # treated as absent and rebuilt.
     stale = (
         not treefile.is_file()
         or treefile.stat().st_mtime < Path(alignment).stat().st_mtime
+        or not _iqtree_finished(log_path)
     )
     if stale or not reuse_tree:
         _run(command, log_path)
