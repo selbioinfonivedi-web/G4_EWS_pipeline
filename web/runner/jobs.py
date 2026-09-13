@@ -132,6 +132,11 @@ class Job:
 class JobRunner:
     """Serialised runner for whitelisted pipeline commands."""
 
+    #: Called with (job, analysis_status) on every state change, so an
+    #: Analysis record can follow its job without the runner needing to
+    #: know what an Analysis is. Set by the app; None in unit tests.
+    on_state_change = None
+
     def __init__(self, repo_root: Path = REPO_ROOT) -> None:
         self.repo_root = repo_root
         self.jobs: dict[str, Job] = {}
@@ -202,6 +207,20 @@ class JobRunner:
         self._enqueue(job.id)
         return job
 
+    def _notify(self, job: Job) -> None:
+        """Tell a listener the job moved. Never let a listener break a run.
+
+        A failing hook must not take the pipeline down with it: the job is
+        the real work and the record is bookkeeping, so an exception here
+        is emitted into the job log and swallowed rather than propagated.
+        """
+        if self.on_state_change is None:
+            return
+        try:
+            self.on_state_change(job)
+        except Exception as exc:  # noqa: BLE001 - bookkeeping must not kill the run
+            job.emit("meta", f"analysis record not updated: {exc}")
+
     def _evict(self) -> None:
         while len(self.order) > MAX_JOBS_KEPT:
             stale = self.order.popleft()
@@ -237,6 +256,7 @@ class JobRunner:
             job.paused_seconds += time.time() - job._paused_at
             job._paused_at = None
         job.state = JobState.RUNNING
+        self._notify(job)
         job.emit("meta", "Resumed — SIGCONT sent to the process group.")
         return True
 
@@ -302,6 +322,7 @@ class JobRunner:
         job.state = JobState.RUNNING
         job.started = time.time()
         audit.record("started", job)
+        self._notify(job)
 
         env = dict(os.environ)
         env["PYTHONUNBUFFERED"] = "1"
@@ -342,6 +363,7 @@ class JobRunner:
             job.state = JobState.FAILED
 
         job.emit("meta", f"Exited with code {code} after {job.duration:.1f}s.")
+        self._notify(job)
         # One row per terminal outcome. GATE_CLOSED is recorded as a
         # finished run, not a failure: exit 3 is a correct scientific
         # result and an audit that called it a failure would misreport it.

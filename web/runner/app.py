@@ -26,6 +26,7 @@ from pydantic import BaseModel, Field
 
 from g4watch import __version__
 from g4watch.config import ConfigError, available_pathogens, load_config
+from web.store import AnalysisStatus, AnalysisStore, InputFile, sha256_of
 
 from . import commands as cmd
 from . import workbench as wb
@@ -54,6 +55,27 @@ class RunRequest(BaseModel):
     options: dict[str, object] = Field(default_factory=dict)
 
 
+class AnalysisCreate(BaseModel):
+    """What the GUI must supply to open an analysis.
+
+    Inputs are named by repo-relative path rather than uploaded here:
+    upload is a separate step (POST /api/upload) so a large file is not
+    re-sent if the analysis fails to validate.
+    """
+
+    name: str
+    pathogen: str
+    analysis_type: str = "surveillance"
+    params: dict = Field(default_factory=dict)
+    inputs: list[dict] = Field(default_factory=list)
+
+
+class AnalysisLaunch(BaseModel):
+    profile: str = "conda_free"
+    resume: bool = True
+    options: dict[str, object] = Field(default_factory=dict)
+
+
 class ProjectSave(BaseModel):
     """Module scope, not local to create_app: `from __future__ import
     annotations` turns the parameter annotation into a string that FastAPI
@@ -66,10 +88,55 @@ class ProjectSave(BaseModel):
 
 def create_app() -> FastAPI:
     runner = JobRunner()
+    store = AnalysisStore()
+
+    def _follow_job(job) -> None:
+        """Mirror a job's state onto the Analysis that launched it.
+
+        The mapping is deliberate rather than a name match: GATE_CLOSED is
+        a SUCCESSFUL analysis. Exit 3 means the D.H1 gate refused, which
+        is a correct scientific outcome, and recording it as FAILED would
+        turn the gate working into an error in the run history.
+        """
+        analysis_id = getattr(job, "analysis_id", None) or _analysis_for_job(job.id)
+        if not analysis_id:
+            return
+        state = job.state.value if hasattr(job.state, "value") else str(job.state)
+        mapping = {
+            "running": AnalysisStatus.RUNNING,
+            "succeeded": AnalysisStatus.COMPLETED,
+            "gate_closed": AnalysisStatus.COMPLETED,
+            "failed": AnalysisStatus.FAILED,
+            "cancelled": AnalysisStatus.CANCELLED,
+        }
+        status = mapping.get(state.lower())
+        if status is None:
+            return
+        error = None
+        if status == AnalysisStatus.FAILED:
+            tail = [line.text for line in list(job.lines)[-12:]
+                    if getattr(line, "stream", "") in ("stderr", "meta")]
+            error = "\n".join(tail)[-2000:] or f"exited with code {job.exit_code}"
+        store.set_status(analysis_id, status, error=error, exit_code=job.exit_code)
+
+    def _analysis_for_job(job_id: str) -> str | None:
+        for analysis in store.list(limit=200):
+            if analysis.job_id == job_id:
+                return analysis.id
+        return None
+
+    runner.on_state_change = _follow_job
 
     @asynccontextmanager
     async def lifespan(app: FastAPI):
         runner.start()
+        # Statuses persist and processes do not. Anything still marked
+        # RUNNING from a previous life has no supervisor, and saying so is
+        # the point: a run stuck at RUNNING forever is how a user comes to
+        # expect results that are never coming.
+        orphans = store.reconcile_orphans()
+        if orphans:
+            print(f"[store] {len(orphans)} analysis record(s) orphaned by a restart: {orphans}")
         yield
         await runner.stop()
 
@@ -80,6 +147,7 @@ def create_app() -> FastAPI:
         docs_url="/api/docs",
     )
     app.state.runner = runner
+    app.state.store = store
 
     # ── metadata ────────────────────────────────────────────────────
     @app.get("/api/env")
@@ -245,6 +313,302 @@ def create_app() -> FastAPI:
     @app.get("/api/provenance")
     def provenance() -> dict:
         return wb.provenance()
+
+    # ── analyses ────────────────────────────────────────────────────
+    # The unit of work a researcher creates, as opposed to a `job`, which
+    # is one process the runner executed. An analysis outlives its job:
+    # it survives a restart, records what it ran on by checksum, and keeps
+    # its error text after the job that produced it has been evicted.
+
+    def _validate_inputs(analysis) -> tuple[list[dict], list[str]]:
+        """Parse and check every declared input. Returns (reports, errors).
+
+        Every error is human-readable and names the file and the fix. A
+        validator that says "invalid FASTA" has told the user nothing they
+        can act on.
+        """
+        from g4watch.config import ConfigError, load_config
+        from g4watch.io.fasta import read_fasta, read_fasta_headers
+        from g4watch.qc.completeness import classify_corpus, classify_sequence
+
+        reports: list[dict] = []
+        errors: list[str] = []
+
+        try:
+            config = load_config(analysis.pathogen)
+            reference = read_fasta(config.reference_fasta)
+            reference_length = len(next(iter(reference.values())))
+        except (ConfigError, StopIteration, OSError, TypeError) as exc:
+            errors.append(
+                f"Cannot read the reference genome for {analysis.pathogen!r}: {exc}. "
+                "Completeness cannot be judged without it."
+            )
+            reference_length = None
+
+        for item in analysis.inputs:
+            path = REPO_ROOT / item.path
+            report: dict = {"path": item.path, "role": item.role}
+            if not path.is_file():
+                errors.append(f"{item.path}: file not found. Upload it, or correct the path.")
+                report["status"] = "missing"
+                reports.append(report)
+                continue
+
+            if path.stat().st_size == 0:
+                errors.append(f"{item.path}: the file is empty.")
+                report["status"] = "empty"
+                reports.append(report)
+                continue
+
+            if item.role not in ("sequences", "reference"):
+                report["status"] = "ok"
+                report["note"] = "not a sequence file; not parsed"
+                reports.append(report)
+                continue
+
+            # Headers are read separately and FIRST. read_fasta returns a
+            # mapping, so a duplicate id cannot survive it — the validator
+            # has to look at the raw headers to see one at all.
+            try:
+                header_ids = read_fasta_headers(path)
+                records = read_fasta(path, allow_duplicates=True)
+            except Exception as exc:  # noqa: BLE001 - surfaced, never swallowed
+                errors.append(f"{item.path}: could not be parsed as FASTA ({exc}).")
+                report["status"] = "unparseable"
+                reports.append(report)
+                continue
+
+            if not records:
+                errors.append(f"{item.path}: parsed as FASTA but contains no sequences.")
+                report["status"] = "empty"
+                reports.append(report)
+                continue
+
+            ids = header_ids
+            seen: set[str] = set()
+            duplicates = sorted({i for i in ids if i in seen or seen.add(i)})
+            empty_ids = [i for i, s in records.items() if not s.strip()]
+            bad_chars: dict[str, str] = {}
+            for name, seq in records.items():
+                offending = sorted(set(seq.upper()) - set("ACGTURYKMSWBDHVN-."))
+                if offending:
+                    bad_chars[name.split()[0]] = "".join(offending)[:12]
+
+            if duplicates:
+                errors.append(
+                    f"{item.path}: {len(duplicates)} duplicate sequence id(s) "
+                    f"({', '.join(duplicates[:5])}"
+                    f"{'…' if len(duplicates) > 5 else ''}). Ids must be unique: the alignment "
+                    "and the metadata are joined on them."
+                )
+            if empty_ids:
+                errors.append(f"{item.path}: {len(empty_ids)} record(s) have a header but no sequence.")
+            if bad_chars:
+                shown = ", ".join(f"{k} ({v})" for k, v in list(bad_chars.items())[:4])
+                errors.append(
+                    f"{item.path}: non-nucleotide characters in {len(bad_chars)} record(s): {shown}. "
+                    "Expected A/C/G/T/U, IUPAC ambiguity codes, or gaps."
+                )
+
+            report.update(
+                status="ok" if not (duplicates or empty_ids or bad_chars) else "invalid",
+                n_records=len(records),
+                total_bases=sum(len(s) for s in records.values()),
+                duplicate_ids=duplicates[:20],
+                n_empty_records=len(empty_ids),
+                n_records_with_bad_characters=len(bad_chars),
+            )
+
+            if reference_length:
+                items = [classify_sequence(s, reference_length) for s in records.values()]
+                corpus = classify_corpus(items)
+                report["completeness"] = {
+                    "category": corpus.category,
+                    "description": corpus.describe(),
+                    "counts": corpus.counts,
+                    "median_fraction": corpus.median_fraction,
+                    "caveat": corpus.analysis_caveat,
+                }
+                item.completeness = corpus.category
+            item.n_records = len(records)
+            reports.append(report)
+
+        return reports, errors
+
+    @app.post("/api/analyses")
+    def create_analysis(body: AnalysisCreate) -> dict:
+        """Open an analysis. Does not run anything."""
+        from g4watch.config import available_pathogens
+
+        if body.pathogen not in available_pathogens():
+            raise HTTPException(
+                status_code=400,
+                detail=f"unknown pathogen {body.pathogen!r}. Available: "
+                       + ", ".join(sorted(available_pathogens())),
+            )
+        inputs = []
+        for raw in body.inputs:
+            rel = str(raw.get("path", "")).lstrip("/")
+            path = (REPO_ROOT / rel).resolve()
+            try:
+                path.relative_to(REPO_ROOT)
+            except ValueError as exc:
+                raise HTTPException(
+                    status_code=400,
+                    detail=f"input path {rel!r} is outside the project directory",
+                ) from exc
+            if not path.is_file():
+                raise HTTPException(status_code=400, detail=f"input not found: {rel}")
+            inputs.append(InputFile(
+                path=str(path.relative_to(REPO_ROOT)),
+                role=str(raw.get("role", "sequences")),
+                bytes=path.stat().st_size,
+                sha256=sha256_of(path),
+            ))
+
+        provenance = wb.provenance()
+        analysis = store.create(
+            name=body.name,
+            pathogen=body.pathogen,
+            analysis_type=body.analysis_type,
+            params=body.params,
+            inputs=inputs,
+            git_commit=(provenance.get("git_commit") or None),
+            pipeline_version=__version__,
+            nextflow_version=(provenance.get("tools", {}) or {}).get("nextflow"),
+        )
+        return analysis.as_dict()
+
+    @app.get("/api/analyses")
+    def list_analyses(pathogen: str | None = None, limit: int = 100) -> list[dict]:
+        return [a.as_dict() for a in store.list(pathogen=pathogen, limit=min(limit, 500))]
+
+    @app.get("/api/analyses/{analysis_id}")
+    def get_analysis(analysis_id: str) -> dict:
+        analysis = store.get(analysis_id)
+        if analysis is None:
+            raise HTTPException(status_code=404, detail=f"no analysis {analysis_id!r}")
+        return analysis.as_dict()
+
+    @app.delete("/api/analyses/{analysis_id}")
+    def delete_analysis(analysis_id: str) -> dict:
+        return {"deleted": store.delete(analysis_id)}
+
+    @app.post("/api/analyses/{analysis_id}/validate")
+    def validate_analysis(analysis_id: str) -> dict:
+        """Parse every input and report what is wrong, in words.
+
+        A failing validation moves the analysis to FAILED rather than
+        leaving it QUEUED: an analysis whose inputs cannot be read is not
+        waiting for a slot, it is finished.
+        """
+        analysis = store.get(analysis_id)
+        if analysis is None:
+            raise HTTPException(status_code=404, detail=f"no analysis {analysis_id!r}")
+
+        store.set_status(analysis_id, AnalysisStatus.VALIDATING)
+        reports, errors = _validate_inputs(analysis)
+        store.update(analysis_id, inputs=analysis.inputs)
+        if errors:
+            store.set_status(analysis_id, AnalysisStatus.FAILED, error="\n".join(errors))
+        else:
+            store.set_status(analysis_id, AnalysisStatus.QUEUED)
+        return {
+            "analysis": store.get(analysis_id).as_dict(),
+            "valid": not errors,
+            "errors": errors,
+            "reports": reports,
+        }
+
+    @app.post("/api/analyses/{analysis_id}/launch")
+    def launch_analysis(analysis_id: str, body: AnalysisLaunch) -> dict:
+        """Validate, then launch the real Nextflow workflow.
+
+        Validation is not optional here. Launching a pipeline over inputs
+        that were never parsed is how a run fails forty minutes in for a
+        reason a one-second check would have given immediately.
+        """
+        analysis = store.get(analysis_id)
+        if analysis is None:
+            raise HTTPException(status_code=404, detail=f"no analysis {analysis_id!r}")
+        if analysis.status == AnalysisStatus.RUNNING:
+            raise HTTPException(status_code=409, detail="this analysis is already running")
+
+        store.set_status(analysis_id, AnalysisStatus.VALIDATING)
+        _, errors = _validate_inputs(analysis)
+        if errors:
+            store.set_status(analysis_id, AnalysisStatus.FAILED, error="\n".join(errors))
+            raise HTTPException(status_code=400, detail={"message": "inputs did not validate",
+                                                         "errors": errors})
+
+        options: dict = {"profile": body.profile, "resume": body.resume, **body.options}
+        outdir = f"results/analyses/{analysis_id}"
+        options.setdefault("outdir", outdir)
+        for key in list(options):
+            if options[key] in (None, False):
+                del options[key]
+
+        command = cmd.get("workflow")
+        try:
+            argv = command.build(analysis.pathogen, options)
+        except cmd.CommandError as exc:
+            store.set_status(analysis_id, AnalysisStatus.FAILED, error=str(exc))
+            raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+        job = runner.submit(command, analysis.pathogen, argv)
+        job.analysis_id = analysis_id
+        store.update(analysis_id, job_id=job.id, outdir=outdir, params={**analysis.params, **options})
+        store.set_status(analysis_id, AnalysisStatus.QUEUED)
+        return {"analysis": store.get(analysis_id).as_dict(), "job": job.summary()}
+
+    @app.post("/api/analyses/{analysis_id}/cancel")
+    def cancel_analysis(analysis_id: str, force: bool = False) -> dict:
+        analysis = store.get(analysis_id)
+        if analysis is None:
+            raise HTTPException(status_code=404, detail=f"no analysis {analysis_id!r}")
+        if analysis.job_id:
+            runner.cancel(analysis.job_id, force=force)
+        store.set_status(analysis_id, AnalysisStatus.CANCELLED)
+        return store.get(analysis_id).as_dict()
+
+    @app.get("/api/analyses/{analysis_id}/results")
+    def analysis_results(analysis_id: str) -> dict:
+        """Everything the GUI needs to render a finished analysis.
+
+        Output files are listed rather than inlined, and each is given by
+        the path the artifact endpoint accepts, so a 40 MB variant table
+        is not pushed through a JSON response.
+        """
+        analysis = store.get(analysis_id)
+        if analysis is None:
+            raise HTTPException(status_code=404, detail=f"no analysis {analysis_id!r}")
+
+        files: list[dict] = []
+        if analysis.outdir:
+            root = REPO_ROOT / analysis.outdir
+            if root.is_dir():
+                for path in sorted(root.rglob("*")):
+                    if path.is_file():
+                        files.append({
+                            "path": str(path.relative_to(REPO_ROOT)),
+                            "name": path.name,
+                            "bytes": path.stat().st_size,
+                        })
+        gate = None
+        try:
+            from g4watch.config import load_config
+            from g4watch.gating import evaluate_gate
+
+            config = load_config(analysis.pathogen)
+            status = evaluate_gate(config.ledger_path, config.pathogen,
+                                   operational_mode=config.operational_mode)
+            gate = {"permission": status.permission.value, "permitted": status.permitted,
+                    "explanation": status.explain()}
+        except Exception:  # noqa: BLE001 - a missing gate must not hide the outputs
+            gate = None
+
+        return {"analysis": analysis.as_dict(), "files": files, "gate": gate,
+                "n_files": len(files)}
 
     @app.get("/api/inputs")
     def inputs() -> list[dict]:

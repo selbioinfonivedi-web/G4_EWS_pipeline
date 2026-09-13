@@ -130,3 +130,5 @@ deliverables/ppt_assets/_partial_*.pptx
 deliverables/ppt_assets/*.pptx
 results/stratified/
 data/uploads/
+data/analyses.sqlite3*
+results/analyses/
