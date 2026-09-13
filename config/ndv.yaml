@@ -45,6 +45,26 @@ corpus:
   lineage_field: country
   lineage_fallback_fields: []
   exclude_lineages: []
+  # PRE-SPECIFIED before any p-value existed for this pathogen.
+  #
+  # The Appendix C floor requires >= 20 sequences in EVERY lineage. With
+  # country as the lineage field -- forced, because no record carries a
+  # /genotype qualifier -- a single sequence from one country fails the
+  # whole corpus however well the real groups are sampled. NDV holds 1,798
+  # sequences across 64 countries, fifteen of them over the floor, and one
+  # singleton halted all of it.
+  #
+  # A RULE, not a list of country names. A list goes stale the moment the
+  # corpus is re-fetched, and choosing which names to write down after
+  # seeing the corpus is the selection-on-outcome that R-12's
+  # pre-specification rules exist to prevent. The threshold is a property
+  # of sampling, knowable before any test runs.
+  #
+  # What it costs is recorded rather than hidden: the dropped sequences
+  # are real observations that this analysis does not use, and any
+  # statement about geographic coverage must be read against the retained
+  # set, not the fetched one.
+  min_lineage_size: 20
 
 qc:
   min_completeness_fraction: 0.90

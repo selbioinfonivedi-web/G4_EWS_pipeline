@@ -278,6 +278,21 @@ def compute_corpus_minimum_data_stats(
             if (_normalize_lineage(config, row) or "").upper() not in excluded
         ]
 
+    # The same min_lineage_size rule load_samples applies. Both paths, for
+    # the reason R-15 exists: one rule known to only one of them left an
+    # excluded lineage still counted against the floor, halting every
+    # locus while the lineages that mattered cleared it comfortably.
+    minimum = config.min_lineage_size
+    if minimum > 0:
+        tally: dict[str, int] = {}
+        for row in aligned_rows:
+            name = (_normalize_lineage(config, row) or "").upper()
+            tally[name] = tally.get(name, 0) + 1
+        aligned_rows = [
+            row for row in aligned_rows
+            if tally.get((_normalize_lineage(config, row) or "").upper(), 0) >= minimum
+        ]
+
     n_missing_lineage = sum(1 for row in aligned_rows if not _normalize_lineage(config, row))
     named_counts: dict[str, int] = {}
     for row in aligned_rows:
