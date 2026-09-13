@@ -1,36 +1,42 @@
 # G4-WATCH pathogen configuration — Classical Swine Fever Virus
 #
-# NOT YET PROVISIONED. Phase 5 (multi-pathogen extension) scope. The
-# fields the architecture already fixes for this pathogen are set below;
-# the reference genome and corpus fields are deliberately null rather
-# than guessed, and `provisioned: false` makes the config loader refuse
-# to run this pathogen until a curator fills them in. Nothing here
-# fabricates an accession or a coordinate.
+# Provisioned 2026-09-13. Every value below was read from the record it
+# claims to come from, not inferred.
 
 pathogen: CSFV
 display_name: "Classical Swine Fever Virus"
 genome_type: ssRNA_positive
 taxonomy_id: 11096
-provisioned: false
-provisioning_notes: |
-  Required before this config can run:
-    1. Choose and record a reference genome (the Alfort/187 strain is a conventional reference) — set
-       reference.accession and reference.fasta, and read the coding
-       bounds from that record's own annotation rather than inferring
-       them. This is a ~12.3 kb positive-strand genome with a single long ORF flanked by structured 5' and 3' UTRs (the 5' UTR carries an IRES) — the single-CDS GenomeAnnotation form FMDV uses applies directly here.
-    2. Fetch a corpus and accession list; populate corpus.*.
-    3. Build the Atlas (`g4watch stage0`) and set atlas.version/atlas.path.
+provisioned: true
 
 reference:
-  accession: null
-  fasta: null
-  cds: null
-  genome_length: null
+  accession: NC_002657.1
+  fasta: data/reference_genomes/csfv/NC_002657.1.fasta
+  genome_length: 12301
+  # Single polyprotein ORF, 374..12070, read from NC_002657.1's own CDS
+  # feature. Structurally the same as FMDV: 5' UTR, one long polyprotein,
+  # 3' UTR.
+  cds_start: 374
+  cds_end: 12070
 
 corpus:
-  metadata_tsv: null
-  sequences_fasta: null
-  lineage_field: genotype
+  metadata_tsv: data/reference_genomes/csfv/corpus/csfv_corpus_metadata.tsv
+  sequences_fasta: data/reference_genomes/csfv/corpus/csfv_corpus_sequences.fasta
+  # NOT genotype: every record in this corpus has an EMPTY /genotype
+  # qualifier. CSFV genotypes are assigned in the literature from
+  # specific genes and are not recorded in the GenBank source features, so
+  # declaring genotype here would resolve every sequence to "unknown" and
+  # fail the Appendix C per-lineage floor for a reason about metadata
+  # rather than about the virus.
+  #
+  # Country is used instead, as for EBV and PPRV. Sub-national detail is
+  # stripped at acquisition ("Japan:Gifu,Seki" -> "Japan"), because
+  # otherwise one country splits into many false lineages and each split
+  # pushes real groups under the per-lineage floor. Country is NOT a
+  # phylogenetic lineage and nothing here pretends it is.
+  lineage_field: country
+  lineage_fallback_fields: []
+  exclude_lineages: []
 
 qc:
   min_completeness_fraction: 0.90
@@ -43,7 +49,6 @@ alignment:
   max_gapped_fraction: 0.50
 
 recombination:
-  # Section 11: mandatory, standard tier.
   enabled: true
   tier: standard
   alpha: 0.05
@@ -51,7 +56,12 @@ recombination:
 phylogenetics:
   tool: iqtree2
   model: GTR+F+I+G4
-  bootstrap_replicates: 1000
+  # REDUCED from the architecture's 1000, deliberately and with sign-off,
+  # for the multi-pathogen APPLICATION validation. 200 replicates give
+  # usable support at a fraction of the runtime; FMDV, the scientific
+  # headline pathogen, stays at 1000. Any published CSFV tree must be
+  # rebuilt at 1000 first.
+  bootstrap_replicates: 200
   seed: 20250823
   outgroup: null
   ancestral_states: required
@@ -68,10 +78,10 @@ g4_prediction:
     enabled: true
   g4rna_screener:
     enabled: false
-    reason: "upstream is Python 2-only with a pickled PyBrain classifier; see vendor/README.md"
+    reason: "Python 2-only with a pickled PyBrain classifier; see vendor/README.md"
   pqsfinder:
     enabled: false
-    reason: "DNA-virus-scoped tool; not applicable to this RNA pathogen"
+    reason: "DNA-virus-scoped tool, deferred"
   concordance:
     min_overlap_fraction: 0.80
   flank: 100
@@ -81,13 +91,20 @@ control_regions:
   gc_tolerance: 0.05
   pqs_overlap_score_threshold: 0.80
   exclusion_buffer: 50
+  n_controls: 5
 
 atlas:
-  version: null
-  path: null
+  version: "1.0"
+  path: data/atlases/G4_Reference_Atlas_v1.0.csfv.tsv
 
 dh1_gate:
   alpha: 0.05
   ledger: data/atlases/testing_ledger.tsv
 
+detection:
+  baseline_fraction: 0.5
+  min_baseline_windows: 8
+
+# Layer 1 of the Section 12 gate. False until a SUPPORTED D.H1 verdict
+# exists for this pathogen, which no run has produced.
 operational_mode: false

@@ -1,0 +1,116 @@
+accession	length	organism	country	collection_date	geo_loc_name	host	strain	isolate	serotype	genotype	segment	note	lat_lon
+PZ706560.1	15926	peste-des-petits-ruminants virus	China	2025	China: Xinjiang	Ovis aries		XJ20251011					
+PX497029.1	15948	peste-des-petits-ruminants virus	Bangladesh	2025-07-29	Bangladesh	Capra hircus		58					
+PX112974.1	15948	peste-des-petits-ruminants virus	Nigeria	1975	Nigeria	goat		vaccine seed 75/1				PPR Nigeria 75/1 Batch 130314 (subcultured); collected from CIRAD PPR Reference Laboratory; received September 15, 2021	
+PV110162.1	15948	peste-des-petits-ruminants virus	Ethiopia	2019	Ethiopia	Capra hircus		PPRV/Ethiopia/38920/2019				Lineage IV	
+PV110161.1	15948	peste-des-petits-ruminants virus	Ethiopia	2019	Ethiopia	Capra hircus		PPRV/Ethiopia/35368/2019				Lineage III	
+PV110160.1	15948	peste-des-petits-ruminants virus	Ethiopia	2019	Ethiopia	Capra hircus		PPRV/Ethiopia/26173/2019				Lineage III	
+PV110159.1	15948	peste-des-petits-ruminants virus	Ethiopia	2021	Ethiopia	Capra hircus		PPRV/Ethiopia/25870/2021				Lineage IV	
+PQ881839.1	15948	peste-des-petits-ruminants virus	China	2022	China	Pseudois nayaur		China/QLSB/2022				genotype: II	
+MN920707.1	15942	peste-des-petits-ruminants virus	India	16-Jan-2016	India	goat		IND/PPRV/Palampur/16				VSP 41-2015-16	32.1109 N 76.5363 E
+MN920706.1	15948	peste-des-petits-ruminants virus	India	22-Jul-1998	India	goat		IND/PPRV/Chirgaon/99				VSP-21-1998-99	31.2373 N 77.8739 E
+OL741724.2	15948	peste-des-petits-ruminants virus	Cote d'Ivoire	1989	Cote d'Ivoire			PPRV/Cote_dIvoire/1989/CIRAD					
+OL741725.1	15948	peste-des-petits-ruminants virus	Morocco	2008	Morocco			PPRV/Morocco/2008/CIRAD					
+AJ849636.2	15948	peste-des-petits-ruminants virus	Turkey		Turkey	Ovis aries		Turkey 2000					
+OP066374.1	15954	peste-des-petits-ruminants virus	China	2013	China	goat	PPRV/China-HLJ/01/2013(c2)						
+ON707028.1	15475	peste-des-petits-ruminants virus	Egypt	27-Apr-1992	Egypt	goat		88				FADDL RVSS biorepository	
+ON707027.1	15075	peste-des-petits-ruminants virus	Nigeria	08-May-1992	Nigeria	goat		75/3				RVSS FADDL biorepository	
+ON110960.1	15948	peste-des-petits-ruminants virus	Ethiopia	2014	Ethiopia	goat	PPRV/Ethiopia/Habru/2014					Lineage: IV	
+ON207131.1	15946	peste-des-petits-ruminants virus	Russia	Jan-2020	Russia	sheep	45G37/35-k					vaccine strain; passaged in lamb testicle cells and in Vero cells; genotype: II	
+MZ388427.1	15948	peste-des-petits-ruminants virus					Nigeria75/1	Vero149					
+MZ388426.1	15948	peste-des-petits-ruminants virus					Nigeria75/1	Vero130					
+MZ388425.1	15948	peste-des-petits-ruminants virus					Nigeria75/1	Vero99					
+MZ388424.1	15948	peste-des-petits-ruminants virus					Nigeria75/1	Vero90					
+MZ388423.1	15948	peste-des-petits-ruminants virus					Nigeria75/1	Vero85					
+MZ388422.1	15948	peste-des-petits-ruminants virus					Nigeria75/1	Vero75CHS10					
+MZ388421.1	15948	peste-des-petits-ruminants virus					Nigeria75/1	Vero80					
+MZ388420.1	15948	peste-des-petits-ruminants virus					Nigeria75/1	Vero75CHS5					
+MZ388419.1	15948	peste-des-petits-ruminants virus					Nigeria75/1	VaccinCIRAD					
+MZ388418.1	15948	peste-des-petits-ruminants virus					Nigeria75/1	Vero75					
+MZ388417.1	15948	peste-des-petits-ruminants virus					Nigeria75/1	Vero70					
+MZ388416.1	15948	peste-des-petits-ruminants virus					Nigeria75/1	Vero69					
+MZ388415.1	15948	peste-des-petits-ruminants virus					Nigeria75/1	Vero67					
+MZ388414.1	15948	peste-des-petits-ruminants virus					Nigeria75/1	Vero65					
+MZ388413.1	15948	peste-des-petits-ruminants virus					Nigeria75/1	Vero62					
+MZ388412.1	15948	peste-des-petits-ruminants virus					Nigeria75/1	Vero58					
+MZ388411.1	15948	peste-des-petits-ruminants virus					Nigeria75/1	Vero50					
+MZ388410.1	15948	peste-des-petits-ruminants virus					Nigeria75/1	Vero47CHS1					
+MZ388409.1	15948	peste-des-petits-ruminants virus					Nigeria75/1	WildTypeStrain					
+OL310704.1	15948	peste-des-petits-ruminants virus	Israel		Israel			PPRV/Israel-1571/Um-El-Fahem/2014				genotype: IV	
+OL310703.1	15948	peste-des-petits-ruminants virus	Israel		Israel			PPRV/Israel-1192/Rahat/2012				genotype: IV	
+OL310702.1	15948	peste-des-petits-ruminants virus	Israel		Israel			PPRV/Israel-1947/Goren/2011				genotype: IV	
+OL310701.1	15948	peste-des-petits-ruminants virus	Israel		Israel			PPRV/Israel-1921/Goren/2011				genotype: IV	
+OL310700.1	15948	peste-des-petits-ruminants virus	Israel		Israel			PPRV/Israel-1483/Atauna/2008				genotype: IV	
+OL310699.1	15948	peste-des-petits-ruminants virus	Israel		Israel			PPRV/Israel-1251/Netua/2005				genotype: IV	
+OL310698.1	15948	peste-des-petits-ruminants virus	Israel		Israel			PPRV/Israel-1034/Deir-el-Assad/2005				genotype: IV	
+OL310697.1	15948	peste-des-petits-ruminants virus	Israel		Israel			PPRV/Israel-1031/Deir-el-Assad/2005				genotype: IV	
+OL310696.1	15948	peste-des-petits-ruminants virus	Israel		Israel			PPRV/Israel-1012/Tel-Arad/2004				genotype: IV	
+OL310695.1	15948	peste-des-petits-ruminants virus	Israel		Israel			PPRV/Israel-1277/Jordan-Valley/2004				genotype: IV	
+OL310694.1	15948	peste-des-petits-ruminants virus	Israel		Israel			PPRV/Israel-2233/Beir-El-Makhsour/2003				genotype: IV	
+OL310693.1	15948	peste-des-petits-ruminants virus	Israel		Israel			PPRV/Israel-2105/Zarzir/2003				genotype: IV	
+OL310692.1	15948	peste-des-petits-ruminants virus	Israel		Israel			PPRV/Israel-6586/Zarzir/2001				genotype: IV	
+OL310691.1	15948	peste-des-petits-ruminants virus	Israel		Israel			PPRV/Israel-5921/Nazareth/2001				genotype: IV	
+OL310690.1	15948	peste-des-petits-ruminants virus	Israel		Israel			PPRV/Israel-7161/Kseifa/2001				genotype: IV	
+OL310689.1	15948	peste-des-petits-ruminants virus	Israel		Israel			PPRV/Israel-5236/Ofer/2000				genotype: IV	
+OL310688.1	15948	peste-des-petits-ruminants virus	Israel		Israel			PPRV/Israel-4522/Tzora/1998				genotype: IV	
+OL310687.1	15948	peste-des-petits-ruminants virus	Israel		Israel			PPRV/PPRV/Israel-2536/Hebron/1997				genotype: IV	
+OL310685.1	15948	peste-des-petits-ruminants virus	Democratic Republic of the Congo	Mar-2012	Democratic Republic of the Congo	Goat		PPRV/DRC/Tshela/27/2012				genotype: IV	
+MZ061722.1	15953	peste-des-petits-ruminants virus	Mongolia	Jan-2017	Mongolia	Gazella subgutturosa (goitered gazelle)		PPRV/Goitered_gazelle/Mongolia/2017-01				Lineage IV	46.48 N 93.40 E
+MZ061721.1	15932	peste-des-petits-ruminants virus	Mongolia	Jan-2017	Mongolia	Capra ibex sibirica (Siberian ibex)		PPRV/Siberian_ibex/Mongolia/2017-01				Lineage IV	45.45 N 95.11 E
+MZ061720.1	15954	peste-des-petits-ruminants virus	Mongolia	Jan-2017	Mongolia	Saiga tatarica mongolica (Mongolian saiga antelope)		PPRV/saiga4/Mongolia/2017-01				Lineage IV	47.16 N 94.07 E
+MZ061719.1	15954	peste-des-petits-ruminants virus	Mongolia	Jan-2017	Mongolia	Saiga tatarica mongolica (Mongolian saiga antelope)		PPRV/saiga3/Mongolia/2017-01				Lineage IV	47.28 N 93.30 E
+MZ322753.1	15948	peste-des-petits-ruminants virus	Tanzania	2018	Tanzania	goat		Tanzania_Momba_2018				genotype: Lineage III	
+MW960272.1	15948	peste-des-petits-ruminants virus	Tanzania	2016	Tanzania	goat		Tanzania/2016/Ngorongoro					
+MK408669.1	15916	peste-des-petits-ruminants virus	Iraq	Feb-2011	Iraq	Capra aegagrus		Kurdistan/2011					
+MN657232.1	15948	peste-des-petits-ruminants virus	Turkey	Sep-2018	Turkey	Ovis aries		Turkey/Central_Anatolia/2018				genotype: Lineage IV	
+NC_006383.2	15948	peste-des-petits-ruminants virus	Turkey		Turkey	Ovis aries		Turkey 2000					
+KY628761.1	15948	peste-des-petits-ruminants virus	Nigeria	1975	Nigeria	goat	75/1					vaccine strain	
+KX421388.1	15948	peste-des-petits-ruminants virus	China	Aug-2007	China	goat		China/33/2007					
+KX421387.1	15954	peste-des-petits-ruminants virus	China	Dec-2013	China	goat		China/5/2013					
+KX421386.1	15954	peste-des-petits-ruminants virus	China	Dec-2013	China	goat		China/4/2013					
+KX421385.1	15954	peste-des-petits-ruminants virus	China	Dec-2013	China	goat		China/3/2013					
+KX421384.1	15954	peste-des-petits-ruminants virus	China	Dec-2013	China	goat		China/2/2013					
+KY888168.1	15954	peste-des-petits-ruminants virus	Mongolia	Sep-2016	Mongolia	goat		PPRV/Mongolia/9/2016				genotype: IV	
+KY885100.1	15948	peste-des-petits-ruminants virus	Algeria	11-Nov-2015	Algeria	goat		S15					
+KT860065.1	15948	peste-des-petits-ruminants virus	India	10-Jul-2015	India	sheep	IND/TN/ED/2015/04					genotype: lineage IV	
+KT860064.1	15948	peste-des-petits-ruminants virus	India	05-Jan-2015	India	sheep	IND/TN/VEL/2015/03					genotype: lineage IV	
+KT860063.1	15948	peste-des-petits-ruminants virus	India	23-Nov-2014	India	goat	IND/TN/VM/2014/02					genotype: lineage IV	
+KX354359.1	15948	peste-des-petits-ruminants virus	China	15-Dec-2015	China: FuYang, ZheJiang	goat		PPRV-FY					
+KX033350.1	15948	peste-des-petits-ruminants virus	India	27-Jan-2016	India	goat	IND/Delhi/2016/05					virulent strain; genotype: IV	
+KU236379.1	15948	peste-des-petits-ruminants virus	Liberia	08-Jul-2015	Liberia	goat		Lib/2015				genotype: II	
+KF727981.2	15948	peste-des-petits-ruminants virus	India	1996	India	goat		Sungri/96				vaccine strain; genotype: IV	
+KR828814.1	15948	peste-des-petits-ruminants virus	Nigeria	09-May-2012	Nigeria	goat		NGKW2012-MSLN					
+KR828813.1	15948	peste-des-petits-ruminants virus	Nigeria	15-Feb-2013	Nigeria	goat		NGYO2013-2162					
+KT633939.1	15954	peste-des-petits-ruminants virus	China	20-Jan-2015	China	Ibex		China/XJBZ/2015				genotype: IV	
+KR781450.1	15948	peste-des-petits-ruminants virus	Benin	1969	Benin	goat		Benin/B1/1969				genotype: II	
+KR781449.1	15948	peste-des-petits-ruminants virus	Benin	21-May-2011	Benin	sheep; female; 12 years old		Benin/10/2011				genotype: II	
+KP868655.1	15954	peste-des-petits-ruminants virus	China	05-Dec-2014	China	goat		CH/GDDG/2014				genotype: 4	
+KM816619.1	16058	peste-des-petits-ruminants virus	China	09-Apr-2014	China	Capra aegagrus hircus		GZL-14					
+KT270355.1	15942	peste-des-petits-ruminants virus	India	25-Sep-2014	India	goat	IND/TN/GIN/2014/01					virulent strain; genotype: IV	
+KR261605.1	15948	peste-des-petits-ruminants virus	India	16-Sep-2014	India	goat		India/TN/Gingee/2014				genotype: IV	
+KR781451.1	15948	peste-des-petits-ruminants virus	Cote d'Ivoire	Jul-2009	Cote d'Ivoire	goat		CIV/01P/2009				genotype: II	
+KP789375.1	15948	peste-des-petits-ruminants virus	Senegal	03-Sep-1969	Senegal	goat		E32/1969				genotype: Lineage I	
+KR140086.1	15948	peste-des-petits-ruminants virus	India	1994	India	goat	Izatnagar/94					virulent strain	
+KP260624.1	15954	peste-des-petits-ruminants virus	China	16-Aug-2014	China	milk goat	China/BJ/2014						
+KJ466104.1	15948	peste-des-petits-ruminants virus	Ghana	2010	Ghana	sheep	Ghana/NK1/2010						5.7218 N 0.1959 W
+KM089832.1	15954	peste-des-petits-ruminants virus	China	08-May-2014	China	goat		CH/HNZM/2014					
+KM089831.1	15957	peste-des-petits-ruminants virus	China	08-May-2014	China	goat		CH/HNZK/2014					
+KM089830.1	15954	peste-des-petits-ruminants virus	China	08-May-2014	China	goat		CH/HNNY/2014					
+KM463083.1	15948	peste-des-petits-ruminants virus	Kenya	May-2011	Kenya	goat; sex: female; age: 6 months		KN5/2011					3.6398 N 34.8498 E
+KJ867545.1	15948	peste-des-petits-ruminants virus	United Arab Emirates	1986	United Arab Emirates	Dorcas gazelle		UAE 1986				genotype: III	
+KJ867544.1	15948	peste-des-petits-ruminants virus	Oman	1983	Oman	goat		Oman 1983				genotype: III	
+KJ867543.1	15948	peste-des-petits-ruminants virus	Uganda	2012	Uganda	goat		Uganda 2012				genotype: III	
+KJ867540.1	15948	peste-des-petits-ruminants virus	Ethiopia	1994	Ethiopia	goat		Ethiopia 1994				genotype: III	
+KM091959.1	15954	peste-des-petits-ruminants virus	China	30-Nov-2013	China	goat		China/XJYL/2013					
+KM212177.1	15948	peste-des-petits-ruminants virus	Senegal	11-Mar-2013	Senegal	goat		SnDk11I13					
+KJ867542.1	15948	peste-des-petits-ruminants virus	India	1996	India	goat		Sungri 1996 MSD (The Netherlands)				vaccine strain; genotype: IV	
+KJ867541.1	15948	peste-des-petits-ruminants virus	Ethiopia	2010	Ethiopia	goat		Ethiopia 2010				genotype: IV	
+KC594074.1	15948	peste-des-petits-ruminants virus	Morocco	2008	Morocco	alpine goat		Morocco 2008					
+JX217850.1	15948	peste-des-petits-ruminants virus	China	2008	China	wild bharal	Tibet/Bharal/2008						
+JF939201.1	15948	peste-des-petits-ruminants virus	China	Dec-2007	China	goat		China/Tib/07				genotype: IV	
+HQ197753.1	15948	peste-des-petits-ruminants virus	Nigeria		Nigeria	caprine goat	Nigeria/75/1						
+FJ905304.1	15948	peste-des-petits-ruminants virus	China	Aug-2007	China	goat	China/Tibet/Geg/07-30						
+EU267273.1	15948	peste-des-petits-ruminants virus	Cote d'Ivoire	1989	Cote d'Ivoire	goat	ICV89						
+AY560591.3	15884	peste-des-petits-ruminants virus					Sungri/96					candidate vaccine virus	
+EU267274.1	15948	peste-des-petits-ruminants virus	Nigeria	1976	Nigeria	goat	Ng76/1						
+X74443.2	15948	peste-des-petits-ruminants virus	Nigeria		Nigeria		Nigeria/75/1						

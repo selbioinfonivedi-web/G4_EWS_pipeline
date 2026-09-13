@@ -1,0 +1,975 @@
+accession	lineage_raw	lineage_normalized	country	passed	completeness_fraction	n_content_fraction	reasons_failed
+PX486029.1	Viet Nam	Viet Nam	Viet Nam	True	0.9998	0.0	
+PV453686.1	Brazil	Brazil	Brazil	True	0.9875	0.0	
+PV453678.1	Brazil	Brazil	Brazil	True	0.9843	0.0	
+PV453677.1	Brazil	Brazil	Brazil	True	0.9839	0.0001	
+PV453676.1	Brazil	Brazil	Brazil	True	0.9867	0.0	
+PV453675.1	Brazil	Brazil	Brazil	True	0.9866	0.0	
+PV453674.1	Brazil	Brazil	Brazil	True	0.982	0.0	
+PV453673.1	Brazil	Brazil	Brazil	True	0.9865	0.0	
+PV453672.1	Brazil	Brazil	Brazil	True	0.9839	0.0002	
+PV453671.1	Brazil	Brazil	Brazil	True	0.9887	0.0	
+PV454366.1	Brazil	Brazil	Brazil	True	0.9656	0.0	
+PV454365.1	Brazil	Brazil	Brazil	True	0.9685	0.0054	
+LC901925.1	Japan	Japan	Japan	True	0.9832	0.0	
+LC901924.1	Japan	Japan	Japan	True	0.9832	0.0	
+LC901923.1	Japan	Japan	Japan	True	0.9832	0.0	
+LC901922.1	Japan	Japan	Japan	True	0.9832	0.0	
+LC896121.1	Japan	Japan	Japan	True	0.9698	0.0	
+LC896120.1	Japan	Japan	Japan	True	0.9665	0.0	
+PX447283.1	Viet Nam	Viet Nam	Viet Nam	True	0.9948	0.0	
+PX395944.1	Viet Nam	Viet Nam	Viet Nam	True	1.0	0.0	
+LC881651.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881650.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881649.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881648.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881647.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881646.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881645.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881644.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881643.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881642.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881641.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881640.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881639.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881638.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881637.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881636.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881635.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881634.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881633.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881632.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881631.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881630.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881629.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881628.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881627.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881626.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881625.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881624.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881623.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881622.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881621.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881620.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881619.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881618.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881617.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881616.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881615.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881614.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881613.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881612.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881611.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881610.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881609.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881608.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881607.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881606.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881605.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881604.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881603.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881602.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881601.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881600.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881599.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881598.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881597.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881596.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881595.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881594.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881593.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881592.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881591.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881590.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881589.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881588.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881587.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881586.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881585.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881584.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881583.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881582.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881581.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881580.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881579.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881578.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881577.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881576.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881575.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881574.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881573.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881572.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881571.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881570.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881569.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881568.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881567.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881566.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881565.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881564.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881563.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881562.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881561.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881560.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881559.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881558.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881557.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881556.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881555.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881554.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881553.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881552.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881551.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881550.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881549.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881548.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881547.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881546.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881545.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881544.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881543.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881542.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881541.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881540.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881539.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881538.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881537.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881536.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881535.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881534.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881533.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881532.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881531.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881530.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881529.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881528.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881527.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881526.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881525.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881524.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881523.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881522.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881521.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881520.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881519.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881518.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881517.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881516.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881515.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881514.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881513.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881512.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881511.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881510.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881509.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881508.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881507.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881506.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881505.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881504.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881503.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881502.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881501.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881500.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881499.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881498.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881497.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881496.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881495.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881494.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881493.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881492.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881491.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881490.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881489.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881488.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881487.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881486.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881485.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881484.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881483.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881482.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881481.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881480.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881479.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881478.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881477.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881476.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881475.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881474.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881473.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881472.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881471.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881470.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881469.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881468.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881467.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881466.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881465.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881464.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881463.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881462.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881461.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881460.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881459.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881458.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881457.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881456.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881455.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881454.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881453.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881452.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881451.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881450.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881449.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881448.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881447.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881446.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881445.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881444.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881443.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881442.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881441.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881440.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881439.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881438.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881437.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881436.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881435.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881434.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881433.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881432.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881431.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881430.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881429.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881428.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881427.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881426.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881425.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881424.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881423.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881422.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881421.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881420.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881419.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881418.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881417.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881416.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881415.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881414.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881413.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881412.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881411.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881410.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881409.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881408.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881407.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881406.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881405.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881404.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881403.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881402.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881401.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881400.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881399.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881398.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881397.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881396.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881395.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881394.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881393.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881392.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881391.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881390.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881389.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881388.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881387.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881386.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881385.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881384.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881383.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881382.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881381.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881380.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881379.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881378.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881377.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881376.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881375.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881374.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881373.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881372.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881371.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881370.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881369.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881368.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881367.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881366.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881365.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881364.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881363.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881362.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881361.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881360.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881359.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881358.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881357.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881356.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881355.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881354.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881353.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881352.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881351.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881350.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881349.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881348.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881347.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881346.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881345.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881344.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881343.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881342.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881341.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881340.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881339.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881338.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881337.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881336.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881335.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881334.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881333.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881332.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881331.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881330.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881329.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881328.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881327.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881326.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881325.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881324.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881323.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881322.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881321.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881320.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881319.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881318.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881317.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881316.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881315.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881314.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881313.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881312.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881311.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881310.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881309.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881308.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881307.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881306.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881305.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881304.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881303.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881302.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881301.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881300.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881299.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881298.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881297.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881296.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881295.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881294.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881293.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881292.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881291.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881290.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881289.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881288.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881287.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881286.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881285.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881284.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881283.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881282.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881281.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881280.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881279.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881278.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881277.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881276.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881275.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881274.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881273.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881272.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881271.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881270.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881269.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881268.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881267.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881266.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881265.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881264.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881263.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881262.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881261.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881260.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881259.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881258.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881257.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881256.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881255.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881254.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881253.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881252.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881251.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881250.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881249.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881248.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881247.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881246.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881245.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881244.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881243.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881242.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881241.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881240.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881239.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881238.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881237.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881236.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881235.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881234.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881233.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881232.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881231.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881230.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881229.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881228.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881227.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881226.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881225.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881224.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881223.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881222.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881221.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881220.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881219.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881218.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881217.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881216.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881215.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881214.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881213.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881212.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881211.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881210.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881209.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881208.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881207.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881206.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881205.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881204.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881203.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881202.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881201.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881200.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881199.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881198.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881197.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881196.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881195.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881194.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881193.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881192.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881191.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881190.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881189.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881188.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881187.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881186.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881185.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881184.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881183.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881182.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881181.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881180.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881179.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881178.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881177.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881176.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881175.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881174.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881173.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881172.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881171.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881170.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881169.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881168.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881167.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881166.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881165.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881164.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881163.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881162.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881161.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881160.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881159.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881158.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881157.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881156.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881155.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881154.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881153.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881152.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881151.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881150.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881149.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881148.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881147.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881146.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881145.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881144.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881143.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881142.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881141.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881140.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881139.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881138.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881137.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881136.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881135.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881134.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881133.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881132.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881131.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881130.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881129.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881128.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881127.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881126.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC881125.1	Japan	Japan	Japan	True	0.9614	0.0	
+PP874933.1	China	China	China	True	0.9996	0.0	
+LC713055.1	Japan	Japan	Japan	True	0.9832	0.0	
+PQ282313.1	South Korea	South Korea	South Korea	True	0.9997	0.0	
+LC702341.1	United Kingdom	United Kingdom	United Kingdom	True	0.9872	0.0	
+LC702340.1	United Kingdom	United Kingdom	United Kingdom	True	0.9875	0.0	
+LC702339.1	United Kingdom	United Kingdom	United Kingdom	True	0.9875	0.0	
+LC702338.1	United Kingdom	United Kingdom	United Kingdom	True	0.9875	0.0	
+LC702337.1	United Kingdom	United Kingdom	United Kingdom	True	0.9875	0.0	
+LC702336.1	United Kingdom	United Kingdom	United Kingdom	True	0.9875	0.0	
+LC702335.1	United Kingdom	United Kingdom	United Kingdom	True	0.9875	0.0	
+LC702334.1	United Kingdom	United Kingdom	United Kingdom	True	0.9875	0.0	
+LC702333.1	United Kingdom	United Kingdom	United Kingdom	True	0.9875	0.0	
+LC702332.1	United Kingdom	United Kingdom	United Kingdom	True	0.9875	0.0001	
+LC702331.1	United Kingdom	United Kingdom	United Kingdom	True	0.9875	0.0	
+LC702330.1	United Kingdom	United Kingdom	United Kingdom	True	0.9875	0.0	
+LC702329.1	United Kingdom	United Kingdom	United Kingdom	True	0.9875	0.0001	
+LC702328.1	United Kingdom	United Kingdom	United Kingdom	True	0.9875	0.0006	
+LC702327.1	United Kingdom	United Kingdom	United Kingdom	True	0.9875	0.0001	
+OR428229.1				False	0.9931	0.0021	collection date missing year-level precision
+LC780768.1	Japan	Japan	Japan	True	0.9954	0.0	
+PP209412.1	India	India	India	True	1.0	0.0	
+PP209411.1	India	India	India	True	1.0	0.0	
+PP209410.1	India	India	India	True	1.0	0.0	
+OR195698.1	China	China	China	True	0.961	0.0	
+OR997840.1	Cuba	Cuba	Cuba	True	0.9998	0.0	
+OR459954.1	China	China	China	True	0.9936	0.0	
+OQ883956.1	China	China	China	True	0.9989	0.0	
+OM201207.1	China	China	China	True	0.9509	0.0	
+OM201206.1	China	China	China	True	0.9509	0.0	
+OM201205.1	China	China	China	True	0.9509	0.0	
+OM201204.1	China	China	China	True	0.9509	0.0	
+OM201203.1	China	China	China	True	0.9509	0.0	
+OM201202.1	China	China	China	True	0.9509	0.0011	
+OM201201.1	China	China	China	True	0.9509	0.0	
+OM201200.1	China	China	China	True	0.9509	0.0	
+OM817567.1	Peru	Peru	Peru	True	0.9935	0.0	
+OM817566.1	Peru	Peru	Peru	True	0.9935	0.0	
+OM817565.1	Peru	Peru	Peru	True	0.9937	0.0	
+OM817564.1	Peru	Peru	Peru	True	0.9939	0.0	
+OM817563.1	Peru	Peru	Peru	True	0.9937	0.0	
+OM817562.1	Peru	Peru	Peru	True	0.9934	0.0	
+OM817561.1	Peru	Peru	Peru	True	0.9872	0.0	
+OM817560.1	Peru	Peru	Peru	True	0.9935	0.0	
+OL963699.1	Colombia	Colombia	Colombia	True	0.9876	0.0	
+OL963698.1	Colombia	Colombia	Colombia	True	0.9691	0.0002	
+OL963697.1	Colombia	Colombia	Colombia	True	0.994	0.0	
+OL963696.1	Colombia	Colombia	Colombia	True	0.9737	0.0001	
+OL963695.1	Colombia	Colombia	Colombia	True	0.9882	0.0002	
+OL963694.1	Colombia	Colombia	Colombia	True	0.9664	0.0	
+OL963693.1	Colombia	Colombia	Colombia	True	0.9885	0.0	
+OL963692.1	Colombia	Colombia	Colombia	True	0.988	0.0	
+OM925903.1	China	China	China	True	0.9995	0.0	
+MW853932.1	China	China	China	True	0.9844	0.0	
+MW853931.1	China	China	China	True	0.9909	0.0	
+MW853930.1	China	China	China	True	0.982	0.0	
+MW853929.1	China	China	China	True	0.9811	0.0	
+MW853928.1	China	China	China	True	1.005	0.0	
+MW853927.1	China	China	China	True	0.9903	0.0	
+MW853926.1	China	China	China	True	0.9918	0.0	
+MW853925.1	China	China	China	True	0.9859	0.0	
+MW853924.1	China	China	China	True	0.9883	0.0	
+LC583718.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583717.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583716.1	Japan	Japan	Japan	True	0.9614	0.0002	
+LC583715.1	Japan	Japan	Japan	True	0.9614	0.0005	
+LC583714.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583713.1	Japan	Japan	Japan	True	0.9614	0.0002	
+LC583712.1	Japan	Japan	Japan	True	0.9614	0.0002	
+LC583711.1	Japan	Japan	Japan	True	0.9614	0.0002	
+LC583710.1	Japan	Japan	Japan	True	0.9614	0.0003	
+LC583709.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583708.1	Japan	Japan	Japan	True	0.9614	0.0001	
+LC583707.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583706.1	Japan	Japan	Japan	True	0.9614	0.0002	
+LC583705.1	Japan	Japan	Japan	True	0.9614	0.0002	
+LC583704.1	Japan	Japan	Japan	True	0.9614	0.0001	
+LC583703.1	Japan	Japan	Japan	True	0.9614	0.0004	
+LC583702.1	Japan	Japan	Japan	True	0.9614	0.0001	
+LC583701.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583700.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583699.1	Japan	Japan	Japan	True	0.9614	0.0003	
+LC583698.1	Japan	Japan	Japan	True	0.9614	0.0002	
+LC583697.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583696.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583695.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583694.1	Japan	Japan	Japan	True	0.9614	0.0009	
+LC583693.1	Japan	Japan	Japan	True	0.9614	0.0005	
+LC583692.1	Japan	Japan	Japan	True	0.9614	0.0006	
+LC583691.1	Japan	Japan	Japan	True	0.9614	0.0001	
+LC583690.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583689.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583688.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583687.1	Japan	Japan	Japan	True	0.9614	0.0003	
+LC583686.1	Japan	Japan	Japan	True	0.9614	0.0001	
+LC583685.1	Japan	Japan	Japan	True	0.9614	0.0003	
+LC583684.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583683.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583682.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583681.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583680.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583679.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583678.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583677.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583676.1	Japan	Japan	Japan	True	0.9614	0.0001	
+LC583675.1	Japan	Japan	Japan	True	0.9614	0.0002	
+LC583674.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583673.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583672.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583671.1	Japan	Japan	Japan	True	0.9614	0.0003	
+LC583670.1	Japan	Japan	Japan	True	0.9614	0.0001	
+LC583669.1	Japan	Japan	Japan	True	0.9614	0.0005	
+LC583668.1	Japan	Japan	Japan	True	0.9614	0.0002	
+LC583667.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583666.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583665.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583664.1	Japan	Japan	Japan	True	0.9614	0.0001	
+LC583663.1	Japan	Japan	Japan	True	0.9614	0.0007	
+LC583662.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583661.1	Japan	Japan	Japan	True	0.9614	0.0004	
+LC583660.1	Japan	Japan	Japan	True	0.9614	0.0002	
+LC583659.1	Japan	Japan	Japan	True	0.9614	0.0002	
+LC583658.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583657.1	Japan	Japan	Japan	True	0.9614	0.0001	
+LC583656.1	Japan	Japan	Japan	True	0.9614	0.0002	
+LC583655.1	Japan	Japan	Japan	True	0.9614	0.0003	
+LC583654.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583653.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583652.1	Japan	Japan	Japan	True	0.9614	0.0001	
+LC583651.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583650.1	Japan	Japan	Japan	True	0.9614	0.0002	
+LC583649.1	Japan	Japan	Japan	True	0.9614	0.0002	
+LC583648.1	Japan	Japan	Japan	True	0.9614	0.0001	
+LC583647.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583646.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583645.1	Japan	Japan	Japan	True	0.9614	0.0001	
+LC583644.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583643.1	Japan	Japan	Japan	True	0.9614	0.0003	
+LC583642.1	Japan	Japan	Japan	True	0.9614	0.0002	
+LC583641.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583640.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583639.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583638.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583637.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583636.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583635.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583634.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583633.1	Japan	Japan	Japan	True	0.9614	0.0008	
+LC583632.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583631.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583630.1	Japan	Japan	Japan	True	0.9614	0.0001	
+LC583629.1	Japan	Japan	Japan	True	0.9614	0.0003	
+LC583628.1	Japan	Japan	Japan	True	0.9614	0.0006	
+LC583627.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583626.1	Japan	Japan	Japan	True	0.9614	0.0004	
+LC583625.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583624.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583623.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583622.1	Japan	Japan	Japan	True	0.9614	0.0001	
+LC583621.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583620.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583619.1	Japan	Japan	Japan	True	0.9614	0.0002	
+LC583618.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583617.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583616.1	Japan	Japan	Japan	True	0.9614	0.0001	
+LC583615.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583614.1	Japan	Japan	Japan	True	0.9614	0.0003	
+LC583613.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583612.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583611.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583610.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583609.1	Japan	Japan	Japan	True	0.9614	0.0002	
+LC583608.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583607.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583606.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583605.1	Japan	Japan	Japan	True	0.9614	0.0003	
+LC583604.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583603.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583602.1	Japan	Japan	Japan	True	0.9614	0.0003	
+LC583601.1	Japan	Japan	Japan	True	0.9614	0.0002	
+LC583600.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583599.1	Japan	Japan	Japan	True	0.9614	0.0003	
+LC583598.1	Japan	Japan	Japan	True	0.9614	0.0007	
+LC583597.1	Japan	Japan	Japan	True	0.9614	0.0003	
+LC583596.1	Japan	Japan	Japan	True	0.9614	0.0003	
+LC583595.1	Japan	Japan	Japan	True	0.9614	0.0001	
+LC583594.1	Japan	Japan	Japan	True	0.9614	0.0002	
+LC583593.1	Japan	Japan	Japan	True	0.9614	0.0002	
+LC583592.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583591.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583590.1	Japan	Japan	Japan	True	0.9614	0.0001	
+LC583589.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583588.1	Japan	Japan	Japan	True	0.9614	0.0002	
+LC583587.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583586.1	Japan	Japan	Japan	True	0.9614	0.0001	
+LC583585.1	Japan	Japan	Japan	True	0.9614	0.0001	
+LC583584.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583583.1	Japan	Japan	Japan	True	0.9614	0.0001	
+LC583582.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583581.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583580.1	Japan	Japan	Japan	True	0.9614	0.0005	
+LC583579.1	Japan	Japan	Japan	True	0.9614	0.0002	
+LC583578.1	Japan	Japan	Japan	True	0.9614	0.0002	
+LC583577.1	Japan	Japan	Japan	True	0.9614	0.0001	
+LC583576.1	Japan	Japan	Japan	True	0.9614	0.0001	
+LC583575.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583574.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583573.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583572.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583571.1	Japan	Japan	Japan	True	0.9614	0.0003	
+LC583570.1	Japan	Japan	Japan	True	0.9614	0.0001	
+LC583569.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583568.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583567.1	Japan	Japan	Japan	True	0.9614	0.0002	
+LC583566.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583565.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583564.1	Japan	Japan	Japan	True	0.9614	0.0002	
+LC583563.1	Japan	Japan	Japan	True	0.9614	0.0	
+LC583562.1	Japan	Japan	Japan	True	0.9614	0.0001	
+MT799520.1	China	China	China	True	0.9982	0.0	
+MT799519.1	China	China	China	True	0.9983	0.0	
+MT799518.1	China	China	China	True	0.9982	0.0	
+MT799517.1	China	China	China	True	0.9982	0.0	
+MT799516.1	China	China	China	True	1.0003	0.0	
+MT799515.1	China	China	China	True	0.9982	0.0	
+MT799514.1	China	China	China	True	1.0002	0.0	
+MT799513.1	China	China	China	True	0.9995	0.0	
+MT586134.1	India	India	India	True	0.9976	0.0	
+MN399384.1	South Korea	South Korea	South Korea	True	0.9999	0.0	
+MN399383.1	South Korea	South Korea	South Korea	True	1.0001	0.0	
+MN399382.1	South Korea	South Korea	South Korea	True	0.9999	0.0	
+MN399381.1	South Korea	South Korea	South Korea	True	0.9998	0.0	
+MN399380.1	South Korea	South Korea	South Korea	True	0.9997	0.0	
+MN558889.1	South Korea	South Korea	South Korea	True	0.9998	0.0	
+MN558888.1	South Korea	South Korea	South Korea	True	0.9998	0.0	
+MN558887.1	South Korea	South Korea	South Korea	True	0.9998	0.0	
+MN558886.1	South Korea	South Korea	South Korea	True	0.9998	0.0	
+MN558885.1	South Korea	South Korea	South Korea	True	0.9998	0.0	
+MN558884.1	South Korea	South Korea	South Korea	True	0.9998	0.0	
+MN558883.1	South Korea	South Korea	South Korea	True	0.9998	0.0	
+MN558882.1	South Korea	South Korea	South Korea	True	0.9998	0.0	
+MN558881.1	South Korea	South Korea	South Korea	True	0.9998	0.0	
+MN558880.1	South Korea	South Korea	South Korea	True	0.9998	0.0	
+MN558879.1	South Korea	South Korea	South Korea	True	0.9998	0.0	
+MN558878.1	South Korea	South Korea	South Korea	True	0.9998	0.0	
+MN558877.1	South Korea	South Korea	South Korea	True	0.9998	0.0	
+MN558876.1	South Korea	South Korea	South Korea	True	0.9998	0.0	
+MN558875.1	South Korea	South Korea	South Korea	True	0.9998	0.0	
+MN558874.1	South Korea	South Korea	South Korea	True	0.9879	0.0	
+MN558873.1	South Korea	South Korea	South Korea	True	0.9884	0.0	
+MN558872.1	South Korea	South Korea	South Korea	True	0.9883	0.0002	
+MN558871.1	South Korea	South Korea	South Korea	True	0.9885	0.0	
+MN558870.1	South Korea	South Korea	South Korea	True	0.9876	0.0001	
+MN558869.1	South Korea	South Korea	South Korea	True	0.9885	0.0001	
+MN558868.1	South Korea	South Korea	South Korea	True	0.9998	0.0	
+MN558867.1	South Korea	South Korea	South Korea	True	0.9998	0.0	
+MN558866.1	South Korea	South Korea	South Korea	True	0.9998	0.0	
+MN558865.1	South Korea	South Korea	South Korea	True	0.9998	0.0	
+MN558864.1	South Korea	South Korea	South Korea	True	0.9998	0.0	
+MN558863.1	South Korea	South Korea	South Korea	True	0.9998	0.0	
+MN558862.1	South Korea	South Korea	South Korea	True	0.9998	0.0	
+MK425024.2	China	China	China	True	0.9995	0.0	
+MN128600.1	India	India	India	True	1.0002	0.0	
+KY849594.1	Serbia	Serbia	Serbia	True	0.9987	0.0	
+KY849593.1	Serbia	Serbia	Serbia	True	0.9987	0.0	
+MK211486.1	China	China	China	True	0.9995	0.0	
+MH734359.1	India	India	India	True	0.9997	0.0	
+MK405703.1	India	India	India	True	0.9994	0.0	
+MK405702.1	India	India	India	True	0.9997	0.0	
+MA795255.1				False	0.9389	0.0	collection date missing year-level precision
+MK121886.1	South Korea	South Korea	South Korea	True	0.9998	0.0	
+MK093252.1	South Korea	South Korea	South Korea	True	0.9998	0.0	
+MK093251.1	South Korea	South Korea	South Korea	True	0.9998	0.0	
+MK093250.1	South Korea	South Korea	South Korea	True	0.9998	0.0	
+MK093249.1	South Korea	South Korea	South Korea	True	0.9998	0.0	
+MK093248.1	South Korea	South Korea	South Korea	True	0.9998	0.0	
+MK093247.1	South Korea	South Korea	South Korea	True	0.9998	0.0	
+MK093246.1	South Korea	South Korea	South Korea	True	0.9998	0.0	
+MK093245.1	South Korea	South Korea	South Korea	True	0.9998	0.0	
+MK093244.1	South Korea	South Korea	South Korea	True	0.9998	0.0	
+MK093243.1	South Korea	South Korea	South Korea	True	0.9998	0.0	
+MK093242.1	South Korea	South Korea	South Korea	True	0.9998	0.0	
+MK093241.1	South Korea	South Korea	South Korea	True	0.9998	0.0	
+MH979232.1	Viet Nam	Viet Nam	Viet Nam	True	1.0	0.0	
+MH979231.1	Viet Nam	Viet Nam	Viet Nam	True	1.0	0.0	
+MG387218.1	China	China	China	True	0.9995	0.0	
+MG387217.1	China	China	China	True	0.9995	0.0	
+MG655308.1	Guatemala	Guatemala	Guatemala	True	0.9719	0.0	
+LC425854.1	Japan	Japan	Japan	True	0.9832	0.0002	
+MG599478.1				False	0.9432	0.0	collection date missing year-level precision
+NC_002657.1				False	1.0	0.0	collection date missing year-level precision
+LC388757.1	Viet Nam	Viet Nam	Viet Nam	True	0.9996	0.0	
+LC374604.1	Viet Nam	Viet Nam	Viet Nam	True	0.9998	0.0	
+LT593762.1				False	0.9972	0.0	collection date missing year-level precision
+LT593761.1				False	0.9972	0.0	collection date missing year-level precision
+LT593760.1				False	0.9995	0.0	collection date missing year-level precision
+LT593759.1				False	0.9972	0.0	collection date missing year-level precision
+LT593758.1				False	0.9996	0.0	collection date missing year-level precision
+LT593757.1				False	0.9996	0.0	collection date missing year-level precision
+LT593756.1				False	0.9972	0.0	collection date missing year-level precision
+LT593755.1				False	0.9972	0.0	collection date missing year-level precision
+LT593754.1				False	0.9995	0.0	collection date missing year-level precision
+LT593753.1				False	0.9972	0.0	collection date missing year-level precision
+LT593752.1				False	0.9972	0.0	collection date missing year-level precision
+LT593751.1				False	0.9996	0.0	collection date missing year-level precision
+LT593750.1				False	0.9996	0.0	collection date missing year-level precision
+LT593749.1				False	0.9996	0.0	collection date missing year-level precision
+LT593748.1				False	0.9995	0.0	collection date missing year-level precision
+MF149063.1	China	China	China	True	0.9996	0.0	
+MF149062.1	China	China	China	True	0.9996	0.0	
+MF149061.1	China	China	China	True	0.9996	0.0	
+MF679604.1	China	China	China	True	0.9996	0.0	
+MF150646.1	China	China	China	True	0.9995	0.0	
+MF150645.1	China	China	China	True	0.9995	0.0	
+MF150644.1	China	China	China	True	0.9996	0.0	
+MF150643.1	China	China	China	True	0.9995	0.0	
+MF150642.1	China	China	China	True	0.9995	0.0	
+MF150641.1	China	China	China	True	0.9995	0.0	
+MF150640.1	China	China	China	True	0.9995	0.0	
+KC533775.2	India	India	India	True	0.9998	0.0	
+KC533793.2	India	India	India	True	0.9998	0.0	
+KC533776.2	India	India	India	False	0.9997	0.0	collection date missing year-level precision
+KX870109.1	South Korea	South Korea	South Korea	True	0.984	0.0	
+KY860615.2	India	India	India	True	0.9999	0.0	
+MS946453.1				False	0.9389	0.0	collection date missing year-level precision
+KX576461.1	Cuba	Cuba	Cuba	True	1.0023	0.0	
+JQ861548.3	India	India	India	True	0.9998	0.0	
+KY290453.1	South Korea	South Korea	South Korea	True	0.9997	0.0	
+KY132096.1	China	China	China	True	0.9995	0.0	
+KX064281.1	China	China	China	True	0.9995	0.0	
+KU504339.1	China	China	China	True	0.9998	0.0	
+LT158502.1				False	0.984	0.0	collection date missing year-level precision
+LT158410.1				False	0.984	0.0	collection date missing year-level precision
+LT158409.1				False	0.984	0.0	collection date missing year-level precision
+LT158408.1				False	0.984	0.0	collection date missing year-level precision
+LT158407.1				False	0.984	0.0	collection date missing year-level precision
+LT158406.1				False	0.984	0.0	collection date missing year-level precision
+LT158405.1				False	0.984	0.0	collection date missing year-level precision
+LT158404.1				False	0.984	0.0	collection date missing year-level precision
+LT158403.1				False	0.984	0.0	collection date missing year-level precision
+LT158402.1				False	0.984	0.0	collection date missing year-level precision
+LT158401.1				False	0.984	0.0	collection date missing year-level precision
+KU556758.1	China	China	China	True	0.9996	0.0002	
+KP343640.1	China	China	China	True	0.9996	0.0	
+LQ067545.1				False	1.0	0.0	collection date missing year-level precision
+KT716271.1	South Korea	South Korea	South Korea	True	0.9996	0.0	
+KF669877.1	South Korea	South Korea	South Korea	True	0.9998	0.0	
+KT119352.1	China	China	China	True	0.9997	0.0	
+LC086647.1	Mongolia	Mongolia	Mongolia	True	0.9995	0.0	
+KP233071.1	China	China	China	True	0.9995	0.0	
+KP233070.1	China	China	China	True	0.9996	0.0	
+KC503764.1	India	India	India	True	1.0001	0.0	
+KJ873238.1	USA	USA	USA	True	1.0002	0.0001	
+KM362426.1	India	India	India	False	0.999	0.0	collection date missing year-level precision
+LC016722.1	Thailand	Thailand	Thailand	True	0.9493	0.0002	
+HW614280.1				False	1.0007	0.0	collection date missing year-level precision
+DI400982.1				False	1.0007	0.0	collection date missing year-level precision
+KF977610.1				True	0.9998	0.0	
+KF977609.1				True	0.9998	0.0	
+KF977608.1				True	0.9998	0.0	
+KF977607.1				True	0.9998	0.0	
+KM522833.1	USSR	USSR	USSR	False	0.9861	0.0	collection date missing year-level precision
+KM262189.1	India	India	India	True	0.9999	0.0	
+KJ619377.1	Netherlands	Netherlands	Netherlands	True	0.9995	0.0	
+KC851953.1	India	India	India	True	0.9997	0.0	
+KC149991.1	South Korea	South Korea	South Korea	True	0.9995	0.0	
+KC149990.1	South Korea	South Korea	South Korea	True	0.9996	0.0	
+JQ595295.1	Belgium	Belgium	Belgium	False	0.9968	0.0	collection date missing year-level precision
+JX262391.1	China	China	China	True	0.9996	0.0	
+JX218094.1	China	China	China	True	0.9996	0.0	
+EU915211.1				False	0.9998	0.0	collection date missing year-level precision
+JQ268754.1	China	China	China	True	0.9996	0.0	
+JA693668.1				False	1.0	0.0	collection date missing year-level precision
+JA672670.1				False	1.0	0.0	collection date missing year-level precision
+HQ148063.1	Lithuania	Lithuania	Lithuania	True	0.9996	0.0	
+HQ148062.1	Bulgaria	Bulgaria	Bulgaria	True	0.9996	0.0	
+HQ148061.1	Croatia	Croatia	Croatia	True	0.9995	0.0	
+HQ380231.1	China	China	China	True	0.9998	0.0	
+HM175885.1	China	China	China	True	1.0008	0.0	
+HI516623.1				False	1.0046	0.0	collection date missing year-level precision
+HM237795.1	Czech Republic	Czech Republic	Czech Republic	False	0.9998	0.0	collection date missing year-level precision
+GU324242.1	Germany	Germany	Germany	True	0.9997	0.0	
+GU233734.1	Germany	Germany	Germany	True	0.9997	0.0	
+GU233733.1	Germany	Germany	Germany	True	0.9997	0.0	
+GU233732.1	Germany	Germany	Germany	True	0.9997	0.0	
+GU233731.1	Germany	Germany	Germany	True	0.9997	0.0	
+AY578688.1				False	1.0006	0.0	collection date missing year-level precision
+AY578687.1				False	0.9987	0.0	collection date missing year-level precision
+AY663656.1				False	1.0007	0.0	collection date missing year-level precision
+GQ902941.1				False	0.9996	0.0	collection date missing year-level precision
+GU592790.1	China	China	China	True	0.9996	0.0	
+AY382481.1				False	1.0007	0.0	collection date missing year-level precision
+AY259122.1				False	0.999	0.0	collection date missing year-level precision
+AF531433.1				False	1.0007	0.0	collection date missing year-level precision
+AY072924.1				False	0.9941	0.0	collection date missing year-level precision
+AF352565.1				False	1.0035	0.0	collection date missing year-level precision
+AF099102.3				False	1.0007	0.0	collection date missing year-level precision
+AY805221.1	China	China	China	False	1.0007	0.0	collection date missing year-level precision
+AF092448.2				False	0.9998	0.0	collection date missing year-level precision
+AF091507.1				False	1.0007	0.0	collection date missing year-level precision
+AF091661.1				False	0.9997	0.0	collection date missing year-level precision
+GQ923951.1	China	China	China	True	0.9996	0.0	
+GQ122383.1	China	China	China	True	0.9995	0.0	
+AY568569.1	Taiwan	Taiwan	Taiwan	False	0.9996	0.0	collection date missing year-level precision
+AY367767.1				False	0.9996	0.0	collection date missing year-level precision
+AF333000.1				False	0.9997	0.0	collection date missing year-level precision
+U90951.1				False	0.9998	0.0	collection date missing year-level precision
+U45478.1				False	0.9981	0.0	collection date missing year-level precision
+U45477.1				False	0.9998	0.0	collection date missing year-level precision
+EU789580.1	Japan	Japan	Japan	True	0.9998	0.0	
+DM056973.1				False	0.9998	0.0	collection date missing year-level precision
+FJ529205.1	China	China	China	True	0.9996	0.0	
+FJ265020.1	Spain	Spain	Spain	True	0.9998	0.0	
+EU857642.1	India	India	India	False	1.0008	0.0	collection date missing year-level precision
+EU490425.1	France	France	France	False	1.0016	0.0	collection date missing year-level precision
+EU497410.1	China	China	China	True	0.9998	0.0	
+AY775178.2	China	China	China	False	0.9997	0.0	collection date missing year-level precision
+AY646427.1	Taiwan	Taiwan	Taiwan	False	0.9996	0.0	collection date missing year-level precision
+AX191158.1				False	0.9986	0.0	collection date missing year-level precision
+DQ127910.1	China	China	China	False	0.9996	0.0	collection date missing year-level precision
+L49347.1				False	0.9872	0.0	collection date missing year-level precision
+A16790.1				False	0.9986	0.0002	collection date missing year-level precision
+X96550.1				False	0.9997	0.0	collection date missing year-level precision
+CQ867021.1				False	1.0	0.0	collection date missing year-level precision
+A77196.1				False	0.9986	0.0	collection date missing year-level precision
+A47690.1				False	1.0008	0.0	collection date missing year-level precision
+D49532.1				False	0.9998	0.0	collection date missing year-level precision
+D49533.1				False	0.9998	0.0	collection date missing year-level precision

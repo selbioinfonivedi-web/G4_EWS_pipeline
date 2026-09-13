@@ -132,3 +132,8 @@ results/stratified/
 data/uploads/
 data/analyses.sqlite3*
 results/analyses/
+
+# Corpus GenBank downloads: large, regenerable from the accession query
+# recorded in each config, and the parsed metadata/FASTA are what the
+# pipeline reads.
+data/reference_genomes/*/corpus/*_complete_genomes.gb

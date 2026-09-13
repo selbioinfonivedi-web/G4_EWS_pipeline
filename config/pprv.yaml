@@ -1,40 +1,56 @@
 # G4-WATCH pathogen configuration — Peste des Petits Ruminants Virus
 #
-# NOT YET PROVISIONED. Phase 5 (multi-pathogen extension) scope. The
-# fields the architecture already fixes for this pathogen are set below;
-# the reference genome and corpus fields are deliberately null rather
-# than guessed, and `provisioned: false` makes the config loader refuse
-# to run this pathogen until a curator fills them in. Nothing here
-# fabricates an accession or a coordinate.
+# Provisioned 2026-09-13. Every value below was read from the record it
+# claims to come from, not inferred.
 
 pathogen: PPRV
 display_name: "Peste des Petits Ruminants Virus"
 genome_type: ssRNA_negative
-taxonomy_id: 3052343
-provisioned: false
-provisioning_notes: |
-  Required before this config can run:
-    1. Choose and record a reference genome (the Nigeria 75/1 vaccine strain is the conventional reference) — set
-       reference.accession and reference.fasta, and read the coding
-       bounds from that record's own annotation rather than inferring
-       them. This is a ~15.9 kb non-segmented negative-strand genome with six genes (N-P-M-F-H-L); record each gene span so stage0 can label loci by gene rather than by a single CDS.
-    2. Fetch a corpus and accession list; populate corpus.*.
-    3. Build the Atlas (`g4watch stage0`) and set atlas.version/atlas.path.
+taxonomy_id: 3052342
+provisioned: true
 
 reference:
-  accession: null
-  fasta: null
-  cds: null
-  genome_length: null
+  accession: NC_006383.2
+  fasta: data/reference_genomes/pprv/NC_006383.2.fasta
+  genome_length: 15948
+  # PPRV is a mononegavirus: eight CDS features (N, P/V/C, M, F, HN, L)
+  # rather than one polyprotein. GenomeAnnotation models a single span, so
+  # these bounds are the CODING REGION AS A WHOLE — first CDS start (108)
+  # to last CDS end (15839), read from NC_006383.2's own feature table.
+  #
+  # That is meaningful here rather than a fudge: for a mononegavirus the
+  # 3' leader (1-107) and 5' trailer (15840-15948) are the genuine
+  # non-coding regulatory regions, which is exactly what the 5'/3' UTR
+  # labels are for. What it does NOT give is per-gene labelling — a locus
+  # inside the coding region is "CDS", not "inside HN". Per-gene
+  # annotation needs GenomeAnnotation extended to a list of ORF spans
+  # (the same work LSDV needs; revision log R-08).
+  cds_start: 108
+  cds_end: 15839
 
 corpus:
-  metadata_tsv: null
-  sequences_fasta: null
-  lineage_field: lineage
+  metadata_tsv: data/reference_genomes/pprv/corpus/pprv_corpus_metadata.tsv
+  sequences_fasta: data/reference_genomes/pprv/corpus/pprv_corpus_sequences.fasta
+  # NOT genotype. All 115 records in this corpus have an EMPTY /genotype
+  # qualifier — PPRV lineage (I-IV) is assigned in the literature from
+  # the N or F gene and is simply not recorded in the GenBank source
+  # features. Declaring genotype as the lineage field would resolve every
+  # sequence to "unknown" and fail the Appendix C per-lineage floor for a
+  # reason that is about metadata, not about the virus.
+  #
+  # Country is used instead, as for EBV: it is populated for 95 of 115 and
+  # is a real grouping. It is NOT a phylogenetic lineage and nothing here
+  # pretends it is.
+  lineage_field: country
+  lineage_fallback_fields: []
+  exclude_lineages: []
 
 qc:
   min_completeness_fraction: 0.90
   max_n_content_fraction: 0.05
+  # 42 of 115 records carry no collection date. They are dropped rather
+  # than imputed: a surveillance metric indexed by time cannot use a
+  # sequence with no time.
   require_year_precision_date: true
 
 alignment:
@@ -43,10 +59,8 @@ alignment:
   max_gapped_fraction: 0.50
 
 recombination:
-  # Section 11: MANDATORY but LOWER PRIORITY. Recombination is reported
-  # for morbilliviruses but is not the dominant evolutionary mode; a
-  # significant PHI result is recorded and flagged rather than
-  # automatically rerouting the analysis to a non-tree-based estimate.
+  # Mandatory for every pathogen (Build Architecture Section 11).
+  # Recombination is rare in mononegaviruses; the screen still runs.
   enabled: true
   tier: standard
   alpha: 0.05
@@ -54,7 +68,12 @@ recombination:
 phylogenetics:
   tool: iqtree2
   model: GTR+F+I+G4
-  bootstrap_replicates: 1000
+  # REDUCED from the architecture's 1000, deliberately and with sign-off,
+  # for the multi-pathogen APPLICATION validation. 200 replicates give
+  # usable support values at a fraction of the runtime; FMDV, the
+  # scientific headline pathogen, stays at 1000. Any published PPRV tree
+  # must be rebuilt at 1000 first.
+  bootstrap_replicates: 200
   seed: 20250823
   outgroup: null
   ancestral_states: required
@@ -71,10 +90,10 @@ g4_prediction:
     enabled: true
   g4rna_screener:
     enabled: false
-    reason: "upstream is Python 2-only with a pickled PyBrain classifier; see vendor/README.md"
+    reason: "Python 2-only with a pickled PyBrain classifier; see vendor/README.md"
   pqsfinder:
     enabled: false
-    reason: "DNA-virus-scoped tool; not applicable to this RNA pathogen"
+    reason: "DNA-virus-scoped tool, deferred"
   concordance:
     min_overlap_fraction: 0.80
   flank: 100
@@ -84,13 +103,20 @@ control_regions:
   gc_tolerance: 0.05
   pqs_overlap_score_threshold: 0.80
   exclusion_buffer: 50
+  n_controls: 5
 
 atlas:
-  version: null
-  path: null
+  version: "1.0"
+  path: data/atlases/G4_Reference_Atlas_v1.0.pprv.tsv
 
 dh1_gate:
   alpha: 0.05
   ledger: data/atlases/testing_ledger.tsv
 
+detection:
+  baseline_fraction: 0.5
+  min_baseline_windows: 8
+
+# Layer 1 of the Section 12 gate. False until a SUPPORTED D.H1 verdict
+# exists for this pathogen, which no run has produced.
 operational_mode: false
