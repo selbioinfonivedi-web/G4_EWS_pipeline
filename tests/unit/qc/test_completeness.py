@@ -101,3 +101,38 @@ def test_the_dominant_share_threshold_is_honoured():
     assert classify_corpus(items).category == COMPLETE
     items = [classify_length(8200, REF)] * 89 + [classify_length(900, REF)] * 11
     assert classify_corpus(items).category == MIXED
+
+
+# ── callable fraction ───────────────────────────────────────────────
+def test_a_reference_length_but_ambiguous_corpus_is_flagged():
+    """Complete by LENGTH and substantially unreadable. The EBV corpus
+    shows the failure mode: whole submission batches N-mask the internal
+    repeats, so sequences are reference-length with 17% unreadable."""
+    from g4watch.qc.completeness import classify_sequence
+
+    items = [classify_sequence("N" * 2500 + "ACGT" * 1400, REF) for _ in range(10)]
+    corpus = classify_corpus(items)
+    assert corpus.poorly_callable is True
+    assert "callable" in corpus.describe()
+    assert "UNKNOWN" in corpus.analysis_caveat
+
+
+def test_a_clean_complete_corpus_is_not_flagged():
+    from g4watch.qc.completeness import classify_sequence
+
+    items = [classify_sequence("ACGT" * 2052, REF) for _ in range(10)]
+    corpus = classify_corpus(items)
+    assert corpus.poorly_callable is False
+    assert corpus.analysis_caveat is None
+
+
+def test_the_callable_caveat_outranks_the_completeness_one():
+    """A corpus that is both mixed and unreadable must lead with the
+    unreadability: it is the one a sequence count hides completely."""
+    from g4watch.qc.completeness import classify_sequence
+
+    items = [classify_sequence("N" * 4000 + "ACGT" * 1051, REF) for _ in range(8)]
+    items += [classify_sequence("ACGT" * 150, REF) for _ in range(2)]
+    caveat = classify_corpus(items).analysis_caveat
+    assert "unambiguous base" in caveat, caveat
+    assert "mixes complete genomes" not in caveat, "the completeness caveat won instead"

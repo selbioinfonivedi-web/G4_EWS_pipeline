@@ -122,6 +122,15 @@ def classify_sequence(sequence: str, reference_length: int) -> Completeness:
     )
 
 
+#: Below this median callable fraction, a corpus is reported as poorly
+#: callable however complete its sequences are by length. 0.9 because a
+#: tenth of a genome being uncallable is already enough to lose Atlas loci
+#: entirely, and the EBV corpus shows the failure mode: whole submission
+#: batches N-mask the internal repeats, so the sequences are
+#: reference-length and 17% of each is unreadable.
+CALLABLE_MIN = 0.90
+
+
 @dataclass(frozen=True)
 class CorpusCompleteness:
     """What a whole corpus is made of."""
@@ -130,8 +139,19 @@ class CorpusCompleteness:
     counts: dict[str, int]
     n_sequences: int
     median_fraction: float
+    #: Median fraction of each sequence that is an unambiguous base. A
+    #: corpus can be complete by LENGTH and still largely unreadable, and
+    #: length alone would report that as "Complete genomes".
+    median_callable: float = 1.0
+
+    @property
+    def poorly_callable(self) -> bool:
+        return self.median_callable < CALLABLE_MIN
 
     def describe(self) -> str:
+        if self.poorly_callable:
+            return (f"Complete by length, {self.median_callable:.0%} callable "
+                    f"({self.n_sequences:,} sequences)")
         if self.category == MIXED:
             parts = ", ".join(f"{n} {k}" for k, n in self.counts.items() if n)
             return f"Mixed corpus ({parts})"
@@ -142,6 +162,14 @@ class CorpusCompleteness:
     @property
     def analysis_caveat(self) -> str | None:
         """What a reader must know before trusting a result from this corpus."""
+        if self.poorly_callable:
+            return (
+                f"Only {self.median_callable:.0%} of the median sequence is an unambiguous base. "
+                "These are complete by LENGTH and substantially unreadable: classify_tip_state "
+                "returns UNKNOWN across an ambiguous span, so those positions drop out of the "
+                "denominators rather than counting as G4 loss. The corpus is smaller than its "
+                "sequence count suggests, per locus."
+            )
         if self.category == COMPLETE:
             return None
         if self.category == MIXED:
@@ -174,13 +202,17 @@ def classify_corpus(
         counts[item.category] += 1
     total = len(completenesses)
     if total == 0:
-        return CorpusCompleteness(MIXED, counts, 0, 0.0)
+        return CorpusCompleteness(MIXED, counts, 0, 0.0, 1.0)
 
     fractions = sorted(c.fraction for c in completenesses)
     median = fractions[total // 2]
+    callables = sorted(c.callable_fraction for c in completenesses
+                       if c.callable_fraction is not None)
+    median_callable = callables[len(callables) // 2] if callables else 1.0
     category = MIXED
     for name, n in counts.items():
         if n / total >= dominant_share:
             category = name
             break
-    return CorpusCompleteness(category, counts, total, round(median, 4))
+    return CorpusCompleteness(category, counts, total, round(median, 4),
+                              round(median_callable, 4))

@@ -137,3 +137,4 @@ results/analyses/
 # recorded in each config, and the parsed metadata/FASTA are what the
 # pipeline reads.
 data/reference_genomes/*/corpus/*_complete_genomes.gb
+data/synthetic/*.fasta

@@ -655,6 +655,7 @@ def cmd_phylogenetics(args: argparse.Namespace) -> int:
         dates_csv=dates if Path(dates).is_file() else None,
         out_dir=Path(args.out) if args.out else None,
         threads=args.threads,
+        reuse_tree=not args.redo,
     )
     print(f"Stage 2 phylogenetics — {config.pathogen}")
     for name, path in result.outputs.items():
@@ -1203,6 +1204,8 @@ def build_parser() -> argparse.ArgumentParser:
     phy.add_argument("--dates", help="dates CSV for TreeTime")
     phy.add_argument("--out", help="output directory (default: <corpus>/phylogenetics)")
     phy.add_argument("--threads", type=int, default=4)
+    phy.add_argument("--redo", action="store_true",
+                     help="rebuild the ML tree even if one newer than the alignment exists")
     phy.set_defaults(func=cmd_phylogenetics)
 
     con = with_pathogen(sub.add_parser(

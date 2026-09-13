@@ -158,6 +158,7 @@ def run_phylogenetics(
     dates_csv: Path | None = None,
     out_dir: Path | None = None,
     threads: int = 4,
+    reuse_tree: bool = True,
 ) -> StepResult:
     """IQ-TREE 2 then TreeTime, as phylogenetics.nf runs them.
 
@@ -178,6 +179,7 @@ def run_phylogenetics(
     prefix = out_dir / f"{stem}_iqtree"
     log_path = out_dir / f"{stem}_iqtree.log"
 
+    treefile = Path(f"{prefix}.treefile")
     command = [
         iqtree, "-s", str(alignment),
         "-m", str(phylo.get("model", "GTR+F+I+G4")),
@@ -187,9 +189,22 @@ def run_phylogenetics(
         "-pre", str(prefix),
         "--redo",
     ]
-    _run(command, log_path)
 
-    treefile = Path(f"{prefix}.treefile")
+    # Reuse a tree that is already newer than the alignment it was built
+    # from. IQ-TREE ran unconditionally with --redo, so asking for the
+    # rooted tree -- the only output that was actually missing -- rebuilt
+    # the whole ML tree first, hours of work to reach a TreeTime call that
+    # takes minutes. `reuse_tree=False` forces a rebuild.
+    stale = (
+        not treefile.is_file()
+        or treefile.stat().st_mtime < Path(alignment).stat().st_mtime
+    )
+    if stale or not reuse_tree:
+        _run(command, log_path)
+    else:
+        log_path.parent.mkdir(parents=True, exist_ok=True)
+        print(f"  reusing existing tree ({treefile.name}); pass --redo to rebuild")
+
     if not treefile.is_file():
         raise ConfigError(f"IQ-TREE produced no treefile at {treefile}")
     outputs = {"treefile": treefile}
@@ -207,6 +222,21 @@ def run_phylogenetics(
         divergence = tt_out / "divergence_tree.nexus"
         if divergence.is_file():
             outputs["divergence_tree"] = divergence
+            # Resolve it to a rooted Newick, exactly as the Nextflow
+            # module does. Without this the step stopped at a multi-tree
+            # Nexus that Bio.Phylo.read refuses ("There are multiple trees
+            # in this file") and D.H1, which reads a rooted Newick, had
+            # nothing to read. multi2di only reformats TreeTime's
+            # already-made rooting decision into the bifurcating shape
+            # ape::ace() needs -- see the script's own header for when
+            # that is and is not safe.
+            rscript = _require_tool("Rscript", "Stage 2 root resolution")
+            resolver = Path(__file__).resolve().parents[2] / "scripts" / "R" / "resolve_root_polytomy.R"
+            rooted = out_dir / f"{stem}_rooted.nwk"
+            _run([rscript, str(resolver), str(divergence), str(rooted)],
+                 out_dir / "resolve_root.log")
+            if rooted.is_file() and rooted.stat().st_size:
+                outputs["rooted_tree"] = rooted
         outputs["treetime_dir"] = tt_out
 
     return StepResult("phylogenetics", outputs, log_path, command)
