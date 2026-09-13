@@ -62,7 +62,7 @@ Measured from files on disk.
 | FMDV2026 | ssRNA+ | 8,206 nt | 936 | 935 | 936 | 67 |
 | CSFV | ssRNA+ | 12,301 nt | 974 | 896 | 897 | 18 |
 | BVDV | ssRNA+ | 12,573 nt | 389 | 326 | 327 | 24 |
-| PRRSV | ssRNA+ | 15,428 nt | 600 | 538 | — | 24 |
+| PRRSV | ssRNA+ | 15,428 nt | 600 | 538 | 539 | 24 |
 | PPRV | ssRNA− | 15,948 nt | 115 | 73 | 74 | 43 |
 | NDV | ssRNA− | 15,186 nt | 1,798 | 1,583 | 1,584 | 22 |
 | RABV | ssRNA− | 11,932 nt | 600 | 531 | 532 | 16 |
@@ -70,7 +70,7 @@ Measured from files on disk.
 | ASFV | dsDNA | 181,187 nt | 60 | 57 | — | 136 |
 | BTV | dsRNA segmented | 2,921 nt | 500 | 480 | 481 | **0** |
 
-**Totals: 7,289 sequences fetched, 5,888 aligned, across 11 provisioned
+**Totals: 7,289 sequences fetched, 6,427 aligned, across 11 provisioned
 pathogens.** Four genome architectures — positive-sense RNA, negative-sense
 RNA, double-stranded DNA and a segmented dsRNA virus — from a 2.9 kb
 segment to a 181 kb genome, with corpora from 60 to 1,798 sequences.
