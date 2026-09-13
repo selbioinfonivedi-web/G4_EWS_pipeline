@@ -91,6 +91,35 @@ when ≥90% of its sequences fall in it.
 | FMDV2026:O | `SIGNAL_OPPOSITE_DIRECTION` | stratified; cannot open the pathogen gate by design |
 | PPRV | `INSUFFICIENT_DATA` | every locus halted on `min_sequences_per_lineage` — only one country reaches 20 sequences |
 
+### The per-lineage floor and the lineage field (R-26)
+
+None of the three new corpora records a `/genotype` qualifier on **any**
+sequence, so `country` becomes the lineage field. The floor then reads a
+sampling artefact as a biological grouping: NDV holds 1,798 sequences
+across 64 countries, fifteen of them over the floor, and **a single
+sequence from one country halted the entire corpus**.
+
+`corpus.min_lineage_size` drops under-represented lineages as a declared
+rule — not a hand-written list of names, which would go stale on the next
+fetch and would be chosen after seeing the corpus. Measured effect:
+
+| Pathogen | Rule | Samples | Lineages | Smallest | Floor |
+|---|---|---|---|---|---|
+| FMDV2026 | 0 | 930 | 5 serotypes | 45 | passes |
+| CSFV | 20 | 810 | 3 | 53 | passes |
+| NDV | 20 | 1,372 | 15 | 21 | passes |
+| PPRV | 0 | 74 | 23 | 1 | **halts** |
+
+FMDV keeps `0` because it has real serotypes — dropping one for being
+small would discard a biological group, not a sampling artefact. PPRV
+keeps `0` because the rule would reduce it to a single lineage of 20
+sequences, and passing a *per-lineage* floor with one lineage is passing
+it vacuously.
+
+This unblocks the test **running**, not any particular answer. 312 NDV
+and 161 CSFV sequences are set aside, so statements about geographic
+coverage must be read against the retained set, not the fetched one.
+
 PPRV's recombination screen returned **p = 0** (significant), flagged and
 carried forward rather than ignored — which is what the mandatory Stage
 1.5 screen exists to catch.
@@ -164,9 +193,12 @@ than genome length: PPRV's 73 × 15.9 kb took 9 minutes; FMDV2026's 936 ×
 
 Stated plainly rather than omitted.
 
-1. **CSFV and NDV have not reached a D.H1 verdict.** Their trees were
-   still building when this report was written. Everything up to and
-   including alignment is done and measured; the verdicts are not claimed.
+1. **CSFV and NDV have not reached a D.H1 verdict.** Both now clear the
+   per-lineage floor (R-26) and their corpora, alignments and Atlases are
+   measured — but their ML trees were still building when this report was
+   written, and D.H1 reads a rooted tree. The verdicts are not claimed.
+   IQ-TREE is the bottleneck and scales with sequence count: PPRV's 73
+   sequences took 9 minutes, FMDV2026's 936 took five hours.
 2. **LSDV is not provisioned.** It is a ~150 kb poxvirus with ~156 ORFs
    and `GenomeAnnotation` models one CDS span (R-08). Provisioning it
    needs that extended to a list of ORF spans — real work, not a config
