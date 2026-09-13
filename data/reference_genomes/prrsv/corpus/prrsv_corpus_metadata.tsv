@@ -1,0 +1,601 @@
+accession	length	organism	country	collection_date	geo_loc_name	host	strain	isolate	serotype	genotype	segment	note	lat_lon
+PQ726421.1	15103	Porcine reproductive and respiratory syndrome virus	China	2024	China	pig		TZJ3556-2					
+PQ726420.1	15137	Porcine reproductive and respiratory syndrome virus	China	2024	China	pig		TZJ3556-1					
+PZ830679.1	15016	Porcine reproductive and respiratory syndrome virus	South Korea	2025	South Korea	Pig		GNU-25169					
+PZ830678.1	15097	Porcine reproductive and respiratory syndrome virus	South Korea	2025	South Korea	Pig		GNU-25109					
+PW025879.1	15451	Porcine reproductive and respiratory syndrome virus											
+PZ472753.1	15339	Porcine reproductive and respiratory syndrome virus	China	12-Jan-2020	China: Hubei	porcine		Hub2020					
+PZ574187.1	15009	Porcine reproductive and respiratory syndrome virus	China	25-Apr-2026	China: Xinjiang	swine		XJ/PRRSV-2/2026-1					
+PV855285.1	15012	Porcine reproductive and respiratory syndrome virus	China	Nov-2024	China	pig		SDYT					
+PV855284.1	15019	Porcine reproductive and respiratory syndrome virus	China	Jun-2024	China	pig		FJSM					
+PV855283.1	15022	Porcine reproductive and respiratory syndrome virus	China	Mar-2025	China	pig		HBXT					
+PX280611.1	15019	Porcine reproductive and respiratory syndrome virus	China	Jan-2025	China	pig	SDYT250111					genotype: NADC34	
+PX280610.1	15021	Porcine reproductive and respiratory syndrome virus	China	May-2025	China	pig	SDWF						
+PX280609.1	15019	Porcine reproductive and respiratory syndrome virus	China	Apr-2025	China	pig	GDYF						
+PZ288953.1	14914	Porcine reproductive and respiratory syndrome virus	Spain	2020	Spain	porcine	V1188_Spain2020						
+PZ332185.1	15047	Porcine reproductive and respiratory syndrome virus	USA	2025	USA	swine		NC174				Exact collection date unknown	
+PZ332184.1	14931	Porcine reproductive and respiratory syndrome virus	USA	2025	USA	swine		NC134				Exact collection date unknown	
+PZ332183.1	15064	Porcine reproductive and respiratory syndrome virus	USA	2025	USA	swine		LVIF9				Exact collection date unknown	
+PZ332182.1	15083	Porcine reproductive and respiratory syndrome virus	USA	2025	USA	swine		LVIF7/8				Exact collection date unknown	
+PZ332181.1	14993	Porcine reproductive and respiratory syndrome virus	USA	2025	USA	swine		LVIF4				Exact collection date unknown	
+PZ332180.1	15002	Porcine reproductive and respiratory syndrome virus	USA	2025	USA	swine		JA1262				Exact collection date unknown	
+PZ332179.1	15413	Porcine reproductive and respiratory syndrome virus	USA	2025	USA	swine		FL12				Exact collection date unknown	
+PZ246282.1	15043	Porcine reproductive and respiratory syndrome virus	China	2025	China: Shaanxi	Sus scrofa	NADC34 SX2025						
+PZ166068.1	14991	Porcine reproductive and respiratory syndrome virus	China	10-Mar-2026	China	Sus scrofa		SS01					
+PV866758.1	15125	Porcine reproductive and respiratory syndrome virus	China	2025-01-09	China	Sus scrofa		ZJ01					
+PZ205979.1	14955	Porcine reproductive and respiratory syndrome virus		2023-02-05		pig		HBCZ202302055					
+PZ205978.1	14934	Porcine reproductive and respiratory syndrome virus		2024-11-07		fattening pig		HBCZ202411074					
+PZ165817.1	15016	Porcine reproductive and respiratory syndrome virus	China	2024	China: Chengdu	swine		SCCD-SYS1					
+PZ169276.1	14921	Porcine reproductive and respiratory syndrome virus	South Korea	2022	South Korea	swine	PRRSV-2	prrsv22-30n-L1					
+PZ169275.1	15054	Porcine reproductive and respiratory syndrome virus	South Korea	2023	South Korea	swine	PRRSV-2	prrsv23-9s15n-L1.5					
+PZ158343.1	15036	Porcine reproductive and respiratory syndrome virus	China	Mar-2025	China	pig		CDAC-SC2025					
+PZ148297.1	14959	Porcine reproductive and respiratory syndrome virus	China	2024	China	swine		PRRSV06-2024					
+PZ310311.1	15043	Porcine reproductive and respiratory syndrome virus	China	2025	China	Sus scrofa		NADC34					
+PX986904.1	14877	Porcine reproductive and respiratory syndrome virus	China	2025	China	pig		SCMS2025					
+PX933464.1	14942	Porcine reproductive and respiratory syndrome virus	South Korea	2024	South Korea	pig		SNUVP2405					
+PX852353.1	15374	Porcine reproductive and respiratory syndrome virus	Japan	19-Mar-2024	Japan	pig		KU-OKN3					
+PV384113.1	15020	Porcine reproductive and respiratory syndrome virus	China	2018	China	Sus scrofa	NVDC-SD3					genotype: North American	
+PX833989.1	15352	Porcine reproductive and respiratory syndrome virus	China	04-Apr-2022	China	Sus scrofa							
+PX833681.1	15034	Porcine reproductive and respiratory syndrome virus	China	18-Sep-2024	China	swine	HBNA-HS						
+PX682067.1	15019	Porcine reproductive and respiratory syndrome virus	China	08-Sep-2024	China	swine	DJW						
+PX789660.1	15019	Porcine reproductive and respiratory syndrome virus	China	2025	China: Xinjiang	swine		XJ/PRRSV2/2025					
+PX789659.1	15086	Porcine reproductive and respiratory syndrome virus	China	2025	China: Xinjiang	swine		XJ/PRRSV1/2025					
+PX753158.1	14983	Porcine reproductive and respiratory syndrome virus	China	2023	China	swine		PRRSV-YX-XT-4					
+PX753157.1	15065	Porcine reproductive and respiratory syndrome virus	China	2023	China	swine		PRRSV-YX-XT-3					
+PX753156.1	15071	Porcine reproductive and respiratory syndrome virus	China	2023	China	swine		PRRSV-YX-XT-2					
+PX753155.1	15027	Porcine reproductive and respiratory syndrome virus	China	2023	China	swine		PRRSV-YX-XT-1					
+PX753154.1	14928	Porcine reproductive and respiratory syndrome virus	China	2024	China	swine		PRRSV-YX-9281					
+PX753153.1	15017	Porcine reproductive and respiratory syndrome virus	China	2024	China	swine		PRRSV-YX-8908					
+PX753152.1	15026	Porcine reproductive and respiratory syndrome virus	China	2024	China	swine		PRRSV-YX-8834					
+PX753151.1	14976	Porcine reproductive and respiratory syndrome virus	China	2023	China	swine		PRRSV-YX-8412					
+PX753150.1	14977	Porcine reproductive and respiratory syndrome virus	China	2023	China	swine		PRRSV-YX-7374					
+PX753149.1	14939	Porcine reproductive and respiratory syndrome virus	China	2022	China	swine		PRRSV-YX-728					
+PX753148.1	15023	Porcine reproductive and respiratory syndrome virus	China	2023	China	swine		PRRSV-YX-7170					
+PX753147.1	15019	Porcine reproductive and respiratory syndrome virus	China	2022	China	swine		PRRSV-YX-6610					
+PX753146.1	15017	Porcine reproductive and respiratory syndrome virus	China	2022	China	swine		PRRSV-YX-4183					
+PX753145.1	15020	Porcine reproductive and respiratory syndrome virus	China	2022	China	swine		PRRSV-YX-3999					
+PX753144.1	14977	Porcine reproductive and respiratory syndrome virus	China	2022	China	swine		PRRSV-YX-3378					
+PX753143.1	14939	Porcine reproductive and respiratory syndrome virus	China	2024	China	swine		PRRSV-YX-3191					
+PX753142.1	15113	Porcine reproductive and respiratory syndrome virus	China	2024	China	swine		PRRSV-YX-3163					
+PX753141.1	15026	Porcine reproductive and respiratory syndrome virus	China	2022	China	swine		PRRSV-YX-3162					
+PX753140.1	14977	Porcine reproductive and respiratory syndrome virus	China	2022	China	swine		PRRSV-YX-3154					
+PX753139.1	14963	Porcine reproductive and respiratory syndrome virus	China	2022	China	swine		PRRSV-YX-2711					
+PX753138.1	14966	Porcine reproductive and respiratory syndrome virus	China	2022	China	swine		PRRSV-YX-2664					
+PX753137.1	15026	Porcine reproductive and respiratory syndrome virus	China	2022	China	swine		PRRSV-YX-2205					
+PX753136.1	14976	Porcine reproductive and respiratory syndrome virus	China	2024	China	swine		PRRSV-YX-2172					
+PX753135.1	15022	Porcine reproductive and respiratory syndrome virus	China	2023	China	swine		PRRSV-YX-1826					
+PX753134.1	15441	Porcine reproductive and respiratory syndrome virus	China	2023	China	swine		PRRSV-YX-1681					
+PX753133.1	15013	Porcine reproductive and respiratory syndrome virus	China	2023	China	swine		PRRSV-YX-1674					
+PX753132.1	15108	Porcine reproductive and respiratory syndrome virus	China	2024	China	swine		PRRSV-YX-16592					
+PX753131.1	14983	Porcine reproductive and respiratory syndrome virus	China	2023	China	swine		PRRSV-YX-1638					
+PX753130.1	15012	Porcine reproductive and respiratory syndrome virus	China	2024	China	swine		PRRSV-YX-16053					
+PX753129.1	14968	Porcine reproductive and respiratory syndrome virus	China	2023	China	swine		PRRSV-YX-15787					
+PX753128.1	14975	Porcine reproductive and respiratory syndrome virus	China	2023	China	swine		PRRSV-YX-15657					
+PX753127.1	14967	Porcine reproductive and respiratory syndrome virus	China	2023	China	swine		PRRSV-YX-15377					
+PX753126.1	15020	Porcine reproductive and respiratory syndrome virus	China	2023	China	swine		PRRSV-YX-15302					
+PX753125.1	14979	Porcine reproductive and respiratory syndrome virus	China	2023	China	swine		PRRSV-YX-15276					
+PX753124.1	15097	Porcine reproductive and respiratory syndrome virus	China	2023	China	swine		PRRSV-YX-14946					
+PX753123.1	14954	Porcine reproductive and respiratory syndrome virus	China	2023	China	swine		PRRSV-YX-14711					
+PX753122.1	15088	Porcine reproductive and respiratory syndrome virus	China	2024	China	swine		PRRSV-YX-14090					
+PX753121.1	14983	Porcine reproductive and respiratory syndrome virus	China	2023	China	swine		PRRSV-YX-14062					
+PX753120.1	14996	Porcine reproductive and respiratory syndrome virus	China	2023	China	swine		PRRSV-YX-13823					
+PX753119.1	15015	Porcine reproductive and respiratory syndrome virus	China	2022	China	swine		PRRSV-YX-13665					
+PX753118.1	14889	Porcine reproductive and respiratory syndrome virus	China	2023	China	swine		PRRSV-YX-13447					
+PX753117.1	14941	Porcine reproductive and respiratory syndrome virus	China	2022	China	swine		PRRSV-YX-12767-6					
+PX753116.1	15093	Porcine reproductive and respiratory syndrome virus	China	2024	China	swine		PRRSV-YX-12573					
+PX753115.1	15017	Porcine reproductive and respiratory syndrome virus	China	2024	China	swine		PRRSV-YX-12248					
+PX753114.1	15095	Porcine reproductive and respiratory syndrome virus	China	2024	China	swine		PRRSV-YX-11884					
+PX753113.1	15025	Porcine reproductive and respiratory syndrome virus	China	2023	China	swine		PRRSV-YX-11437					
+PX753112.1	15003	Porcine reproductive and respiratory syndrome virus	China	2023	China	swine		PRRSV-YX-0029					
+PX753111.1	15394	Porcine reproductive and respiratory syndrome virus	China	2023	China	swine		PRRSV-YX-0002					
+PX910548.1	15018	Porcine reproductive and respiratory syndrome virus	China	2025-02-05	China: Henan	Sus scrofa domesticus		SDDZ-2025					
+PX910547.1	15018	Porcine reproductive and respiratory syndrome virus	China	2025-02-16	China: Henan	Sus scrofa domesticus		SDLC-2025					
+PX625953.1	15542	Porcine reproductive and respiratory syndrome virus	China	15-May-2025	China	pig		FJWYC-2025					
+PX559184.1	15017	Porcine reproductive and respiratory syndrome virus	China	09-Jun-2025	China	swine		SCABTC-202506					30.32 N 105.34 E
+PX559183.1	15015	Porcine reproductive and respiratory syndrome virus	China	08-May-2025	China	swine		SCABTC-202505					28.43 N 114.36 E
+PX559182.1	15015	Porcine reproductive and respiratory syndrome virus	China	08-Mar-2025	China	swine		SCABTC-202503					28.43 N 114.36 E
+PX859815.1	15016	Porcine reproductive and respiratory syndrome virus	China	2024	China	swine		TJ2406					
+PV864761.1	15110	Porcine reproductive and respiratory syndrome virus	China	30-Jun-2024	China	pig	rBJ-VVL-P30					30th passage; genotype: NADC34-like PRRSV-2	
+PQ810805.1	15125	Porcine reproductive and respiratory syndrome virus	USA	2024	USA: Minnesota	swine		USA-MN-24-00737-01 - 1-12-2 L1H					
+PQ810804.1	14915	Porcine reproductive and respiratory syndrome virus	USA	2022	USA: Oklahoma	swine		USA-OK-27915-12 - 1-4-2 L1E					
+PQ810803.1	15063	Porcine reproductive and respiratory syndrome virus	USA	2022	USA: Nebraska	swine		USA-NE-26342-1 - 1-8-4 L1H					
+PQ810802.1	15059	Porcine reproductive and respiratory syndrome virus	USA	2014	USA: Indiana	swine		USA-IN-65239-GA - 1-7-4 L1A					
+PQ810801.1	14642	Porcine reproductive and respiratory syndrome virus	USA	2022	USA: Illinois	swine		USA-IL-23295-GA - 2-5-2 L5A					
+PQ810800.1	15119	Porcine reproductive and respiratory syndrome virus	USA	2021	USA: Illinois	swine		UIL21-0712 - 1-4-4 L1C					
+PQ810799.1	15397	Porcine reproductive and respiratory syndrome virus	USA	2006	USA: Kansas	swine		KS2006-72109 - 1-12-2 L6					
+PQ465242.1	15020	Porcine reproductive and respiratory syndrome virus	China	Nov-2022	China	Sus scrofa	AH1		NADC30-like			genotype: Lineage 1.8	
+PQ472414.1	15440	Porcine reproductive and respiratory syndrome virus	China	Oct-2023	China	Sus scrofa		JS23					
+PX438684.1	14950	Porcine reproductive and respiratory syndrome virus	South Korea	Jul-2024	South Korea	domestic pig		SNUVP2407B					
+PX438683.1	14955	Porcine reproductive and respiratory syndrome virus	South Korea	Mar-2024	South Korea	domestic pig		SNUVP2403A					
+PX467610.1	15045	Porcine reproductive and respiratory syndrome virus	China	2025	China: Anhui	swine		AHhf25					
+PX467609.1	15045	Porcine reproductive and respiratory syndrome virus	China	2025	China: Beijing	swine		BJ25					
+PX467608.1	15039	Porcine reproductive and respiratory syndrome virus	China	2025	China: Guangdong	swine		GDfs25					
+PX467607.1	15115	Porcine reproductive and respiratory syndrome virus	China	2024	China: Guangxi	swine		GXhz24					
+PX467606.1	15349	Porcine reproductive and respiratory syndrome virus	China	2025	China: Guangxi	swine		GXnn25					
+PX467605.1	15042	Porcine reproductive and respiratory syndrome virus	China	2021	China: Henan	swine		HeNls21					
+PX467604.1	14983	Porcine reproductive and respiratory syndrome virus	China	2023	China: Henan	swine		HeNpds23					
+PX467603.1	15046	Porcine reproductive and respiratory syndrome virus	China	2024	China: Hunan	swine		HuNcz24					
+PX467602.1	15039	Porcine reproductive and respiratory syndrome virus	China	2022	China: Hunan	swine		HuNzz22					
+PX467601.1	15039	Porcine reproductive and respiratory syndrome virus	China	2022	China: Shandong	swine		SDjn22					
+PX467600.1	15031	Porcine reproductive and respiratory syndrome virus	China	2025	China: Shandong	swine		SDqd25					
+PX467599.1	15049	Porcine reproductive and respiratory syndrome virus	China	2025	China: Shandong	swine		SDta25					
+PX467598.1	15045	Porcine reproductive and respiratory syndrome virus	China	2022	China: Zhejiang	swine		ZJnb22					
+PX467597.1	15048	Porcine reproductive and respiratory syndrome virus	China	2023	China: Zhejiang	swine		ZJqz23					
+PX466725.1	15077	Porcine reproductive and respiratory syndrome virus	China	2025	China	swine	ZZ-25-9-8						
+PX462751.1	15010	Porcine reproductive and respiratory syndrome virus	China	2025	China	swine	ZZ-25-9-15	tissue					
+PQ863973.1	15320	Porcine reproductive and respiratory syndrome virus	China	Dec-2024	China: Yunnan	swine		YNdl24					
+PX446937.1	14971	Porcine reproductive and respiratory syndrome virus	China	02-Sep-2023	China: Hebei	Sus scrofa (domestic pig)		HeB2023092					
+PX259985.1	15010	Porcine reproductive and respiratory syndrome virus	China	2024	China	swine		SJ0107					
+PQ285382.1	15022	Porcine reproductive and respiratory syndrome virus	China	Jan-2022	China	Sus scrofa	AHFY		NADC30-like			genotype: lineage 1.8	
+PX148102.1	14999	Porcine reproductive and respiratory syndrome virus	China	10-Mar-2024	China: Jiangsu			JSYZ24-2748				genotype: PRRSV2, NADC30-like	
+PX148101.1	15016	Porcine reproductive and respiratory syndrome virus	China	29-Feb-2024	China: Henan			HNZK24-2680				genotype: PRRSV2, NADC30-like	
+PX148100.1	15018	Porcine reproductive and respiratory syndrome virus	China	10-Dec-2023	China: Beijing			BJ23-2652				genotype: PRRSV2, NADC34-like	
+PX148099.1	15016	Porcine reproductive and respiratory syndrome virus	China	30-Mar-2022	China: Jiangsu			JSYZ22-1617				genotype: PRRSV2, NADC30-like	
+PX148098.1	15007	Porcine reproductive and respiratory syndrome virus	China	27-Feb-2022	China: Guangdong			GDCZ22-1580				genotype: PRRSV2, NADC30-like	
+PX148097.1	15031	Porcine reproductive and respiratory syndrome virus	China	17-Dec-2021	China: Jiangsu			JSYZ21-1246				genotype: PRRSV2, NADC34-like	
+PV779109.2	15020	Porcine reproductive and respiratory syndrome virus	China	2024	China: Sichuan	Sus scrofa	SC202403						
+PX136374.1	15010	Porcine reproductive and respiratory syndrome virus	China	2023	China	piglets	JS-YZ/2023						
+PX123105.1	15044	Porcine reproductive and respiratory syndrome virus	China	11-Jan-2025	China: Xinjiang	swine	XJLETUQ2025-7	tissue					
+PX097597.1	15409	Porcine reproductive and respiratory syndrome virus	Japan	Mar-2023	Japan	swine		KU-IG23-1				genotype: 2	
+PX097596.1	15412	Porcine reproductive and respiratory syndrome virus	Japan	May-2021	Japan	swine		KU-IG21-1				genotype: 2	
+PV978271.1	15018	Porcine reproductive and respiratory syndrome virus	China		China	Sus scrofa	SDVD-JNJX						
+PP418867.1	15079	Porcine reproductive and respiratory syndrome virus	China	2023	China	Sus scrofa	WK925						
+PP402114.1	15073	Porcine reproductive and respiratory syndrome virus	China	2022	China	Sus scrofa	SDHSW160-2201						
+PP402113.1	15055	Porcine reproductive and respiratory syndrome virus	China	2018	China	Sus scrofa	GDXNF85-1803						
+PP402112.1	15061	Porcine reproductive and respiratory syndrome virus	China	2018	China	Sus scrofa	GDXNF41-1801						
+PP402111.1	15067	Porcine reproductive and respiratory syndrome virus	China	2022	China	Sus scrofa	PY61						
+PP402110.1	15079	Porcine reproductive and respiratory syndrome virus	China	2018	China	Sus scrofa	HNLCL75-1812						
+PP402109.1	15082	Porcine reproductive and respiratory syndrome virus	China	2018	China	Sus scrofa	HNLCL7-1804						
+PP350855.1	15060	Porcine reproductive and respiratory syndrome virus	China	2018	China	Sus scrofa	HLJZD25-1810						
+PP350854.1	15076	Porcine reproductive and respiratory syndrome virus	China	2020	China	Sus scrofa	HLJWK335-2005						
+PP350853.1	15082	Porcine reproductive and respiratory syndrome virus	China	2020	China	Sus scrofa	XJTZJ158-2001						
+PP350852.1	15082	Porcine reproductive and respiratory syndrome virus	China	2018	China	Sus scrofa	TJWK169-1804						
+PP350851.1	15061	Porcine reproductive and respiratory syndrome virus	China	2018	China	Sus scrofa	GDXNF73-1802						
+PP350850.1	15083	Porcine reproductive and respiratory syndrome virus	China	2023	China	Sus scrofa	ZZH817						
+PP341290.1	15070	Porcine reproductive and respiratory syndrome virus	China	2023	China	Sus scrofa	TZJ2781						
+PP341289.1	15060	Porcine reproductive and respiratory syndrome virus	China	2023	China	Sus scrofa	TZJ2780						
+PP341288.1	15070	Porcine reproductive and respiratory syndrome virus	China	2018	China	Sus scrofa	LNDB50-1806						
+PP336346.1	15081	Porcine reproductive and respiratory syndrome virus	China	2018	China	pig	IMWK141-1801						
+PP336345.1	15082	Porcine reproductive and respiratory syndrome virus	China	2018	China	pig	HNLCL53-1812						
+PP336344.1	15076	Porcine reproductive and respiratory syndrome virus	China	2016	China	pig	HLJWK14-1611						
+PP336343.1	15076	Porcine reproductive and respiratory syndrome virus	China	2016	China	pig	HLJWG9-1612						
+OR208175.1	15044	Porcine reproductive and respiratory syndrome virus	China	Jun-2018	China	pig		SX-YL1806				genotype: 2	
+PV983473.1	14950	Porcine reproductive and respiratory syndrome virus	China	2024	China	swine	PRRSV05-2024						
+PV983472.1	14956	Porcine reproductive and respiratory syndrome virus	China	2024	China	swine	PRRSV04-2024						
+PV983471.1	14953	Porcine reproductive and respiratory syndrome virus	China	2024	China	swine	PRRSV03-2024						
+PV983470.1	14953	Porcine reproductive and respiratory syndrome virus	China	2024	China	swine	PRRSV02-2024						
+PV983469.1	14956	Porcine reproductive and respiratory syndrome virus	China	2024	China	swine	PRRSV01-2024						
+PV928690.1	15520	Porcine reproductive and respiratory syndrome virus	China	2025	China	pig		FJLCA-2025					
+PV691628.1	14993	Porcine reproductive and respiratory syndrome virus	China	2023	China	Sus scrofa		CHlh23					
+PV779108.1	14996	Porcine reproductive and respiratory syndrome virus	China	2024	China: Sichuan	Sus scrofa	SC202402						
+PV779107.1	15411	Porcine reproductive and respiratory syndrome virus	China	2024	China: Sichuan	Sus scrofa	SC202401						
+PV637105.1	15124	Porcine reproductive and respiratory syndrome virus	China	25-Feb-2024	China	Sus scrofa		JX04					
+PV637104.1	15112	Porcine reproductive and respiratory syndrome virus	China	10-Feb-2024	China	Sus scrofa		JX03					
+PV637103.1	15086	Porcine reproductive and respiratory syndrome virus	China	05-Feb-2024	China	Sus scrofa		JX02					
+PV637102.1	15047	Porcine reproductive and respiratory syndrome virus	China	01-Feb-2024	China	Sus scrofa		JX01					
+PV146404.1	15105	Porcine reproductive and respiratory syndrome virus	United Kingdom	13-Dec-2019	United Kingdom	Sus scrofa	recombinant EU-PRRSV-Con					recombinant virus recovered on MARC-145 cells	
+PV693702.1	15520	Porcine reproductive and respiratory syndrome virus	China	2025	China	pig		FJZHK-2025					
+PV631993.1	15524	Porcine reproductive and respiratory syndrome virus	USA	01-Jan-2024	USA: North Carolina	Sus scrofa	PRRSGARD vaccine						
+PV464061.1	14624	Porcine reproductive and respiratory syndrome virus	China	2024	China	swine		XZ 03					
+PV551012.1	15027	Porcine reproductive and respiratory syndrome virus	China	2024	China	pig	GDJS2024						
+PV533618.1	15068	Porcine reproductive and respiratory syndrome virus	China	2024	China: Sichuan	Sus scrofa		SC202404					
+PV412258.1	15353	Porcine reproductive and respiratory syndrome virus	Viet Nam	02-Jun-2021	Viet Nam	pig		DABACO VN 21					
+PV467459.1	15320	Porcine reproductive and respiratory syndrome virus	China	2022	China	swine	PRRSVJX021						
+PV424059.1	15326	Porcine reproductive and respiratory syndrome virus	China	2021	China	swine		SH01					
+PV393038.1	14901	Porcine reproductive and respiratory syndrome virus	China	2023	China			YT2307					
+PV393037.1	14978	Porcine reproductive and respiratory syndrome virus	China	2023	China			QJ2306					
+PV393036.1	14979	Porcine reproductive and respiratory syndrome virus	China	2023	China			LY2307					
+PV362838.1	15018	Porcine reproductive and respiratory syndrome virus	China	2024	China: Sichuan	Sus scrofa		GX2024					
+PV366449.1	15525	Porcine reproductive and respiratory syndrome virus	China	2024	China	swine	GXGG202007-P100						
+PV366448.1	15019	Porcine reproductive and respiratory syndrome virus	China	2024	China	swine	GXHX20211106-P100						
+PV366447.1	15036	Porcine reproductive and respiratory syndrome virus	China	2023	China	swine	GXNN20230730b						
+PV366446.1	15017	Porcine reproductive and respiratory syndrome virus	China	2023	China	swine	GXNN20230730c						
+PV392579.1	15110	Porcine reproductive and respiratory syndrome virus	China	Mar-2024	China	Sus scrofa domesticus	JL-1152					genotype: PRRSV NADC34 like	
+PP583622.1	14964	Porcine reproductive and respiratory syndrome virus	China	26-Jun-2023	China	swine		GXGG20230626					
+PV342160.1	15321	Porcine reproductive and respiratory syndrome virus	China		China	pig		NC2023				genotype: HP-PRRSV	
+PQ337361.1	14858	Porcine reproductive and respiratory syndrome virus	Spain	Dec-2022	Spain	Sus scrofa		Lleida 029_22					
+PV253161.1	15019	Porcine reproductive and respiratory syndrome virus	China	2024	China	swine		TJ2401					
+PV253160.1	15030	Porcine reproductive and respiratory syndrome virus	China	2024	China	swine		TJ2402					
+PV240233.1	14993	Porcine reproductive and respiratory syndrome virus	China	2024	China	pig		PRRSV-GX-2428					
+PV240232.1	15019	Porcine reproductive and respiratory syndrome virus	China	2024	China	pig		PRRSV-GX-5430					
+PV240231.1	15013	Porcine reproductive and respiratory syndrome virus	China	2024	China	pig		PRRSV-GX-3264					
+PV219471.1	15020	Porcine reproductive and respiratory syndrome virus	China	2023	China: Shanxi	swine		SXZY202301				genotype: PRRSV-2	
+PV219470.1	15017	Porcine reproductive and respiratory syndrome virus	China	2023	China: Liaoning	swine		LNBJ202301				genotype: PRRSV-2	
+PV099007.1	14913	Porcine reproductive and respiratory syndrome virus	China	2022	China	porcine	PRRSV1-HB22						
+PQ893567.1	14724	Porcine reproductive and respiratory syndrome virus	China	2024	China	swine		LY30				genotype: North America	
+PQ878395.1	15113	Porcine reproductive and respiratory syndrome virus						SD-02					
+PQ878394.1	15017	Porcine reproductive and respiratory syndrome virus						HuB-31					
+PQ878393.1	15110	Porcine reproductive and respiratory syndrome virus						HeB-05					
+PQ871206.1	15079	Porcine reproductive and respiratory syndrome virus	USA	May-2024	USA: North Carolina, Chocowinity	Sus scrofa		NC_24-9					
+PQ871205.1	15029	Porcine reproductive and respiratory syndrome virus	USA	Jun-2024	USA: North Carolina, Wake County	Sus scrofa		NC_24-6					
+PQ699728.1	15361	Porcine reproductive and respiratory syndrome virus	China	2022	China	Sus scrofa							
+PQ623173.1	15412	Porcine reproductive and respiratory syndrome virus	missing	missing: lab stock	missing: lab stock		VR-2332					passage details: Marc-145 cell lines; genotype: North American	
+PQ623172.1	15019	Porcine reproductive and respiratory syndrome virus	missing	missing: lab stock	missing: lab stock		XM-2020					passage details: Marc-145 cell lines; genotype: North American	
+PL348705.1	15182	Porcine reproductive and respiratory syndrome virus											
+PL348704.1	15111	Porcine reproductive and respiratory syndrome virus											
+PQ835040.1	15015	Porcine reproductive and respiratory syndrome virus	China	2022	China: Xinjiang	swine		XJ-Z5				NADC30-like; PAM; genotype: PRRSV-2	
+PQ584591.1	15374	Porcine reproductive and respiratory syndrome virus	China	2017	China: Liaoning	dead pig	LN1701						
+PQ644630.1	15021	Porcine reproductive and respiratory syndrome virus	China	2023	China	Sus scrofa	SDVD-NMG2023					type: PRRSV-2	
+OR689866.1	15127	Porcine reproductive and respiratory syndrome virus	China	2022	China	Sus scrofa	GDYS162/2022						
+OR689865.1	15019	Porcine reproductive and respiratory syndrome virus	China	2022	China	Sus scrofa	GDHZ109/2020						
+PQ553567.1	14886	Porcine reproductive and respiratory syndrome virus	China	2023	China	Sus scrofa	PRRSV1/CN/FJEU02/2023						
+PP330950.1	15060	Porcine reproductive and respiratory syndrome virus	China	2020	China	pig	HLJTZJ155-2001						
+PP330949.1	15071	Porcine reproductive and respiratory syndrome virus	China	2018	China	pig	GDXNF161-1806						
+PP330948.1	14871	Porcine reproductive and respiratory syndrome virus	China	2018	China	pig	GDXNF94-1804						
+PQ373814.1	15110	Porcine reproductive and respiratory syndrome virus	China	02-May-2018	China: Beijing	Sus scrofa		BJ1805-2				genotype: PRRSV2, NADC34-like	
+PQ373813.1	15019	Porcine reproductive and respiratory syndrome virus	China	27-Feb-2023	China: Shandong	Sus scrofa		SDLY23-1742				genotype: PRRSV2, NADC34-like	
+PQ178810.1	15322	Porcine reproductive and respiratory syndrome virus	China	2020	China	pig		DLW					
+PQ178809.1	15322	Porcine reproductive and respiratory syndrome virus	China	2020	China	pig		DLF					
+PQ338766.1	14970	Porcine reproductive and respiratory syndrome virus	China	Mar-2023	China: Guizhou	swine		GZ0308					
+PQ217625.1	15019	Porcine reproductive and respiratory syndrome virus	China	2021	China	swine		DX/2021					
+PQ273406.1	15020	Porcine reproductive and respiratory syndrome virus	China	2023	China	swine		TJ-c6					
+PQ336108.1	14985	Porcine reproductive and respiratory syndrome virus	China	2020	China	swine		XJ-2020					
+PQ316100.1	15019	Porcine reproductive and respiratory syndrome virus	China	2023	China: Shanghai	swine		SHCH2023					
+PQ201864.1	15020	Porcine reproductive and respiratory syndrome virus	South Korea	2023	South Korea	pig		GNU-2377-P5					
+PQ201863.1	15020	Porcine reproductive and respiratory syndrome virus	South Korea	2023	South Korea	pig		GNU-2377-P1					
+PQ201862.1	15109	Porcine reproductive and respiratory syndrome virus	South Korea	2023	South Korea	pig		GNU-2353-P5					
+PQ201861.1	15109	Porcine reproductive and respiratory syndrome virus	South Korea	2023	South Korea	pig		GNU-2353-P1					
+PQ201860.1	15020	Porcine reproductive and respiratory syndrome virus	South Korea	2023	South Korea	pig		GNU-2377-P0					
+PQ201859.1	15109	Porcine reproductive and respiratory syndrome virus	South Korea	2023	South Korea	pig		GNU-2353-P0					
+PQ213447.1	15011	Porcine reproductive and respiratory syndrome virus	China	2020	China	swine	CF/2020						
+PQ151405.1	15103	Porcine reproductive and respiratory syndrome virus	USA	02-May-2022	USA	Sus scrofa	L1C.5						
+PP395769.1	15012	Porcine reproductive and respiratory syndrome virus	China	2023	China	Sus scrofa	HLJDZD55					1	
+PQ179742.1	15321	Porcine reproductive and respiratory syndrome virus	China	2023-04-10	China	Porcine	SCMY2023						
+OQ992773.1	14999	Porcine reproductive and respiratory syndrome virus	Austria		Austria		136-2022						
+PQ062578.1	15017	Porcine reproductive and respiratory syndrome virus						HeN-L1					
+PP334639.1	15035	Porcine reproductive and respiratory syndrome virus	China	2022-03-29	China: Xinjiang	swine		XJ142-1-2022					
+PP334638.1	15036	Porcine reproductive and respiratory syndrome virus	China	2022-03-29	China: Xinjiang	swine		XJ142-2-2022					
+PP334637.1	15047	Porcine reproductive and respiratory syndrome virus	China	2022-04-15	China: Xinjiang	swine		XJ142-6-2022					
+PP334636.1	15034	Porcine reproductive and respiratory syndrome virus	China	2022-11-18	China: Xinjiang	swine		XJ142-14-2022					
+PP334635.1	15038	Porcine reproductive and respiratory syndrome virus	China	2021-11-09	China: Xinjiang	swine		XJDB1-2021					
+PP334634.1	15038	Porcine reproductive and respiratory syndrome virus	China	2021-11-11	China: Xinjiang	swine		XJDB2-2021					
+PP334633.1	15038	Porcine reproductive and respiratory syndrome virus	China	2021-11-11	China: Xinjiang	swine		XJDB3-2021					
+PP334632.1	15047	Porcine reproductive and respiratory syndrome virus	China	2021-12-01	China: Xinjiang	swine		XJDB4-2021					
+PP334631.1	15022	Porcine reproductive and respiratory syndrome virus	China	2022-02-21	China: Xinjiang	swine		XJFCH1-2-2022					
+PP334630.1	15037	Porcine reproductive and respiratory syndrome virus	China	2022-02-21	China: Xinjiang	swine		XJFCH1-8-2022					
+PP334629.1	15034	Porcine reproductive and respiratory syndrome virus	China	2020-02-28	China: Xinjiang	swine		XJFCH1-2020					
+PP334628.1	15036	Porcine reproductive and respiratory syndrome virus	China	2022-03-28	China: Xinjiang	swine		XJFCH2-2-4-2022					
+PP334627.1	15036	Porcine reproductive and respiratory syndrome virus	China	2022-03-28	China: Xinjiang	swine		XJFCH2-2-2022					
+PP334626.1	15036	Porcine reproductive and respiratory syndrome virus	China	2022-12-10	China: Xinjiang	swine		XJFCH2-3-2022					
+PP334625.1	15027	Porcine reproductive and respiratory syndrome virus	China	2022-12-10	China: Xinjiang	swine		XJFCH2-16-2022					
+PP334624.1	15029	Porcine reproductive and respiratory syndrome virus	China	2022-12-10	China: Xinjiang	swine		XJFCH2-19-2022					
+PP334623.1	15035	Porcine reproductive and respiratory syndrome virus	China	2022-12-10	China: Xinjiang	swine		XJFCH2-20-2022					
+PP334622.1	15036	Porcine reproductive and respiratory syndrome virus	China	2022-12-10	China: Xinjiang	swine		XJFCH2-20-2022-2					
+PP334621.1	15024	Porcine reproductive and respiratory syndrome virus	China	2022-12-10	China: Xinjiang	swine		XJFCH2-25-2022					
+PP334620.1	15035	Porcine reproductive and respiratory syndrome virus	China	2020-12-01	China: Xinjiang	swine		XJFCH3-2020					
+PP334619.1	15037	Porcine reproductive and respiratory syndrome virus	China	2020-11-21	China: Xinjiang	swine		XJJM3-2020					
+PP334618.1	15038	Porcine reproductive and respiratory syndrome virus	China	2020-11-21	China: Xinjiang	swine		XJJM4-2020					
+PP334617.1	15031	Porcine reproductive and respiratory syndrome virus	China	2022-02-10	China: Xinjiang	swine		XJSDB-2-2022					
+PP334616.1	15034	Porcine reproductive and respiratory syndrome virus	China	2022-11-10	China: Xinjiang	swine		XJSG1-2022					
+PP334615.1	15026	Porcine reproductive and respiratory syndrome virus	China	2020-12-10	China: Xinjiang	swine		XJYQ1-2020					
+PP334614.1	15034	Porcine reproductive and respiratory syndrome virus	China	2022-11-15	China: Xinjiang	swine		XJYQ1-2022					
+PP334613.1	15029	Porcine reproductive and respiratory syndrome virus	China	2021-12-10	China: Xinjiang	swine		XJYQ2-2021					
+PP334612.1	15036	Porcine reproductive and respiratory syndrome virus	China	2022-11-25	China: Xinjiang	swine		XJYQ2-2022					
+PP334611.1	15037	Porcine reproductive and respiratory syndrome virus	China	2022-11-25	China: Xinjiang	swine		XJYQ2-150408-2022					
+PP334610.1	15029	Porcine reproductive and respiratory syndrome virus	China	2020-12-17	China: Xinjiang	swine		XJYQ3-2020					
+PP334609.1	15073	Porcine reproductive and respiratory syndrome virus	China	2022-11-20	China: Xinjiang	swine		XJYQ4-2022					
+PP334608.1	15076	Porcine reproductive and respiratory syndrome virus	China	2022-11-20	China: Xinjiang	swine		XJYQ6-2022					
+PP334607.1	15073	Porcine reproductive and respiratory syndrome virus	China	2022-11-20	China: Xinjiang	swine		XJYQ8-2022					
+PP334606.1	15037	Porcine reproductive and respiratory syndrome virus	China	2022-11-20	China: Xinjiang	swine		XJYQ19-2022					
+PP334605.1	15036	Porcine reproductive and respiratory syndrome virus	China	2021-11-15	China: Xinjiang	swine		XJYQSC1-2021					
+PP334604.1	15036	Porcine reproductive and respiratory syndrome virus	China	2021-11-15	China: Xinjiang	swine		XJYQSC2-2021					
+PP334603.1	15036	Porcine reproductive and respiratory syndrome virus	China	2022-11-18	China: Xinjiang	swine		XJZS-18-2022					
+PP334602.1	15031	Porcine reproductive and respiratory syndrome virus	China	2021-11-15	China: Xinjiang	swine		XJZSB5-2021					
+PP921531.1	15230	Porcine reproductive and respiratory syndrome virus	South Korea	2023	South Korea	swine		SNUVP231106					
+PA683158.1	14945	Porcine reproductive and respiratory syndrome virus											
+PA683157.1	14984	Porcine reproductive and respiratory syndrome virus											
+PA683154.1	14622	Porcine reproductive and respiratory syndrome virus											
+PA683153.1	15182	Porcine reproductive and respiratory syndrome virus											
+PA683152.1	15111	Porcine reproductive and respiratory syndrome virus											
+PA683151.1	14854	Porcine reproductive and respiratory syndrome virus											
+OP866758.1	15035	Porcine reproductive and respiratory syndrome virus	China	26-Nov-2021	China	porcine		PRRSV2-XJ/WJQ					
+OP866757.1	15048	Porcine reproductive and respiratory syndrome virus	China	26-Oct-2021	China	porcine		PRRSV2-XJ/SHZ03					
+OP866756.1	15006	Porcine reproductive and respiratory syndrome virus	China	15-Aug-2021	China	porcine		PRRSV2-XJ/SHZ02					
+OP866755.1	15030	Porcine reproductive and respiratory syndrome virus	China	13-Jun-2021	China	porcine		PRRSV2-XJ/SHZ01					
+OP866754.1	15054	Porcine reproductive and respiratory syndrome virus	China	26-May-2022	China	porcine		PRRSV2-XJ/CJ04					
+OP866753.1	15032	Porcine reproductive and respiratory syndrome virus	China	16-Nov-2020	China	porcine		PRRSV2-XJ/CJ03					
+OP866752.1	15032	Porcine reproductive and respiratory syndrome virus	China	28-Feb-2020	China	porcine		PRRSV2-XJ/CJ02					
+OP866751.1	15036	Porcine reproductive and respiratory syndrome virus	China	31-Jan-2021	China	porcine		PRRSV2-XJ/CJ01					
+PP824649.1	15019	Porcine reproductive and respiratory syndrome virus	China	2023	China	swine		GXWZ20230831					
+PP658207.1	15109	Porcine reproductive and respiratory syndrome virus	USA	2023	USA: North Carolina	Sus scrofa	NC23-11						
+PP625732.1	14998	Porcine reproductive and respiratory syndrome virus	China	Mar-2024	China	swine		GXGG20210301-P100				genotype: North American	
+PP625731.1	15015	Porcine reproductive and respiratory syndrome virus	China	Mar-2024	China	swine		GX20210501-P100				genotype: North American	
+PP625730.1	15016	Porcine reproductive and respiratory syndrome virus	China	Mar-2022	China	swine		GXFS20220302				genotype: North American	
+PP625729.1	14993	Porcine reproductive and respiratory syndrome virus	China	Sep-2020	China	swine		GXNN202009				genotype: North American	
+PP409069.1	15009	Porcine reproductive and respiratory syndrome virus	China	2023	China	swine	GSBY4-2023						
+PP409068.1	15024	Porcine reproductive and respiratory syndrome virus	China	2023	China	swine	GSLX2-2023						
+PP409067.1	15087	Porcine reproductive and respiratory syndrome virus	China	2023	China	swine	GSTS4-2023						
+PP409066.1	15014	Porcine reproductive and respiratory syndrome virus	China	2023	China	swine	GSFEI2-2023						
+PP565409.1	15016	Porcine reproductive and respiratory syndrome virus	China	Nov-2021	China	swine		GXHX20211101				North American	
+OP168793.2	15015	Porcine reproductive and respiratory syndrome virus	China	18-Jun-2020	China	swine		SDHY_DZ037					
+PP474079.1	14999	Porcine reproductive and respiratory syndrome virus	China	2020	China	swine		JS1805					
+PP474078.1	14980	Porcine reproductive and respiratory syndrome virus	China	2020	China	swine		GD1805					
+PP235415.1	15038	Porcine reproductive and respiratory syndrome virus	China	2022	China	swine		GS2022					
+PP209409.1	15411	Porcine reproductive and respiratory syndrome virus	India	15-Jul-2022	India: Nagaon	Sus scrofa		PRRSV/ASM/IND/Na-22				genotype: HP-PRRSV	26.3480 N 92.6838 E
+PP209408.1	15411	Porcine reproductive and respiratory syndrome virus	India	31-Jul-2023	India: Aizawl	Sus scrofa		PRRSV/MZ/IND/45-A23				genotype: HP-PRRSV	23.7307 N 92.7173 E
+PP033240.1	15019	Porcine reproductive and respiratory syndrome virus	China	2022	China	swine		AHJ4					
+PP033239.1	14941	Porcine reproductive and respiratory syndrome virus	China		China	swine		A90					
+PP188018.1	14976	Porcine reproductive and respiratory syndrome virus	China	2023	China	swine		GXWZ20230501					
+PP178478.1	15298	Porcine reproductive and respiratory syndrome virus	China	2022	China	swine		GD20220302					
+PP171544.1	15079	Porcine reproductive and respiratory syndrome virus	USA	2018	USA: North Carolina	Sus scrofa	NC18-9-7						
+PP112263.1	15021	Porcine reproductive and respiratory syndrome virus	China	2022	China	swine		A90					
+PP091272.1	14991	Porcine reproductive and respiratory syndrome virus	China	Jan-2006	China	swine	GXNN202009					genotype: North American	
+PP091271.1	15048	Porcine reproductive and respiratory syndrome virus	China	Jan-2006	China	swine	GXBH20230302					genotype: North American	
+PP105538.1	15347	Porcine reproductive and respiratory syndrome virus	China	01-Feb-2016	China	pig	NJ-a P80		North American				
+PP065923.1	15229	Porcine reproductive and respiratory syndrome virus	China	2023	China: Guangdong	pig	GDHY1207-7					genotype: 2	
+PP065922.1	14960	Porcine reproductive and respiratory syndrome virus	China	2023	China: Guangdong	pig	HN2023-11					genotype: 2	
+PP065921.1	14976	Porcine reproductive and respiratory syndrome virus	China	2023	China: Guangdong	pig	HN2023-4					genotype: 2	
+PP065920.1	15199	Porcine reproductive and respiratory syndrome virus	China	Jul-2023	China: Guangdong	pig	GDMZ0725-1					genotype: 2	
+PP065919.1	14970	Porcine reproductive and respiratory syndrome virus	China	Jul-2023	China: Guangdong	pig	GDZS0706-35					genotype: 2	
+PP065918.1	15278	Porcine reproductive and respiratory syndrome virus	China	Jul-2023	China: Guangdong	pig	GDYJ0718-7					genotype: 2	
+PP065917.1	14971	Porcine reproductive and respiratory syndrome virus	China	Mar-2023	China: Guangdong	pig	GDMZ0309-4					genotype: 2	
+PP074324.1	14987	Porcine reproductive and respiratory syndrome virus	South Korea	03-Aug-2022	South Korea	domestic pig		SNUVR220803				type: North American	
+OR826316.1	15005	Porcine reproductive and respiratory syndrome virus	China	2023	China	Sus scrofa		TZJ3116				subtype: L1A variant	
+OR826315.1	15007	Porcine reproductive and respiratory syndrome virus	China	2023	China	Sus scrofa		TZJ3115				subtype: L1A variant	
+OR826314.1	15004	Porcine reproductive and respiratory syndrome virus	China	2023	China	Sus scrofa		WK730				subtype: L1A variant	
+OR826313.1	15001	Porcine reproductive and respiratory syndrome virus	China	2023	China	Sus scrofa		TZJ3005				subtype: L1A variant	
+OR800933.1	14876	Porcine reproductive and respiratory syndrome virus	China	02-Mar-2022	China	Sus scrofa	hy_2203						
+OR800932.1	14786	Porcine reproductive and respiratory syndrome virus	China	05-Jul-2021	China	Sus scrofa	sg_2107						
+OR800931.1	15207	Porcine reproductive and respiratory syndrome virus	China	08-Sep-2021	China	Sus scrofa	zq_2109						
+OR800930.1	15016	Porcine reproductive and respiratory syndrome virus	China	25-Apr-2021	China	Sus scrofa	qy_2104						
+OR800929.1	15187	Porcine reproductive and respiratory syndrome virus	China	21-Aug-2021	China	Sus scrofa	fs_2108						
+OR800928.1	15180	Porcine reproductive and respiratory syndrome virus	China	27-Aug-2020	China	Sus scrofa	qy_2008						
+OR800927.1	15177	Porcine reproductive and respiratory syndrome virus	China	08-Aug-2021	China	Sus scrofa	sg_2108						
+OR800926.1	15207	Porcine reproductive and respiratory syndrome virus	China	25-Apr-2021	China	Sus scrofa	sg_2104						
+OR800925.1	15011	Porcine reproductive and respiratory syndrome virus	China	04-May-2021	China	Sus scrofa	qy_2105						
+OR800924.1	15202	Porcine reproductive and respiratory syndrome virus	China	17-Aug-2021	China	Sus scrofa	zq_2108						
+OR805486.1	15010	Porcine reproductive and respiratory syndrome virus	USA	01-Jan-2020	USA: North Carolina	Sus scrofa		NC20-1					
+OR766560.1	14993	Porcine reproductive and respiratory syndrome virus	China	2023	China	swine		SCABTC-202309					
+OR753369.1	15112	Porcine reproductive and respiratory syndrome virus	China	Apr-2023	China	swine	CHNMGKL1-2304					type: 2	
+OR711915.1	15014	Porcine reproductive and respiratory syndrome virus	China	Apr-2023	China	pig		GD-7					
+OR670493.1	15016	Porcine reproductive and respiratory syndrome virus	China	2022-12-31	China	swine		SCCD22					
+OR662185.1	15019	Porcine reproductive and respiratory syndrome virus	China	2023-04-18	China	swine	BDSP-1						
+OR575928.1	15087	Porcine reproductive and respiratory syndrome virus	China	2023	China	swine		HN-NY/2023					
+OR582383.1	15021	Porcine reproductive and respiratory syndrome virus	China	Apr-2023	China	Sus scrofa		GX-3				genotype: 2	
+OR518274.1	15015	Porcine reproductive and respiratory syndrome virus	China	2020-12-10	China	pig	SXht2012						
+OR502390.1	15073	Porcine reproductive and respiratory syndrome virus	China	2023	China	pig		PRRSV1/CN/FJFQ-4/2023					
+OR468246.1	15393	Porcine reproductive and respiratory syndrome virus	China	Sep-2021	China	swine		GXNN20210906				genotype: North American	
+OR269980.1	15015	Porcine reproductive and respiratory syndrome virus	China	2023	China	swine		2023GD-4					
+OR365675.1	15049	Porcine reproductive and respiratory syndrome virus	China	01-Mar-2023	China	swine	SCABTC-202308						
+OR365674.1	15406	Porcine reproductive and respiratory syndrome virus	China	24-Mar-2023	China	swine	SCABTC-202307						
+OR365673.1	15466	Porcine reproductive and respiratory syndrome virus	China	20-Apr-2023	China	swine	SCABTC-202306						
+OR365672.1	15004	Porcine reproductive and respiratory syndrome virus	China	28-Nov-2022	China	swine	SCABTC-202305						
+OR369723.1	14638	Porcine reproductive and respiratory syndrome virus	China	15-Aug-2022	China	pig	GZ2022						
+OR333953.1	14985	Porcine reproductive and respiratory syndrome virus	China	Jan-2022	China	swine	GXFS20220129					genotype: European	
+OR250810.1	15347	Porcine reproductive and respiratory syndrome virus	China	2022	China	swine		HuN-ZZ				recombinant HP-PRRSV	
+OR260421.1	15073	Porcine reproductive and respiratory syndrome virus	China	2023	China	pig		PRRSV1/CN/FJFQ-1/2023					
+OQ944349.1	15185	Porcine reproductive and respiratory syndrome virus	China		China		YN-DZ						
+OR102499.1	14981	Porcine reproductive and respiratory syndrome virus	China	2021	China	pig		ZH2021					
+OR102498.1	14678	Porcine reproductive and respiratory syndrome virus	China	2020	China	pig		SH					
+OR102497.1	14981	Porcine reproductive and respiratory syndrome virus	China	2019	China	pig		FJ					
+OR102496.1	14981	Porcine reproductive and respiratory syndrome virus	China	2018	China	pig		XJ					
+OR115682.1	15412	Porcine reproductive and respiratory syndrome virus	China	12-Apr-2023	China	swine		BZ-4-19					
+OR146749.1	14981	Porcine reproductive and respiratory syndrome virus	China	2022	China	pig	ZH12						
+OR146748.1	14678	Porcine reproductive and respiratory syndrome virus	China	2022	China	pig	SF7						
+OR146747.1	14678	Porcine reproductive and respiratory syndrome virus	China	2022	China	pig	SF5						
+OR066233.1	14932	Porcine reproductive and respiratory syndrome virus	China	2020	China	pig		HuBXW					
+OQ986592.1	15347	Porcine reproductive and respiratory syndrome virus	China	2022	China	swine	SCABTC-202303						
+OQ986591.1	15033	Porcine reproductive and respiratory syndrome virus	China	05-Aug-2022	China	swine	SCABTC-202302						
+OQ986590.1	15342	Porcine reproductive and respiratory syndrome virus	China	01-Aug-2022	China	swine	SCABTC-202301						
+OQ986589.1	15343	Porcine reproductive and respiratory syndrome virus	China	2022	China	swine	SCABTC-202304						
+OQ817853.1	14850	Porcine reproductive and respiratory syndrome virus	China	Jul-2021	China: Xinjiang	pig		PRRSV/XJ-1					
+OQ817852.1	15215	Porcine reproductive and respiratory syndrome virus	China	Mar-2021	China: Shandong	pig		PRRSV/SD-2021-3-10					
+OQ817851.1	15005	Porcine reproductive and respiratory syndrome virus	China	Mar-2021	China: Jiangsu	pig		PRRSV/TZJ1712					
+OQ817850.1	15409	Porcine reproductive and respiratory syndrome virus	China	Jul-2020	China: Jiangsu	pig		PRRSV/WK357					
+OQ817849.1	15322	Porcine reproductive and respiratory syndrome virus	China	Mar-2020	China: Heilongjiang	pig		PRRSV/DY					
+OQ817848.1	14680	Porcine reproductive and respiratory syndrome virus	China	11-Oct-2018	China: Heilongjiang	pig		PRRSV/NA80-lun					
+OQ924473.1	15001	Porcine reproductive and respiratory syndrome virus	China	Dec-2018	China	pig	HM1813					genotype: 2	
+OQ924472.1	15016	Porcine reproductive and respiratory syndrome virus	China	Dec-2018	China	pig	HM1812					genotype: 2	
+OQ924471.1	15002	Porcine reproductive and respiratory syndrome virus	China	Oct-2018	China	pig	HM1810					genotype: 2	
+OQ924470.1	15008	Porcine reproductive and respiratory syndrome virus	China	Sep-2018	China	pig	HM1809					genotype: 2	
+OQ924469.1	15002	Porcine reproductive and respiratory syndrome virus	China	Jul-2018	China	pig	HM1807					genotype: 2	
+OQ924468.1	14971	Porcine reproductive and respiratory syndrome virus	China	May-2018	China	pig	HM1805					genotype: 2	
+OQ924467.1	15003	Porcine reproductive and respiratory syndrome virus	China	Jan-2018	China	pig	HM1801					genotype: 2	
+OQ924466.1	15001	Porcine reproductive and respiratory syndrome virus	China	Jan-2017	China	pig	HM1710					genotype: 2	
+OQ856755.1	14932	Porcine reproductive and respiratory syndrome virus	China	2023	China	swine	PRRSV-1/181187-2/2023						
+OQ790147.1	15022	Porcine reproductive and respiratory syndrome virus	China	2022	China	Sus scrofa		WK621				subtype: L1A variant	
+OQ790146.1	15002	Porcine reproductive and respiratory syndrome virus	China	2022	China	Sus scrofa		TZJ2451				subtype: L1A variant	
+PE017915.1	15003	Porcine reproductive and respiratory syndrome virus											
+PE017914.1	15019	Porcine reproductive and respiratory syndrome virus											
+PE017913.1	14977	Porcine reproductive and respiratory syndrome virus											
+OQ748875.1	15017	Porcine reproductive and respiratory syndrome virus	China	2022	China	pig		TZJ2756				subtype: L1A variant	
+OQ735301.1	15021	Porcine reproductive and respiratory syndrome virus	China	21-Sep-2019	China			BL2019				genotype: 2	
+OQ606399.1	15077	Porcine reproductive and respiratory syndrome virus	China	2022	China	pig		GD2022				type: 1	
+OQ540963.1	15019	Porcine reproductive and respiratory syndrome virus	South Korea	2020	South Korea	pig		KN-20041					
+OQ540962.1	15013	Porcine reproductive and respiratory syndrome virus	South Korea	2019	South Korea	pig		KN-19075					
+OQ357725.1	14943	Porcine reproductive and respiratory syndrome virus	China	2018	China	pig	PRRSV2/CN/G8/2018						
+OQ357724.1	15324	Porcine reproductive and respiratory syndrome virus	China	2021	China	pig	PRRSV2/CN/FJLX06/2021						
+OQ883907.1	15374	Porcine reproductive and respiratory syndrome virus	China	01-May-2020	China	Sus scrofa	SCSN2020						
+OQ803249.1	14919	Porcine reproductive and respiratory syndrome virus	Spain	20-Apr-2022	Spain	Sus scrofa		CReSA_JP5					
+OQ803248.1	14927	Porcine reproductive and respiratory syndrome virus	Spain	20-Apr-2022	Spain	Sus scrofa		CReSA_JP3					
+OP764591.1	14997	Porcine reproductive and respiratory syndrome virus	China		China	Sus scrofa	GSWW/2018					genotype: North American	
+OP805381.1	15363	Porcine reproductive and respiratory syndrome virus	China	Aug-2022	China	swine	PRRSV-CH-SDLY27-2022						
+OQ871558.1	15017	Porcine reproductive and respiratory syndrome virus	China	Jul-2021	China	swine	HN-1	tissne					
+OQ361824.1	15050	Porcine reproductive and respiratory syndrome virus	USA	2021	USA	Sus scrofa		2021069845_lung_2					
+OQ361823.1	15058	Porcine reproductive and respiratory syndrome virus	USA	2021	USA	Sus scrofa		2021073186_lung_GA					
+OQ361822.1	15060	Porcine reproductive and respiratory syndrome virus	USA	2021	USA	Sus scrofa		2021066033_lung_GA					
+OQ361821.1	15013	Porcine reproductive and respiratory syndrome virus	USA	2021	USA	Sus scrofa		2021090462_lung_3					
+OQ361820.1	15058	Porcine reproductive and respiratory syndrome virus	USA	2021	USA	Sus scrofa		2021090462_lung_2					
+OQ361819.1	15061	Porcine reproductive and respiratory syndrome virus	USA	2021	USA	Sus scrofa		2021090462_lung_1					
+OQ361818.1	15060	Porcine reproductive and respiratory syndrome virus	USA	2021	USA	Sus scrofa		2021079016_lung_2					
+OQ361817.1	15060	Porcine reproductive and respiratory syndrome virus	USA	2021	USA	Sus scrofa		2021079016_lung_1					
+OQ361816.1	15060	Porcine reproductive and respiratory syndrome virus	USA	2021	USA	Sus scrofa		2021073181					
+OQ361815.1	15060	Porcine reproductive and respiratory syndrome virus	USA	2021	USA	Sus scrofa		2021085554					
+OQ361814.1	15060	Porcine reproductive and respiratory syndrome virus	USA	2021	USA	Sus scrofa		2021092855_lung_2					
+OQ361813.1	15060	Porcine reproductive and respiratory syndrome virus	USA	2021	USA	Sus scrofa		2021092855_lung_1					
+OQ361812.1	15048	Porcine reproductive and respiratory syndrome virus	USA	2021	USA	Sus scrofa		2021056440_lung_1					
+OQ361811.1	15060	Porcine reproductive and respiratory syndrome virus	USA	2021	USA	Sus scrofa		2021042219_lung_4					
+OQ361810.1	15057	Porcine reproductive and respiratory syndrome virus	USA	2021	USA	Sus scrofa		2021093514_lung_GA					
+OQ361809.1	15060	Porcine reproductive and respiratory syndrome virus	USA	2021	USA	Sus scrofa		2021042219_lung_3					
+OQ361808.1	15054	Porcine reproductive and respiratory syndrome virus	USA	2021	USA	Sus scrofa		2021039141_lung_2					
+OQ361807.1	15054	Porcine reproductive and respiratory syndrome virus	USA	2021	USA	Sus scrofa		2021039141_lung_1					
+OP734318.1	15016	Porcine reproductive and respiratory syndrome virus	China	Dec-2021	China	pig		CHbj2103				genotype: 2	
+OP734317.1	15016	Porcine reproductive and respiratory syndrome virus	China	Dec-2021	China	pig		CHbj2102				genotype: 2	
+OP734316.1	15016	Porcine reproductive and respiratory syndrome virus	China	Dec-2021	China	pig		CHbj2101				genotype: 2	
+OQ459668.1	15019	Porcine reproductive and respiratory syndrome virus	China	Mar-2022	China	swine	GD20220303					genotype: North American	
+OQ459667.1	14989	Porcine reproductive and respiratory syndrome virus	China	May-2022	China	swine	GXYN20220502					genotype: North American	
+OQ459666.1	15019	Porcine reproductive and respiratory syndrome virus	China	May-2022	China	swine	GXYL20220501					genotype: North American	
+OQ459665.1	15019	Porcine reproductive and respiratory syndrome virus	China	Nov-2021	China	swine	GXHX20211106					genotype: North American	
+OQ459664.1	15019	Porcine reproductive and respiratory syndrome virus	China	Mar-2022	China	swine	GXGL20220301					genotype: North American	
+OQ459663.1	14998	Porcine reproductive and respiratory syndrome virus	China	Mar-2021	China	swine	GXGG20210301					genotype: North American	
+OQ459662.1	15022	Porcine reproductive and respiratory syndrome virus	China	Mar-2022	China	swine	GXBY20220301					genotype: North American	
+OM201199.1	15342	Porcine reproductive and respiratory syndrome virus	China	2018	China	Pig		PRRSV/S032					
+OM201198.1	14761	Porcine reproductive and respiratory syndrome virus	China	2018	China	Pig		PRRSV/S022					
+OM201197.1	15007	Porcine reproductive and respiratory syndrome virus	China	2018	China	Pig		PRRSV/S020					
+OM201196.1	15001	Porcine reproductive and respiratory syndrome virus	China	2018	China	Pig		PRRSV/S001					
+OM201195.1	14622	Porcine reproductive and respiratory syndrome virus	China	2018	China	Pig		PRRSV/LN86					
+OM201194.1	15361	Porcine reproductive and respiratory syndrome virus	China	2019	China	Pig		PRRSV/HB96					
+OM201193.1	15009	Porcine reproductive and respiratory syndrome virus	China	2019	China	Pig		PRRSV/HB94					
+OM201192.1	14996	Porcine reproductive and respiratory syndrome virus	China	2019	China	Pig		PRRSV/H64					
+OM201191.1	14991	Porcine reproductive and respiratory syndrome virus	China	2018	China	Pig		PRRSV/H60					
+OM201190.1	14993	Porcine reproductive and respiratory syndrome virus	China	2018	China	Pig		PRRSV/H029					
+OM201189.1	15045	Porcine reproductive and respiratory syndrome virus	China	2018	China	Pig		PRRSV/H013					
+OM201188.1	15006	Porcine reproductive and respiratory syndrome virus	China	2018	China	Pig		PRRSV/H012					
+OM201187.1	15525	Porcine reproductive and respiratory syndrome virus	China	2018	China	Pig		PRRSV/G128					
+OM201186.1	15341	Porcine reproductive and respiratory syndrome virus	China	2018	China	Pig		PRRSV/G122					
+OM201185.1	15341	Porcine reproductive and respiratory syndrome virus	China	2019	China	Pig		PRRSV/G101					
+OM201184.1	15430	Porcine reproductive and respiratory syndrome virus	China	2018	China	Pig		PRRSV/G59					
+OM201183.1	15187	Porcine reproductive and respiratory syndrome virus	China	2018	China	Pig		PRRSV/G52					
+OM201182.1	15348	Porcine reproductive and respiratory syndrome virus	China	2018	China	Pig		PRRSV/G113					
+OM201181.1	15183	Porcine reproductive and respiratory syndrome virus	China	2018	China	Pig		PRRSV/ZJ83					
+OM201180.1	14999	Porcine reproductive and respiratory syndrome virus	China	2019	China	Pig		PRRSV/S145					
+OM201179.1	14997	Porcine reproductive and respiratory syndrome virus	China	2019	China	Pig		PRRSV/S136					
+OM201178.1	14994	Porcine reproductive and respiratory syndrome virus	China	2019	China	Pig		PRRSV/S130					
+OM201177.1	14944	Porcine reproductive and respiratory syndrome virus	China	2018	China	Pig		PRRSV/S78					
+OM201176.1	15009	Porcine reproductive and respiratory syndrome virus	China	2018	China	Pig		PRRSV/S77					
+OM201175.1	15339	Porcine reproductive and respiratory syndrome virus	China	2018	China	Pig		PRRSV/S75					
+OM201174.1	15188	Porcine reproductive and respiratory syndrome virus	China	2018	China	Pig		PRRSV/S70					
+OM201173.1	14985	Porcine reproductive and respiratory syndrome virus	China	2018	China	Pig		PRRSV/S043					
+OM201172.1	14984	Porcine reproductive and respiratory syndrome virus	China	2018	China	Pig		PRRSV/S039					
+OM201171.1	15377	Porcine reproductive and respiratory syndrome virus	China	2019	China	pig		PRRSV/C103					
+OP131596.1	15011	Porcine reproductive and respiratory syndrome virus	China	Jul-2020	China	pig	HBag-4						
+OP852569.1	15335	Porcine reproductive and respiratory syndrome virus	China	2020	China	swine		SH2020				highly pathogenic strain	
+OM202903.1	15225	Porcine reproductive and respiratory syndrome virus	China	25-Oct-2020	China	pig		GX11373				third passage	
+OM202902.1	15293	Porcine reproductive and respiratory syndrome virus	China	15-Oct-2020	China	pig		GX11045				third passage	
+OM202901.1	14892	Porcine reproductive and respiratory syndrome virus	China	02-Jul-2020	China	pig		GX7668				third passage	
+OM202900.1	14860	Porcine reproductive and respiratory syndrome virus	China	15-Jun-2020	China	pig		GX7111				third passage	
+OM202899.1	14924	Porcine reproductive and respiratory syndrome virus	China	22-Apr-2021	China	pig		GX5416				third passage	
+OM202898.1	14898	Porcine reproductive and respiratory syndrome virus	China	13-Apr-2021	China	pig		GX4934				third passage	
+OM202897.1	14930	Porcine reproductive and respiratory syndrome virus	China	11-Apr-2021	China	pig		GX4852				third passage	
+OM202896.1	14890	Porcine reproductive and respiratory syndrome virus	China	12-Mar-2021	China	pig		GX3251				third passage	
+OM202895.1	14910	Porcine reproductive and respiratory syndrome virus	China	16-Feb-2020	China	pig		GX1858				third passage	
+OM202894.1	14953	Porcine reproductive and respiratory syndrome virus	China	13-Jan-2020	China	pig		GX505				third passage	
+OM202893.1	14865	Porcine reproductive and respiratory syndrome virus	China	02-Jul-2020	China	pig		GD7666				third passage	
+OP784966.1	15020	Porcine reproductive and respiratory syndrome virus	China	2021	China	pig		HuN-ZJJ-A				subgenotype 8.7	
+OP784965.1	15451	Porcine reproductive and respiratory syndrome virus	China	2021	China	pig		HuN-SY-B				subgenotype 8.7	
+OP784964.1	15323	Porcine reproductive and respiratory syndrome virus	China	2021	China	pig		HuN-ZZ-B				subgenotype 8.7	
+OP784963.1	14960	Porcine reproductive and respiratory syndrome virus	China	2021	China	pig		HuN-XT-B				Subgenotype 1.8	
+ON645930.1	15084	Porcine reproductive and respiratory syndrome virus	China	Sep-2007	China	Sus scrofa		HeN-3				genotype: North America (NA)	
+OQ204111.1	15016	Porcine reproductive and respiratory syndrome virus	China	May-2021	China	swine	GX20210501					genotype: North American	
+ON584463.1	15027	Porcine reproductive and respiratory syndrome virus	Taiwan	29-Mar-2018	Taiwan	Sus scrofa domesticus	PRRSV 2/NA107-844/TW-2018						
+OP716076.1	15016	Porcine reproductive and respiratory syndrome virus	China	2022	China	swine	CH-HNPY-01/2022	NADC34					
+OP627116.1	15073	Porcine reproductive and respiratory syndrome virus	Austria	2022	Austria	Sus scrofa		AUT22-97				genotype: 1	
+OP627117.1	15109	Porcine reproductive and respiratory syndrome virus	Germany	2018	Germany	Sus scrofa	GER18-258					genotype: Genotype 1	
+OP970824.1	15012	Porcine reproductive and respiratory syndrome virus	Austria	2020	Austria	Sus scrofa	AUT20-1664					genotype: 1	
+ON844088.1	15097	Porcine reproductive and respiratory syndrome virus	USA	2019	USA: North Carolina	swine		NC_174S/2019					
+ON142049.1	15351	Porcine reproductive and respiratory syndrome virus	China	10-Oct-2020	China			PRRSV-HQ-2020					
+OM293962.1	15015	Porcine reproductive and respiratory syndrome virus	China	13-Jul-2021	China	swine	HN0713	HN0713-29					34.72 N 113.64 E
+OM293961.1	15005	Porcine reproductive and respiratory syndrome virus	China	24-Dec-2020	China	swine	GDYJ1224	GDYJ1224-87					21.86 N 111.96 E
+OM293960.1	15395	Porcine reproductive and respiratory syndrome virus	China	25-Apr-2021	China	swine	GDHY0425	GDHY0425-16					23.73 N 114.70 E
+OM293959.1	15226	Porcine reproductive and respiratory syndrome virus	China	08-Apr-2021	China	swine	GDGZ0408	GDGZ0408-13					23.16 N 113.27 E
+OP529852.1	15084	Porcine reproductive and respiratory syndrome virus	Germany	2012	Germany	Sus scrofa		GER12-720789				genotype: 1	
+ON844089.1	15146	Porcine reproductive and respiratory syndrome virus	USA	2017	USA: North Carolina	swine		NC_174G/2017					
+ON844087.1	15069	Porcine reproductive and respiratory syndrome virus	USA	2017	USA: North Carolina	swine		NC_134/2017					
+OM949993.1	15246	Porcine reproductive and respiratory syndrome virus	China	Sep-2019	China	Pig	GDqy-1909					subgroup: JXA1-like; genotype: 2	
+OM949992.1	15016	Porcine reproductive and respiratory syndrome virus	China	Sep-2018	China	Sus scrofa	GDhy-1809					subgroup: NADC30-like; genotype: 2	
+MK279741.1	15324	Porcine reproductive and respiratory syndrome virus	China	2018	China	porcine	PRRSV/pig/CHN/JK/201805						
+MK279740.1	14964	Porcine reproductive and respiratory syndrome virus	China	2017	China	porcine	PRRSV/pig/CHN/TG/201711						
+MK279739.1	15042	Porcine reproductive and respiratory syndrome virus	China	2016	China	porcine	PRRSV/pig/CHN/JTS/201606						
+ON691480.1	15019	Porcine reproductive and respiratory syndrome virus	China	Oct-2021	China	Sus scrofa	GD-H1						
+ON691479.1	15019	Porcine reproductive and respiratory syndrome virus	China	Oct-2021	China	Sus scrofa	GD-H1						
+OL981187.1	14960	Porcine reproductive and respiratory syndrome virus	China	Mar-2021	China	Sus scrofa		rJS-ORF5-6-CON				genotype: PRRSV2	
+OL981186.1	14960	Porcine reproductive and respiratory syndrome virus	China	Mar-2020	China	Sus scrofa		rJS-ORF2-4-CON				genotype: PRRSV2	
+MZ787938.1	15262	Porcine reproductive and respiratory syndrome virus	Viet Nam	22-Feb-2010	Viet Nam		02HY-2010		North American			genotype: II	
+MZ712110.1	15057	Porcine reproductive and respiratory syndrome virus	China	Apr-2021	China	porcine		HB2104					
+ON365556.1	14962	Porcine reproductive and respiratory syndrome virus	China	2020	China	pig		PRRSV2/CN/SS0/2020					
+ON093974.1	14962	Porcine reproductive and respiratory syndrome virus	China	2021	China	pig		PRRSV2/CN/SS1/2021				type: type 2	
+MZ540774.1	15323	Porcine reproductive and respiratory syndrome virus	China	2017-03-14	China: Zhejiang Huzhou	pig		Marc-145					
+MZ219272.1	15347	Porcine reproductive and respiratory syndrome virus	China	09-Mar-2019	China: Guangxi	porcine		CH/GX/PRRSV/2526/2019					
+MZ219271.1	15347	Porcine reproductive and respiratory syndrome virus	China	18-Jan-2019	China: Guangxi	porcine		CH/GX/PRRSV/2475/2019					
+MZ219270.1	15347	Porcine reproductive and respiratory syndrome virus	China	06-Sep-2018	China: Guangxi	porcine		CH/GX/PRRSV/2283/2018					
+MZ219269.1	15345	Porcine reproductive and respiratory syndrome virus	China	30-Aug-2018	China: Guangxi	porcine		CH/GX/PRRSV/2271/2018					
+MZ146722.1	14972	Porcine reproductive and respiratory syndrome virus	China		China	Sus scrofa		FJ1805					
+MZ146721.1	15043	Porcine reproductive and respiratory syndrome virus	China		China	Sus scrofa		SD1805					
+MZ047781.1	15019	Porcine reproductive and respiratory syndrome virus	China	Jul-2020	China	pig		SDlz20-04				genotype: North America type	
+MZ047780.1	15019	Porcine reproductive and respiratory syndrome virus	China	Jul-2020	China	pig		BJ20-06				genotype: North America type	
+ON805850.1	14676	Porcine reproductive and respiratory syndrome virus	Canada	2021	Canada	Sus scrofa		CDVUM-2021-2615146					
+ON950548.1	15069	Porcine reproductive and respiratory syndrome virus	USA	2016	USA	Sus scrofa		NCV1				genotype: PRRSV-2	
+MZ747449.1	15322	Porcine reproductive and respiratory syndrome virus	China	12-Mar-2016	China	pig	CH/SCZG-1/2016						
+MZ747448.1	15019	Porcine reproductive and respiratory syndrome virus	China	13-Jun-2019	China	pig	CH/SCYB-2/2019						
+MZ747447.1	15017	Porcine reproductive and respiratory syndrome virus	China	24-Sep-2018	China	pig	CH/SCYB-1/2018						
+MZ747446.1	15330	Porcine reproductive and respiratory syndrome virus	China	04-Dec-2019	China	pig	CH/SCYA-1/2019						
+MZ747445.1	15320	Porcine reproductive and respiratory syndrome virus	China	06-Nov-2017	China	pig	CH/SCSN-1/2017						
+MZ747444.1	15019	Porcine reproductive and respiratory syndrome virus	China	28-Dec-2020	China	pig	CH/SCPZ/2020						
+MZ747443.1	15013	Porcine reproductive and respiratory syndrome virus	China	14-Mar-2020	China	pig	CH/SCNC-2/2020						
+MZ747442.1	15014	Porcine reproductive and respiratory syndrome virus	China	11-Sep-2020	China	pig	CH/SCMY-3/2020						
+MZ747441.1	15320	Porcine reproductive and respiratory syndrome virus	China	22-Aug-2019	China	pig	CH/SCMS-3/2019						
+MZ747440.1	14960	Porcine reproductive and respiratory syndrome virus	China	21-May-2016	China	pig	CH/SCMS-1/2016						
+MZ747439.1	15017	Porcine reproductive and respiratory syndrome virus	China	15-Nov-2018	China	pig	CH/SCHY/2018						
+MZ747438.1	15382	Porcine reproductive and respiratory syndrome virus	China	06-Nov-2020	China	pig	CH/SCGY-2/2020						
+MZ747437.1	15017	Porcine reproductive and respiratory syndrome virus	China	22-Nov-2018	China	pig	CH/SCCD-2/2018						
+MZ158159.1	15320	Porcine reproductive and respiratory syndrome virus	Viet Nam	2015	Viet Nam	Sus scrofa		VN/NIVR-15					
+MZ158158.1	15320	Porcine reproductive and respiratory syndrome virus	Viet Nam	2014	Viet Nam	Sus scrofa		VN/NIVR-14					
+MZ158157.1	15320	Porcine reproductive and respiratory syndrome virus	Viet Nam	2013	Viet Nam	Sus scrofa		VN/NIVR-13					
+MW822587.1	15347	Porcine reproductive and respiratory syndrome virus					ZJ-JX-2015						
+MZ160905.1	15040	Porcine reproductive and respiratory syndrome virus	China	10-Aug-2020	China	swine						genotype: North American	
+MZ399801.1	15320	Porcine reproductive and respiratory syndrome virus	China	2007	China	swine		TA-12				genotype: PRRSV2	
+OK274266.1	15042	Porcine reproductive and respiratory syndrome virus	China	Apr-2021	China	porcine		ZJqz21					
+ON462051.1	15230	Porcine reproductive and respiratory syndrome virus	China	2018	China	pig		GDXNF229-1811				sublineage 3.5	
+ON462050.1	15266	Porcine reproductive and respiratory syndrome virus	China	2018	China	pig		GXXNF78-1806				sublineage 3.5	
+ON462049.1	15232	Porcine reproductive and respiratory syndrome virus	China	2018	China	pig		GXXNF74-1806				sublineage 3.5	
+ON462048.1	15316	Porcine reproductive and respiratory syndrome virus	China	2018	China	pig		GDXNF60-1805				sublineage 3.5	
+ON462047.1	15291	Porcine reproductive and respiratory syndrome virus	China	2018	China	pig		GXXNF53-1805					
+ON462046.1	15503	Porcine reproductive and respiratory syndrome virus	China	2018	China	pig		GXXNF10-1803				sublineage 3.5	
+ON462045.1	15017	Porcine reproductive and respiratory syndrome virus	China	2021	China	pig		GXTZJ2325-2112				sublineage 3.5	
+ON462044.1	15011	Porcine reproductive and respiratory syndrome virus	China	2020	China	pig		HNTZJ1714-2011					
+ON462043.1	15008	Porcine reproductive and respiratory syndrome virus	China	2019	China	pig		HNLCL15-1903				sublineage 3.5	
+ON157049.1	15110	Porcine reproductive and respiratory syndrome virus	USA	2020	USA	swine		ISU20-32315					
+MT311646.1	14976	Porcine reproductive and respiratory syndrome virus	Denmark	15-Sep-2014	Denmark	pig		Porcilis_DV-MLV				genotype: PRRSV-1	
+ON157048.1	15110	Porcine reproductive and respiratory syndrome virus	USA	12-Jul-2021	USA	swine		UIL21-0712					
+MW592739.1	15027	Porcine reproductive and respiratory syndrome virus	USA		USA	swine		PF23				type: 2	
+MW592738.1	15110	Porcine reproductive and respiratory syndrome virus	USA		USA	swine		S16				type: 2	
+MW592737.1	15017	Porcine reproductive and respiratory syndrome virus	USA		USA	swine		PF19				type: 2	
+MW592736.1	15110	Porcine reproductive and respiratory syndrome virus	USA		USA	swine		PF21				type: 2	
+MW592735.1	15026	Porcine reproductive and respiratory syndrome virus	USA		USA	swine		S24				type: 2	
+MW592734.1	15110	Porcine reproductive and respiratory syndrome virus	USA		USA	swine		PF9				type: 2	
+MW592733.1	15110	Porcine reproductive and respiratory syndrome virus	USA		USA	swine		S1				type: 2	
+MW592732.1	15110	Porcine reproductive and respiratory syndrome virus	USA		USA	swine		OF9				type: 2	
+MW592731.1	15110	Porcine reproductive and respiratory syndrome virus	USA		USA	swine		OF18				type: 2	
+MW592730.1	15110	Porcine reproductive and respiratory syndrome virus	USA		USA	swine		PF12				type: 2	
+MW592729.1	15110	Porcine reproductive and respiratory syndrome virus	USA		USA	swine		PF11				type: 2	
+MW592728.1	15110	Porcine reproductive and respiratory syndrome virus	USA		USA	swine		OF16				type: 2	
+MW592727.1	15011	Porcine reproductive and respiratory syndrome virus	USA		USA	swine		S50				type: 2	
+MW592726.1	15110	Porcine reproductive and respiratory syndrome virus	USA		USA	swine		OF4				type: 2	
+MW592725.1	15110	Porcine reproductive and respiratory syndrome virus	USA		USA	swine		PF22				type: 2	
+MW592724.1	15110	Porcine reproductive and respiratory syndrome virus	USA		USA	swine		PF17				type: 2	
+MW592723.1	15110	Porcine reproductive and respiratory syndrome virus	USA		USA	swine		OF30				type: 2	
+MW592722.1	15111	Porcine reproductive and respiratory syndrome virus	USA		USA	swine		S49				type: 2	
+MW592721.1	15110	Porcine reproductive and respiratory syndrome virus	USA		USA	swine		PF18				type: 2	
+MW592720.1	15110	Porcine reproductive and respiratory syndrome virus	USA		USA	swine		PF7				type: 2	
+MW592719.1	15026	Porcine reproductive and respiratory syndrome virus	USA		USA	swine		PF6				type: 2	
+MW592718.1	15011	Porcine reproductive and respiratory syndrome virus	USA		USA	swine		OF32				type: 2	
+MW592717.1	15071	Porcine reproductive and respiratory syndrome virus	USA		USA	swine		PF14				type: 2	
+MW592716.1	15071	Porcine reproductive and respiratory syndrome virus	USA		USA	swine		PF4				type: 2	
+MW592715.1	15014	Porcine reproductive and respiratory syndrome virus	USA		USA	swine		PF10				type: 2	
+MW592714.1	15001	Porcine reproductive and respiratory syndrome virus	USA		USA	swine		S21				type: 2	
+MW592713.1	15110	Porcine reproductive and respiratory syndrome virus	USA		USA	swine		S23				type: 2	
+MW592712.1	15110	Porcine reproductive and respiratory syndrome virus	USA		USA	swine		S9				type: 2	
+MW592711.1	15110	Porcine reproductive and respiratory syndrome virus	USA		USA	swine		S11				type: 2	
+MW592710.1	15110	Porcine reproductive and respiratory syndrome virus	USA		USA	swine		S2				type: 2	
+MW592709.1	15110	Porcine reproductive and respiratory syndrome virus	USA		USA	swine		PF2				type: 2	
+MW592708.1	15110	Porcine reproductive and respiratory syndrome virus	USA		USA	swine		OF1				type: 2	
+MW448197.1	15111	Porcine reproductive and respiratory syndrome virus	Belgium	1992	Belgium	pig		BE_92V058					
+ON254651.1	15009	Porcine reproductive and respiratory syndrome virus	China	2016	China	Sus scrofa		SD				subtype: NADC30-like	
+ON254650.1	15009	Porcine reproductive and respiratory syndrome virus	China	2017	China	Sus scrofa		SD-R				subtype: NADC30-like	
+ON180781.1	15020	Porcine reproductive and respiratory syndrome virus	China	06-Feb-2021	China: Yuncheng, ShanXi	Sus scrofa		YC-2020				genotype: North American	
+OM681586.1	14920	Porcine reproductive and respiratory syndrome virus	South Korea	2021	South Korea	porcine		21R2-63-1				genotype: type2	
+OM681585.1	15298	Porcine reproductive and respiratory syndrome virus	South Korea	2020	South Korea	porcine		20D160-1				genotype: type2	
+MW408254.1	15386	Porcine reproductive and respiratory syndrome virus	China		China								
+OM743305.1	15409	Porcine reproductive and respiratory syndrome virus	China	01-Jun-2018	China	Sus scrofa	CSR1801						
+MZ169406.1	15354	Porcine reproductive and respiratory syndrome virus	China	2021	China: Yangling, Shanxi	Sus scrofa	YL-2021					genotype: North American	
+OM893855.1	14910	Porcine reproductive and respiratory syndrome virus	Spain	Jul-2021	Spain	Sus scrofa		R28					

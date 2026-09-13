@@ -1,0 +1,61 @@
+accession	length	organism	country	collection_date	geo_loc_name	host	strain	isolate	serotype	genotype	segment	note	lat_lon
+PZ564645.1	178090	African swine fever virus	Viet Nam	2024	Viet Nam	Sus scrofa			rASFV GI/II			live attenuated virus	
+PZ564644.1	177347	African swine fever virus	Viet Nam	2024	Viet Nam	Sus scrofa			rASFV GI/II			live attenuated virus	
+PZ564643.1	176040	African swine fever virus	Viet Nam	2024	Viet Nam	Sus scrofa			rASFV GI/II			live attenuated virus	
+PZ564642.1	175176	African swine fever virus	Viet Nam	2024	Viet Nam	Sus scrofa			rASFV GI/II			live attenuated virus	
+PV804861.1	184360	African swine fever virus	Ghana	30-Nov-2020	Ghana: Adidome	swine	Ghana2020_9					genotype: II	
+PZ179807.1	183745	African swine fever virus	Viet Nam	2024	Viet Nam	Sus scrofa		VNUA/ASFV/HY2024-isolate3					
+PZ179806.1	183798	African swine fever virus	Viet Nam	2024	Viet Nam	Sus scrofa		VNUA/ASFV/TB2024-isolate2					
+PW118571.1	175772	African swine fever virus											
+PW023772.1	177622	African swine fever virus											
+PP050539.1	190587	African swine fever virus	Italy	27-Aug-2022	Italy: Rome	wild boar		50665.13_2175/RM/2022_Ita				genotype: II	
+PP050538.1	190578	African swine fever virus	Italy	28-Jun-2023	Italy: Rome	wild boar		35950_2676/RM/2023_Ita				genotype: II	
+PP050537.1	190579	African swine fever virus	Italy	27-Jun-2023	Italy: Rome	wild boar		35950_2675/RM/2023_Ita				genotype: II	
+PP050536.1	190579	African swine fever virus	Italy	17-Jun-2023	Italy: Rome	wild boar		35950_2674/RM/2023_Ita				genotype: II	
+PP050535.1	190568	African swine fever virus	Italy	14-Jun-2023	Italy: Rome	wild boar		35950_2672/RM/2023_Ita				genotype: II	
+PP050534.1	190576	African swine fever virus	Italy	14-Jun-2023	Italy: Rome	wild boar		35950_2671/RM/2023_Ita				genotype: II	
+PP050533.1	190577	African swine fever virus	Italy	13-Jun-2023	Italy: Rome	wild boar		35950_2670/RM/2023_Ita				genotype: II	
+PP050532.1	190571	African swine fever virus	Italy	14-Jun-2023	Italy: Rome	wild boar		35950_2669/RM/2023_Ita				genotype: II	
+PP050531.1	190574	African swine fever virus	Italy	10-Jun-2023	Italy: Rome	wild boar		35950_2667/RM/2023_Ita				genotype: II	
+PP050530.1	190573	African swine fever virus	Italy	26-May-2023	Italy: Rome	wild boar		35950_2665/RM/2023_Ita				genotype: II	
+PP050529.1	190584	African swine fever virus	Italy	23-Jun-2022	Italy: Rome	wild boar		34619_2122/RM/2022_Ita				genotype: II	
+PP050528.1	190584	African swine fever virus	Italy	12-Jun-2022	Italy: Rome	wild boar		34611_2114/RM/2022_Ita				genotype: II	
+PP050527.1	190586	African swine fever virus	Italy	08-Jun-2022	Italy: Rome	wild boar		34607_2110/RM/2022_Ita				genotype: II	
+PP050526.1	190586	African swine fever virus	Italy	01-Jun-2022	Italy: Rome	wild boar		34606_2109/RM/2022_Ita				genotype: II	
+PP050525.1	190570	African swine fever virus	Italy	08-May-2023	Italy: Rome	wild boar		21826_2300/RM/2023_Ita				genotype: II	
+PZ544121.1	189433	African swine fever virus	China	2022	China: Harbin	pig		HLJ/18-deltaD250R_2022				in vivo insertion of EGFP expression cassette	
+PX880620.1	185810	African swine fever virus	Taiwan	2025	Taiwan	Sus scrofa		TW/1141383-1-1/2025				genotype: I/II	
+PX880619.1	187585	African swine fever virus	Taiwan	2025	Taiwan	Sus scrofa		TW/1141379-2-1/2025				genotype: I/II	
+PX880618.1	189217	African swine fever virus	Taiwan	2020	Taiwan	Sus scrofa		TW/1090388/2020				genotype: II	
+PZ539208.1	189399	African swine fever virus	China	2022	China: Harbin	pig		HLJ/18-WT_2022					
+PZ334409.1	185823	African swine fever virus	Viet Nam	2025	Viet Nam	swine		2025.1/DakLak				recombinant of genotype I and II	
+PZ325337.1	185618	African swine fever virus	Viet Nam	2024	Viet Nam	swine		2024.1/BaRia-VungTau				recombinant of genotype I and II	
+PZ412710.1	190352	African swine fever virus	Russia	Jul-2023	Russia: Kirov Region	Sus scrofa scrofa		ASFV/Kirov/WB2023/1447				genotype: II/EU1/RU7	
+PZ412709.1	190352	African swine fever virus	Russia	Jul-2023	Russia: Kirov Region	Sus scrofa scrofa		ASFV/Kirov/WB2023/1448				genotype: II/EU1/RU7	
+PQ010734.2	186020	African swine fever virus	Viet Nam	2023	Viet Nam	Sus scrofa		rASF1/2-avac07				genotype: recombinant of genotype I and II	
+PQ010733.2	185947	African swine fever virus	Viet Nam	2023	Viet Nam	Sus scrofa		rASF1/2-avac03				genotype: recombinant of genotype I and II	
+PQ010732.2	185374	African swine fever virus	Viet Nam	2023	Viet Nam	Sus scrofa		rASF12-avac02				genotype: recombinant of genotype I and II	
+PZ334444.1	189075	African swine fever virus					GZ201801-delta-MGF360-3L						
+PZ268055.1	185325	African swine fever virus	Viet Nam	25-Nov-2024	Viet Nam	Sus scrofa		VNUA ASFV G1/2 Vietnam 2024				recombinant of genotype I and II	
+PZ268054.1	186233	African swine fever virus	Viet Nam	15-Nov-2024	Viet Nam	Sus scrofa		VNUA ASFV G2 Vietnam 2024				genotype II	
+PV833569.1	190590	African swine fever virus	Italy	23-May-2022	Italy: Alessandria	wild boar		50665_3_2163/AL/2022_Ita				genotype: II	
+PV833568.1	190602	African swine fever virus	Italy	10-Jan-2023	Italy: Alessandria	wild boar		8549_2280/AL/2023_Ita				genotype: II	
+PV833567.1	190591	African swine fever virus	Italy	09-Jun-2022	Italy: Rome	domestic pig		34597_2126/RM/2022_Ita				genotype: II	
+PV833566.1	190589	African swine fever virus	Italy	12-May-2022	Italy: Rome	wild boar		22283_1480/RM/2022_Ita				genotype: II	
+PV833565.1	190583	African swine fever virus	Italy	06-May-2022	Italy: Rome	wild boar		21442_1470/RM/2022_Ita				genotype: II	
+PP050516.1	190602	African swine fever virus	Italy	29-May-2023	Italy:Salerno	wild boar		25391_2387/SA/2023_Ita				genotype: II	
+PP050515.1	190595	African swine fever virus	Italy	22-May-2023	Italy: Salerno	wild boar		24689_2369/SA/2023_Ita				genotype: II	
+PP050514.1	190599	African swine fever virus	Italy	22-May-2023	Italy: Salerno	wild boar		24688_2368/SA/2023_Ita				genotype: II	
+PP050513.1	190600	African swine fever virus	Italy	22-May-2023	Italy: Salerno	wild boar		24685.1_2365/SA/2023_Ita				genotype: II	
+PP050512.1	190596	African swine fever virus	Italy	22-May-2023	Italy: Salerno	wild boar		24684_2361/SA/2023_Ita				genotype: II	
+PP317820.1	190596	African swine fever virus	Italy	30-Dec-2022	Italy: Alessandria	wild boar		8549_2269/AL/2022_Ita				genotype: genotype: II	
+PP317819.1	190598	African swine fever virus	Italy	30-Dec-2022	Italy: Alessandria	wild boar		8549_2267/AL/2022_Ita				genotype: genotype: II	
+PP317818.1	190600	African swine fever virus	Italy	23-Dec-2022	Italy: Alessandria	wild boar		8549_2263/AL/2022_Ita				genotype: genotype: II	
+PP317817.1	190601	African swine fever virus	Italy	22-Dec-2022	Italy: Alessandria	wild boar		8549_2260/AL/2022_Ita				genotype: genotype: II	
+PP317816.1	190595	African swine fever virus	Italy	17-Dec-2022	Italy: Alessandria	wild boar		8549_2256/AL/2022_Ita				genotype: genotype: II	
+PP317815.1	190597	African swine fever virus	Italy	12-Dec-2022	Italy: Alessandria	wild boar		8549_2253/AL/2022_Ita				genotype: genotype: II	
+PP317814.1	190596	African swine fever virus	Italy	02-Dec-2022	Italy: Alessandria	wild boar		8549_2250/AL/2022_Ita				genotype: genotype: II	
+PP317813.1	190594	African swine fever virus	Italy	10-Jul-2022	Italy: Alessandria	wild boar		50665.7_2173/AL/2022_Ita				genotype: genotype: II	
+PP317812.1	190588	African swine fever virus	Italy	10-Jul-2022	Italy: Alessandria	wild boar		50665.2_2172/AL/2022_Ita				genotype: genotype: II	
+PP317811.1	190598	African swine fever virus	Italy	13-Mar-2022	Italy: Alessandria	wild boar		47169.13_1496/AL/2022_Ita				genotype: genotype: II	
+PP317808.1	190599	African swine fever virus	Italy	12-Feb-2023	Italy: Alessandria	wild boar		22700_2644/AL/2023_Ita				genotype: genotype: II	

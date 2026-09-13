@@ -1,0 +1,601 @@
+accession	length	organism	country	collection_date	geo_loc_name	host	strain	isolate	serotype	genotype	segment	note	lat_lon
+PV641717.1	11845	Lyssavirus rabies	Pakistan	2023-09-14	Pakistan	dog		PKDOW/PDB017i				passaged once via intracerebral inoculation in mouse strain NMRI	
+PV641712.1	11910	Lyssavirus rabies	Pakistan	2023-09-14	Pakistan	dog		PKDOW/PDB004ii				passaged twice via intracerebral inoculation in mouse strain NMRI	
+PX896059.1	11838	Lyssavirus rabies	India	20-May-2025	India: U.P., Bareilly	cattle		RV-C1				genotype: 1	
+PX896058.1	11811	Lyssavirus rabies	India	26-Aug-2025	India: U.K., Udham Singh Nagar	cattle		RV-C3				genotype: 1	
+PX896057.1	11819	Lyssavirus rabies	India	19-Aug-2025	India: U.P., Bareilly	Canis lupus familiaris		RV-D2				genotype: 1	
+PZ334451.1	11909	Lyssavirus rabies	India	28-Jul-2025	India: Mumbai	Golden Jaackal		ABT/MVC/ICMR-Rabies/Jackal/030					
+PZ324373.1	11835	Lyssavirus rabies	India	23-Jan-2025	India: U.P.,Bareilly	Buffalo calf		RV-B1				genotype: Genotype 1	
+PZ324372.1	11862	Lyssavirus rabies	India	23-Jan-2025	India: U.P., Bareilly	horse		RV-H				genotype: Genotype 1	
+PZ324371.1	11805	Lyssavirus rabies	India	07-Oct-2024	India: UK,Haldwani	Jackal		RV-J				genotype: Genotype 1	
+PZ324370.1	11789	Lyssavirus rabies	India	18-Nov-2025	India: RJ., Ranthambore	cattle		RV-C4				genotype: 1	
+PZ227621.1	11866	Lyssavirus rabies	Switzerland	1984	Switzerland: Kehrsatz	dog	D3_BE_05/03/1984	16609					
+PZ227620.1	11891	Lyssavirus rabies	Switzerland	1971	Switzerland: Oberdiessbach	horse	Hr1_TG_20/07/1971	8671					
+PZ227619.1	11899	Lyssavirus rabies	Switzerland	1976	Switzerland: Belprahon	horse	Hr2_BE_26/11/1976	12420					
+PZ227618.1	11923	Lyssavirus rabies	Switzerland	1995	Switzerland: Rumlingen	fox	F8_BL_25/03/1995	654					
+PZ227617.1	11915	Lyssavirus rabies	Switzerland	1992	Switzerland: Gilly	fox	F14_VD_30/04/1992	1034					
+PZ227616.1	11913	Lyssavirus rabies	Switzerland	1967	Switzerland: Schaffhausen	fox	F23_SH_21/12/1967	6900					
+PZ227615.1	11918	Lyssavirus rabies	Switzerland	1977	Switzerland: Vufflens-le-Chateau	horse	Hr3_VD_21/08/1977	12996					
+PZ227614.1	11922	Lyssavirus rabies	Switzerland	1996	Switzerland: Buus	Stone marten	SM2_BL_02/09/1996	1387					
+PZ227613.1	11920	Lyssavirus rabies	Switzerland	1967	Switzerland: Schaffhausen	fox	F24_SH_31/08/1967	6790					
+PZ227612.1	11921	Lyssavirus rabies	Switzerland	1967	Switzerland: Schaffhausen	fox	F20_SH_21/12/1967	6899					
+PZ227611.1	11922	Lyssavirus rabies	Switzerland	1968	Switzerland: Hemmiken	cat	C1_BL_04/08/1968	7076					
+PZ227610.1	11922	Lyssavirus rabies	Switzerland	1967	Switzerland: Schaffhausen	fox	F18_SH_28/08/1967	6789					
+PZ227609.1	11922	Lyssavirus rabies	Switzerland	1967	Switzerland: Schaffhausen	fox	F2_SH_21/12/1967	6896					
+PZ227608.1	11922	Lyssavirus rabies	Switzerland	1967	Switzerland: Schaffhausen	fox	F16_SH_07/09/1967	6792					
+PZ227607.1	11923	Lyssavirus rabies	Switzerland	1994	Switzerland: Laufelfingen	dog	D10_BL_11/05/1994	1216					
+PZ227606.1	11923	Lyssavirus rabies	Switzerland	1992	Switzerland: Grandfontaine	fox	F10_JU_30/04/1992	1014					
+PZ227605.1	11923	Lyssavirus rabies	Switzerland	1993	Switzerland	cattle	Cl5_BL_01/01/1993	930323					
+PZ227604.1	11923	Lyssavirus rabies	Switzerland	1974	Switzerland: Kaltbrunn	dog	D8_SG_22/04/1974	10340					
+PZ227603.1	11923	Lyssavirus rabies	Switzerland	1986	Switzerland: Saubraz	cat	C12_VD_08/06/1986	1579					
+PZ227602.1	11923	Lyssavirus rabies	Switzerland	1985	Switzerland: Le Bemont	dog	D11_JU_27/03/1985	1097					
+PZ227601.1	11923	Lyssavirus rabies	Switzerland	1975	Switzerland: Landquart	dog	D1_GR_10/11/1975	11513					
+PZ227600.1	11923	Lyssavirus rabies	Switzerland	1995	Switzerland: Muttenz	fox	F7_BL_23/03/1995	644					
+PZ227599.1	11923	Lyssavirus rabies	Switzerland	1993	Switzerland: Schupfart	fox	F3_AG_09/02/1993	22568					
+PZ227598.1	11923	Lyssavirus rabies	Switzerland	1996	Switzerland: Fontenais	cat	C4_JU_19/06/1996	93719					
+PZ227597.1	11923	Lyssavirus rabies	Switzerland	1995	Switzerland: Munchwilen	fox	F17_AG_29/04/1995	864					
+PZ227596.1	11923	Lyssavirus rabies	Switzerland	1976	Switzerland: Rupperswil	horse	Hr5_AG_24/03/1976	11853					
+PZ227595.1	11923	Lyssavirus rabies	Switzerland	1967	Switzerland: Schaffhausen	fox	F1_SH_21/12/1967	6891					
+PZ227594.1	11923	Lyssavirus rabies	Switzerland	1975	Switzerland: Uezwil	goat	G2_AG_31/10/1975	11481					
+PZ227593.1	11923	Lyssavirus rabies	Switzerland	1994	Switzerland: Kuttigen	badger	Bg6_AG_20/12/1994	2562					
+PZ227592.1	11923	Lyssavirus rabies	Switzerland	1995	Switzerland: Kuttigen	Deer	De1_AG_21/08/1995	1611					
+PZ227591.1	11923	Lyssavirus rabies	Switzerland	1992	Switzerland: Zullwil	cat	C9_SO_11/01/1992	98					
+PZ227590.1	11923	Lyssavirus rabies	Switzerland	1977	Switzerland: Pampigny	goat	G3_VD_04/10/1977	13100					
+PZ227589.1	11923	Lyssavirus rabies	Switzerland	1973	Switzerland: Biberbrugg	dog	D5_SZ_25/09/1973	9841					
+PZ227588.1	11923	Lyssavirus rabies	Switzerland	1996	Switzerland: Buus	fox	F15_BL_06/03/1996	540					
+PZ227587.1	11923	Lyssavirus rabies	Switzerland	1970	Switzerland: Windisch	cattle	Cl4_AR_14/11/1970	8210					
+PZ227586.1	11923	Lyssavirus rabies	Switzerland	1988	Switzerland: Bercher	cat	C10_VD_18/06/1988	1918					
+PZ227585.1	11923	Lyssavirus rabies	Switzerland	1984	Switzerland: Bern	Raccon Dog	RC1_BE_08/05/1984	16736					
+PZ227584.1	11923	Lyssavirus rabies	Switzerland	1987	Switzerland: Chevenez	horse	Hr8_JU_26/02/1987	733					
+PZ227583.1	11923	Lyssavirus rabies	Switzerland	1987	Switzerland: Mont-sur-Rolle	cat	C11_VD_16/04/1987	983					
+PZ227582.1	11923	Lyssavirus rabies	Switzerland	1988	Switzerland: Hermance	sheep	Sh7_GE_17/03/1988	494					
+PZ227581.1	11923	Lyssavirus rabies	Switzerland	1973	Switzerland: Siblingen	sheep	Sh3_SH_23/10/1973	9962					
+PZ227580.1	11923	Lyssavirus rabies	Switzerland	1977	Switzerland: Malters	Homo sapiens	Hu2_LU_31/03/1977	12660					
+PZ227579.1	11923	Lyssavirus rabies	Switzerland	1995	Switzerland: Sissach	fox	F5_BL_03/01/1995	2					
+PZ227578.1	11923	Lyssavirus rabies	Switzerland	1976	Switzerland: Belprahon	pig	P3_BE_29/11/1976	12427					
+PZ227577.1	11923	Lyssavirus rabies	Switzerland	1974	Switzerland: Islikon	sheep	Sh6_TG_18/01/1974	10137					
+PZ227576.1	11923	Lyssavirus rabies	Switzerland	1979	Switzerland: Faulensee	sheep	Sh4_BE_24/10/1979	14496					
+PZ227575.1	11923	Lyssavirus rabies	Switzerland	1976	Switzerland: Wolfwil	dog	D2_SO_24/03/1976	11843					
+PZ227574.1	11923	Lyssavirus rabies	Switzerland	1995	Switzerland: Schupfart	fox	F6_AG_19/04/1995	800					
+PZ227573.1	11923	Lyssavirus rabies	Switzerland	1984	Switzerland	sheep	Sh8_?_20/09/1984	17012					
+PZ227572.1	11923	Lyssavirus rabies	Switzerland	1993	Switzerland: Gampelen	cat	C8_BE_14/01/1993	92					
+PZ227571.1	11923	Lyssavirus rabies	Switzerland	1979	Switzerland	cattle	Cl3_BE_03/10/1979	14488					
+PZ227570.1	11923	Lyssavirus rabies	Switzerland	1976	Switzerland	dog	D7_AG_01/01/1976	1117					
+PZ227569.1	11923	Lyssavirus rabies	Switzerland	1968	Switzerland: Horben	cattle	Cl1_TG_27/05/1968	7064					
+PZ227568.1	11923	Lyssavirus rabies	Switzerland	1976	Switzerland: Mumliswil-Ramiswil	horse	Hr7_SO_14/08/1976	12191					
+PZ227567.1	11923	Lyssavirus rabies	Switzerland	1996	Switzerland: Barschwil	cat	C6_SO_30/01/1996	22819					
+PZ227566.1	11923	Lyssavirus rabies	Switzerland	1986	Switzerland: Montricher	cat	C7_VD_05/01/1986	68					
+PZ227565.1	11923	Lyssavirus rabies	Switzerland	1995	Switzerland: Densburen	badger	Bg2_AG_15/11/1995	2123					
+PZ227564.1	11923	Lyssavirus rabies	Switzerland	1995	Switzerland: Oftringen	badger	Bg1_AG_29/04/1995	865					
+PZ227563.1	11923	Lyssavirus rabies	Switzerland	1973	Switzerland: Niederurnen	sheep	Sh5_GL_24/04/1973	9577					
+PZ227562.1	11923	Lyssavirus rabies	Switzerland	1977	Switzerland: Lausanne	Homo sapiens	Hu3_VD_23/11/1977	13166					
+PZ227561.1	11923	Lyssavirus rabies	Switzerland	1976	Switzerland: Belprahon	pig	P1_BE_26/11/1976	12426					
+PZ227560.1	11923	Lyssavirus rabies	Switzerland	1994	Switzerland: Boecourt	fox	F9_JU_16/12/1994	2536					
+PZ227559.1	11923	Lyssavirus rabies	Switzerland	1994	Switzerland: Gretzenbach	badger	Bg3_SO_12/11/1994	2317					
+PZ227558.1	11923	Lyssavirus rabies	Switzerland	1973	Switzerland: Feusisberg	cattle	Cl2_SZ_20/10/1973	9940					
+PZ227557.1	11923	Lyssavirus rabies	Switzerland	1977	Switzerland: Biere	goat	G4_VD_29/09/1977	13096					
+PZ227556.1	11923	Lyssavirus rabies	Switzerland	1994	Switzerland: Laufelfingen	fox	F11_BL_25/04/1994	1130					
+PZ227555.1	11923	Lyssavirus rabies	Switzerland	1967	Switzerland: Schaffhausen	fox	F21_SH_21/12/1967	6892					
+PZ227554.1	11923	Lyssavirus rabies	Switzerland	1995	Switzerland: Rochefort	Stone marten	SM1_NE_24/03/1995	649					
+PZ227553.1	11923	Lyssavirus rabies	Switzerland	1967	Switzerland: Schaffhausen	fox	F4_SH_21/12/1967	6893					
+PZ227552.1	11923	Lyssavirus rabies	Switzerland	1967	Switzerland: Neuhausen am Rheinfall	fox	F19_SH_05/07/1967	6725					
+PZ227551.1	11923	Lyssavirus rabies	Switzerland	1991	Switzerland: La Brevine	cat	C14_NE_27/11/1991	2249					
+PZ227550.1	11923	Lyssavirus rabies	Switzerland	1977	Switzerland: Gollion	horse	Hr6_VD_08/09/1977	13019					
+PZ227549.1	11923	Lyssavirus rabies	Switzerland	1970	Switzerland: Andwil	sheep	Sh2_SG_09/12/1970	8240					
+PZ227548.1	11923	Lyssavirus rabies	Switzerland	1996	Switzerland: Pfeffingen	cat	C5_BS_08/05/1996	77819					
+PZ227547.1	11923	Lyssavirus rabies	Switzerland	1976	Switzerland: Les Bois	horse	Hr4_JU_14/08/1976	12194					
+PZ227546.1	11923	Lyssavirus rabies	Switzerland	1976	Switzerland	dog	D9_ZH_01/01/1976	9101					
+PZ227545.1	11923	Lyssavirus rabies	Switzerland	1994	Switzerland: Biberstein	Deer	De2_AG_01/12/1994	2459					
+PZ227544.1	11923	Lyssavirus rabies	Switzerland	1986	Switzerland: Les Ponts-de-Martel	cat	C15_NE_20/11/1986	2944					
+PZ227543.1	11923	Lyssavirus rabies	Switzerland	1994	Switzerland: Kuttigen	fox	F12_AG_15/11/1994	2331					
+PZ227542.1	11923	Lyssavirus rabies	Switzerland	1994	Switzerland: Densburen	badger	Bg5_AG_10/12/1994	2508					
+PZ227541.1	11923	Lyssavirus rabies	Switzerland	1977	Switzerland: Vuarmarens	cat	C2_FR_21/12/1977	13286					
+PZ227540.1	11923	Lyssavirus rabies	Switzerland	1967	Switzerland: Schaffhausen	sheep	Sh1_SH_10/11/1967	6840					
+PZ227539.1	11923	Lyssavirus rabies	Switzerland	1993	Switzerland: Gipf-Oberfrick	cat	C13_AG_05/08/1993	1656					
+PZ227538.1	11923	Lyssavirus rabies	Switzerland	1993	Switzerland: Oberdorf	fox	F13_BL_06/11/1993	2593					
+PZ227537.1	11923	Lyssavirus rabies	Switzerland	1974	Switzerland	dog	D6_SG_01/01/1974	5058					
+PZ227536.1	11923	Lyssavirus rabies	Switzerland	1993	Switzerland: Movelier	dog	D13_JU_20/10/1993	2367					
+PZ227535.1	11925	Lyssavirus rabies	Switzerland	1994	Switzerland: Soyhieres	badger	Bg4_JU_16/11/1994	2356					
+PZ227534.1	11926	Lyssavirus rabies	Switzerland	1997	Switzerland: Adliswil	dog	D14_ZH_29/10/1997	852					
+PZ227533.1	11920	Lyssavirus rabies	Switzerland	1977	Switzerland: Develier	pig	P2_JU_03/02/1977	12533					
+PX682070.1	11814	Lyssavirus rabies	India	28-Apr-2025	India: U.K.,Dehradun	dog		RV-D1				genotype: 1	
+PX682069.1	11830	Lyssavirus rabies	India	16-Jun-2025	India: M.P.,Bhopal	cattle		RV-C2				genotype: 1	
+PX682068.1	11835	Lyssavirus rabies	India	03-Apr-2025	India: U.P., Bareilly	buffalo		RV-B2				genotype: 1	
+PV641714.2	11875	Lyssavirus rabies	Pakistan	2023-04-12	Pakistan	dog		PKDOW/PDB010					
+OZ470011.1	11898	Lyssavirus rabies	Germany	2026-02-18	Germany:Rhineland-Palatinate			lib07512				monopartite	
+PZ050835.1	11913	Lyssavirus rabies	China	10-Apr-2025	China	Canis lupus familiaris		Q2025005					33.93 N 116.45 E
+PZ050834.1	11913	Lyssavirus rabies	China	08-Mar-2025	China	Canis lupus familiaris		Q2025001					33.93 N 116.45 E
+PZ050833.1	11913	Lyssavirus rabies	China	22-Nov-2024	China	Canis lupus familiaris		Q2024004					33.93 N 116.45 E
+PZ050832.1	11913	Lyssavirus rabies	China	28-Mar-2025	China	Canis lupus familiaris		Q2025004					33.93 N 116.45 E
+PZ050831.1	11913	Lyssavirus rabies	China	25-Nov-2024	China	Canis lupus familiaris		Q2024009					33.93 N 116.45 E
+PZ050830.1	11913	Lyssavirus rabies	China	13-Oct-2024	China	Canis lupus familiaris		Q2024008					33.93 N 116.45 E
+PZ050829.1	11913	Lyssavirus rabies	China	13-Oct-2024	China	Canis lupus familiaris		Q2024007					33.93 N 116.45 E
+PZ050828.1	11913	Lyssavirus rabies	China	20-Dec-2025	China	Canis lupus familiaris		Q2024006					33.93 N 116.45 E
+PZ050827.1	11913	Lyssavirus rabies	China	23-Apr-2025	China	Canis lupus familiaris		Q2025006					33.93 N 116.45 E
+PZ050826.1	11913	Lyssavirus rabies	China	31-Aug-2025	China	Canis lupus familiaris		Q2025012					33.93 N 116.45 E
+PZ050825.1	11913	Lyssavirus rabies	China	20-Dec-2024	China	Canis lupus familiaris		Q2024005					33.93 N 116.45 E
+PZ050824.1	11913	Lyssavirus rabies	China	05-Sep-2025	China	Canis lupus familiaris		Q2025014					33.93 N 116.45 E
+PZ050823.1	11913	Lyssavirus rabies	China	28-May-2025	China	Canis lupus familiaris		Q2025007					33.93 N 116.45 E
+PZ050822.1	11913	Lyssavirus rabies	China	20-Mar-2025	China	Canis lupus familiaris		Q2025002					33.93 N 116.45 E
+PZ050821.1	11913	Lyssavirus rabies	China	01-Jul-2024	China	Canis lupus familiaris		Q2024002					33.93 N 116.45 E
+PZ050820.1	11913	Lyssavirus rabies	China	29-Jun-2024	China	Canis lupus familiaris		Q2024001					33.93 N 116.45 E
+PZ050819.1	11913	Lyssavirus rabies	China	15-Jun-2025	China	Canis lupus familiaris		Q2025008					33.93 N 116.45 E
+PZ050818.1	11913	Lyssavirus rabies	China	07-Dec-2025	China	Canis lupus familiaris		Q2025015					33.93 N 116.45 E
+PZ050817.1	11913	Lyssavirus rabies	China	25-Nov-2025	China	Canis lupus familiaris		Q2025010					33.93 N 116.45 E
+PZ050816.1	11913	Lyssavirus rabies	China	11-Sep-2025	China	Canis lupus familiaris		Q2025009					33.93 N 116.45 E
+PZ050815.1	11913	Lyssavirus rabies	China	04-Dec-2024	China	Canis lupus familiaris		Q2024016					33.93 N 116.45 E
+PV641716.1	11911	Lyssavirus rabies	Pakistan	2024-02-10	Pakistan	Canine lupus		PKDOW/PDB030					
+PV641715.1	11960	Lyssavirus rabies	Pakistan	2023-12-07	Pakistan	Canine lupus		PKDOW/PDB028					
+PV641713.1	11907	Lyssavirus rabies	Pakistan	2023-07-18	Pakistan	dog		PKDOW/PDB011					
+PZ166164.1	11909	Lyssavirus rabies	USA	21-Mar-2025	USA: Arizona, Seligman	Lynx rufus		ZBCS123_Rab				Cosmopolitan AM2b; metagenomic	35.292440 N 113.049620 W
+PV605924.1	11723	Lyssavirus rabies	Laos	27-Jun-2023	Laos: Vientiane Capital	dog		RABV-118					
+PV605923.1	11723	Lyssavirus rabies	Laos	19-Apr-2023	Laos: Vientiane Capital	dog		RABV-117					
+PV605922.1	11723	Lyssavirus rabies	Laos	24-Mar-2023	Laos: Vientiane Capital	dog		RABV-116					
+PV605921.1	11723	Lyssavirus rabies	Laos	06-Feb-2023	Laos: Xaysomboune Province	dog		RABV-115					
+PV605920.1	11723	Lyssavirus rabies	Laos	26-Jan-2023	Laos: Vientiane Capital	dog		RABV-113					
+PV605919.1	11723	Lyssavirus rabies	Laos	19-Jan-2023	Laos: Champasack Province	dog		RABV-112					
+PV605918.1	11723	Lyssavirus rabies	Laos	14-Nov-2022	Laos: Vientiane Capital	dog		RABV-111					
+PV605917.1	11723	Lyssavirus rabies	Laos	31-Oct-2022	Laos: Vientiane Capital	dog		RABV-109					
+PV605916.1	11723	Lyssavirus rabies	Laos	09-Oct-2022	Laos	dog		RABV-108					
+PV605915.1	11723	Lyssavirus rabies	Laos	03-Aug-2022	Laos: Champasack Province	dog		RABV-107					
+PV605914.1	11723	Lyssavirus rabies	Laos	27-Apr-2022	Laos: Vientiane Capital	dog		RABV-105					
+PV605913.1	11723	Lyssavirus rabies	Laos	24-Jan-2022	Laos	dog		RABV-104					
+PV605912.1	11723	Lyssavirus rabies	Laos	19-Jan-2022	Laos: Vientiane Capital	dog		RABV-103					
+PV605911.1	11723	Lyssavirus rabies	Laos	13-Dec-2021	Laos: Vientiane Capital	dog		RABV-102					
+PV605910.1	11723	Lyssavirus rabies	Laos	01-Dec-2021	Laos: Vientiane Capital	dog		RABV-101					
+PV605909.1	11723	Lyssavirus rabies	Laos	25-Nov-2021	Laos: Xaysomboune Province	dog		RABV-100					
+PV605908.1	11723	Lyssavirus rabies	Laos	16-Sep-2021	Laos: Vientiane Capital	dog		RABV-099					
+PV605907.1	11723	Lyssavirus rabies	Laos	09-Sep-2021	Laos: Vientiane Capital	dog		RABV-098					
+PV605906.1	11723	Lyssavirus rabies	Laos	27-Aug-2021	Laos: Vientiane Capital	dog		RABV-097					
+PV605905.1	11723	Lyssavirus rabies	Laos	23-Aug-2021	Laos: Vientiane Capital	dog		RABV-096					
+PV605904.1	11723	Lyssavirus rabies	Laos	06-Jul-2021	Laos: Champasack Province	dog		RABV-095					
+PV605903.1	11723	Lyssavirus rabies	Laos	06-Jul-2021	Laos: Champasack Province	dog		RABV-093					
+PV605902.1	11723	Lyssavirus rabies	Laos	07-Jul-2021	Laos: Vientiane Province	dog		RABV-092					
+PV605901.1	11723	Lyssavirus rabies	Laos	04-Jul-2021	Laos: Vientiane Capital	dog		RABV-091					
+PV605900.1	11723	Lyssavirus rabies	Laos	14-Jun-2021	Laos: Vientiane Capital	dog		RABV-090					
+PV605899.1	11723	Lyssavirus rabies	Laos	26-Apr-2021	Laos: Vientiane Capital	dog		RABV-089					
+PV605898.1	11723	Lyssavirus rabies	Laos	08-Apr-2021	Laos: Vientiane Capital	dog		RABV-088					
+PV605897.1	11723	Lyssavirus rabies	Laos	05-Apr-2021	Laos: Vientiane Capital	dog		RABV-087					
+PV605896.1	11723	Lyssavirus rabies	Laos	03-Mar-2021	Laos: Champasack Province	dog		RABV-086					
+PV605895.1	11723	Lyssavirus rabies	Laos	01-Feb-2021	Laos: Vientiane Capital	cat		RABV-084					
+PV605894.1	11723	Lyssavirus rabies	Laos	12-Jan-2021	Laos: Champasack Province	dog		RABV-081					
+PV605893.1	11723	Lyssavirus rabies	Laos	07-Jan-2021	Laos: Vientiane Capital	dog		RABV-080					
+PV605892.1	11723	Lyssavirus rabies	Laos	03-Jun-2019	Laos: Vientiane Capital	dog		RABV-079					
+PV605891.1	11723	Lyssavirus rabies	Laos	03-Jun-2019	Laos: Vientiane Capital	dog		RABV-078					
+PV605890.1	11723	Lyssavirus rabies	Laos	03-Jun-2019	Laos: Vientiane Capital	dog		RABV-077					
+PV605889.1	11723	Lyssavirus rabies	Laos	07-May-2019	Laos: Vientiane Province	dog		RABV-075					
+PV605888.1	11723	Lyssavirus rabies	Laos	09-Apr-2019	Laos: Vientiane Capital	dog		RABV-073					
+PV605887.1	11723	Lyssavirus rabies	Laos	26-Mar-2019	Laos: Vientiane Province	dog		RABV-072					
+PV605886.1	11723	Lyssavirus rabies	Laos	22-Mar-2019	Laos: Vientiane Capital	dog		RABV-071					
+PV605885.1	11723	Lyssavirus rabies	Laos	19-Mar-2019	Laos: Vientiane Capital	dog		RABV-070					
+PV605884.1	11723	Lyssavirus rabies	Laos	19-Mar-2019	Laos: Vientiane Province	dog		RABV-069					
+PV605883.1	11723	Lyssavirus rabies	Laos	18-Mar-2019	Laos: Vientiane Capital	dog		RABV-068					
+PV605882.1	11723	Lyssavirus rabies	Laos	05-Mar-2019	Laos: Vientiane Capital	dog		RABV-067					
+PV605881.1	11723	Lyssavirus rabies	Laos	06-Feb-2019	Laos: Vientiane Capital	dog		RABV-066					
+PV605880.1	11723	Lyssavirus rabies	Laos	06-Feb-2019	Laos: Vientiane Capital	dog		RABV-065					
+PV605879.1	11723	Lyssavirus rabies	Laos	01-Feb-2019	Laos: Vientiane Capital	dog		RABV-064					
+PV605878.1	11723	Lyssavirus rabies	Laos	22-Jan-2019	Laos: Champasack Province	dog		RABV-063					
+PV605877.1	11723	Lyssavirus rabies	Laos	15-Jan-2019	Laos: Vientiane Capital	dog		RABV-061					
+PV605876.1	11723	Lyssavirus rabies	Laos	15-Jan-2019	Laos: Vientiane Capital	dog		RABV-060					
+PV605875.1	11723	Lyssavirus rabies	Laos	14-Jan-2019	Laos: Vientiane Capital	cattle		RABV-059					
+PV605874.1	11723	Lyssavirus rabies	Laos	25-Dec-2018	Laos: Vientiane Capital	dog		RABV-058					
+PV605873.1	11723	Lyssavirus rabies	Laos	17-Dec-2018	Laos: Vientiane Capital	dog		RABV-057					
+PV605872.1	11723	Lyssavirus rabies	Laos	04-Dec-2018	Laos: Vientiane Capital	dog		RABV-055					
+PV605871.1	11723	Lyssavirus rabies	Laos	26-Nov-2018	Laos: Vientiane Capital	dog		RABV-054					
+PV605870.1	11723	Lyssavirus rabies	Laos	19-Nov-2018	Laos: Vientiane Capital	dog		RABV-053					
+PV605869.1	11723	Lyssavirus rabies	Laos	09-Oct-2018	Laos: Champasack Province	dog		RABV-052					
+PV605868.1	11723	Lyssavirus rabies	Laos	09-Oct-2018	Laos: Vientiane Capital	dog		RABV-051					
+PV605867.1	11723	Lyssavirus rabies	Laos	05-Oct-2018	Laos: Vientiane Capital	dog		RABV-050					
+PV605866.1	11723	Lyssavirus rabies	Laos	02-Nov-2018	Laos: Champasack Province	dog		RABV-049					
+PV605865.1	11723	Lyssavirus rabies	Laos	02-Oct-2018	Laos: Champasack Province	dog		RABV-048					
+PV605864.1	11723	Lyssavirus rabies	Laos	21-Sep-2018	Laos: Champasack Province	cat		RABV-047					
+PV605863.1	11723	Lyssavirus rabies	Laos	21-Sep-2018	Laos: Champasack Province	dog		RABV-046					
+PV605862.1	11723	Lyssavirus rabies	Laos	14-Sep-2018	Laos: Vientiane Capital	dog		RABV-045					
+PV605861.1	11723	Lyssavirus rabies	Laos	07-Sep-2018	Laos: Champasack Province	dog		RABV-044					
+PV605860.1	11723	Lyssavirus rabies	Laos	10-Aug-2018	Laos: Champasack Province	dog		RABV-043					
+PV605859.1	11723	Lyssavirus rabies	Laos	02-Jul-2018	Laos: Vientiane Capital	dog		RABV-041					
+PV605858.1	11723	Lyssavirus rabies	Laos	24-May-2018	Laos: Champasack Province	dog		RABV-040					
+PV605857.1	11723	Lyssavirus rabies	Laos	22-May-2018	Laos: Vientiane Capital	dog		RABV-039					
+PV605856.1	11723	Lyssavirus rabies	Laos	03-May-2018	Laos: Vientiane Capital	dog		RABV-038					
+PV605855.1	11723	Lyssavirus rabies	Laos	19-Apr-2018	Laos: Vientiane Capital	dog		RABV-037					
+PV605854.1	11723	Lyssavirus rabies	Laos	19-Apr-2018	Laos: Vientiane Capital	dog		RABV-036					
+PV605853.1	11723	Lyssavirus rabies	Laos	21-Mar-2018	Laos: Vientiane Capital	dog		RABV-035					
+PV605852.1	11723	Lyssavirus rabies	Laos	21-Mar-2018	Laos: Vientiane Capital	dog		RABV-034					
+PV605851.1	11723	Lyssavirus rabies	Laos	13-Mar-2018	Laos: Champasack Province	dog		RABV-033					
+PV605850.1	11723	Lyssavirus rabies	Laos	03-Feb-2018	Laos: Champasack Province	dog		RABV-032					
+PV605849.1	11723	Lyssavirus rabies	Laos	26-Jan-2018	Laos: Vientiane Capital	dog		RABV-030					
+PV605848.1	11723	Lyssavirus rabies	Laos	15-Jan-2018	Laos: Vientiane Capital	dog		RABV-029					
+PV605847.1	11723	Lyssavirus rabies	Laos	25-Oct-2017	Laos: Vientiane Capital	dog		RABV-026					
+PV605846.1	11723	Lyssavirus rabies	Laos	16-Oct-2017	Laos: Vientiane Capital	dog		RABV-025					
+PV605845.1	11723	Lyssavirus rabies	Laos	10-Oct-2017	Laos: Vientiane Capital	dog		RABV-023					
+PV605844.1	11723	Lyssavirus rabies	Laos	28-Sep-2017	Laos: Vientiane Capital	dog		RABV-021					
+PV605843.1	11723	Lyssavirus rabies	Laos	03-Aug-2017	Laos: Vientiane Capital	dog		RABV-019					
+PV605842.1	11723	Lyssavirus rabies	Laos	01-Aug-2017	Laos: Savannakhet Province	dog		RABV-018					
+PV605841.1	11723	Lyssavirus rabies	Laos	06-Jul-2017	Laos: Vientiane Capital	dog		RABV-013					
+PV605840.1	11723	Lyssavirus rabies	Laos	06-Jul-2017	Laos: Vientiane Province	dog		RABV-012					
+PV605839.1	11723	Lyssavirus rabies	Laos	02-Jun-2017	Laos: Vientiane Capital	dog		RABV-010					
+PV605838.1	11723	Lyssavirus rabies	Laos	15-May-2017	Laos: Luangprabang Province	dog		RABV-009					
+PV605837.1	11723	Lyssavirus rabies	Laos	07-May-2017	Laos: Vientiane Capital	dog		RABV-008					
+PV605836.1	11723	Lyssavirus rabies	Laos	27-Mar-2017	Laos: Vientiane Province	dog		RABV-007					
+PV605835.1	11723	Lyssavirus rabies	Laos	01-Feb-2017	Laos: Vientiane Capital	dog		RABV-005					
+PV605834.1	11723	Lyssavirus rabies	Laos	30-Jan-2017	Laos: Vientiane Capital	dog		RABV-004					
+PV605833.1	11723	Lyssavirus rabies	Laos	19-Jan-2017	Laos: Vientiane Capital	dog		RABV-003					
+PV605832.1	11723	Lyssavirus rabies	Laos	18-Jan-2017	Laos: Saravane Province	dog		RABV-002					
+PV605831.1	11723	Lyssavirus rabies	Laos	13-Jan-2017	Laos: Vientiane Capital	dog		RABV-001					
+PV591865.1	11887	Lyssavirus rabies	Thailand	02-May-2015	Thailand	Canis lupus familiaris		TH/MOZWE-MUMT-RBV11/2015				BHK-21	
+PV591864.1	11866	Lyssavirus rabies						CVS-11/DMSC-TH					
+PV591863.1	11914	Lyssavirus rabies	Thailand	14-Jun-2018	Thailand	Homo sapiens		TH/DMSC-MUMT-RBV11615/2018				BHK-21	
+PV591862.1	11887	Lyssavirus rabies	Thailand	19-Feb-2017	Thailand	Canis lupus familiaris		TH/NIAH-MUMT-RBV05/2017				BHK-21	
+PV591861.1	11887	Lyssavirus rabies	Thailand	14-Feb-2017	Thailand	Canis lupus familiaris		TH/NIAH-MUMT-RBV04/2017				BHK-21	
+PV591860.1	11887	Lyssavirus rabies	Thailand	15-Feb-2017	Thailand	Canis lupus familiaris		TH/NIAH-MUMT-RBV03/2017				BHK-21	
+PV591859.1	11849	Lyssavirus rabies	Thailand	17-Feb-2017	Thailand	Canis lupus familiaris		TH/NIAH-MUMT-RBV02/2017				BHK-21	
+PV591858.1	11887	Lyssavirus rabies	Thailand	22-Feb-2017	Thailand	Canis lupus familiaris		TH/NIAH-MUMT-RBV01/2017				BHK-21	
+PQ650430.1	11924	Lyssavirus rabies	China	2022	China	Canis lupus familiaris		GXLZ2022					
+PQ650429.1	11924	Lyssavirus rabies	China	2020	China	Canis lupus familiaris		GXHC2020					
+PQ650428.1	11924	Lyssavirus rabies	China	2021	China	Canis lupus familiaris		GXBH2021					
+PQ650427.1	11924	Lyssavirus rabies	China	2020	China	Canis lupus familiaris		GXBH2020					
+PQ650426.1	11924	Lyssavirus rabies	China	2019	China	Canis lupus familiaris		GXYL2019					
+PX132042.1	11601	Lyssavirus rabies	Zimbabwe	2019	Zimbabwe: Matobo	Bos taurus		DVSIDB66					
+PX132041.1	11828	Lyssavirus rabies	Zimbabwe	2020	Zimbabwe: Hwange airport	Galerella sanguinea		DVSIDB26					
+LC867593.1	11904	Lyssavirus rabies	Viet Nam	2023	Viet Nam	Homo sapiens	H334						
+LC867592.1	11904	Lyssavirus rabies	Viet Nam	2024	Viet Nam	Canis lupus familiaris	D445						
+LC867591.1	11904	Lyssavirus rabies	Viet Nam	2024	Viet Nam	Canis lupus familiaris	D187						
+LC867590.1	11875	Lyssavirus rabies	Viet Nam	2013	Viet Nam	Canis lupus familiaris	D182						
+LC867589.1	11886	Lyssavirus rabies	Viet Nam	2012	Viet Nam	Canis lupus familiaris	D171						
+LC867588.1	11886	Lyssavirus rabies	Viet Nam	2011	Viet Nam	Canis lupus familiaris	D159						
+LC867587.1	11869	Lyssavirus rabies	Viet Nam	2020	Viet Nam	Canis lupus familiaris	D041						
+LC867586.1	11886	Lyssavirus rabies	Viet Nam	2020	Viet Nam	Canis lupus familiaris	D040						
+LC867585.1	11895	Lyssavirus rabies	Viet Nam	2020	Viet Nam	Canis lupus familiaris	D037						
+LC867584.1	11903	Lyssavirus rabies	Viet Nam	2020	Viet Nam	Canis lupus familiaris	D033						
+LC867583.1	11890	Lyssavirus rabies	Viet Nam	2020	Viet Nam	Canis lupus familiaris	D027						
+LC867582.1	11893	Lyssavirus rabies	Viet Nam	2020	Viet Nam	Canis lupus familiaris	D023						
+LC867581.1	11903	Lyssavirus rabies	Viet Nam	2020	Viet Nam	Canis lupus familiaris	D214						
+LC867580.1	11878	Lyssavirus rabies	Viet Nam	2020	Viet Nam	Canis lupus familiaris	D213						
+LC867579.1	11911	Lyssavirus rabies	Viet Nam	2021	Viet Nam	Homo sapiens	H247						
+LC867578.1	11901	Lyssavirus rabies	Viet Nam	2021	Viet Nam	Homo sapiens	H241						
+LC867577.1	11898	Lyssavirus rabies	Viet Nam	2020	Viet Nam	Homo sapiens	H201						
+PV855415.1	11809	Lyssavirus rabies	South Africa	2022	South Africa: Nelson Mandela Bay	canine		714					
+PV855414.1	11886	Lyssavirus rabies	South Africa	2022	South Africa: Nelson Mandela Bay	canine		427					
+PV855413.1	11825	Lyssavirus rabies	South Africa	2022	South Africa: Nelson Mandela Bay	canine		745					
+PV855412.1	11882	Lyssavirus rabies	South Africa	2022	South Africa: Nelson Mandela Bay	canine		713					
+PV855411.1	11813	Lyssavirus rabies	South Africa	2022	South Africa: Nelson Mandela Bay	canine		1418					
+PV855410.1	11882	Lyssavirus rabies	South Africa	2022	South Africa: Nelson Mandela Bay	canine		1356					
+PV855409.1	11873	Lyssavirus rabies	South Africa	2022	South Africa: Nelson Mandela Bay	canine		1513					
+PV855408.1	11699	Lyssavirus rabies	South Africa	2022	South Africa: Nelson Mandela Bay	canine		1650					
+PV855407.1	11886	Lyssavirus rabies	South Africa	2022	South Africa: Nelson Mandela Bay	canine		824					
+PV855406.1	11813	Lyssavirus rabies	South Africa	2022	South Africa: Nelson Mandela Bay	canine		787					
+PV855405.1	11752	Lyssavirus rabies	South Africa	2022	South Africa: Nelson Mandela Bay	canine		S4					
+PV855404.1	11744	Lyssavirus rabies	South Africa	2022	South Africa: Nelson Mandela Bay	canine		883					
+PV855403.1	11813	Lyssavirus rabies	South Africa	2022	South Africa: Nelson Mandela Bay	feline		1453					
+PV855402.1	11809	Lyssavirus rabies	South Africa	2022	South Africa: Nelson Mandela Bay	feline		1419					
+PV855401.1	11809	Lyssavirus rabies	South Africa	2022	South Africa: Nelson Mandela Bay	canine		715					
+PV855400.1	11825	Lyssavirus rabies	South Africa	2022	South Africa: Nelson Mandela Bay	canine		884					
+PV855399.1	11751	Lyssavirus rabies	South Africa	2022	South Africa: Nelson Mandela Bay	canine		1354					
+PV855398.1	11809	Lyssavirus rabies	South Africa	2022	South Africa: Nelson Mandela Bay	canine		1651					
+PV855397.1	11886	Lyssavirus rabies	South Africa	2022	South Africa: Uitenhage	canine		1517					
+PV855396.1	11886	Lyssavirus rabies	South Africa	2022	South Africa: Nelson Mandela Bay	canine		1024					
+PV855395.1	11761	Lyssavirus rabies	South Africa	2022	South Africa: Nelson Mandela Bay	canine		917					
+PV855394.1	11825	Lyssavirus rabies	South Africa	2022	South Africa: Sarah Baartman	canine		978					
+PV855393.1	11886	Lyssavirus rabies	South Africa	2022	South Africa: Nelson Mandela Bay	canine		1512					
+PV855392.1	11748	Lyssavirus rabies	South Africa	2022	South Africa: Nelson Mandela Bay	canine		1098					
+PV855391.1	11813	Lyssavirus rabies	South Africa	2022	South Africa: Nelson Mandela Bay	canine		825					
+PV855390.1	11778	Lyssavirus rabies	South Africa	2022	South Africa: Nelson Mandela Bay	canine		826					
+PV855389.1	11384	Lyssavirus rabies	South Africa	2022	South Africa: Nelson Mandela Bay	canine		1099					
+PV855388.1	11825	Lyssavirus rabies	South Africa	2022	South Africa: Nelson Mandela Bay	canine		785					
+PQ082915.1	11822	Lyssavirus rabies	India	2023	India	dog		NNV-RAB-A280					
+PQ082914.1	11785	Lyssavirus rabies	India	2023	India	dog		NNV-RAB-A279					
+PQ082913.1	11784	Lyssavirus rabies	India	2023	India	dog		NNV-RAB-A278					
+PQ082912.1	11783	Lyssavirus rabies	India	2023	India	dog		NNV-RAB-A277					
+PQ082911.1	11785	Lyssavirus rabies	India	2023	India	dog		NNV-RAB-A276					
+PQ082910.1	11785	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A275					
+PQ082909.1	11785	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A274					
+PQ082908.1	11796	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A273					
+PQ082907.1	11786	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A272					
+PQ082906.1	11788	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A271					
+PQ082905.1	11783	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A270					
+PQ082904.1	11804	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A269					
+PQ082903.1	11804	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A268					
+PQ082902.1	11802	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A267					
+PQ082901.1	11788	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A266					
+PQ082900.1	11786	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A265					
+PQ082899.1	11782	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A264					
+PQ082898.1	11779	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A263					
+PQ082897.1	11786	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A262					
+PQ082896.1	11787	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A261					
+PQ082895.1	11779	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A260					
+PQ082894.1	11788	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A259					
+PQ082893.1	11788	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A258					
+PQ082892.1	11781	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A257					
+PQ082891.1	11788	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A256					
+PQ082890.1	11788	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A255					
+PQ082889.1	11804	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A253					
+PQ082888.1	11786	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A252					
+PQ082887.1	11785	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A251					
+PQ082886.1	11778	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A250					
+PQ082885.1	11780	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A249					
+PQ082884.1	11785	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A248					
+PQ082883.1	11788	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A247					
+PQ082882.1	11781	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A246					
+PQ082881.1	11823	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A245					
+PQ082880.1	11780	Lyssavirus rabies	India	2023	India	dog		NNV-RAB-A244					
+PQ082879.1	11788	Lyssavirus rabies	India	2023	India	dog		NNV-RAB-A243					
+PQ082878.1	11782	Lyssavirus rabies	India	2023	India	dog		NNV-RAB-A242					
+MG458321.1	11924	Lyssavirus rabies	China		China	dog		ChDg					
+MG458320.1	11927	Lyssavirus rabies	Nepal	2012	Nepal	Homo sapiens		RV2924					
+MG458319.1	11925	Lyssavirus rabies	Grenada	2012	Grenada	mongoose		RV2854					
+MG458318.1	11918	Lyssavirus rabies	South Africa	2008	South Africa	Homo sapiens		RV2481					
+MG458317.1	11923	Lyssavirus rabies	Egypt	1999	Egypt	dog		RV2323					
+MG458316.1	11923	Lyssavirus rabies	Egypt	1998	Egypt	dog		RV2322					
+MG458315.1	11923	Lyssavirus rabies	Egypt	1998	Egypt	dog		RV2321					
+MG458314.1	11922	Lyssavirus rabies		1997		cow		RV1789					
+MG458313.1	11926	Lyssavirus rabies	Russia	1996	Russia	arctic fox		RV1336					
+MG458312.1	11923	Lyssavirus rabies	Serbia	1997	Serbia	fox		RV1219					
+MG458311.1	11923	Lyssavirus rabies	Serbia	1998	Serbia	fox		RV1196					
+MG458310.1	11923	Lyssavirus rabies	Serbia	1986	Serbia	cow		RV1189					
+MG458309.1	11923	Lyssavirus rabies	Serbia	1978	Serbia	dog		RV1185					
+MG458308.1	11926	Lyssavirus rabies	South Africa	2000	South Africa	mongoose		RV1009					
+MG458307.1	11922	Lyssavirus rabies	South Africa	2000	South Africa	cat		RV995					
+MG458306.1	11924	Lyssavirus rabies	Czech Republic		Czech Republic	fox		RV860					
+MG458305.1	11923	Lyssavirus rabies	Chile		Chile	bat		RV108					
+MG458304.1	11922	Lyssavirus rabies	USA	1975	USA	bat		RV50					
+PP736759.1	11833	Lyssavirus rabies	Mexico	2022	Mexico	bovine		CENASA-MX22-Rab09					
+OR046015.1	11698	Lyssavirus rabies	Kenya	2022	Kenya: East Asembo	Canis lupus familiaris		Z00865571				Cosmopolitan AF1a_A1.1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+OR046014.1	11695	Lyssavirus rabies	Kenya	2022	Kenya: South East Alego	Canis lupus familiaris		Z00865570				Cosmopolitan AF1a_A1.1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+OR046013.1	11695	Lyssavirus rabies	Kenya	2022	Kenya: West Asembo	Canis lupus familiaris		Z00865566				Cosmopolitan AF1a_A1.1.1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+OR046012.1	11695	Lyssavirus rabies	Kenya	2022	Kenya: West Asembo	Canis lupus familiaris		Z00865564				Cosmopolitan AF1a_C1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+OR046011.1	11695	Lyssavirus rabies	Kenya	2022	Kenya: East Asembo	Canis lupus familiaris		Z00865563				Cosmopolitan AF1a_A1.1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+OR046010.1	11698	Lyssavirus rabies	Kenya	2022	Kenya: South Gem	Canis lupus familiaris		Z00865562				Cosmopolitan AF1a_A1.1.1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+OR046009.1	11695	Lyssavirus rabies	Kenya	2022	Kenya: West Asembo	Canis lupus familiaris		Z00865561				Cosmopolitan AF1a_A1.1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+OR046008.1	11695	Lyssavirus rabies	Kenya	2022	Kenya: North Gem	Canis lupus familiaris		Z00865560				Cosmopolitan AF1a_A1.1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+OR046007.1	11698	Lyssavirus rabies	Kenya	2021	Kenya: Bondo			Z00861877				Cosmopolitan AF1a_A1.1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+OR046006.1	11698	Lyssavirus rabies	Kenya	2021	Kenya: Alego Usonga	bovine		Z00861872				Cosmopolitan AF1a_A1.1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+OR046005.1	11698	Lyssavirus rabies	Kenya	2021	Kenya: Alego Usonga	bovine		Z00861871				Cosmopolitan AF1a_A1.1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+OR046004.1	11698	Lyssavirus rabies	Kenya	2021	Kenya: Alego Usonga	Canis lupus familiaris		Z00861870				Cosmopolitan AF1a_A1.1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+OR046003.1	11695	Lyssavirus rabies	Kenya	2021	Kenya: Bondo	Canis lupus familiaris		Z00861869				Cosmopolitan AF1a_C1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+OR046002.1	11695	Lyssavirus rabies	Kenya	2021	Kenya: Bondo	Canis lupus familiaris		Z00861867				Cosmopolitan AF1a_C1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+OR046001.1	11695	Lyssavirus rabies	Kenya	2021	Kenya: Bondo	Canis lupus familiaris		Z00861865				Cosmopolitan AF1a_C1.1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+OR046000.1	11695	Lyssavirus rabies	Kenya	2021	Kenya: Rarieda	Canis lupus familiaris		Z00861864				Cosmopolitan AF1a_C1.1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+OR045999.1	11695	Lyssavirus rabies	Kenya	2021	Kenya: Rarieda	Canis lupus familiaris		Z00861863				Cosmopolitan AF1a_C1.1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+OR045998.1	11695	Lyssavirus rabies	Kenya		Kenya: Alego Usonga			Z00861862				Cosmopolitan AF1a_C1.1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+OR045997.1	11695	Lyssavirus rabies	Kenya	2021	Kenya: Bondo	Canis lupus familiaris		Z00861860				Cosmopolitan AF1a_C1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+OR045996.1	11695	Lyssavirus rabies	Kenya	2021	Kenya: Rarieda	Canis lupus familiaris		Z00861859				Cosmopolitan AF1a_C1.1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+OR045995.1	11698	Lyssavirus rabies	Kenya	2021	Kenya: Alego Usonga	bovine		Z00861858				Cosmopolitan AF1a_A1.1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+OR045993.1	11695	Lyssavirus rabies	Kenya	2021	Kenya: Bondo	Canis lupus familiaris		Z00861855				Cosmopolitan AF1a_C1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+OR045992.1	11695	Lyssavirus rabies	Kenya	2021	Kenya: Bondo	Canis lupus familiaris		Z00861853				Cosmopolitan AF1a_C1.1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+OR045991.1	11698	Lyssavirus rabies	Kenya	2021	Kenya: Rarieda	Canis lupus familiaris		Z00861852				Cosmopolitan AF1a_C1.1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+OR045990.1	11698	Lyssavirus rabies	Kenya	2021	Kenya: Bondo	Canis lupus familiaris		Z00861851				Cosmopolitan AF1a_C1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+OR045989.1	11695	Lyssavirus rabies	Kenya	2021	Kenya: Bondo	Canis lupus familiaris		Z00861850				Cosmopolitan AF1a_C1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+OR045988.1	11695	Lyssavirus rabies	Kenya	2022	Kenya: Rarieda	bovine		Z00861846				Cosmopolitan AF1a_A1.1.1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+OR045987.1	11695	Lyssavirus rabies	Kenya	2022	Kenya: Rarieda	bovine		Z00861845				Cosmopolitan AF1a_C1.1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+OR045986.1	11695	Lyssavirus rabies	Kenya	2022	Kenya: Rarieda	bovine		Z00861844				Cosmopolitan AF1a_C1.1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+OR045985.1	11695	Lyssavirus rabies	Kenya	2022	Kenya: Yimbo East	Canis lupus familiaris		Z00861843				Cosmopolitan AF1a_A1.1.1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+OR045984.1	11695	Lyssavirus rabies	Kenya	2022	Kenya: South East Alego	Canis lupus familiaris		Z00861841				Cosmopolitan AF1a_A1.1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+OR045983.1	11695	Lyssavirus rabies	Kenya	2022	Kenya: Siaya	Canis lupus familiaris		Z00861840				Cosmopolitan AF1a_C1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+OR045982.1	11695	Lyssavirus rabies	Kenya	2022	Kenya: Siaya	Canis lupus familiaris		Z00861839				Cosmopolitan AF1a_C1.1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+OR045981.1	11695	Lyssavirus rabies	Kenya	2022	Kenya: Bondo	Canis lupus familiaris		Z00861838				Cosmopolitan AF1a_C1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+OR045980.1	11698	Lyssavirus rabies	Kenya	2022	Kenya: Bondo	Canis lupus familiaris		Z00861837				Cosmopolitan AF1a_A1.1.1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+OR045979.1	11695	Lyssavirus rabies	Kenya	2022	Kenya: Yimbo East	Canis lupus familiaris		Z00861836				Cosmopolitan AF1a_A1.1.1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+OR045978.1	11698	Lyssavirus rabies	Kenya	2022	Kenya: Yimbo East	Canis lupus familiaris		Z00861835				Cosmopolitan AF1a_A1.1.1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+OR045977.1	11701	Lyssavirus rabies	Kenya	2022	Kenya: West Alego	Canis lupus familiaris		Z00861834				Cosmopolitan AF1a_A1.1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+OR045976.1	11695	Lyssavirus rabies	Kenya	2022	Kenya: Siaya Township	Canis lupus familiaris		Z00861832				Cosmopolitan AF1a_A1.1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+OR045975.1	11701	Lyssavirus rabies	Kenya	2022	Kenya: Central Alego	bovine		Z00861831				Cosmopolitan AF1a_A1.1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+OR045974.1	11695	Lyssavirus rabies	Kenya	2022	Kenya: Central Sakwa	Canis lupus familiaris		Z00861829				Cosmopolitan AF1a_C1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+OR045973.1	11695	Lyssavirus rabies	Kenya	2022	Kenya: East Asembo	Canis lupus familiaris		Z00861827				Cosmopolitan AF1a_A1.1.1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+OR045972.1	11695	Lyssavirus rabies	Kenya	2022	Kenya: West Sakwa	Canis lupus familiaris		Z00861826				Cosmopolitan AF1a_A1.1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+OR045971.1	11695	Lyssavirus rabies	Kenya	2022	Kenya: Yimbo East	Canis lupus familiaris		Z00861824				Cosmopolitan AF1a_C1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+OR045970.1	11698	Lyssavirus rabies	Kenya	2022	Kenya: West Uyoma	Canis lupus familiaris		Z00861823				Cosmopolitan AF1a_A1.1.1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+OR045969.1	11698	Lyssavirus rabies	Kenya	2022	Kenya: West Uyoma	Canis lupus familiaris		Z00861820				Cosmopolitan AF1a_A1.1.1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+OR045968.1	11695	Lyssavirus rabies	Kenya	2022	Kenya: West Alego	Canis lupus familiaris		Z00861815				Cosmopolitan AF1a_C1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+OR045967.1	11695	Lyssavirus rabies		2022		Canis lupus familiaris		Z00861814				genotype: Cosmopolitan AF1b	
+OR045966.1	11698	Lyssavirus rabies	Kenya	2022	Kenya: Siaya Township	Canis lupus familiaris		Z00861811				Cosmopolitan AF1a_A1.1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+OR045965.1	11695	Lyssavirus rabies	Kenya	2022	Kenya: Siaya Township	Canis lupus familiaris		Z00861810				Cosmopolitan AF1a_C1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+OR045964.1	11695	Lyssavirus rabies	Kenya	2022	Kenya: Ugunja	Canis lupus familiaris		Z00861808				Cosmopolitan AF1a_A1.1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+OR045963.1	11698	Lyssavirus rabies	Kenya	2022	Kenya: North Uyoma	Canis lupus familiaris		Z00861807				Cosmopolitan AF1a_C1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+OR045962.1	11695	Lyssavirus rabies	Kenya	2022	Kenya: South Gem	Canis lupus familiaris		Z00861806				Cosmopolitan AF1a_A1.1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+OR045961.1	11695	Lyssavirus rabies	Kenya	2021	Kenya: Kathonzweni	Canis lupus familiaris		Z00832443				Cosmopolitan AF1b_A1.1 (MADDOG V3); genotype: Cosmopolitan AF1b	
+OR045960.1	11589	Lyssavirus rabies	Kenya	2018	Kenya: Gem	Homo sapiens		Z0828879				Cosmopolitan AF1a_A1.1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+OR045959.1	11592	Lyssavirus rabies	Kenya	2018	Kenya: Gem	Homo sapiens		Z0826253				Cosmopolitan AF1b_A2 (MADDOG V3); genotype: Cosmopolitan AF1b	
+OR045958.1	11695	Lyssavirus rabies	Kenya	2022	Kenya: Kathonzweni	Canis lupus familiaris		Z0083243				Cosmopolitan AF1b_A1.1 (MADDOG V3); genotype: Cosmopolitan AF1b	
+OR045957.1	11695	Lyssavirus rabies	Kenya	2022	Kenya: Kathonzweni	Canis lupus familiaris		Z0083240				Cosmopolitan AF1b_A1.1 (MADDOG V3); genotype: Cosmopolitan AF1b	
+OR045956.1	11695	Lyssavirus rabies	Kenya	2021	Kenya: Kibwezi East	Canis lupus familiaris		Z0083233				Cosmopolitan AF1b_A1.1 (MADDOG V3); genotype: Cosmopolitan AF1b	
+OR045955.1	11695	Lyssavirus rabies	Kenya	2021	Kenya: Kibwezi West	Canis lupus familiaris		Z0083226				Cosmopolitan AF1b_A1.1 (MADDOG V3); genotype: Cosmopolitan AF1b	
+OR045954.1	11695	Lyssavirus rabies	Kenya	2021	Kenya: Makueni	goat		Z0083223				Cosmopolitan AF1b_A1.1 (MADDOG V3); genotype: Cosmopolitan AF1b	
+OR045953.1	11695	Lyssavirus rabies	Kenya	2021	Kenya: Kathonzweni	cow		Z0083216				Cosmopolitan AF1b_A1.1 (MADDOG V3); genotype: Cosmopolitan AF1b	
+OR045952.1	11695	Lyssavirus rabies	Kenya	2021	Kenya: Kibwezi East	Canis lupus familiaris		Z0083204				Cosmopolitan AF1b_A1.1 (MADDOG V3); genotype: Cosmopolitan AF1b	
+OR045951.1	11695	Lyssavirus rabies	Kenya	2021	Kenya: makueni	Canis lupus familiaris		Z0083192				Cosmopolitan AF1b_A1.1 (MADDOG V3); genotype: Cosmopolitan AF1b	
+OR045950.1	11824	Lyssavirus rabies		2015		Canis lupus familiaris		SUB7128				genotype: Cosmopolitan AF1b	
+OR045949.1	11914	Lyssavirus rabies		2015		Canis lupus familiaris		SUB7127				genotype: Cosmopolitan AF1b	
+OR045948.1	11746	Lyssavirus rabies		2015		donkey		SUB7109				genotype: Cosmopolitan AF1b	
+OR045947.1	11695	Lyssavirus rabies	Tanzania	2022	Tanzania: Ngorongoro	Homo sapiens		SD846				Cosmopolitan AF1b_A1.1 (MADDOG V3); genotype: Cosmopolitan AF1b	
+OR045946.1	11695	Lyssavirus rabies	Tanzania	2019	Tanzania: Serengeti	Canis lupus familiaris		SD751				Cosmopolitan AF1b_A1.1.1 (MADDOG V3); genotype: Cosmopolitan AF1b	
+OR045945.1	11598	Lyssavirus rabies	Tanzania	2019	Tanzania: Serengeti	Canis lupus familiaris		SD745				Cosmopolitan AF1b_A1.1.1 (MADDOG V3); genotype: Cosmopolitan AF1b	
+OR045944.1	11596	Lyssavirus rabies	Tanzania	2019	Tanzania: Serengeti	Canis lupus familiaris		SD744				Cosmopolitan AF1b_B1.2 (MADDOG V3); genotype: Cosmopolitan AF1b	
+OR045943.1	11809	Lyssavirus rabies	Tanzania	2019	Tanzania: Serengeti	Canis lupus familiaris		SD743				Cosmopolitan AF1b_A1.1 (MADDOG V3); genotype: Cosmopolitan AF1b	
+OR045942.1	11846	Lyssavirus rabies	Tanzania	2019	Tanzania: Serengeti	Canis lupus familiaris		SD741				Cosmopolitan AF1b_B1.1.2 (MADDOG V3); genotype: Cosmopolitan AF1b	
+OR045940.1	11620	Lyssavirus rabies		2017		Canis lupus familiaris		SD703				genotype: Cosmopolitan AF1b	
+OR045939.1	11923	Lyssavirus rabies		2016		Canis lupus familiaris		SD575				genotype: Cosmopolitan AF1b	
+OR045938.1	11695	Lyssavirus rabies	Tanzania	2020	Tanzania: Arusha urban	Canis lupus familiaris		RB004				Cosmopolitan AF1b_A1.1 (MADDOG V3); genotype: Cosmopolitan AF1b	
+OR045937.1	11695	Lyssavirus rabies	Tanzania	2020	Tanzania: Ulanga	cow		RB003				Cosmopolitan AF1b_A1 (MADDOG V3); genotype: Cosmopolitan AF1b	
+OR045936.1	11695	Lyssavirus rabies	Tanzania	2020	Tanzania: Ulanga	Canis lupus familiaris		RB002				Cosmopolitan AF1b_A1 (MADDOG V3); genotype: Cosmopolitan AF1b	
+OR045935.1	11695	Lyssavirus rabies	Tanzania	2019	Tanzania: Arusha urban	Canis lupus familiaris		RB001				Cosmopolitan AF1b_B1.2 (MADDOG V3); genotype: Cosmopolitan AF1b	
+OR045934.1	11860	Lyssavirus rabies		2012		Canis lupus familiaris		RAB12002				genotype: Cosmopolitan AF1b	
+OR045933.1	11695	Lyssavirus rabies	Tanzania	2019	Tanzania: Ulanga	Canis lupus familiaris		MR009				Cosmopolitan AF1b_A1 (MADDOG V3); genotype: Cosmopolitan AF1b	
+OR045932.1	11695	Lyssavirus rabies	Tanzania	2019	Tanzania: Ulanga	Canis lupus familiaris		MR008				Cosmopolitan AF1b_A1 (MADDOG V3); genotype: Cosmopolitan AF1b	
+OR045931.1	11695	Lyssavirus rabies	Tanzania	2020	Tanzania: Ulanga	Canis lupus familiaris		MR006				Cosmopolitan AF1b_A1 (MADDOG V3); genotype: Cosmopolitan AF1b	
+OR045930.1	11695	Lyssavirus rabies	Tanzania	2020	Tanzania: Ulanga	Canis lupus familiaris		MR005				Cosmopolitan AF1b_A1 (MADDOG V3); genotype: Cosmopolitan AF1b	
+OR045929.1	11695	Lyssavirus rabies	Tanzania	2020	Tanzania: Ulanga	Canis lupus familiaris		MR001				Cosmopolitan AF1b_A1 (MADDOG V3); genotype: Cosmopolitan AF1b	
+OR045927.1	11698	Lyssavirus rabies	Kenya	2022	Kenya: South West Sakwa	Homo sapiens		2021153276				Cosmopolitan AF1a_C1 (MADDOG V3); genotype: Cosmopolitan AF1a	
+PV606732.1	11867	Lyssavirus rabies	French Guiana	2024	French Guiana	Homo sapiens		P1642					
+PV606731.1	11880	Lyssavirus rabies	French Guiana	2024	French Guiana	Homo sapiens		P1631					
+PV606730.1	11873	Lyssavirus rabies	French Guiana	2024	French Guiana	Homo sapiens		P1632					
+PP211363.1	11380	Lyssavirus rabies	China	2017	China	Apodemus agrarius		Ap.agrarius_rhabdo_1				metagenomic	
+PP211362.1	11394	Lyssavirus rabies	China	2018	China	Apodemus peninsulae		Ap.peninsulae_rhabdo_1				metagenomic	
+PV584369.1	11888	Lyssavirus rabies	India	06-Feb-2025	India	dog		ABT/MVC/ICMR-Rabies/Dog/028					
+PV584368.1	11884	Lyssavirus rabies	India	06-Feb-2025	India	dog		ABT/MVC/ICMR-Rabies/Dog/027					
+PV584367.1	11890	Lyssavirus rabies	India	06-Feb-2025	India	dog		ABT/MVC/ICMR-Rabies/Dog/026					
+PV584366.1	11883	Lyssavirus rabies	India	06-Feb-2025	India	dog		ABT/MVC/ICMR-Rabies/Dog/025					
+PV584365.1	11909	Lyssavirus rabies	India	06-Feb-2025	India	dog		ABT/MVC/ICMR-Rabies/Dog/024					
+PV584364.1	11908	Lyssavirus rabies	India	06-Feb-2025	India	dog		ABT/MVC/ICMR-Rabies/Dog/023					
+PV584363.1	11878	Lyssavirus rabies	India	06-Feb-2025	India	dog		ABT/MVC/ICMR-Rabies/Dog/022					
+PV584362.1	11909	Lyssavirus rabies	India	13-Jan-2025	India	dog		ABT/MVC/ICMR-Rabies/Dog/018					
+PV584361.1	11909	Lyssavirus rabies	India	13-Jan-2025	India	dog		ABT/MVC/ICMR-Rabies/Dog/017					
+PV584360.1	11909	Lyssavirus rabies	India	13-Jan-2025	India	dog		ABT/MVC/ICMR-Rabies/Dog/016					
+PV584359.1	11909	Lyssavirus rabies	India	29-Jan-2025	India	calf		ABT/MVC/ICMR-Rabies/Calf/021					
+PV584358.1	11889	Lyssavirus rabies	India	11-Jun-2024	India	dog		ABT/MVC/ICMR-Rabies/Dog/020					
+PV584357.1	11908	Lyssavirus rabies	India	02-Feb-2024	India	dog		ABT/MVC/ICMR-Rabies/Dog/019					
+PV574337.1	11847	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A556					
+PV574336.1	11497	Lyssavirus rabies	India	2023	India	dog		NNV-RAB-A550					
+PP805695.1	11871	Lyssavirus rabies	Nepal	18-Apr-2023	Nepal	caprine	RABV/Nepal/Caprine/R8/2023	R8					
+PP805694.1	11871	Lyssavirus rabies	Nepal	28-Feb-2023	Nepal	bovine	RABV/Nepal/Bovine/R6/2023	R6					
+PP805693.1	11871	Lyssavirus rabies	Nepal	12-Jan-2023	Nepal	canine	RABV/Nepal/Canine/R1/2023	R1					
+PP737684.1	11886	Lyssavirus rabies	Ghana	26-Sep-2023	Ghana	bovine	Ghana/Bull/C2/2023	C2					
+PP737683.1	11886	Lyssavirus rabies	Ghana	26-Sep-2023	Ghana	canine	Ghana/Dog/D2/2023	D2					
+PP737682.1	11886	Lyssavirus rabies	Ghana	28-Jul-2023	Ghana	canine	Ghana/Dog/D1/2023	D1					
+PV548264.1	11787	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A529					
+PV548263.1	11785	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A528					
+PV548262.1	11785	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A527					
+PV548261.1	11754	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A526					
+PV548260.1	11493	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A525					
+PV548259.1	11785	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A524					
+PV548258.1	11779	Lyssavirus rabies	India	2024	India	cattle		NNV-RAB-A523					
+PV548257.1	11848	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A522					
+PV548256.1	11853	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A521					
+PV548255.1	11800	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A520					
+PV548254.1	11568	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A519					
+PV548253.1	11785	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A518					
+PV548252.1	11850	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A517					
+PV548251.1	11808	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A516					
+PV548250.1	11775	Lyssavirus rabies	India	2023	India	cattle		NNV-RAB-A515					
+PV548249.1	11778	Lyssavirus rabies	India	2023	India	dog		NNV-RAB-A514					
+PV548248.1	11786	Lyssavirus rabies	India	2023	India	dog		NNV-RAB-A513					
+PV548247.1	11853	Lyssavirus rabies	India	2023	India	dog		NNV-RAB-A512					
+PV540779.1	11889	Lyssavirus rabies	China	10-Mar-2025	China: Hainan	domestic dog		HI25D01					
+PV387702.1	11784	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A549					
+PV387701.1	11502	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A548					
+PV387700.1	11788	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A547					
+PV387699.1	11786	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A546					
+PV387698.1	11501	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A545					
+PV387697.1	11501	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A544					
+PV387696.1	11784	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A543					
+PV387695.1	11791	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A542					
+PV387694.1	11829	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A541					
+PV387693.1	11802	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A540					
+PV387692.1	11503	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A539					
+PV387691.1	11569	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A538					
+PV387690.1	11500	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A537					
+PV387689.1	11548	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A536					
+PV387688.1	11785	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A535					
+PV387687.1	11789	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A534					
+PV387686.1	11780	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A533					
+PV387685.1	11784	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A532					
+PV387684.1	11498	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A531					
+PV387683.1	11781	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A530					
+PV387682.1	11780	Lyssavirus rabies	India	2025	India	dog		NNV-RAB-A490					
+PV387681.1	11775	Lyssavirus rabies	India	2025	India	dog		NNV-RAB-A489					
+PV387680.1	11776	Lyssavirus rabies	India	2025	India	dog		NNV-RAB-A488					
+PV387679.1	11784	Lyssavirus rabies	India	2025	India	dog		NNV-RAB-A486					
+PV387678.1	11780	Lyssavirus rabies	India	2025	India	dog		NNV-RAB-A485					
+PV387677.1	11734	Lyssavirus rabies	India	2025	India	dog		NNV-RAB-A484					
+PV387676.1	11761	Lyssavirus rabies	India	2025	India	dog		NNV-RAB-A482					
+PV387675.1	11775	Lyssavirus rabies	India	2025	India	dog		NNV-RAB-A481					
+PV387674.1	11778	Lyssavirus rabies	India	2025	India	dog		NNV-RAB-A480					
+PV387673.1	11778	Lyssavirus rabies	India	2025	India	dog		NNV-RAB-A479					
+PV387672.1	11778	Lyssavirus rabies	India	2025	India	dog		NNV-RAB-A477					
+PV387671.1	11781	Lyssavirus rabies	India	2025	India	dog		NNV-RAB-A476					
+PV387670.1	11778	Lyssavirus rabies	India	2025	India	dog		NNV-RAB-A475					
+PV387669.1	11782	Lyssavirus rabies	India	2025	India	dog		NNV-RAB-A474					
+PV387668.1	11780	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A473					
+PV387667.1	11799	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A472					
+PV387666.1	11780	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A471					
+PV387665.1	11781	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A470					
+PV387664.1	11751	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A469					
+PV387663.1	11779	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A468					
+PV387662.1	11493	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A467					
+PV387661.1	11775	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A466					
+PV387660.1	11739	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A464					
+PV387659.1	11743	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A463					
+PV387658.1	11778	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A462					
+PV387657.1	11771	Lyssavirus rabies	India	2024	India	cow		NNV-RAB-A460					
+PV387656.1	11545	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A458					
+PV387655.1	11785	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A457					
+PV387654.1	11785	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A455					
+PV387653.1	11569	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A454					
+PV491557.1	11907	Lyssavirus rabies	Pakistan	04-Oct-2023	Pakistan	dog	PDB018						
+PP700503.1	11850	Lyssavirus rabies	Thailand	2023	Thailand	Homo sapiens		human/Thailand/RB11/2023				metagenomic	
+PP700502.1	11890	Lyssavirus rabies	Thailand	2023	Thailand	Homo sapiens		human/Thailand/RB07/2023				metagenomic	
+PV443051.1	11502	Lyssavirus rabies	India	2023	India	dog		NNV-RAB-A589					
+PV443050.1	11781	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A588					
+PV443049.1	11267	Lyssavirus rabies	India	2025	India	dog		NNV-RAB-A587					
+PV443048.1	11493	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A586					
+PV443047.1	11496	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A585					
+PV443046.1	11494	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A584					
+PV443045.1	11180	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A583					
+PV443044.1	11482	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A582					
+PV443043.1	11482	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A581					
+PV443042.1	11498	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A580					
+PV443041.1	11457	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A579					
+PV443040.1	11538	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A578					
+PV443039.1	11782	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A577					
+PV443038.1	11493	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A576					
+PV443037.1	11494	Lyssavirus rabies	India	2023	India	dog		NNV-RAB-A575					
+PV443036.1	11495	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A574					
+PV443035.1	11498	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A573					
+PV443034.1	11499	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A572					
+PV443033.1	11495	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A571					
+PV443032.1	11708	Lyssavirus rabies	India	2024	India	cat		NNV-RAB-A570					
+PV443031.1	11493	Lyssavirus rabies	India	2023	India	Homo sapiens		NNV-RAB-H72					
+PV443030.1	11497	Lyssavirus rabies	India	2023	India	Homo sapiens		NNV-RAB-H71					
+PV443028.1	11209	Lyssavirus rabies	India	2024	India	Homo sapiens		NNV-RAB-H69					
+PV443027.1	11497	Lyssavirus rabies	India	2024	India	Homo sapiens		NNV-RAB-H68					
+PV454693.1	11804	Lyssavirus rabies	India	2025	India	dog		NNV-RAB-A491					
+PV454692.1	11775	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A465					
+PV454691.1	11789	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A461					
+PV454690.1	11656	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A459					
+PV454689.1	11778	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A456					
+PV454688.1	11572	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A388					
+PV454687.1	11799	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A387					
+PV454686.1	11580	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A381					
+PV454685.1	11705	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A375					
+PV289027.1	11780	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A453					
+PV289026.1	11785	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A452					
+PV289025.1	11785	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A451					
+PV289024.1	11783	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A450					
+PV289023.1	11782	Lyssavirus rabies	India	2023	India	dog		NNV-RAB-A449					
+PV289022.1	11780	Lyssavirus rabies	India	2023	India	dog		NNV-RAB-A448					
+PV289021.1	11782	Lyssavirus rabies	India	2023	India	dog		NNV-RAB-A447					
+PV289020.1	11767	Lyssavirus rabies	India	2023	India	dog		NNV-RAB-A446					
+PV289019.1	11784	Lyssavirus rabies	India	2023	India	dog		NNV-RAB-A445					
+PV289018.1	11780	Lyssavirus rabies	India	2023	India	dog		NNV-RAB-A444					
+PV289017.1	11780	Lyssavirus rabies	India	2023	India	dog		NNV-RAB-A443					
+PV289016.1	11785	Lyssavirus rabies	India	2023	India	dog		NNV-RAB-A442					
+PV289015.1	11787	Lyssavirus rabies	India	2023	India	dog		NNV-RAB-A441					
+PV289014.1	11784	Lyssavirus rabies	India	2023	India	dog		NNV-RAB-A440					
+PV289013.1	11782	Lyssavirus rabies	India	2023	India	dog		NNV-RAB-A439					
+PV289012.1	11780	Lyssavirus rabies	India	2023	India	dog		NNV-RAB-A438					
+PV289011.1	11784	Lyssavirus rabies	India	2023	India	dog		NNV-RAB-A437					
+PV289010.1	11778	Lyssavirus rabies	India	2023	India	dog		NNV-RAB-A436					
+PV289009.1	11787	Lyssavirus rabies	India	2023	India	dog		NNV-RAB-A435					
+PV289008.1	11778	Lyssavirus rabies	India	2023	India	dog		NNV-RAB-A434					
+PV289007.1	11783	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A433					
+PV289006.1	11779	Lyssavirus rabies	India	2023	India	dog		NNV-RAB-A432					
+PV289005.1	11778	Lyssavirus rabies	India	2023	India	dog		NNV-RAB-A431					
+PV289004.1	11784	Lyssavirus rabies	India	2023	India	dog		NNV-RAB-A430					
+PV289003.1	11780	Lyssavirus rabies	India	2023	India	dog		NNV-RAB-A429					
+PV289002.1	11782	Lyssavirus rabies	India	2023	India	dog		NNV-RAB-A428					
+PV289001.1	11786	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A427					
+PV289000.1	11788	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A426					
+PV288999.1	11786	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A425					
+PV288998.1	11783	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A424					
+PV288997.1	11783	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A423					
+PV288996.1	11786	Lyssavirus rabies	India	2024	India	buffalo		NNV-RAB-A422					
+PV288995.1	11788	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A421					
+PV288994.1	11780	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A420					
+PV288993.1	11781	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A419					
+PV288992.1	11784	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A418					
+PV288991.1	11780	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A417					
+PV288990.1	11783	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A416					
+PV288989.1	11782	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A415					
+PV288988.1	11780	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A414					
+PV288987.1	11782	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A413					
+PV288986.1	11785	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A412					
+PV288985.1	11784	Lyssavirus rabies	India	2024	India	dog		NNV-RAB-A411					

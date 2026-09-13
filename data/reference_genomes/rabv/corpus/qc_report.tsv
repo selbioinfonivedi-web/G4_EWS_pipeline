@@ -1,0 +1,601 @@
+accession	lineage_raw	lineage_normalized	country	passed	completeness_fraction	n_content_fraction	reasons_failed
+PV641717.1	Pakistan	Pakistan	Pakistan	True	0.9927	0.0	
+PV641712.1	Pakistan	Pakistan	Pakistan	True	0.9982	0.0	
+PX896059.1	India	India	India	True	0.9921	0.0	
+PX896058.1	India	India	India	True	0.9899	0.0	
+PX896057.1	India	India	India	True	0.9905	0.0	
+PZ334451.1	India	India	India	True	0.9981	0.0	
+PZ324373.1	India	India	India	True	0.9919	0.0	
+PZ324372.1	India	India	India	True	0.9941	0.0	
+PZ324371.1	India	India	India	True	0.9894	0.0	
+PZ324370.1	India	India	India	True	0.988	0.0	
+PZ227621.1	Switzerland	Switzerland	Switzerland	True	0.9945	0.0	
+PZ227620.1	Switzerland	Switzerland	Switzerland	True	0.9966	0.0	
+PZ227619.1	Switzerland	Switzerland	Switzerland	True	0.9972	0.0	
+PZ227618.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227617.1	Switzerland	Switzerland	Switzerland	True	0.9986	0.0	
+PZ227616.1	Switzerland	Switzerland	Switzerland	True	0.9984	0.0	
+PZ227615.1	Switzerland	Switzerland	Switzerland	True	0.9988	0.0	
+PZ227614.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227613.1	Switzerland	Switzerland	Switzerland	True	0.999	0.0	
+PZ227612.1	Switzerland	Switzerland	Switzerland	True	0.9991	0.0	
+PZ227611.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227610.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227609.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227608.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227607.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227606.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227605.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227604.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227603.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227602.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227601.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227600.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227599.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227598.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227597.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227596.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227595.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227594.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227593.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227592.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227591.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227590.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227589.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227588.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227587.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227586.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227585.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227584.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227583.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227582.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227581.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227580.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227579.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227578.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227577.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227576.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227575.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227574.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227573.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227572.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227571.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227570.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227569.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227568.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227567.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227566.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227565.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227564.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227563.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227562.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227561.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227560.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227559.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227558.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227557.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227556.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227555.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227554.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227553.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227552.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227551.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227550.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227549.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227548.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227547.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227546.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227545.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227544.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227543.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227542.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227541.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227540.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227539.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227538.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227537.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227536.1	Switzerland	Switzerland	Switzerland	True	0.9992	0.0	
+PZ227535.1	Switzerland	Switzerland	Switzerland	True	0.9994	0.0	
+PZ227534.1	Switzerland	Switzerland	Switzerland	True	0.9995	0.0	
+PZ227533.1	Switzerland	Switzerland	Switzerland	True	0.999	0.0	
+PX682070.1	India	India	India	True	0.9901	0.0	
+PX682069.1	India	India	India	True	0.9915	0.0	
+PX682068.1	India	India	India	True	0.9919	0.0	
+PV641714.2	Pakistan	Pakistan	Pakistan	True	0.9952	0.0	
+OZ470011.1	Germany	Germany	Germany	True	0.9972	0.0	
+PZ050835.1	China	China	China	True	0.9984	0.0	
+PZ050834.1	China	China	China	True	0.9984	0.0	
+PZ050833.1	China	China	China	True	0.9984	0.0	
+PZ050832.1	China	China	China	True	0.9984	0.0	
+PZ050831.1	China	China	China	True	0.9984	0.0	
+PZ050830.1	China	China	China	True	0.9984	0.0	
+PZ050829.1	China	China	China	True	0.9984	0.0	
+PZ050828.1	China	China	China	True	0.9984	0.0	
+PZ050827.1	China	China	China	True	0.9984	0.0	
+PZ050826.1	China	China	China	True	0.9984	0.0	
+PZ050825.1	China	China	China	True	0.9984	0.0	
+PZ050824.1	China	China	China	True	0.9984	0.0	
+PZ050823.1	China	China	China	True	0.9984	0.0	
+PZ050822.1	China	China	China	True	0.9984	0.0	
+PZ050821.1	China	China	China	True	0.9984	0.0	
+PZ050820.1	China	China	China	True	0.9984	0.0	
+PZ050819.1	China	China	China	True	0.9984	0.0	
+PZ050818.1	China	China	China	True	0.9984	0.0	
+PZ050817.1	China	China	China	True	0.9984	0.0	
+PZ050816.1	China	China	China	True	0.9984	0.0	
+PZ050815.1	China	China	China	True	0.9984	0.0	
+PV641716.1	Pakistan	Pakistan	Pakistan	True	0.9982	0.0	
+PV641715.1	Pakistan	Pakistan	Pakistan	True	1.0023	0.0	
+PV641713.1	Pakistan	Pakistan	Pakistan	True	0.9979	0.0	
+PZ166164.1	USA	USA	USA	True	0.9981	0.0	
+PV605924.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605923.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605922.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605921.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605920.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605919.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605918.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605917.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605916.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605915.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605914.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605913.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605912.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605911.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605910.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605909.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605908.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605907.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605906.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605905.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605904.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605903.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605902.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605901.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605900.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605899.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605898.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605897.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605896.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605895.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605894.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605893.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605892.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605891.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605890.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605889.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605888.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605887.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605886.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605885.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605884.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605883.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605882.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605881.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605880.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605879.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605878.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605877.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605876.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605875.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605874.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605873.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605872.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605871.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605870.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605869.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605868.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605867.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605866.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605865.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605864.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605863.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605862.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605861.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605860.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605859.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605858.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605857.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605856.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605855.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605854.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605853.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605852.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605851.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605850.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605849.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605848.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605847.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605846.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605845.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605844.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605843.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605842.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605841.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605840.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605839.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605838.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605837.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605836.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605835.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605834.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605833.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605832.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV605831.1	Laos	Laos	Laos	True	0.9825	0.0	
+PV591865.1	Thailand	Thailand	Thailand	True	0.9962	0.0	
+PV591864.1				False	0.9945	0.0	collection date missing year-level precision
+PV591863.1	Thailand	Thailand	Thailand	True	0.9985	0.0	
+PV591862.1	Thailand	Thailand	Thailand	True	0.9962	0.0	
+PV591861.1	Thailand	Thailand	Thailand	True	0.9962	0.0	
+PV591860.1	Thailand	Thailand	Thailand	True	0.9962	0.0	
+PV591859.1	Thailand	Thailand	Thailand	True	0.993	0.0	
+PV591858.1	Thailand	Thailand	Thailand	True	0.9962	0.0	
+PQ650430.1	China	China	China	True	0.9993	0.0	
+PQ650429.1	China	China	China	True	0.9993	0.0	
+PQ650428.1	China	China	China	True	0.9993	0.0	
+PQ650427.1	China	China	China	True	0.9993	0.0	
+PQ650426.1	China	China	China	True	0.9993	0.0	
+PX132042.1	Zimbabwe	Zimbabwe	Zimbabwe	True	0.9723	0.0	
+PX132041.1	Zimbabwe	Zimbabwe	Zimbabwe	True	0.9913	0.0	
+LC867593.1	Viet Nam	Viet Nam	Viet Nam	True	0.9977	0.0	
+LC867592.1	Viet Nam	Viet Nam	Viet Nam	True	0.9977	0.0	
+LC867591.1	Viet Nam	Viet Nam	Viet Nam	True	0.9977	0.0	
+LC867590.1	Viet Nam	Viet Nam	Viet Nam	True	0.9952	0.0	
+LC867589.1	Viet Nam	Viet Nam	Viet Nam	True	0.9961	0.0	
+LC867588.1	Viet Nam	Viet Nam	Viet Nam	True	0.9961	0.0	
+LC867587.1	Viet Nam	Viet Nam	Viet Nam	True	0.9947	0.0	
+LC867586.1	Viet Nam	Viet Nam	Viet Nam	True	0.9961	0.0	
+LC867585.1	Viet Nam	Viet Nam	Viet Nam	True	0.9969	0.0	
+LC867584.1	Viet Nam	Viet Nam	Viet Nam	True	0.9976	0.0	
+LC867583.1	Viet Nam	Viet Nam	Viet Nam	True	0.9965	0.0	
+LC867582.1	Viet Nam	Viet Nam	Viet Nam	True	0.9967	0.0	
+LC867581.1	Viet Nam	Viet Nam	Viet Nam	True	0.9976	0.0	
+LC867580.1	Viet Nam	Viet Nam	Viet Nam	True	0.9955	0.0	
+LC867579.1	Viet Nam	Viet Nam	Viet Nam	True	0.9982	0.0	
+LC867578.1	Viet Nam	Viet Nam	Viet Nam	True	0.9974	0.0	
+LC867577.1	Viet Nam	Viet Nam	Viet Nam	True	0.9972	0.0	
+PV855415.1	South Africa	South Africa	South Africa	True	0.9897	0.0	
+PV855414.1	South Africa	South Africa	South Africa	True	0.9961	0.0	
+PV855413.1	South Africa	South Africa	South Africa	True	0.991	0.0	
+PV855412.1	South Africa	South Africa	South Africa	True	0.9958	0.0	
+PV855411.1	South Africa	South Africa	South Africa	True	0.99	0.0	
+PV855410.1	South Africa	South Africa	South Africa	True	0.9958	0.0	
+PV855409.1	South Africa	South Africa	South Africa	True	0.9951	0.0	
+PV855408.1	South Africa	South Africa	South Africa	True	0.9805	0.0	
+PV855407.1	South Africa	South Africa	South Africa	True	0.9961	0.0	
+PV855406.1	South Africa	South Africa	South Africa	True	0.99	0.0	
+PV855405.1	South Africa	South Africa	South Africa	True	0.9849	0.0	
+PV855404.1	South Africa	South Africa	South Africa	True	0.9842	0.0	
+PV855403.1	South Africa	South Africa	South Africa	True	0.99	0.0	
+PV855402.1	South Africa	South Africa	South Africa	True	0.9897	0.0	
+PV855401.1	South Africa	South Africa	South Africa	True	0.9897	0.0	
+PV855400.1	South Africa	South Africa	South Africa	True	0.991	0.0	
+PV855399.1	South Africa	South Africa	South Africa	True	0.9848	0.0	
+PV855398.1	South Africa	South Africa	South Africa	True	0.9897	0.0	
+PV855397.1	South Africa	South Africa	South Africa	True	0.9961	0.0	
+PV855396.1	South Africa	South Africa	South Africa	True	0.9961	0.0	
+PV855395.1	South Africa	South Africa	South Africa	True	0.9857	0.0	
+PV855394.1	South Africa	South Africa	South Africa	True	0.991	0.0	
+PV855393.1	South Africa	South Africa	South Africa	True	0.9961	0.0	
+PV855392.1	South Africa	South Africa	South Africa	True	0.9846	0.0	
+PV855391.1	South Africa	South Africa	South Africa	True	0.99	0.0	
+PV855390.1	South Africa	South Africa	South Africa	True	0.9871	0.0466	
+PV855389.1	South Africa	South Africa	South Africa	True	0.9541	0.0209	
+PV855388.1	South Africa	South Africa	South Africa	False	0.991	0.0844	N-content 8.4% above maximum 5%
+PQ082915.1	India	India	India	True	0.9908	0.0069	
+PQ082914.1	India	India	India	True	0.9877	0.002	
+PQ082913.1	India	India	India	True	0.9876	0.002	
+PQ082912.1	India	India	India	True	0.9875	0.0047	
+PQ082911.1	India	India	India	True	0.9877	0.0003	
+PQ082910.1	India	India	India	True	0.9877	0.0002	
+PQ082909.1	India	India	India	True	0.9877	0.0021	
+PQ082908.1	India	India	India	True	0.9886	0.0003	
+PQ082907.1	India	India	India	True	0.9878	0.0051	
+PQ082906.1	India	India	India	True	0.9879	0.0004	
+PQ082905.1	India	India	India	True	0.9875	0.0036	
+PQ082904.1	India	India	India	True	0.9893	0.0101	
+PQ082903.1	India	India	India	True	0.9893	0.0013	
+PQ082902.1	India	India	India	True	0.9891	0.0012	
+PQ082901.1	India	India	India	True	0.9879	0.0003	
+PQ082900.1	India	India	India	True	0.9878	0.0003	
+PQ082899.1	India	India	India	True	0.9874	0.032	
+PQ082898.1	India	India	India	True	0.9872	0.0203	
+PQ082897.1	India	India	India	True	0.9878	0.0132	
+PQ082896.1	India	India	India	True	0.9878	0.0029	
+PQ082895.1	India	India	India	True	0.9872	0.0112	
+PQ082894.1	India	India	India	True	0.9879	0.0025	
+PQ082893.1	India	India	India	True	0.9879	0.0	
+PQ082892.1	India	India	India	True	0.9873	0.0052	
+PQ082891.1	India	India	India	True	0.9879	0.0018	
+PQ082890.1	India	India	India	True	0.9879	0.0001	
+PQ082889.1	India	India	India	True	0.9893	0.0007	
+PQ082888.1	India	India	India	True	0.9878	0.0015	
+PQ082887.1	India	India	India	True	0.9877	0.0045	
+PQ082886.1	India	India	India	True	0.9871	0.0046	
+PQ082885.1	India	India	India	True	0.9873	0.0047	
+PQ082884.1	India	India	India	True	0.9877	0.0101	
+PQ082883.1	India	India	India	True	0.9879	0.0039	
+PQ082882.1	India	India	India	True	0.9873	0.0057	
+PQ082881.1	India	India	India	True	0.9909	0.0273	
+PQ082880.1	India	India	India	True	0.9873	0.0044	
+PQ082879.1	India	India	India	True	0.9879	0.0041	
+PQ082878.1	India	India	India	True	0.9874	0.0173	
+MG458321.1	China	China	China	False	0.9993	0.0	collection date missing year-level precision
+MG458320.1	Nepal	Nepal	Nepal	True	0.9996	0.0	
+MG458319.1	Grenada	Grenada	Grenada	True	0.9994	0.0	
+MG458318.1	South Africa	South Africa	South Africa	True	0.9988	0.0	
+MG458317.1	Egypt	Egypt	Egypt	True	0.9992	0.0	
+MG458316.1	Egypt	Egypt	Egypt	True	0.9992	0.0	
+MG458315.1	Egypt	Egypt	Egypt	True	0.9992	0.0	
+MG458314.1				True	0.9992	0.0	
+MG458313.1	Russia	Russia	Russia	True	0.9995	0.0	
+MG458312.1	Serbia	Serbia	Serbia	True	0.9992	0.0	
+MG458311.1	Serbia	Serbia	Serbia	True	0.9992	0.0	
+MG458310.1	Serbia	Serbia	Serbia	True	0.9992	0.0	
+MG458309.1	Serbia	Serbia	Serbia	True	0.9992	0.0	
+MG458308.1	South Africa	South Africa	South Africa	True	0.9995	0.0	
+MG458307.1	South Africa	South Africa	South Africa	True	0.9992	0.0	
+MG458306.1	Czech Republic	Czech Republic	Czech Republic	False	0.9993	0.0	collection date missing year-level precision
+MG458305.1	Chile	Chile	Chile	False	0.9992	0.0	collection date missing year-level precision
+MG458304.1	USA	USA	USA	True	0.9992	0.0	
+PP736759.1	Mexico	Mexico	Mexico	True	0.9917	0.0	
+OR046015.1	Kenya	Kenya	Kenya	True	0.9804	0.0097	
+OR046014.1	Kenya	Kenya	Kenya	True	0.9801	0.0029	
+OR046013.1	Kenya	Kenya	Kenya	True	0.9801	0.0038	
+OR046012.1	Kenya	Kenya	Kenya	True	0.9801	0.0475	
+OR046011.1	Kenya	Kenya	Kenya	True	0.9801	0.0185	
+OR046010.1	Kenya	Kenya	Kenya	True	0.9804	0.0032	
+OR046009.1	Kenya	Kenya	Kenya	True	0.9801	0.0033	
+OR046008.1	Kenya	Kenya	Kenya	True	0.9801	0.0034	
+OR046007.1	Kenya	Kenya	Kenya	False	0.9804	0.0502	N-content 5.0% above maximum 5%
+OR046006.1	Kenya	Kenya	Kenya	True	0.9804	0.0059	
+OR046005.1	Kenya	Kenya	Kenya	True	0.9804	0.0366	
+OR046004.1	Kenya	Kenya	Kenya	True	0.9804	0.0038	
+OR046003.1	Kenya	Kenya	Kenya	True	0.9801	0.0326	
+OR046002.1	Kenya	Kenya	Kenya	True	0.9801	0.0283	
+OR046001.1	Kenya	Kenya	Kenya	False	0.9801	0.0857	N-content 8.6% above maximum 5%
+OR046000.1	Kenya	Kenya	Kenya	False	0.9801	0.0579	N-content 5.8% above maximum 5%
+OR045999.1	Kenya	Kenya	Kenya	False	0.9801	0.098	N-content 9.8% above maximum 5%
+OR045998.1	Kenya	Kenya	Kenya	False	0.9801	0.0042	collection date missing year-level precision
+OR045997.1	Kenya	Kenya	Kenya	True	0.9801	0.0274	
+OR045996.1	Kenya	Kenya	Kenya	False	0.9801	0.0794	N-content 7.9% above maximum 5%
+OR045995.1	Kenya	Kenya	Kenya	True	0.9804	0.0498	
+OR045993.1	Kenya	Kenya	Kenya	False	0.9801	0.0588	N-content 5.9% above maximum 5%
+OR045992.1	Kenya	Kenya	Kenya	False	0.9801	0.0595	N-content 6.0% above maximum 5%
+OR045991.1	Kenya	Kenya	Kenya	False	0.9804	0.0543	N-content 5.4% above maximum 5%
+OR045990.1	Kenya	Kenya	Kenya	False	0.9804	0.0505	N-content 5.1% above maximum 5%
+OR045989.1	Kenya	Kenya	Kenya	True	0.9801	0.0491	
+OR045988.1	Kenya	Kenya	Kenya	True	0.9801	0.003	
+OR045987.1	Kenya	Kenya	Kenya	True	0.9801	0.0334	
+OR045986.1	Kenya	Kenya	Kenya	True	0.9801	0.0252	
+OR045985.1	Kenya	Kenya	Kenya	True	0.9801	0.0043	
+OR045984.1	Kenya	Kenya	Kenya	True	0.9801	0.0033	
+OR045983.1	Kenya	Kenya	Kenya	True	0.9801	0.0221	
+OR045982.1	Kenya	Kenya	Kenya	True	0.9801	0.021	
+OR045981.1	Kenya	Kenya	Kenya	True	0.9801	0.0033	
+OR045980.1	Kenya	Kenya	Kenya	True	0.9804	0.0032	
+OR045979.1	Kenya	Kenya	Kenya	True	0.9801	0.0037	
+OR045978.1	Kenya	Kenya	Kenya	True	0.9804	0.0032	
+OR045977.1	Kenya	Kenya	Kenya	True	0.9806	0.0039	
+OR045976.1	Kenya	Kenya	Kenya	True	0.9801	0.0024	
+OR045975.1	Kenya	Kenya	Kenya	True	0.9806	0.0108	
+OR045974.1	Kenya	Kenya	Kenya	True	0.9801	0.0036	
+OR045973.1	Kenya	Kenya	Kenya	True	0.9801	0.0152	
+OR045972.1	Kenya	Kenya	Kenya	True	0.9801	0.0039	
+OR045971.1	Kenya	Kenya	Kenya	True	0.9801	0.0168	
+OR045970.1	Kenya	Kenya	Kenya	True	0.9804	0.0027	
+OR045969.1	Kenya	Kenya	Kenya	True	0.9804	0.0039	
+OR045968.1	Kenya	Kenya	Kenya	True	0.9801	0.0133	
+OR045967.1				False	0.9801	0.5148	N-content 51.5% above maximum 5%
+OR045966.1	Kenya	Kenya	Kenya	True	0.9804	0.0033	
+OR045965.1	Kenya	Kenya	Kenya	True	0.9801	0.0145	
+OR045964.1	Kenya	Kenya	Kenya	True	0.9801	0.009	
+OR045963.1	Kenya	Kenya	Kenya	True	0.9804	0.0056	
+OR045962.1	Kenya	Kenya	Kenya	True	0.9801	0.0032	
+OR045961.1	Kenya	Kenya	Kenya	True	0.9801	0.0227	
+OR045960.1	Kenya	Kenya	Kenya	False	0.9713	0.3797	N-content 38.0% above maximum 5%
+OR045959.1	Kenya	Kenya	Kenya	False	0.9715	0.1285	N-content 12.8% above maximum 5%
+OR045958.1	Kenya	Kenya	Kenya	True	0.9801	0.0009	
+OR045957.1	Kenya	Kenya	Kenya	True	0.9801	0.0009	
+OR045956.1	Kenya	Kenya	Kenya	True	0.9801	0.0305	
+OR045955.1	Kenya	Kenya	Kenya	True	0.9801	0.0003	
+OR045954.1	Kenya	Kenya	Kenya	True	0.9801	0.0008	
+OR045953.1	Kenya	Kenya	Kenya	True	0.9801	0.0481	
+OR045952.1	Kenya	Kenya	Kenya	True	0.9801	0.024	
+OR045951.1	Kenya	Kenya	Kenya	True	0.9801	0.0484	
+OR045950.1				True	0.9909	0.0067	
+OR045949.1				True	0.9985	0.0	
+OR045948.1				True	0.9844	0.0008	
+OR045947.1	Tanzania	Tanzania	Tanzania	True	0.9801	0.025	
+OR045946.1	Tanzania	Tanzania	Tanzania	True	0.9801	0.0008	
+OR045945.1	Tanzania	Tanzania	Tanzania	False	0.972	0.1437	N-content 14.4% above maximum 5%
+OR045944.1	Tanzania	Tanzania	Tanzania	True	0.9718	0.0097	
+OR045943.1	Tanzania	Tanzania	Tanzania	True	0.9897	0.0102	
+OR045942.1	Tanzania	Tanzania	Tanzania	True	0.9928	0.0087	
+OR045940.1				False	0.9739	0.2824	N-content 28.2% above maximum 5%
+OR045939.1				True	0.9992	0.0001	
+OR045938.1	Tanzania	Tanzania	Tanzania	True	0.9801	0.0011	
+OR045937.1	Tanzania	Tanzania	Tanzania	True	0.9801	0.0027	
+OR045936.1	Tanzania	Tanzania	Tanzania	True	0.9801	0.0023	
+OR045935.1	Tanzania	Tanzania	Tanzania	True	0.9801	0.0006	
+OR045934.1				True	0.994	0.0183	
+OR045933.1	Tanzania	Tanzania	Tanzania	True	0.9801	0.0042	
+OR045932.1	Tanzania	Tanzania	Tanzania	True	0.9801	0.0027	
+OR045931.1	Tanzania	Tanzania	Tanzania	True	0.9801	0.0021	
+OR045930.1	Tanzania	Tanzania	Tanzania	True	0.9801	0.0025	
+OR045929.1	Tanzania	Tanzania	Tanzania	True	0.9801	0.0021	
+OR045927.1	Kenya	Kenya	Kenya	True	0.9804	0.0392	
+PV606732.1	French Guiana	French Guiana	French Guiana	True	0.9946	0.0	
+PV606731.1	French Guiana	French Guiana	French Guiana	True	0.9956	0.0	
+PV606730.1	French Guiana	French Guiana	French Guiana	True	0.9951	0.0	
+PP211363.1	China	China	China	True	0.9537	0.0	
+PP211362.1	China	China	China	True	0.9549	0.0	
+PV584369.1	India	India	India	True	0.9963	0.0	
+PV584368.1	India	India	India	True	0.996	0.0	
+PV584367.1	India	India	India	True	0.9965	0.0	
+PV584366.1	India	India	India	True	0.9959	0.0	
+PV584365.1	India	India	India	True	0.9981	0.0	
+PV584364.1	India	India	India	True	0.998	0.0	
+PV584363.1	India	India	India	True	0.9955	0.0	
+PV584362.1	India	India	India	True	0.9981	0.0	
+PV584361.1	India	India	India	True	0.9981	0.0	
+PV584360.1	India	India	India	True	0.9981	0.0	
+PV584359.1	India	India	India	True	0.9981	0.0	
+PV584358.1	India	India	India	True	0.9964	0.0	
+PV584357.1	India	India	India	True	0.998	0.0	
+PV574337.1	India	India	India	True	0.9929	0.0103	
+PV574336.1	India	India	India	True	0.9635	0.017	
+PP805695.1	Nepal	Nepal	Nepal	True	0.9949	0.0	
+PP805694.1	Nepal	Nepal	Nepal	True	0.9949	0.0	
+PP805693.1	Nepal	Nepal	Nepal	True	0.9949	0.0	
+PP737684.1	Ghana	Ghana	Ghana	True	0.9961	0.0	
+PP737683.1	Ghana	Ghana	Ghana	True	0.9961	0.0	
+PP737682.1	Ghana	Ghana	Ghana	True	0.9961	0.0	
+PV548264.1	India	India	India	True	0.9878	0.018	
+PV548263.1	India	India	India	False	0.9877	0.1412	N-content 14.1% above maximum 5%
+PV548262.1	India	India	India	True	0.9877	0.0378	
+PV548261.1	India	India	India	True	0.9851	0.0086	
+PV548260.1	India	India	India	True	0.9632	0.0251	
+PV548259.1	India	India	India	True	0.9877	0.0197	
+PV548258.1	India	India	India	True	0.9872	0.0043	
+PV548257.1	India	India	India	True	0.993	0.0111	
+PV548256.1	India	India	India	True	0.9934	0.0019	
+PV548255.1	India	India	India	False	0.9889	0.1606	N-content 16.1% above maximum 5%
+PV548254.1	India	India	India	True	0.9695	0.0497	
+PV548253.1	India	India	India	True	0.9877	0.0025	
+PV548252.1	India	India	India	True	0.9931	0.0189	
+PV548251.1	India	India	India	True	0.9896	0.0041	
+PV548250.1	India	India	India	True	0.9868	0.0321	
+PV548249.1	India	India	India	True	0.9871	0.0246	
+PV548248.1	India	India	India	True	0.9878	0.0308	
+PV548247.1	India	India	India	True	0.9934	0.0202	
+PV540779.1	China	China	China	True	0.9964	0.0	
+PV387702.1	India	India	India	True	0.9876	0.015	
+PV387701.1	India	India	India	True	0.964	0.005	
+PV387700.1	India	India	India	True	0.9879	0.0288	
+PV387699.1	India	India	India	True	0.9878	0.0221	
+PV387698.1	India	India	India	True	0.9639	0.0121	
+PV387697.1	India	India	India	True	0.9639	0.0048	
+PV387696.1	India	India	India	True	0.9876	0.04	
+PV387695.1	India	India	India	True	0.9882	0.0253	
+PV387694.1	India	India	India	True	0.9914	0.0205	
+PV387693.1	India	India	India	True	0.9891	0.0161	
+PV387692.1	India	India	India	True	0.964	0.0043	
+PV387691.1	India	India	India	True	0.9696	0.0224	
+PV387690.1	India	India	India	True	0.9638	0.0176	
+PV387689.1	India	India	India	False	0.9678	0.098	N-content 9.8% above maximum 5%
+PV387688.1	India	India	India	True	0.9877	0.036	
+PV387687.1	India	India	India	True	0.988	0.0081	
+PV387686.1	India	India	India	True	0.9873	0.0127	
+PV387685.1	India	India	India	True	0.9876	0.0206	
+PV387684.1	India	India	India	True	0.9636	0.0213	
+PV387683.1	India	India	India	True	0.9873	0.0103	
+PV387682.1	India	India	India	False	0.9873	0.0664	N-content 6.6% above maximum 5%
+PV387681.1	India	India	India	False	0.9868	0.1082	N-content 10.8% above maximum 5%
+PV387680.1	India	India	India	True	0.9869	0.0267	
+PV387679.1	India	India	India	True	0.9876	0.0348	
+PV387678.1	India	India	India	True	0.9873	0.0482	
+PV387677.1	India	India	India	False	0.9834	0.069	N-content 6.9% above maximum 5%
+PV387676.1	India	India	India	True	0.9857	0.0196	
+PV387675.1	India	India	India	False	0.9868	0.1623	N-content 16.2% above maximum 5%
+PV387674.1	India	India	India	True	0.9871	0.0465	
+PV387673.1	India	India	India	False	0.9871	0.0962	N-content 9.6% above maximum 5%
+PV387672.1	India	India	India	False	0.9871	0.0835	N-content 8.4% above maximum 5%
+PV387671.1	India	India	India	True	0.9873	0.0232	
+PV387670.1	India	India	India	True	0.9871	0.0153	
+PV387669.1	India	India	India	True	0.9874	0.042	
+PV387668.1	India	India	India	False	0.9873	0.082	N-content 8.2% above maximum 5%
+PV387667.1	India	India	India	False	0.9889	0.0591	N-content 5.9% above maximum 5%
+PV387666.1	India	India	India	True	0.9873	0.0256	
+PV387665.1	India	India	India	True	0.9873	0.0216	
+PV387664.1	India	India	India	False	0.9848	0.1048	N-content 10.5% above maximum 5%
+PV387663.1	India	India	India	False	0.9872	0.1078	N-content 10.8% above maximum 5%
+PV387662.1	India	India	India	False	0.9632	0.1323	N-content 13.2% above maximum 5%
+PV387661.1	India	India	India	True	0.9868	0.0193	
+PV387660.1	India	India	India	False	0.9838	0.0745	N-content 7.4% above maximum 5%
+PV387659.1	India	India	India	True	0.9842	0.0256	
+PV387658.1	India	India	India	True	0.9871	0.0431	
+PV387657.1	India	India	India	False	0.9865	0.0942	N-content 9.4% above maximum 5%
+PV387656.1	India	India	India	False	0.9676	0.1274	N-content 12.7% above maximum 5%
+PV387655.1	India	India	India	False	0.9877	0.1073	N-content 10.7% above maximum 5%
+PV387654.1	India	India	India	False	0.9877	0.1438	N-content 14.4% above maximum 5%
+PV387653.1	India	India	India	False	0.9696	0.1549	N-content 15.5% above maximum 5%
+PV491557.1	Pakistan	Pakistan	Pakistan	True	0.9979	0.0	
+PP700503.1	Thailand	Thailand	Thailand	True	0.9931	0.0	
+PP700502.1	Thailand	Thailand	Thailand	True	0.9965	0.002	
+PV443051.1	India	India	India	False	0.964	0.2469	N-content 24.7% above maximum 5%
+PV443050.1	India	India	India	False	0.9873	0.2063	N-content 20.6% above maximum 5%
+PV443049.1	India	India	India	False	0.9443	0.255	N-content 25.5% above maximum 5%
+PV443048.1	India	India	India	False	0.9632	0.2355	N-content 23.6% above maximum 5%
+PV443047.1	India	India	India	False	0.9635	0.1766	N-content 17.7% above maximum 5%
+PV443046.1	India	India	India	False	0.9633	0.1769	N-content 17.7% above maximum 5%
+PV443045.1	India	India	India	False	0.937	0.3353	N-content 33.5% above maximum 5%
+PV443044.1	India	India	India	False	0.9623	0.2372	N-content 23.7% above maximum 5%
+PV443043.1	India	India	India	False	0.9623	0.2097	N-content 21.0% above maximum 5%
+PV443042.1	India	India	India	False	0.9636	0.2128	N-content 21.3% above maximum 5%
+PV443041.1	India	India	India	False	0.9602	0.2552	N-content 25.5% above maximum 5%
+PV443040.1	India	India	India	False	0.967	0.249	N-content 24.9% above maximum 5%
+PV443039.1	India	India	India	False	0.9874	0.197	N-content 19.7% above maximum 5%
+PV443038.1	India	India	India	False	0.9632	0.2855	N-content 28.5% above maximum 5%
+PV443037.1	India	India	India	False	0.9633	0.2914	N-content 29.1% above maximum 5%
+PV443036.1	India	India	India	False	0.9634	0.2671	N-content 26.7% above maximum 5%
+PV443035.1	India	India	India	False	0.9636	0.2704	N-content 27.0% above maximum 5%
+PV443034.1	India	India	India	False	0.9637	0.2173	N-content 21.7% above maximum 5%
+PV443033.1	India	India	India	False	0.9634	0.2162	N-content 21.6% above maximum 5%
+PV443032.1	India	India	India	False	0.9812	0.2559	N-content 25.6% above maximum 5%
+PV443031.1	India	India	India	False	0.9632	0.2953	N-content 29.5% above maximum 5%
+PV443030.1	India	India	India	False	0.9635	0.2574	N-content 25.7% above maximum 5%
+PV443028.1	India	India	India	False	0.9394	0.163	N-content 16.3% above maximum 5%
+PV443027.1	India	India	India	False	0.9635	0.1209	N-content 12.1% above maximum 5%
+PV454693.1	India	India	India	False	0.9893	0.1239	N-content 12.4% above maximum 5%
+PV454692.1	India	India	India	False	0.9868	0.0622	N-content 6.2% above maximum 5%
+PV454691.1	India	India	India	False	0.988	0.1319	N-content 13.2% above maximum 5%
+PV454690.1	India	India	India	False	0.9769	0.1046	N-content 10.5% above maximum 5%
+PV454689.1	India	India	India	False	0.9871	0.0977	N-content 9.8% above maximum 5%
+PV454688.1	India	India	India	True	0.9698	0.0353	
+PV454687.1	India	India	India	True	0.9889	0.0294	
+PV454686.1	India	India	India	True	0.9705	0.0407	
+PV454685.1	India	India	India	True	0.981	0.0211	
+PV289027.1	India	India	India	True	0.9873	0.0004	
+PV289026.1	India	India	India	True	0.9877	0.0048	
+PV289025.1	India	India	India	True	0.9877	0.0045	
+PV289024.1	India	India	India	True	0.9875	0.0161	
+PV289023.1	India	India	India	True	0.9874	0.0003	
+PV289022.1	India	India	India	True	0.9873	0.0046	
+PV289021.1	India	India	India	True	0.9874	0.0008	
+PV289020.1	India	India	India	True	0.9862	0.0046	
+PV289019.1	India	India	India	True	0.9876	0.0004	
+PV289018.1	India	India	India	True	0.9873	0.0025	
+PV289017.1	India	India	India	True	0.9873	0.0047	
+PV289016.1	India	India	India	True	0.9877	0.0003	
+PV289015.1	India	India	India	True	0.9878	0.0043	
+PV289014.1	India	India	India	True	0.9876	0.0046	
+PV289013.1	India	India	India	True	0.9874	0.0044	
+PV289012.1	India	India	India	True	0.9873	0.0007	
+PV289011.1	India	India	India	True	0.9876	0.0006	
+PV289010.1	India	India	India	True	0.9871	0.0045	
+PV289009.1	India	India	India	True	0.9878	0.0048	
+PV289008.1	India	India	India	True	0.9871	0.0372	
+PV289007.1	India	India	India	True	0.9875	0.0045	
+PV289006.1	India	India	India	True	0.9872	0.0025	
+PV289005.1	India	India	India	True	0.9871	0.0002	
+PV289004.1	India	India	India	True	0.9876	0.0046	
+PV289003.1	India	India	India	True	0.9873	0.0043	
+PV289002.1	India	India	India	True	0.9874	0.0044	
+PV289001.1	India	India	India	True	0.9878	0.0041	
+PV289000.1	India	India	India	True	0.9879	0.0043	
+PV288999.1	India	India	India	True	0.9878	0.0044	
+PV288998.1	India	India	India	True	0.9875	0.0041	
+PV288997.1	India	India	India	True	0.9875	0.0036	
+PV288996.1	India	India	India	True	0.9878	0.0046	
+PV288995.1	India	India	India	True	0.9879	0.0277	
+PV288994.1	India	India	India	True	0.9873	0.0043	
+PV288993.1	India	India	India	True	0.9873	0.0044	
+PV288992.1	India	India	India	True	0.9876	0.0047	
+PV288991.1	India	India	India	True	0.9873	0.0061	
+PV288990.1	India	India	India	True	0.9875	0.0001	
+PV288989.1	India	India	India	True	0.9874	0.0042	
+PV288988.1	India	India	India	True	0.9873	0.0044	
+PV288987.1	India	India	India	True	0.9874	0.0043	
+PV288986.1	India	India	India	True	0.9877	0.0043	
+PV288985.1	India	India	India	True	0.9876	0.0042	

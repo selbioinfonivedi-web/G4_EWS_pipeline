@@ -1,0 +1,501 @@
+accession	length	organism	country	collection_date	geo_loc_name	host	strain	isolate	serotype	genotype	segment	note	lat_lon
+PZ512953.1	2926	Bluetongue virus 4	Spain	2018	Spain	Capra hircus		BTV-4 SPA 2018/LCV_01			2		
+PZ512943.1	2940	Bluetongue virus 1	Spain	2017	Spain	Capra hircus		BTV-1 SPA 2017/LCV_02			2		
+PZ528069.1	2868	Bluetongue virus	USA	21-Sep-2023	USA: Boulder County, Colorado	Ovis aries		BTV-17/CO/2023-S13			2		
+PZ528068.1	2868	Bluetongue virus	USA	21-Nov-2023	USA: Boulder County, Colorado	Ovis aries		BTV-17/CO/2023-S12			2		
+PZ528067.1	2935	Bluetongue virus	USA	20-Sep-2022	USA: Boulder County, Colorado	Ovis aries		BTV-13/CO/2022-S11			2		
+PZ528066.1	2935	Bluetongue virus	USA	20-Sep-2022	USA: Boulder County, Colorado	Ovis aries		BTV-13/CO/2022-S10			2		
+PZ528065.1	2935	Bluetongue virus	USA	20-Sep-2022	USA: Boulder County, Colorado	Ovis aries		BTV-13/CO/2022-S03			2		
+PZ528064.1	2935	Bluetongue virus	USA	20-Sep-2022	USA: Boulder County, Colorado	Ovis aries		BTV-13/CO/2022-S01			2		
+PZ528063.1	2905	Bluetongue virus	USA	20-Sep-2021	USA: Boulder County, Colorado	Ovis aries		BTV-6/CO/2021-S08			2		
+PZ528062.1	2926	Bluetongue virus	USA	20-Sep-2021	USA: Boulder County, Colorado	Ovis aries		BTV-11/CO/2021-S07			2		
+PZ528061.1	2926	Bluetongue virus	USA	13-Aug-2021	USA: Boulder County, Colorado	Ovis aries		BTV-11/CO/2021-S06			2		
+PZ528060.1	2926	Bluetongue virus	USA	20-Sep-2021	USA: Boulder County, Colorado	Ovis aries		BTV-11/CO/2021-S05			2		
+PZ528059.1	2922	Bluetongue virus	USA	28-Oct-2021	USA: Boulder County, Colorado	Ovis aries		BTV-6/CO/2021-S04			2		
+PZ528058.1	2868	Bluetongue virus	USA	20-Sep-2021	USA: Boulder County, Colorado	Ovis aries		BTV-17/CO/2021-S03			2		
+PZ528057.1	2922	Bluetongue virus	USA	28-Oct-2021	USA: Boulder County, Colorado	Ovis aries		BTV-6/CO/2021-S02			2		
+PZ528056.1	2922	Bluetongue virus	USA	20-Sep-2021	USA: Boulder County, Colorado	Ovis aries		BTV-6/CO/2021-S01			2		
+PZ547133.1	2940	Bluetongue virus	South Africa	missing	South Africa		FABADRU_891979				2	genotype: AH01AAADAAAC	
+PZ547132.1	2868	Bluetongue virus	South Africa	missing	South Africa		FABADRU_600633				2	genotype: AA24AAAFAAAC	
+PZ547131.1	2938	Bluetongue virus	South Africa	missing	South Africa		FABADRU_600579				2	genotype: AF19AAACDAAC	
+PZ547130.1	2927	Bluetongue virus	South Africa	missing	South Africa		FABADRU_600578				2	genotype: AD18AAADAAAA	
+PZ547129.1	2935	Bluetongue virus	South Africa	missing	South Africa		FABADRU_600577				2	genotype: BB16BBCEFBBB	
+PZ547128.1	2909	Bluetongue virus	South Africa	missing	South Africa		FABADRU_600576				2	genotype: AJ15AAABEAAA	
+PZ547127.1	2921	Bluetongue virus	South Africa	missing	South Africa		FABADRU_600571				2	genotype: AE09AAADAAAA	
+PZ547126.1	2922	Bluetongue virus	South Africa	missing	South Africa		FABADRU_600568				2	genotype: AC06AAAEBAAA	
+PZ547125.1	2926	Bluetongue virus	South Africa	missing	South Africa		FABADRU_600566				2	genotype: AA04AAAFAAAA	
+PZ547124.1	2935	Bluetongue virus	South Africa	missing	South Africa		FABADRU_600565				2	genotype: AB03AAAEBAAA	
+PZ547123.1	2940	Bluetongue virus	South Africa	missing	South Africa		FABADRU_600558				2	genotype: AH01AAADAAAC	
+PZ547122.1	2943	Bluetongue virus	South Africa	missing	South Africa		FABADRU_600556				2	genotype: AI02AAADAAAC	
+PZ513828.1	2935	Bluetongue virus	Ireland	11-Feb-2026	Ireland: Wexford	bovine		BTV-3/IRL2026/01	3		2		
+PZ498880.1	2940	Bluetongue virus 1	Spain	2016	Spain	Capra hircus		BTV-1 SPA 2016/LCV_01			2		
+PX056767.1	2926	Bluetongue virus 4	China	2013	China: Yunnan	Culicoides sp.		JC13C527-2	4		2		
+PV076075.1	2926	Bluetongue virus 4	Spain	2021	Spain: Balearic Islands	sheep		BTV4-SPA-(BAL)-2021/LCV_01	4		2		
+PZ338999.1	2917	Bluetongue virus	France	18-Jul-2016	France: Guyane	bovine		BTV-14/16-01 (7347)	14		2	passage history: E1B1K1B1	
+PZ338989.1	2925	Bluetongue virus	France	23-Jul-2025	France: Corsica	sheep		BTV-4/25-03 (6092)			2		
+PZ272906.1	2922	Bluetongue virus	United Kingdom	01-Dec-2025	United Kingdom: Northern Ireland	cattle		V618	3		2		
+PZ117009.1	2940	Bluetongue virus	Spain	2009	Spain	ruminant		SPA 2009/LCV_01			2		
+PZ044306.1	2940	Bluetongue virus	Spain	2008	Spain	sheep		SPA 2008/LCV_01			2		
+PX965948.1	2935	Bluetongue virus	United Kingdom	01-Dec-2025	United Kingdom: County Down	bovine		BTV-3/UKG2025/05	3		2		
+PX965938.1	2935	Bluetongue virus	United Kingdom	21-Nov-2025	United Kingdom: County Down	bovine		BTV-3/UKG2025/04	3		2		
+PV485363.1	2922	Bluetongue virus 5	Israel	05-Nov-2023	Israel	cattle		ISR-2089/7/23	5		2		
+PV485353.1	2902	Bluetongue virus 11	Israel	21-Oct-2021	Israel	cattle		ISR-3265/1/21	11		2		
+PV472032.1	2911	Bluetongue virus 1	Israel	25-Oct-2021	Israel	cattle		ISR-3279/1/21	1		2		
+PV582474.1	2926	Bluetongue virus 4	Israel	28-Aug-2023	Israel	cattle		ISR-1621/23	4		2		
+PV575823.1	2924	Bluetongue virus 3	Israel	10-Oct-2021	Israel	cattle		ISR-3126/21	3		2		
+PV575822.1	2922	Bluetongue virus 3	Israel	30-Sep-2020	Israel	cattle		ISR-2658/20	3		2		
+PV575821.1	2904	Bluetongue virus 3	Israel	08-Sep-2020	Israel	sheep		ISR-181/1/20	3		2		
+PV564892.1	2928	Bluetongue virus 3	Israel	14-Nov-2019	Israel	sheep		ISR-2136/3/19	3		2		
+PV564882.1	2924	Bluetongue virus 3	Israel	Oct-2019	Israel	cattle		ISR-2036/19	3		2		
+PV553550.1	2934	Bluetongue virus 3	Israel	25-Nov-2021	Israel	sheep		ISR-3489/1/21	3		2		
+PV553540.1	2934	Bluetongue virus 3	Israel	27-Oct-2021	Israel	sheep		ISR-3301/2/21	3		2		
+PV535776.1	2934	Bluetongue virus 3	Israel	13-Sep-2023	Israel	sheep		ISR-1693/1/23	3		2		
+PV524090.1	2934	Bluetongue virus 3	Israel	08-Jul-2023	Israel	sheep		ISR-1434/1/23	3		2		
+PV524080.1	2934	Bluetongue virus 3	Israel	02-Oct-2022	Israel	sheep		ISR-1613/2/22	3		2		
+PV495245.1	2935	Bluetongue virus 3	Israel	04-Sep-2022	Israel	sheep		ISR-1563/22	3		2		
+PV495235.1	2939	Bluetongue virus 8	Israel	15-Nov-2023	Israel	cattle		ISR-2178/23	8		2		
+PX963012.1	2939	Bluetongue virus 8	Greece	2024	Greece	sheep		BTV8 GRE 2024/LCV_02	BTV8		2		
+PX963002.1	2935	Bluetongue virus 3	Greece	2024	Greece	sheep		BTV3 GRE 2024/LCV_01	BTV3		2		
+PX740420.1	2830	Bluetongue virus 4	Italy	12-Dec-2024	Italy: Emilia Romagna	Bos taurus		BTV-4/RN-33037 ITA2024	4		2		
+PX740401.1	2890	Bluetongue virus 4	Italy	20-Oct-2025	Italy: Sicily	Ovis aries		BTV-4/TP-27405 ITA2025	4		2		
+PX740410.1	2926	Bluetongue virus 4	Italy	02-Sep-2025	Italy: Lombardia	Ovis aries		BTV-4/BG-21722 ITA2025	4		2		
+PX740391.1	2926	Bluetongue virus 4	Italy	29-Aug-2025	Italy: Sardinia	Ovis aries		BTV-4/NU-24558 ITA2025	4		2		
+PX740381.1	2935	Bluetongue virus 3	Italy	15-Sep-2025	Italy: Sicily	Ovis aries		BTV-3/CT-23193 ITA2025	3		2		
+PX692383.1	2919	Bluetongue virus	France	16-May-2010	France: Guadeloupe	bovine		BTV-17/10-03 (5782)	17		2	passage history:E1K1BSR1	
+PX692373.1	2938	Bluetongue virus	France	07-Aug-2025	France: Cher	sheep		BTV-8/25-09(6294)	8		2	passage history: K1BSR1	
+PX692363.1	2927	Bluetongue virus	France	31-Jul-2025	France: Haute-Savoie	bovine		BTV-3/25-17 (6334)	3		2	passage history: K1BSR1	
+PX692353.1	2917	Bluetongue virus	France	31-Jul-2025	France: Corsica	sheep		BTV-3/25-15 (6273)	3		2	passage history: K1BSR1	
+PX692343.1	2919	Bluetongue virus	France	04-Jul-2025	France: Dordogne	ovine		BTV-3/25-05 (5244)	3		2	passage history: K1BSR1	
+PX692333.1	2922	Bluetongue virus	France	04-Jul-2025	France: Doubs	bovine		BTV-3/25-04 (5230)	3		2	passage history: K1BSR1	
+PX692323.1	2930	Bluetongue virus	France	11-Jun-2025	France: Pyrenees-Atlantiques	sheep		BTV-8/25-05 (4772)	8		2	passage history: K1BSR1	
+PX692313.1	2936	Bluetongue virus	France	27-May-2025	France: Morbihan	bovine		BTV-8/25-01 (4688)	8		2	passage history: K1BSR1	
+PX692303.1	2922	Bluetongue virus	France	13-Jun-2025	France: Loire-Atlantique	bovine		BTV-3/25-01 (4689)	3		2	passage history: K1BSR1	
+PX692293.1	2922	Bluetongue virus	France	07-Jul-2025	France: Corsica	sheep		BTV-4/25-02 (5208)	4		2	passage history: K1BSR1	
+PX660383.1	2938	Bluetongue virus	United Kingdom	22-Sep-2025	United Kingdom: Cornwall	ovine		BTV-8/UKG2025/01	8		2		
+PX660380.1	2934	Bluetongue virus	United Kingdom	07-Jul-2025	United Kingdom: Herefordshire	bovine		BTV-3/UKG2025/01	3		2		
+PX660370.1	2935	Bluetongue virus	United Kingdom	10-Jul-2025	United Kingdom: Oxfordshire	ovine		BTV-3/UKG2025/02	3		2		
+PX660360.1	2935	Bluetongue virus	United Kingdom	12-Jul-2025	United Kingdom: Buckinghamshire	ovine		BTV-3/UKG2025/03	3		2		
+PX460303.1	2921	Bluetongue virus 5	Italy	01-Oct-2025	Italy: Sardegna	Ovis aries		BTV-5 ITA2025			2		
+PX442672.1	2926	Bluetongue virus 4	Spain	2024	Spain	sheep		BTV4-SPA-2024/LCV_16	BTV4		2		
+PV990387.1	2939	Bluetongue virus 8	Italy	19-Jun-2025	Italy: Latium	Ovis aries		BTV-8/FR-13403 ITA2025	8		2		
+PV990377.1	2939	Bluetongue virus 8	Italy	19-Jun-2025	Italy: Marche	Ovis aries		BTV-8/MC-13820 ITA2025	8		2		
+PV990367.1	2939	Bluetongue virus 8	Italy	27-Jun-2025	Italy: Marche	Ovis aries		BTV-8/AP-13760 ITA2025	8		2		
+PV990357.1	2939	Bluetongue virus 8	Italy	16-Jun-2025	Italy: Campania	Ovis aries		BTV-8/SA-13357 ITA2025	8		2		
+PV990347.1	2939	Bluetongue virus 8	Italy	26-Jun-2025	Italy: Abruzzi	Ovis aries		BTV-8/PE-5049 ITA2025	8		2		
+PV974536.1	2927	Bluetongue virus 8	Italy	23-Jun-2025	Italy: Abruzzi	Ovis aries		BTV-8/TE-13147 ITA2025	8		2		
+PV974526.1	2939	Bluetongue virus 8	Italy	23-Jun-2025	Italy: Abruzzi	Ovis aries		BTV-8/AQ-13134 ITA2025	8		2		
+PV974516.1	2927	Bluetongue virus 8	Italy	17-Jun-2025	Italy: Umbria	Ovis aries		BTV-8/PG-13016 ITA2025	8		2		
+PV974506.1	2907	Bluetongue virus 4	Tunisia	2019	Tunisia	Ovis aries		BTV-4/TUN-2019	4		2		
+PV956183.1	2925	Bluetongue virus 4	Italy	2012	Italy: Sardinia	Ovis aries		BTV-4/CA-26258 ITA2012	4		2		
+PV956173.1	2915	Bluetongue virus 4	Tunisia	2013	Tunisia			BTV-4/TUN10254 TUN2013	4		2		
+PV927998.1	2917	Bluetongue virus 3	France	07-May-2010	France: Guadeloupe, Basse-Terre	bovine		BTV-3/10-01 (5120)	3		2	passage history: E1BSR2	
+PV927988.1	2920	Bluetongue virus 19	France	29-May-2024	France: Guadeloupe, Deshaies	caprine		BTV-19/25-02 (6878)	19		2	passage history: E1BSR1	
+PV927978.1	2895	Bluetongue virus 12	France	30-May-2024	France: Guadeloupe, Petit-Bourg	ovine		BTV-12/25-01 (6891)	12		2	passage history: E1BSR1	
+PV927968.1	2921	Bluetongue virus 19	France	29-May-2024	France: Guadeloupe, Deshaies	bovine		BTV-19/25-01 (6874)	19		2	passage history: E1BSR1	
+PV927958.1	2934	Bluetongue virus 1	France	24-Apr-2024	France: Guadeloupe, Saint-Louis	ovine		BTV-1/25-01 (4875)	1		2	passage history: E1BSR1	
+PV853965.1	2901	Bluetongue virus 12	United Kingdom	04-Feb-2025	United Kingdom: Kent	bovine		BTV-12/UKG2025/01	12		2		
+PV853962.1	2935	Bluetongue virus 3	United Kingdom	25-Aug-2024	United Kingdom: Norfolk	ovine		BTV-3/UKG2024/01	3		2		
+PV797209.1	2935	Bluetongue virus	United Kingdom	23-Nov-2023	United Kingdom: Kent	bovine		BTV-3/UKG2023/02	3		2		
+PV797199.1	2935	Bluetongue virus	United Kingdom	27-Nov-2023	United Kingdom: Norfolk	bovine		BTV-3/UKG2023/01	3		2		
+PV694149.1	2934	Bluetongue virus	France	12-Dec-2023	France: Guadeloupe (Port-Louis)	bovine		BTV-1/24-02 (4617)	1		2	passage history: E1BSR1	
+PV694148.1	2927	Bluetongue virus	France	08-Feb-2024	France: Guadeloupe (Anse-Bertrand)	goat		BTV-1/24-04 (4684)	1		2	passage history: E1BSR1	
+PV694147.1	2902	Bluetongue virus	France	12-Dec-2023	France: Guadeloupe (Port-Louis)	ovine		BTV-14/24-01 (4615)	14		2	passage history: K1BSR1	
+PV594923.1	2935	Bluetongue virus 3	Spain	2024	Spain	sheep		SPA 2024/LCV_04	3		2		
+PV595118.1	2939	Bluetongue virus	Spain	2024	Spain: Balearic Islands	sheep		BTV8 SPA(BAL) 2024/LCV_02	BTV8		2		
+PV541162.1	2939	Bluetongue virus 8	Italy	26-Jul-2024	Italy: Sardinia	Ovis aries		BTV-8/SS-15512 ITA2024	8		2		
+PV459730.1	2940	Bluetongue virus	Spain	2024	Spain	goat		BTV1 SPA 2024/06	BTV1		2		
+PV275616.1	2923	Bluetongue virus	French Guiana	22-Apr-2024	French Guiana	bovine		BTV-17/24-01 (3963)	17		2	passage history: K1BSR1	
+PV275615.1	2935	Bluetongue virus	France	03-Sep-2024	France	sheep		BTV-3/24-05 (7977)	3		2	passage history: K1BSR1	
+PV275614.1	2935	Bluetongue virus	France	23-May-2024	France: Corsica	sheep		BTV-8/24-02 (4907)	8		2	passage history: K1BSR1	
+PV275613.1	2922	Bluetongue virus	France	18-Jul-2024	France: Corsica	sheep		BTV-4/24-01 (6821)	4		2	passage history: K1BSR1	
+PV295885.1	2897	Bluetongue virus 12	France	12-Apr-2024	France: Mayotte	bovine		BTV-12/24-01 (3804)	12		2	passage history: K1BSR1	
+PV295875.1	2939	Bluetongue virus 1	France	17-Apr-2024	France: Mayotte	bovine		BTV-1/24-01 (3835)	1		2	passage history: K1BSR1	
+PQ584055.2	2932	Bluetongue virus	USA	2015	USA: CO	dairy cattle		BTV3/CO/2015	3		2	passage in bovine pulmonary artery endothelial cells	
+MF124283.2	2819	Bluetongue virus	Tunisia	03-Jan-2017	Tunisia: Gafsa	Ovis aries (sheep)		TUN2017			2		
+PV076085.1	2939	Bluetongue virus 8	Spain	2024	Spain: Catalonia	sheep		BTV8-SPA-2024/LCV_01	8		2		
+PQ168273.1	2958	Bluetongue virus	China	13-Aug-2013	China	bovine	YNDH/103/2013	BGKNGGBL			2		
+PQ587295.1	2934	Bluetongue virus 3	Switzerland	Aug-2024	Switzerland: Jura	Ovis aries		JU-240758	3		2		
+PQ584500.1	2904	Bluetongue virus	Netherlands	16-Sep-2024	Netherlands	sheep		BTV-12/NET2024/24023518			2		
+PQ303751.1	2921	Bluetongue virus	China	07-Jul-2022	China: Menghai,Yunnan	Culicoides sp.	MZ13		5		2		
+PQ303741.1	2921	Bluetongue virus	China	19-Oct-2023	China: Menghai,Yunnan	cattle	MZL19		5		2		
+OZ177707.1	2935	Bluetongue virus 3						BTV-3/2024-06141-4/O.ari/DK/2024			2		
+PP982460.1	2871	Bluetongue virus 4	Serbia	2016	Serbia	Bovidae		4/LP/2016			2		
+PP896803.1	2880	Bluetongue virus	USA	2022	USA	Odocoileus virginianus	OV1774_FL_BTV3		3		2		
+PP262563.1	2926	Bluetongue virus	France	12-Oct-2021	France: Corsica	sheep		BTV-4/21-03 (6453)	4		2	passage history: E1BSR1	
+MZ395203.2	2926	Bluetongue virus 10	Portugal	1956	Portugal	Ruminant	RSA/OBP/BTV10/LAV	2627	10		2	81E 2BHK	
+MZ395183.2	2937	Bluetongue virus 8	South Africa	1937	South Africa	Ruminant	RSA/OBP/BTV8/LAV	8438	8		2	50E 3BHK 10Pa 9BHK	
+MZ395173.2	2935	Bluetongue virus 3	Cyprus	1944	Cyprus	Ruminant	RSA/OBP/BTV3/LAV	8231	3		2	45E 2BHK 3P 6BHK	
+MZ215882.2	2933	Bluetongue virus 13	South Africa	1959	South Africa	Ruminant	RSA/OBP/BTV13/LAV	7238	13		2	45E 2BHK 3Pa 6BHK	
+PP199312.1	2939	Bluetongue virus	France	2023	France: Mayenne	bovine		BTV-8 Fr 2023 (11400)	8		2		
+PP199302.1	2939	Bluetongue virus	France	2023	France: Corse	ovine		BTV-8 Fr 2023 (10105)	8		2		
+PP199292.1	2939	Bluetongue virus	France	2023	France: Corse	ovine		BTV-8 Fr 2023 (10102)	8		2		
+PP199282.1	2939	Bluetongue virus	France	2023	France: Aveyron	ovine		BTV-8 Fr 2023 (8875)	8		2		
+PP199272.1	2939	Bluetongue virus	France	2023	France: Aveyron	bovine		BTV-8 Fr 2023 (8646)	8		2	passage history: KC1BSR1	
+PP199262.1	2939	Bluetongue virus	France	2023	France: Aveyron	bovine		BTV-8 Fr 2023 (8645)	8		2	passage history: KC1BSR1	
+PP199252.1	2939	Bluetongue virus	France	2023	France: Aveyron	bovine		BTV-8 Fr 2023 (8644)	8		2	passage history: KC1BSR1	
+PP199242.1	2926	Bluetongue virus	France	2023	France: Corse	ovine		BTV-4 Fr 2023 (13408)	4		2		
+PP199232.1	2926	Bluetongue virus	France	2023	France: Corse	ovine		BTV-4 Fr 2023 (13006)	4		2		
+PP199222.1	2926	Bluetongue virus	France	2023	France: Corse	ovine		BTV-4 Fr 2023 (13004)	4		2		
+PP199212.1	2926	Bluetongue virus	France	2023	France: Corse	ovine		BTV-4 Fr 2023 (11115)	4		2		
+PP199202.1	2926	Bluetongue virus	France	2023	France: Corse	ovine		BTV-4 Fr 2023 (11114)	4		2		
+PP199192.1	2926	Bluetongue virus	France	2023	France: Corse	ovine		BTV-4 Fr 2023 (10786)	4		2	passage history: KC1BSR1	
+MW513377.1	2926	Bluetongue virus	China	Sep-2016	China: Guangxi Province	Murrah buffalo	GX/V206/2016				2		
+OR603993.1	2935	Bluetongue virus 3	Netherlands	04-Sep-2023	Netherlands	Ovis aries		BTV-3/NET2023	3		2		
+OK507976.1	2884	Bluetongue virus 9	Israel	28-Jul-2019	Israel	sheep		ISR-1763/3/19	9		2		
+OR611887.1	2923	Bluetongue virus	Cuba	2022	Cuba	bovine	Cuba BTV24-23.01 (3134)	BTV-24 Cuba (3134)	24		2	passage history: KC1BSR1	
+OR611877.1	2907	Bluetongue virus	Cuba	2022	Cuba	bovine	Cuba BTV22-23.01 (3089)	BTV-22 Cuba (3089)	22		2	passage history: K1BSR1	
+OR611867.1	2938	Bluetongue virus	Cuba	2022	Cuba	bovine	Cuba BTV19-23.01 (3100)	BTV-19 Cuba (3100)	19		2	passage history: E1BSR1	
+OR611857.1	2927	Bluetongue virus	Cuba	2022	Cuba	bovine	Cuba BTV18-23.03 (3155)	BTV-18 Cuba (3155)	18		2	passage history: K1BSR1	
+OR611847.1	2927	Bluetongue virus	Cuba	2022	Cuba	bovine	Cuba BTV18-23.02 (3110)	BTV-18 Cuba (3110)	18		2	passage history: KC2BSR1	
+OR611837.1	2927	Bluetongue virus	Cuba	2022	Cuba	bovine	Cuba BTV18-23.01 (3079)	BTV-18 Cuba (3079)	18		2	passage history: KC1BSR1	
+OR611827.1	2923	Bluetongue virus	Cuba	2022	Cuba	bovine	Cuba BTV17-23.02 (3178)	BTV-17 Cuba (3178)	17		2	passage history: E1BSR1	
+OR611817.1	2923	Bluetongue virus	Cuba	2022	Cuba	bovine	Cuba BTV17-23.01 (3158)	BTV-17 Cuba (3158)	17		2	passage history: E1BSR1	
+OR611807.1	2935	Bluetongue virus	Cuba	2022	Cuba	bovine	Cuba BTV13-23.1 (3097)	BTV-13 Cuba (3097)	13		2	passage history: E1BSR1	
+OR611797.1	2904	Bluetongue virus	Cuba	2022	Cuba	bovine	Cuba BTV12-23.2 (3090)	BTV-12 Cuba (3090)	12		2	passage history: E1BSR1	
+OR611787.1	2904	Bluetongue virus	Cuba	2022	Cuba	bovine	Cuba BTV12-23.01 (3062)	BTV-12 Cuba (3062)	12		2	passage history: KC2BSR1	
+OR611777.1	2926	Bluetongue virus	Cuba	2022	Cuba	bovine	Cuba BTV10-23.02 (3037)	BTV-10 Cuba (3037)	10		2	passage history: K1BSR1	
+OR611767.1	2926	Bluetongue virus	Cuba	2022	Cuba	bovine	Cuba BTV10-23.01 (3088)	BTV-10 Cuba (3088)	10		2	passage history: KC2BSR1	
+OR611757.1	2935	Bluetongue virus	Cuba	2022	Cuba	bovine	Cuba BTV3-23.01 (3180)	BTV-3 Cuba (3180)	3		2	passage history: KC2BSR1	
+OR611747.1	2943	Bluetongue virus	Cuba	2022	Cuba	bovine	Cuba BTV2-23.01 (3111)	BTV-2 Cuba (3111)	2		2	passage history: KC1BSR1	
+OR611737.1	2940	Bluetongue virus	Cuba	2022	Cuba	bovine	Cuba BTV1-23.02 (3190)	BTV-1 Cuba (3190)	1		2	passage history: KC1BSR1	
+OR611727.1	2940	Bluetongue virus	Cuba	2022	Cuba	bovine	Cuba BTV1-23.01 (3124)	BTV-1 Cuba (3124)	1		2	passage history: KC1BSR1	
+OR500245.1	2939	Bluetongue virus	France	May-2017	France: Craon, Mayenne	bovine		France 2017/01	8		2	Passage history: KC3	
+OR500235.1	2926	Bluetongue virus	France	Nov-2016	France: Bonifacio, Corse-du-Sud, Corsica	ovine		Corsica 2016/01	4		2	Passage history: KC1/BSR1/KC2	
+OQ860936.1	2939	Bluetongue virus	France	01-Sep-2021	France	bovine		BTV-8/21-06 (10016)	8		2	passage history: E1BSR1	
+OQ798199.1	2868	Bluetongue virus 17	USA	2018	USA: CO	ovine		BTV17 USA2018/CO	17		2		
+OQ847486.1	2886	Bluetongue virus	USA	2022	USA	Odocoileus virginianus	OV1706_FL_BTV1				2		
+OQ847476.1	2886	Bluetongue virus	USA	2019	USA	Odocoileus virginianus	OV1049_FL_BTV1				2		
+OQ398245.1	2926	Bluetongue virus 4	Israel	Oct-2015	Israel	goat	ISR-2096/9/15		4		2		
+OQ001235.1	2924	Bluetongue virus 9	Kazakhstan	14-Jul-2021	Kazakhstan: Tole Bi distr., Turkestan oblast	Hippobosca equina		CRT48-Kaz-2021	9		2	topotype w	
+OP185795.1	2935	Bluetongue virus 13	France	02-Aug-2011	France: Guyane	bovine		BTV-13/11 (4048)	13		2	passage history: E1BSR1	
+OL333535.1	2925	Bluetongue virus	China	2013	China	cattle		BTV-20/GX015/China/2013	20		2		
+OP185865.1	2907	Bluetongue virus 22	France	03-Oct-2016	France: Guyane	bovine		BTV-22/16-01 (9541)	22		2	passage history: E1BSR1	
+OP185825.1	2922	Bluetongue virus 6	France	30-Oct-2013	France: Guyane	bovine		BTV-6/13 (5783)	6		2	passage history: E1BSR1	
+OP185855.1	2940	Bluetongue virus 1	France	25-Jul-2016	France: Guyane	bovine		BTV-1/16 (7347)	1		2	passage history: E1BSR1	
+OP185815.1	2940	Bluetongue virus 1	France	11-Jun-2015	France: Guyane	bovine		BTV-1/15 (5364)	1		2	passage history: K1BSR1	
+OP185805.1	2890	Bluetongue virus 10	France	04-Aug-2011	France: Guyane	bovine		BTV-10/11 (4138)	10		2	passage history: E1BSR1	
+OP185835.1	2868	Bluetongue virus 24	France	15-Jun-2016	France: Guyane	bovine		BTV-24/16-01 (6281)	24		2	passage history: K1BSR1	
+OP185775.1	2923	Bluetongue virus 24	France	05-Jul-2011	France: Guyane	bovine		BTV-24/11 (3864)	24		2	passage history: E1BSR1	
+OP185765.1	2923	Bluetongue virus 24	France	06-Jun-2011	France: Guyane	bovine		BTV-24/11 (3568)	24		2	passage history: E1BSR1	
+OP185755.1	2868	Bluetongue virus 17	France	07-May-2020	France: Guyane	bovine		BTV-17/20-01 (2896)	17		2	passage history: K1BSR1	
+OP185875.1	2904	Bluetongue virus 12	France	24-Oct-2016	France: Guyane	bovine		BTV-12/16 (10078)	12		2	passage history: E1BSR1	
+OP185785.1	2853	Bluetongue virus 12	France	25-Jun-2020	France: Guyane	bovine		BTV-12/20-01 (3983)	12		2	passage history: E1BSR1	
+OP185745.1	2904	Bluetongue virus 12	France	01-Mar-2012	France: Guyane	bovine		BTV-12/12 (2473)	12		2	passage history: E1BSR1	
+OP185735.1	2943	Bluetongue virus 2	France	05-Mar-2012	France: Guyane	bovine		BTV-2/12 (2102)	2		2	passage history: E1BSR1	
+OP185845.1	2926	Bluetongue virus 11	France	25-Jul-2016	France: Guyane	bovine		BTV-11/16 (7343)	11		2	passage history: K1BSR1	
+OP185725.1	2926	Bluetongue virus 11	France	08-Feb-2016	France: Guyane	bovine		BTV-11/16 (940)	11		2	passage history: E1BSR1	
+OP122158.1	2853	Bluetongue virus	France	26-Jul-2018	France: Guyane	bovine		BTV-12/18 (4540)	12		2	passage history: E1BSR1	
+OP122148.1	2940	Bluetongue virus	France	26-Jul-2018	France: Guyane	bovine		BTV-1/18 (4538)	1		2	passage history: E1BSR1	
+OP122138.1	2914	Bluetongue virus	France	03-May-2016	France: Guyane	bovine		BTV-13/16 (4340)	13		2	passage history: E1BSR1	
+OP122128.1	2888	Bluetongue virus	France	04-Jun-2014	France: Guyane	bovine		BTV-12/14 (4830)	12		2	passage history: E1BSR1	
+OP122118.1	2940	Bluetongue virus	France	25-Jul-2016	France: Guyane	bovine		BTV-1/16 (7345)	1		2	passage history: E1BSR1	
+OP122108.1	2940	Bluetongue virus	France	04-Apr-2016	France: Guyane	bovine		BTV-1/16 (2341)	1		2	passage history: E1BSR1	
+OP122098.1	2922	Bluetongue virus	France	02-Mar-2018	France: Guyane	bovine		BTV-14/18 (1375)	14		2	passage history: E1BSR1	
+OM502353.1	2906	Bluetongue virus 1	Israel	24-Oct-2019	Israel	cattle	ISR-2050/19		1		2		
+OP186417.1	2926	Bluetongue virus	Kosovo	11-Sep-2014	Kosovo	ovine		KOS2014/01	4		2	Passage history: KC2	
+OP186407.1	2926	Bluetongue virus	Kosovo	06-Sep-2020	Kosovo: Prizren	ovine		KOS2020/02	4		2		
+OP186397.1	2926	Bluetongue virus	Kosovo	02-Sep-2020	Kosovo: Vushtrri	ovine		KOS2020/01	4		2		
+OM523088.1	2939	Bluetongue virus	Germany	2018	Germany	cattle; specimen voucher: BH11/19-3	BTV-8-GER2018	V247.3	8		2	submission PCR1041/2	
+MZ065388.1	2922	Bluetongue virus	Morocco		Morocco			MOR2004/02	rBTV-4		2	BSR4	
+MZ065378.1	2940	Bluetongue virus	Morocco		Morocco			MOR2006/06	rBTV-1		2	BSR4	
+MW046281.1	2936	Bluetongue virus 7	China	2020	China: Yunnan	cattle	V303/YNJH/2020		7		2		
+MZ325475.1	2928	Bluetongue virus	Italy	09-Feb-2021	Italy: Sardinia	Capra hircus		BTV-X ITL2021			2	same serotype as BTV-X ITL2015	
+MW456748.1	2917	Bluetongue virus	USA	1952	USA: CA	ovine		BTV10 USA1952/CA	10		2		
+MW456738.1	2929	Bluetongue virus	USA	1982	USA: FL	bovine		BTV2 USA1982/FL	2		2		
+MW159098.1	2939	Bluetongue virus	Netherlands	15-Aug-2006	Netherlands	sheep	NET2006-06		BTV-8		2		
+MZ395213.1	2917	Bluetongue virus 11	South Africa	1944	South Africa	Ruminant	RSA/OBP/BTV11/LAV	4575	11		2	35E 3Pa 6BHK	
+MZ395193.1	2915	Bluetongue virus 9	South Africa	1942	South Africa	Ruminant	RSA/OBP/BTV9/LAV	2766	9		2	70E 4BHK 3LP 1V 1BHK	
+MZ215892.1	2931	Bluetongue virus 19	South Africa	1976	South Africa	Ruminant	RSA/OBP/BTV19/LAV	143/76	19		2	29E 3Pa 4BHK	
+MZ215872.1	2936	Bluetongue virus 7	South Africa	1955	South Africa	Ruminant	RSA/OBP/BTV7/LAV	1504	7		2	60E 3Pa 4BHK	
+MZ215862.1	2922	Bluetongue virus 5	South Africa	1953	South Africa	Ruminant	RSA/OBP/BTV5/LAV	4868	5		2	50E 2BHK 3Pa 6BHK	
+MZ215852.1	2935	Bluetongue virus 2	South Africa	1958	South Africa	Ruminant	RSA/OBP/BTV2/LAV	5036	2		2	50E 3P 5BHK	
+MZ130596.1	2922	Bluetongue virus 14	South Africa	1959	South Africa	ruminant	RSA/OBP/BTV14/LAV	89/59	14		2	60E 3Pa 6BHK	
+MZ130586.1	2904	Bluetongue virus 12	South Africa	1941	South Africa	ruminant	RSA/OBP/BTV12/LAV	75005	12		2	55E 3P 5BHK	
+MZ130576.1	2922	Bluetongue virus 6	South Africa	1958	South Africa	ruminant	RSA/OBP/BTV6/LAV	5011	6		2	60E 3Pa 9BHK	
+MZ130566.1	2927	Bluetongue virus 4	South Africa	1900	South Africa	ruminant	RSA/OBP/BTV4/LAV	79043	4		2	60E 3Pa 10BHK	
+MZ130556.1	2940	Bluetongue virus 1	South Africa	1958	South Africa	ruminant	RSA/OBP/BTV1/LAV	8012	1		2	50E 3P 5BHK	
+MW001852.1	2907	Bluetongue virus	France	12-Jun-2017	France: Guyane	bovine		BTV-22/17-01 (4434)	22		2	passage history: E1BSR1	
+MW001842.1	2868	Bluetongue virus	France	04-Jun-2018	France: Guyane	bovine		BTV-24/18-01 (3507)	24		2	passage history: E1BSR1	
+MW001832.1	2927	Bluetongue virus	France	13-Mar-2018	France: Guyane	bovine		BTV-18/18.01 (1659)	18		2	passage history: E1BSR1	
+MW001822.1	2922	Bluetongue virus	France	07-Mar-2018	France: Guyane	bovine		BTV-14/18.01 (1512)	14		2	passage history: K1BSR3	
+MW001812.1	2940	Bluetongue virus	France	25-Jul-2016	France: Guyane	bovine		BTV-1/16.03 (7341)	1		2	passage history: E1BSR1	
+MW001802.1	2940	Bluetongue virus	France	25-May-2016	France: Guyane	bovine		BTV-1/16.02 (5317)	1		2	passage history: E1BSR1	
+MN698742.1	2933	Bluetongue virus 1	Australia	23-Jun-2017	Australia: York Downs, Queensland	Bovine		V9820	1		2		12.623 S 146.879 E
+LR797931.1	2939	Bluetongue virus 8	Switzerland	Oct-2018	Switzerland:Kanton Bern	Bos taurus	CH2018-3	V250.3	serotype 8		segment 2		
+LR797848.1	2897	Bluetongue virus 8	Switzerland	01-Oct-2018	Switzerland:Aargau	Ovis aries	BTV-8 CH2018-2	V250.2	serotype 8		segment 2		
+LR797837.1	2939	Bluetongue virus	Switzerland	2018-10-01	Switzerland:Jura	Bos taurus	190164.5_BH22/19-1	V250	serotype 8		segment 2		
+MT815695.1	2938	Bluetongue virus	France	30-May-2014	France: Guyane	bovine		BTV-19/14.01 (4837)	19		2	passage details: K1BSR1	
+MT815685.1	2935	Bluetongue virus	France	02-May-2016	France: Guyane	bovine		BTV-13/16.01 (4329)	13		2	passage details: E1B2	
+MT815675.1	2935	Bluetongue virus	France	27-Mar-2013	France: Guyane	bovine		BTV-3/13.02 (1849)	3		2	passage details: E1B2	
+MT815665.1	2935	Bluetongue virus	France	05-Jun-2013	France: Guyane	bovine		BTV-3/13.05 (2678)	3		2	passage details: E1B1BSR1	
+MT815655.1	2935	Bluetongue virus	France	05-Jun-2013	France: Guyane	bovine		BTV-3/13.06 (2676)	3		2	passage details: E1B1BSR1	
+MT815645.1	2923	Bluetongue virus	France	24-Jan-2014	France: Guyane	bovine		BTV-24/14-01 (566)	24		2	passage details: KC1BSR1	
+MT815635.1	2904	Bluetongue virus	France	04-Aug-2011	France: Guyane	bovine		BTV-12/11-01 (4136)	12		2	passage details: E1BSR1	
+MT815625.1	2922	Bluetongue virus	France	20-Feb-2014	France: Guyane	bovine		BTV-6/12-01 (2132)	6		2	passage details: E1BSR1	
+MT773518.1	2938	Bluetongue virus 8	Israel	20-Oct-2010	Israel	sheep		ISR-2204/10	8		2		
+MT773515.1	2938	Bluetongue virus 8	Israel	28-Aug-2010	Israel	cattle		ISR-2063/1/10	8		2		
+MT773514.1	2938	Bluetongue virus 8	Israel	09-Aug-2010	Israel	cattle		ISR-1992/10	8		2		
+MT773513.1	2939	Bluetongue virus 8	Israel	07-Feb-2019	Israel	cattle		ISR-1194/1/19	8		2		
+MN695909.1	2915	Bluetongue virus 16	Australia	2016	Australia: Beatrice Hill, Northern Territory	Bovine		V9450	16		2		12.643 S 131.305 E
+MN747871.1	2912	Bluetongue virus 16	Australia	2017	Australia: York Downs, Queensland	bovine		V9942	16		2		12.62 S 142.32 E
+MH816896.2	2938	Bluetongue virus 8	Israel	13-Oct-2016	Israel	sheep		ISR-2262/3/16	8		2		
+MH816856.2	2938	Bluetongue virus 8	Israel	20-Dec-2016	Israel	cattle		ISR-2475/16	8		2		
+MH816855.2	2938	Bluetongue virus 8	Israel	10-Dec-2015	Israel	sheep		ISR-2320/2/15	8		2		
+MH816854.2	2938	Bluetongue virus 8	Israel	10-Oct-2015	Israel	cattle		ISR-1741/15	8		2		
+LR993301.1	2925	Bluetongue virus	Germany	Mar-2019	Germany:imported goat from Italy	Capra aegagrus hircus	BTV-25-GER2019	V252.3	BTV-25		2		
+LR993250.1	2921	Bluetongue virus	Switzerland	Jul-2019	Switzerland	Capra aegagrus hircus	BTV-25-CH2019-1	V301.4	25		2		
+LR993240.1	2918	Bluetongue virus	Switzerland		Switzerland		BH66/19-25	V298.3	36		2		
+MW528448.1	2939	Bluetongue virus	Luxembourg	14-Sep-2020	Luxembourg: Echternach, Waldbillig	Bos taurus		BTV8/LUX/2020/2	8		2	passage history: ECE(1), BHK21(2)	
+MW528438.1	2939	Bluetongue virus	Luxembourg	28-Aug-2020	Luxembourg: Redange, Colpach	Bos taurus		BTV8/LUX/2020/1	8		2	passage history: ECE(1), BHK21(2)	
+MT119874.1	2935	Bluetongue virus 3	South Africa	2020	South Africa: Gauteng, Onderstepoort	Ovis aries	3/Labstr/ZAF/2020/Howell_DVTD_Cyprus	Cyprus	3		2		25.64 S 28.17 E
+MT119864.1	2943	Bluetongue virus 2	South Africa	1959	South Africa: Gauteng, Onderstepoort	Ovis aries	2/Labstr/ZAF/1959/Howell_DVTD_22_59	22/59	2		2		25.64 S 28.17 E
+MT119854.1	2940	Bluetongue virus 1	South Africa	1960	South Africa: Gauteng, Onderstepoort	Ovis aries	1/Labstr/ZAF/1960/Howell_DVTD_63_60	63/60	1		2		25.64 S 28.17 E
+MT090656.1	2921	Bluetongue virus 23	South Africa	2020	South Africa: Gauteng, Onderstepoort	Ovis aries	23/Labstr/ZAF/2020/Howell_DVTD_ref 23	Ref 23	23		2		25.64 S 28.17 E
+MT090646.1	2923	Bluetongue virus 24	South Africa	2020	South Africa: Gauteng, Onderstepoort	Ovis aries	24/Labstr/ZAF/2020/Howell_DVTD_ref 24	Ref 24	24		2		25.64 S 28.17 E
+MT078410.1	2907	Bluetongue virus 22	South Africa	2020	South Africa: Gauteng, Onderstepoort	Ovis aries	22/Labstr/ZAF/2020/Howell_DVTD_ref 22	Ref 22	22		2		25.64 S 28.17 E
+MT078400.1	2922	Bluetongue virus 21	South Africa	2020	South Africa: Gauteng, Onderstepoort	Ovis aries	21/Labstr/ZAF/2020/Howell_DVTD_ref 21	Ref 21	21		2		25.64 S 28.17 E
+MT078390.1	2925	Bluetongue virus 20	South Africa	2020	South Africa: Gauteng, Onderstepoort	Ovis aries	20/Labstr/ZAF/2020/Howell_DVTD_ref 20	Ref 20	20		2		25.64 S 28.17 E
+MT078380.1	2938	Bluetongue virus 19	South Africa	2020	South Africa: Gauteng, Onderstepoort	Ovis aries	18/Labstr/ZAF/2020/Howell_DVTD_ref 19	Ref 19	19		2		25.64 S 28.17 E
+MT078370.1	2927	Bluetongue virus 18	South Africa	2020	South Africa: Gauteng, Onderstepoort	Ovis aries	18/Labstr/ZAF/2020/Howell_DVTD_ref 18	Ref 18	18		2		25.64 S 28.17 E
+MT078360.1	2874	Bluetongue virus 17	South Africa	2020	South Africa: Gauteng, Onderstepoort	Ovis aries	17/Labstr/ZAF/2020/Howell_DVTD_ref 17	Ref 17	17		2		25.64 S 28.17 E
+MT078350.1	2935	Bluetongue virus 16	South Africa	1971	South Africa: Gauteng, Onderstepoort	Ovis aries	16/Labstr/ZAF/1971/Howell_DVTD_Egypt_1_71	1/71	16		2		25.64 S 28.17 E
+MT078340.1	2909	Bluetongue virus 15	South Africa	1960	South Africa: Gauteng, Onderstepoort	Ovis aries	15/Labstr/ZAF/1960/Howell_DVTD_S133_60	S133/60	15		2		25.64 S 28.17 E
+MT078330.1	2922	Bluetongue virus 14	South Africa	1959	South Africa: Gauteng, Onderstepoort	Ovis aries	14/Labstr/ZAF/1959/Howell_DVTD_S87_59	S87/59	14		2		25.64 S 28.17 E
+MT078320.1	2935	Bluetongue virus 13	South Africa	1959	South Africa: Gauteng, Onderstepoort	Ovis aries	13/Labstr/ZAF/1959/Howell_DVTD_S160_59	S160/59	13		2		25.64 S 28.17 E
+MT078310.1	2904	Bluetongue virus 12	South Africa	1941	South Africa: Gauteng, Onderstepoort	Ovis aries	12/Labstr/ZAF/1941/Howell_DVTD_Byenespoort_1941	Byenespoort 1941	12		2		25.64 S 28.17 E
+MT078300.1	2926	Bluetongue virus 11	South Africa	1941	South Africa: Gauteng, Onderstepoort	Ovis aries	11/Labstr/ZAF/1941/Howell_DVTD_Nelspoort_1941	Nelspoort 1941	11		2		25.64 S 28.17 E
+MT078290.1	2926	Bluetongue virus 10	South Africa	1956	South Africa: Gauteng, Onderstepoort	Ovis aries	10/Labstr/ZAF/1956/Howell_DVTD_Portugal_1956	Portugal 1956	10		2		25.64 S 28.17 E
+MT078280.1	2921	Bluetongue virus 9	South Africa	1942	South Africa: Gauteng, Onderstepoort	Ovis aries	9/Labstr/ZAF/1942/Howell_DVTD_University_Farm_194 2	University Farm 1942	9		2		25.64 S 28.17 E
+MT078270.1	2939	Bluetongue virus 8	South Africa	1937	South Africa: Gauteng, Onderstepoort	Ovis aries	8/Labstr/ZAF/1937/Howell_DVTD_Camp_1937	Utrecht 1955	8		2		25.64 S 28.17 E
+MT078260.1	2936	Bluetongue virus 7	South Africa	1955	South Africa: Gauteng, Onderstepoort	Ovis aries	7/Labstr/ZAF/1955/Howell_DVTD_Utrecht_1955	Utrecht 1955	7		2		25.64 S 28.17 E
+MT078250.1	2922	Bluetongue virus 6	South Africa	1959	South Africa: Gauteng, Onderstepoort	Ovis aries	6/Labstr/ZAF/1953/Howell_DVTD_Strathene_1959	Strathene 1959	6		2		25.64 S 28.17 E
+MT043259.1	2926	Bluetongue virus 4	South Africa	04-Apr-2017	South Africa: Vryheid, Free State	Ovis aries	4/O.aries-tc/ZAF/2017/Vryheid_VR48_2017	VR48_2017	4		2		27.76 S 30.79 E
+MT043249.1	2921	Bluetongue virus 5	South Africa	30-Mar-2017	South Africa: Eastern Cape, Queenstown	Ovis aries	5/O.aries-tc/ZAF/2017/Queenstown_VR45_2017	VR45_2017	5		2		31.91 S 26.95 E
+MT043239.1	2904	Bluetongue virus 12	South Africa	31-Mar-2017	South Africa: Eastern Cape, Queenstown	Ovis aries	12/O.aries-tc/ZAF/2017/Queenstown_VR44_2017	VR44_2017	12		2		31.91 S 26.95 E
+MT043229.1	2936	Bluetongue virus 7	South Africa	31-Mar-2017	South Africa: Western Cape, Waterval	Ovis aries	7/O.aries-tc/ZAF/2017/Beaufort_Wes_VR43_2017	VR43_2017	7		2		25.64 S 30.34 E
+MT043219.1	2935	Bluetongue virus 13	South Africa	28-Mar-2017	South Africa: Free State, Smithfield	Ovis aries	13/O.aries-tc/ZAF/2017/Smithfield_VR38_2017	VR38_2017	13		2		26.11 S 30.07 E
+MT043209.1	2926	Bluetongue virus 4	South Africa	31-Mar-2017	South Africa: Free State, Bloemfontein	Ovis aries	4/O.aries-tc/ZAF/Bloemfontein_VR31_2017	VR31_2017	4		2		29.08 S 26.15 E
+MT028400.1	2935	Bluetongue virus 3	South Africa	12-Dec-2016	South Africa: Mpumalanga, Bethal	Ovis aries	3/O.aries-tc/ZAF/2016/Waterval_Boven_VR22_2016	VR22_2016	3		2		26.45 S 29.46 E
+MT028390.1	2904	Bluetongue virus 12	South Africa	23-Feb-2017	South Africa: Eastern Cape, Elliot	Ovis aries	12/O.aries-tc/ZAF/2017/Elliot_VR16_2017	VR16_2017	12		2		31.31 S 27.83 E
+MT028380.1	2943	Bluetongue virus 2	South Africa	08-Feb-2017	South Africa: Mpumalanga, Bethal	Ovis aries	2/O.aries-tc/ZAF/Bethal_VR04_2017	VR04_2017	2		2		26.45 S 29.46 E
+MN714844.1	2871	Bluetongue virus 4	Australia	2014	Australia: Beatrice Hill, Northern Territory	bovine		V9118	4		2		12.643 S 131.305 E
+MN714834.1	2871	Bluetongue virus 4	Australia	1999	Australia: Beatrice Hill, Northern Territory	bovine		V4643	4		2		12.643 S 131.305 E
+MN714824.1	2871	Bluetongue virus 4	Australia	1996	Australia: Beatrice Hill, Northern Territory	bovine		V3556	4		2		12.643 S 131.305 E
+MN714814.1	2871	Bluetongue virus 4	Australia	2006	Australia: Douglas Daly Research Farm, Northern Territory	bovine		V6849	4		2		13.833 S 131.187 E
+MN714804.1	2871	Bluetongue virus 4	Australia	2006	Australia: Douglas Daly Research Farm, Northern Territory	bovine		V6843	4		2		13.833 S 131.187 E
+MN714794.1	2871	Bluetongue virus 4	Australia	2014	Australia: Beatrice Hill, Northern Territory	bovine		V9080	4		2		12.643 S 131.305 E
+MN714784.1	2920	Bluetongue virus 16	Papua New Guinea	2016	Papua New Guinea: Trukai Farm, Erap Province	bovine		E16	16		2		6.51 S 146.68 E
+MN714774.1	2920	Bluetongue virus 16	Australia	2017	Australia: Kununurra, Western Australia	bovine		WA-16	16		2		15.783 S 128.735 E
+MN714764.1	2912	Bluetongue virus 16	Australia	2018	Australia: Merapah, Queensland	bovine		V9978	16		2		13.585 S 141.875 E
+MN714754.1	2912	Bluetongue virus 16	Australia	2018	Australia: York Downs, Queensland	bovine		V9921	16		2		12.623 S 146.879 E
+MN714744.1	2918	Bluetongue virus 16	Australia	2016	Australia: Gatton, Queensland	bovine		V10109	16		2		27.559 S 152.276 E
+MN714734.1	2930	Bluetongue virus 2	Australia	2010	Australia: Jandowae, Queensland	bovine		V8236E	2		2		26.778 S 151.111 E
+MN714724.1	2939	Bluetongue virus 1	Australia	2019	Australia: Sarina, Queensland	bovine		V10110	1		2		12.417 S 149.217 E
+MT212707.1	2922	Bluetongue virus 21	Australia	06-Apr-2018	Australia: Casino, New South Wales	bovine		L838	21		2		28.833 S 153.050 E
+MT212697.1	2915	Bluetongue virus 21	Australia	30-May-2017	Australia: Richmond, New South Wales	bovine		L296	21		2		33.600 S 150.750 E
+MT212687.1	2922	Bluetongue virus 21	Australia	06-Mar-2014	Australia: Casino, New South Wales	bovine		I894	21		2		28.833 S 153.050 E
+MT212677.1	2918	Bluetongue virus 16	Australia	08-Jan-2019	Australia: Casino, New South Wales	bovine		M186	16		2		28.833 S 153.050 E
+MT212667.1	2918	Bluetongue virus 16	Australia	2017	Australia: Scone, New South Wales	bovine		L026	16		2		32.034 S 150.826 E
+MT212657.1	2930	Bluetongue virus 1	Australia	01-Mar-2018	Australia: Lismore, New South Wales	bovine		L814	1		2		28.816 S 153.283 E
+MT212647.1	2932	Bluetongue virus 1	Australia	11-Apr-2017	Australia: Singleton, New South Wales	bovine		L288	1		2		32.567 S 151.166 E
+MT212637.1	2886	Bluetongue virus 1	Australia	09-Jan-2014	Australia: Bowraville, New South Wales	bovine		I480	1		2		30.630 S 152.833 E
+MN747881.1	2918	Bluetongue virus 16	Australia	2017	Australia: Katherine, Northern Territory	bovine		V9975	16		2		14.183 S 130.923 E
+MN747861.1	2918	Bluetongue virus 16	Australia	2018	Australia: Coastal Plains Research Station, Northern Territory	bovine		V9926	16		2		12.597 S 131.307 E
+MN747851.1	2917	Bluetongue virus 16	Australia	2000	Australia: Beatrice Hill, Northern Territory	ovine		V5105	16		2		12.643 S 131.305 E
+MN738449.1	2892	Bluetongue virus 15	Australia	2013	Australia: Douglas Daly Research Farm, Northern Territory	bovine		V8235	15		2		13.833 S 131.187 E
+MN738439.1	2915	Bluetongue virus 20	Australia	1992	Australia: Beatrice Hill, Northern Territory	bovine		V2400	20		2		12.643 S 131.305 E
+MN738429.1	2919	Bluetongue virus 21	Australia	2008	Australia: Beatrice Hill, Northern Territory	bovine		V8140	21		2		12.643 S 131.305 E
+MN738419.1	2920	Bluetongue virus 21	Australia	2017	Australia: Beatrice Hill, Northern Territory	bovine		V9608	21		2		12.643 S 131.305 E
+MN738409.1	2930	Bluetongue virus 7	Australia	2014	Australia: Beatrice Hill, Northern Territory	bovine		V8962	7		2		12.643 S 131.305 E
+MN738399.1	2915	Bluetongue virus 7	Australia	2014	Australia: Beatrice Hill, Northern Territory	bovine		V8964	7		2		12.643 S 131.305 E
+MN738389.1	2921	Bluetongue virus 7	Australia	2013	Australia: Douglas Daly Research Farm, Northern Territory	bovine		V8954	7		2		13.833 S 131.187 E
+MN738379.1	2932	Bluetongue virus 7	Australia	2010	Australia: Beatrice Hill, Northern Territory	bovine		V8188	7		2		12.643 S 131.305 E
+MN698782.1	2913	Bluetongue virus 3	Australia	2009	Australia: Beatrice Hill, Northern Territory	Bovine		V7613	3		2		12.643 S 131.305 E
+MN698772.1	2913	Bluetongue virus 3	Australia	2009	Australia: Beatrice Hill, Northern Territory	Bovine		V8153	3		2		12.643 S 131.305 E
+MN698762.1	2886	Bluetongue virus 1	Australia	2012	Australia: Beatrice Hill, Northern Territory	Bovine		V8776	1		2		12.643 S 131.305 E
+MN698752.1	2886	Bluetongue virus 1	Australia	2008	Australia: Beatrice Hill, Northern Territory	Bovine		V7152	1		2		12.643 S 131.305 E
+MN227138.1	2916	Bluetongue virus 16	Australia	1992	Australia: Beatrice Hill, Northern Territory	Bovine		V2208	16		2		12.643 S 131.305 E
+MT879212.1	2926	Bluetongue virus 4	Greece	2014	Greece	ovine		GRE2014/08	4		2	KC2	
+MT879202.1	2926	Bluetongue virus 4	North Macedonia	08-Jul-2020	North Macedonia	ovine		MKD2020/06	4		2	KC1	
+MT879200.1	2926	Bluetongue virus 4	Kosovo	2014	Kosovo	sheep		KOS2014/02	4		2		
+MT879199.1	2926	Bluetongue virus 4	Serbia	30-Aug-2014	Serbia	cattle		SER2014/01	4		2		
+MT879198.1	2926	Bluetongue virus 4	Bulgaria	14-Jul-2014	Bulgaria	cattle		BUL2014/18	4		2		
+MT879197.1	2926	Bluetongue virus 4	Bulgaria	31-Aug-2014	Bulgaria	sheep		BUL2014/27	4		2		
+MT879196.1	2926	Bluetongue virus 4	Romania	2014	Romania	bovine		ROM2014/07	4		2		
+MT952972.1	2923	Bluetongue virus	USA	1988	USA: CA	ovine		BTV17 USA1988/CA	17		2		
+LR877359.1	2926	Bluetongue virus	Mongolia	2016	Mongolia	Capra hircus	MNG3/2016	V82	34		segment-2	genotype:34	
+LR877348.1	2926	Bluetongue virus	Mongolia	2016	Mongolia	Capra hircus	MNG2/2016	V241.2	31		segment-2	genotype:31	
+LR877338.1	2928	Bluetongue virus	Mongolia	2018	Mongolia	Capra hircus	MNG1/2018	V134	33		segment-2	genotype:33	
+MT024755.1	2934	Bluetongue virus	South Africa	2018	South Africa	Bos taurus		V302			2	BH62/19-10	
+LR798442.1	2935	Bluetongue virus	Germany	Jul-2018	Germany:Bavaria	Capra aegagrus hircus	GER2018	V239.2	serotype 25		segment 2	genotype:genotype 25	
+MN528195.1	2939	Bluetongue virus	France	07-Feb-2019	France: Mayenne	bovine		BTV-8/19-03 (496)	8		2	passage history: E1BSR1	
+MN528185.1	2939	Bluetongue virus	France	07-Feb-2019	France: Yonne	bovine		BTV-8/19-02 (493)	8		2	passage history: E1BSR1	
+MN528175.1	2939	Bluetongue virus	France	07-Feb-2019	France: Allier	bovine		BTV-8/19-01 (482)	8		2	passage history: E1BSR1	
+MN528165.1	2939	Bluetongue virus	France	12-Nov-2018	France: Pyrenees-Atlantiques	bovine		BTV-8/18-18 (6789)	8		2	passage history: KC1BSR1	
+MN528155.1	2939	Bluetongue virus	France	11-Sep-2018	France: Haute-Garonne	bovine		BTV-8/18-09 (5405)	8		2	passage history: KC1BSR1	
+MN528145.1	2939	Bluetongue virus	France	09-Aug-2018	France: Pyrenees-Atlantiques	bovine		BTV-8/18-01 (4557)	8		2	passage history: KC1BSR1	
+KP821101.1	2921	Bluetongue virus 5	South Africa	Jun-1953	South Africa	sheep		RSArrrr/05	5		2	topotype w	
+KP821100.1	2904	Bluetongue virus 12	South Africa	1941	South Africa	sheep		RSArrrr/12	12		2	topotype w	
+KP821099.1	2938	Bluetongue virus 8	Netherlands		Netherlands			8 inactivated vaccine	8		2	topotype w	
+KP821098.1	2909	Bluetongue virus 15	Israel	Nov-2006	Israel: Yachini	sheep		ISR2006/11	15		2	topotype w; 02 passages in CE1BHK1	
+KP821097.1	2922	Bluetongue virus 14	Spain	Aug-2012	Spain: cow imported from Lithuania	cattle		SPA2012/01	14		2	topotype w; 04 passages in E1/BHK1/V2	
+KP821096.1	2922	Bluetongue virus 14	Russia	Sep-2011	Russia: Smolensk-Galloway (vilage)-Tsineevo-Veshkovsk (rural settlement)-Ugra(area)	cattle		RUS2011/01	14		2	topotype w; 07 passages in E2V3KIDNEY2V1	
+KP821095.1	2922	Bluetongue virus 14	Poland	Jan-2012	Poland: Sokolka poviat	cattle		POL2012/01	14		2	topotype w; 04 passages in KC3BHK1	
+KP821094.1	2922	Bluetongue virus 14	Cameroon	Jan-1982	Cameroon			CAR1982/04	14		2	topotype w; 05 passages in E2BHK3	
+KP821093.1	2921	Bluetongue virus 9	Turkey	Jan-2001	Turkey: Aydin	sheep		TUR2001/02	9		2	topotype e; 04 passages in E1BHK1V1BHK1	
+KP821092.1	2921	Bluetongue virus 9	Turkey	Jun-2000	Turkey: Manisa			TUR2000/03	9		2	topotype e; 11 passages in E2BHK9	
+KP821091.1	2921	Bluetongue virus 9	Turkey	Oct-1998	Turkey: Aydin	sheep		TUR1998/02	9		2	topotype e; 04 passages in E1BHK1V2	
+KP821090.1	2921	Bluetongue virus 9	Serbia	Oct-2001	Serbia	sheep		SER2001/01	9		2	topotype e; 05 passages in E1BHK4	
+KP821089.1	2921	Bluetongue virus 9	South Africa	Jun-1942	South Africa: Transvaal	sheep		RSAvvv1/09	9		2	topotype w; 89 passages in E70BHK2P1BHK3P7BHK6	
+KP821088.1	2921	Bluetongue virus 9	South Africa	Jun-1942	South Africa: Transvaal	sheep		RSArrrr/09	9		2	topotype w; 11 passages in E3BHK8	
+KP821087.1	2921	Bluetongue virus 9	Libya	Sep-2008	Libya	sheep		LIB2008/03	9		2	topotype w; 02 passages in KC2	
+KP821086.1	2921	Bluetongue virus 9	Libya	Sep-2008	Libya	sheep		LIB2008/08	9		2	topotype w; 01 passages in KC1BHK1	
+KP821085.1	2921	Bluetongue virus 9	Kosovo	Aug-2001	Kosovo: Sllatina-Podujevo-Pristina	sheep		KOS2001/03	9		2	topotype e; 05 passages in E1BHK4	
+KP821084.1	2921	Bluetongue virus 9	Kosovo	Sep-2001	Kosovo: Sadovine-Viti-Pristina	sheep		KOS2001/01	9		2	topotype e; 03 passages in E1BHK2	
+KP821083.1	2921	Bluetongue virus 9	Italy	Apr-2003	Italy: Nissoria-Enna-Sicily	sheep		ITL2003/01	9		2	topotype w; 07 passages in BHK7	
+KP821082.1	2921	Bluetongue virus 9	Greece	Nov-1999	Greece: Aghia Paraskevi-Lesvos	cattle		GRE1999/31	9		2	topotype e; 01 passages in KC1	
+KP821081.1	2921	Bluetongue virus 9	Greece	Sep-1999	Greece: Ierissos-Chalkidiki	sheep		GRE1999/06	9		2	topotype e; 08 passages in E2BHK6	
+KP821080.1	2921	Bluetongue virus 9	Greece	Nov-1998	Greece: Afandou-Rhodes	sheep		GRE1998/01	9		2	topotype e; 12 passages in E2BHK10	
+KP821079.1	2921	Bluetongue virus 9	Bulgaria	Sep-1999	Bulgaria			BUL1999/01	9		2	topotype e; 06 passages in E1BHK5	
+KP821078.1	2921	Bluetongue virus 9	Bosnia and Herzegovina	Aug-2002	Bosnia and Herzegovina: Milici-Vlasenica-Srpska	sheep		BOS2002/02	9		2	topotype e; 04 passages in E1BHK3	
+KP821077.1	2939	Bluetongue virus 8	United Kingdom	Sep-2007	United Kingdom: Baylham-Ipswich-Suffolk	cattle		UKG2007/06	8		2	topotype w; 01 passages in KC1	
+KP821076.1	2939	Bluetongue virus 8	South Africa	Jun-1937	South Africa: Transvaal	sheep		RSArrrr/08	8		2	topotype w; 09 passages in E2BHK7	
+KP821075.1	2938	Bluetongue virus 19	South Africa	Jul-1998	South Africa: RSA	goat		RSA1998/01	19		2	topotype w; 07 passages in E2CER3BHK2	
+KP821074.1	2939	Bluetongue virus 8	Netherlands	Aug-2008	Netherlands: Staphorst	cattle		NET2008/03	8		2	topotype w; 02 passages in KC1BHK1	
+KP821073.1	2939	Bluetongue virus 8	Greece	Jun-2008	Greece: Aghia Paraskevi-Lesvos	sheep		GRE2008/01	8		2	topotype w; 01 passages in KC1	
+KP821072.1	2939	Bluetongue virus 8	Israel	Nov-2008	Israel: Rosh ha-nikra	cattle		ISR2008/13	8		2	topotype w; 02 passages in KC2	
+KP821071.1	2926	Bluetongue virus 4	Sudan	Oct-1983	Sudan: Shambat	cattle		SUD1983/01	4		2	topotype w; 05 passages in E2BHK2	
+KP821070.1	2926	Bluetongue virus 4	Spain	Sep-2010	Spain: Cadiz-Vejer de la Frontera -Barbate	cattle		SPA2010/01	4		2	topotype w; 06 passages in E1C6/36-1BHK4	
+KP821069.1	2926	Bluetongue virus 4	Spain	Aug-2005	Spain	cattle		SPA2005/02	4		2	topotype w; 03 passages in E1BHK2	
+KP821068.1	2926	Bluetongue virus 4	Spain	Jun-2004	Spain: Cadiz-Jimena de la Frontera	sheep		SPA2004/02	4		2	topotype w; 02 passages in E1BHK1	
+KP821067.1	2926	Bluetongue virus 4	Spain	Nov-2003	Spain: Menorca	sheep		SPA2003/03	4		2	topotype w; 04 passages in E1BHK3	
+KP821066.1	2926	Bluetongue virus 4	Cyprus	Jun-1969	Cyprus: Cyprus	sheep		RSArrrr/04	4		2	topotype w; 09 passages in BHK9	
+KP821065.1	2926	Bluetongue virus 4	Morocco	Oct-2009	Morocco: Marrakesh	sheep		MOR2009/10	4		2	topotype w; 01 passages in KC1	
+KP821064.1	2926	Bluetongue virus 4	Morocco	Oct-2009	Morocco: Azrou	sheep		MOR2009/09	4		2	topotype w; 01 passages in KC1	
+KP821063.1	2926	Bluetongue virus 4	Morocco	Oct-2009	Morocco: Azrou	sheep		MOR2009/08	4		2	topotype w; 01 passages in KC1	
+KP821062.1	2926	Bluetongue virus 4	Morocco	Oct-2009	Morocco: Azrou	sheep		MOR2009/07	4		2	topotype w; 01 passages in KC1	
+KP821061.1	2926	Bluetongue virus 4	Morocco	Sep-2004	Morocco: El Kebir	sheep		MOR2004/02	4		2	topotype w; 05 passages in E1BHK4	
+KP821060.1	2923	Bluetongue virus 24	Israel	Oct-2008	Israel: Zde Eliahu	cattle		ISR2008/02	24		2	topotype w; 03 passages in E2BHK2	
+KP821059.1	2926	Bluetongue virus 4	Israel	Nov-2006	Israel: Elyakim	sheep		ISR2006/12	4		2	topotype w; 02 passages in CE1BHK1	
+KP821058.1	2926	Bluetongue virus 4	Greece	Nov-2012	Greece: Rhodes	sheep		GRE2012/03	4		2	topotype w; 02 passages in KC1BHK1	
+KP821057.1	2926	Bluetongue virus 4	Greece	Nov-2012	Greece: Rhodes	sheep		GRE2012/02	4		2	topotype w; 02 passages in KC1BHK1	
+KP821056.1	2926	Bluetongue virus 4	Greece	Nov-2012	Greece: Rhodes	sheep		GRE2012/01	4		2	topotype w; 02 passages in KC1BHK1	
+KP821055.1	2926	Bluetongue virus 4	Greece	Apr-2000	Greece: Kavala	C.obsoletus		GRE2000/08	4		2	topotype w; 07 passages in BHK7	
+KP821054.1	2926	Bluetongue virus 4	Greece	Oct-2000	Greece: Arta	sheep		GRE2000/07	4		2	topotype w; 07 passages in E2BHK5	
+KP821053.1	2926	Bluetongue virus 4	Greece	Oct-1999	Greece: Keramidi-Magnesia	C.obsoletus		GRE1999/26	4		2	topotype w; 06 passages in BHK6	
+KP821052.1	2926	Bluetongue virus 4	Greece	Jun-1999	Greece: Mandriko-Rhodes	sheep		GRE1999/24	4		2	topotype w; 08 passages in E2BHK6	
+KP821051.1	2926	Bluetongue virus 4	Greece	Jun-1979	Greece: Madamados-Lesvos	sheep		GRE1979/01	4		2	topotype w; 11 passages in E2BHK9	
+KP821050.1	2926	Bluetongue virus 4	France	Jun-2003	France: Corsica			FRA2003-200	4		2	topotype w; 05 passages in E1BHK4	
+KP821049.1	2926	Bluetongue virus 4	France	Jun-2003	France: Corsica			FRA2003-03.124	4		2	topotype w; 04 passages in E1BHK3	
+KP821048.1	2926	Bluetongue virus 4	France	Jun-2003	France: Corsica			FRA2003/01	4		2	topotype w; 04 passages in E1BHK3	
+KP821047.1	2926	Bluetongue virus 4	Egypt	Jun-1977	Egypt			EGY1977/01	4		2	topotype w	
+KP821046.1	2926	Bluetongue virus 4	Cyprus	Oct-2011	Cyprus: Poli Chrysochous-Paphos	sheep		CYP2011/05	4		2	topotype w; 01 passages in KC1	
+KP821045.1	2926	Bluetongue virus 4	Cyprus	Oct-2011	Cyprus: Poli Chrysochous-Paphos	sheep		CYP2011/04	4		2	topotype w; 01 passages in KC1	
+KP821044.1	2926	Bluetongue virus 4	Cyprus	Oct-2011	Cyprus: Poli Chrysochous-Paphos	sheep		CYP2011/03	4		2	topotype w; 01 passages in KC1	
+KP821043.1	2926	Bluetongue virus 4	Cyprus	Oct-2011	Cyprus: Poli Chrysochous-Paphos	sheep		CYP2011/02	4		2	topotype w; 01 passages in KC1	
+KP821042.1	2926	Bluetongue virus 4	Cyprus	Oct-2011	Cyprus: Poli Chrysochous-Paphos	sheep		CYP2011/01	4		2	topotype w; 01 passages in KC1	
+KP821041.1	2926	Bluetongue virus 4	Cyprus	Feb-2004	Cyprus: Ammochostos	sheep		CYP2004/03	4		2	topotype w; 07 passages in CPAE1BHK6	
+KP821040.1	2926	Bluetongue virus 4	Cyprus	Jun-1969	Cyprus	cattle		CYP1969/01	4		2	topotype w; 08 passages in BHK8	
+KP821039.1	2935	Bluetongue virus 3	Cyprus	Jun-1943	Cyprus: Larnaca	sheep		RSArrrr/03	3		2	topotype w; 07 passages in E1BHK6	
+KP821038.1	2935	Bluetongue virus 3	Cyprus	Mar-1958	Cyprus: Cyprus			CYP1958/01	3		2	topotype w	
+KP821037.1	2943	Bluetongue virus 2	Tunisia	Feb-2000	Tunisia: Tunisia			TUN2000/01	2		2	topotype w; 06 passages in E1BHK5	
+KP821036.1	2943	Bluetongue virus 2	Sudan	Oct-1983	Sudan: Nyala	Culicoides		SUD1983/05	2		2	topotype w; 08 passages in LD3BHK5	
+KP821035.1	2943	Bluetongue virus 2	Spain	Jul-2005	Spain	cattle		SPA2005/01	2		2	topotype w; 03 passages in E1BHK2	
+KP821034.1	2943	Bluetongue virus 2	Italy	Jan-2002	Italy: Sardinia	sheep		SAD2002/02	2		2	topotype w; 04 passages in E1BHK3	
+KP821033.1	2944	Bluetongue virus 2	Italy	Dec-2001	Italy: Sardinia	sheep		SAD2001/03	2		2	topotype w; 04 passages in E1BHK3	
+KP821032.1	2943	Bluetongue virus 2	Italy	Dec-2001	Italy: Sardinia	sheep		SAD2001/01	2		2	topotype w; 03 passages in E1BHK2	
+KP821031.1	2943	Bluetongue virus 2	South Africa	Jun-1958	South Africa	sheep		RSAvvvv/02	2		2	topotype w; 58 passages in E50 P3 BHK5	
+KP821030.1	2943	Bluetongue virus 2	South Africa	Jun-1959	South Africa: Transvaal	sheep		RSArrrr/02	2		2	topotype w; 09 passages in E2BHK7	
+KP821029.1	2943	Bluetongue virus 2	Italy	Jul-2002	Italy: S.Angelo di Brolo-Sicily	sheep		ITL2002/07	2		2	topotype w; 08 passages in E1BHK7	
+KP821028.1	2943	Bluetongue virus 2	Italy	Jul-2002	Italy: Novara di Sicilia-Sicily	C.pulicaris		ITL2002/02	2		2	topotype w; 06 passages in E1BHK5	
+KP821027.1	2943	Bluetongue virus 2	Israel	Feb-2001	Israel: Yokneam	sheep		ISR2001/17	2		2	topotype w; 06 passages in E1BHK5	
+KP821026.1	2943	Bluetongue virus 2	France	Sep-2001	France: Corsica	sheep		FRA2001/06	2		2	topotype w; 03 passages in E1BHK2	
+KP821025.1	2943	Bluetongue virus 2	France	Sep-2001	France: Corsica	sheep		FRA2001/03	2		2	topotype w; 03 passages in BHK3	
+KP821024.1	2943	Bluetongue virus 2	France	Jul-2001	France: Corsica			FRA2001/01	2		2	topotype w; 06 passages in V1BHK5	
+KP821023.1	2940	Bluetongue virus 1	Tunisia	Sep-2007	Tunisia: Tunisia	sheep		TUN2007/01	1		2	topotype w; 01 passages in KC1	
+KP821022.1	2940	Bluetongue virus 1	Sudan	Apr-1987	Sudan: Sudan			SUD1987/01	1		2	topotype w; 07 passages in E2BHK2PP1BHK2	
+KP821021.1	2940	Bluetongue virus 1	Spain	Jun-2009	Spain: Galicia	cattle		SPA2009/01	1		2	topotype w; 07 passages in E1C636-1BHK5	
+KP821020.1	2940	Bluetongue virus 1	Spain	Jun-2008	Spain: Asturias	sheep		SPA2008/01	1		2	topotype w; 06 passages in E1C636-1BHK4	
+KP821019.1	2940	Bluetongue virus 1	Spain	Jun-2007	Spain: Pias Vasco	cattle		SPA2007/05	1		2	topotype w; 05 passages in E1C636-1BHK3	
+KP821018.1	2940	Bluetongue virus 1	Spain	Jun-2007	Spain: Cordoba	cattle		SPA2007/04	1		2	topotype w; 06 passages in E1C636-1BHK4	
+KP821017.1	2940	Bluetongue virus 1	South Africa	Jun-1958	South Africa: Natal	sheep		RSAvvvv/01	1		2	topotype w; 60 passages in E50P3BHK7	
+KP821016.1	2940	Bluetongue virus 1	Morocco	Sep-2009	Morocco: Marrakesh	sheep		MOR2009/06	1		2	topotype w; 01 passages in KC1	
+KP821015.1	2940	Bluetongue virus 1	Morocco	Sep-2009	Morocco: Fes	sheep		MOR2009/04	1		2	topotype w; 01 passages in KC1	
+KP821014.1	2940	Bluetongue virus 1	Morocco	Sep-2009	Morocco: Fes	sheep		MOR2009/01	1		2	topotype w; 01 passages in KC1	
+KP821013.1	2940	Bluetongue virus 1	Morocco	Jul-2007	Morocco: Kenitra	sheep		MOR2007/04	1		2	topotype w; 01 passages in KC1	
+KP821012.1	2940	Bluetongue virus 1	Morocco	Jul-2007	Morocco: Rabat	sheep		MOR2007/03	1		2	topotype w; 01 passages in KC1	
+KP821011.1	2940	Bluetongue virus 1	Morocco	Jul-2007	Morocco: Settat	sheep		MOR2007/02	1		2	topotype w; 01 passages in KC1	
+KP821010.1	2940	Bluetongue virus 1	Morocco	Jul-2007	Morocco: Khouribga	sheep		MOR2007/01	1		2	topotype w; 01 passages in KC1	
+KP821009.1	2940	Bluetongue virus 1	Morocco	Oct-2006	Morocco: Guenfouda-Oujda	sheep		MOR2006/06	1		2	topotype w; 07 passages in E1BSR4BHK2	
+KP821008.1	2940	Bluetongue virus 1	Libya	Aug-2007	Libya: Green Mountain	sheep		LIB2007/06	1		2	topotype w; 02 passages in KC1BHK1	
+KP821007.1	2940	Bluetongue virus 1	Greece	Nov-2001	Greece: Potamia-Paramithia-Thesprotia	sheep		GRE2001/10	1		2	topotype e; 08 passages in E1BHK7	
+KP821006.1	2940	Bluetongue virus 1	Greece	Dec-2001	Greece: Smiksi-Grevena	sheep		GRE2001/06	1		2	topotype e; 10 passages in BHK10	
+KP821005.1	2940	Bluetongue virus 1	Greece	Oct-2001	Greece: Agiasos-Achladeri-Lesvos	sheep		GRE2001/01	1		2	topotype e; 05 passages in BHK5	
+KP821004.1	2940	Bluetongue virus 1	Gibraltar	Oct-2007	Gibraltar: Gibraltar	sheep		GIB2007/06	1		2	topotype w; 02 passages in KC2	
+KP821003.1	2940	Bluetongue virus 1	France	Oct-2008	France: Camaret sur mer-Finistere-Brittany	cattle		FRA2008/26	1		2	topotype w; 04 passages in E1BHK3	
+KP821002.1	2940	Bluetongue virus 1	France	Aug-2008	France: Pouylebon-Gascony-Midi-Pyrenees	cattle		FRA2008/25	1		2	topotype w; 04 passages in E1BHK3	
+KP821001.1	2940	Bluetongue virus 1	France	Sep-2008	France: Faurilles-Dordogne-Aquitaine	cattle		FRA2008/23	1		2	topotype w; 04 passages in E1BHK3	
+KP821000.1	2940	Bluetongue virus 1	France	Aug-2008	France: Pinderes-Lot et Garonne-Aquitaine	sheep		FRA2008/22	1		2	topotype w; 05 passages in E1BHK4	
+KP820999.1	2940	Bluetongue virus 1	France	Jul-2008	France: Beyrie-en-B_arn- Pyrenees Atlantiques-Aquitaine	cattle		FRA2008/21	1		2	topotype w; 06 passages in E1BHK5	
+KP820998.1	2940	Bluetongue virus 1	Cameroon	Oct-1982	Cameroon: Cameroon	sheep		CAR1982/01	1		2	topotype w; 04 passages in E1BHK3	
+KP820997.1	2940	Bluetongue virus 1	Algeria	Nov-2008	Algeria: Laghouat-Dakhla	sheep		ALG2008/10	1		2	topotype w; 02 passages in KC1BHK1	
+KP820996.1	2929	Bluetongue virus 1	Algeria	Aug-2006	Algeria: Berrouaghia-Media	sheep		ALG2006/04	1		2	topotype w; 03 passages in KC3	
+KP820995.1	2940	Bluetongue virus 1	Algeria	Aug-2006	Algeria: Berrouaghia-Media	sheep		ALG2006/01	1		2	topotype w; 03 passages in E1BHK2	
+KP820994.1	2935	Bluetongue virus 16	Turkey	Jun-2000	Turkey: Seferihisar-Ismir			TUR2000/01	16		2	topotype e; 12 passages in E3BHK9	
+KP820993.1	2935	Bluetongue virus 16	Pakistan	Jun-1960	Pakistan: Hazara, West Pakistan	sheep		RSAvvvv/16	16		2	topotype e; 44 passages in E37P3BHK2V1BHK1	
+KP820992.1	2935	Bluetongue virus 16	Israel	Oct-2008	Israel: Ein Kamonim	goat		ISR2008/03	16		2	topotype; 03 passages in E1BHK2	
+KP820991.1	2925	Bluetongue virus 16	Israel	Feb-2001	Israel: Yokneam	sheep		ISR2001/18	16		2	topotype e; 05 passages in E1BHK4	
+KP820990.1	2935	Bluetongue virus 16	Greece	Oct-2008	Greece: Madamados-Lesvos	sheep		GRE2008/10	16		2	topotype e; 01 passages in KC1	
+KP820989.1	2935	Bluetongue virus 16	Greece	Aug-1999	Greece: Damatria-Rhodes	sheep		GRE1999/13	16		2	topotype e; 13 passages in E2BHK11	
+KP820988.1	2935	Bluetongue virus 16	France	Jun-2004	France: Corsica	sheep		COR2004/01	16		2	topotype e; 04 passages in E1BHK3	
+KP820987.1	2935	Bluetongue virus 16	Cyprus	Nov-2010	Cyprus: Nicosia	cattle		CYP2010/03	16		2	topotype e; 01 passages in KC1	
+KP820986.1	2935	Bluetongue virus 16	Cyprus	Oct-2006	Cyprus: Athalassa	cattle		CYP2006/01	16		2	topotype e; 03 passages in E1BHK2	
+KP820985.1	2935	Bluetongue virus 16	Cyprus	Feb-2004	Cyprus: Amochostos-Achna	sheep		CYP2004/01	16		2	topotype e; 05 passages in V1BHK4	
+KP820984.1	2909	Bluetongue virus 15	South Africa	Jun-1960	South Africa: Transvaal	sheep		RSArrrr/15	15		2	topotype w; 13 passages in E1LK6BHK6	
+KP820983.1	2922	Bluetongue virus 14	South Africa	Jun-1959	South Africa: Transvaal	sheep		RSArrrr/14	14		2	topotype w; 12 passages in E1BHK11	
+KP820982.1	2939	Bluetongue virus 8	France	Sep-2008	France: Bieujac-Gironde-Aquitaine	cattle		FRA2008/29	8		2	topotype w; 04 passages in E1BHK3	
+KP820981.1	2939	Bluetongue virus 8	France	Aug-2008	France: Romestaing-Lot et Garonne- Aquitaine	cattle		FRA2008/28	8		2	topotype w; 04 passages in E1BHK3	
+KP820980.1	2939	Bluetongue virus 8	France	Aug-2008	France: Lagruere-Lot et Garonne- Aquitaine	cattle		FRA2008/27	8		2	topotype w; 05 passages in E1BHK4	
+MN710221.1	2927	Bluetongue virus	Australia	1987	Australia	Bos taurus		RSArrrr/23	BTV-23		2	E1/CER2/BHK5	
+MN710220.1	2907	Bluetongue virus	South Africa	1992	South Africa	Culicoides sp.		RSArrrr/22	BTV-22		2	E2/BHK1/CER1/BHK5	
+MN710219.1	2917	Bluetongue virus	Australia	1979	Australia	Bos taurus		RSArrrr/21	BTV-21		2	V3/BHK16	
+MN710218.1	2925	Bluetongue virus	Australia	1975	Australia	Culicoides sp.		RSArrrr/20	BTV-20		2	E2/BHK1/CER1/BHK5	
+MN710217.1	2938	Bluetongue virus	South Africa	1976	South Africa	Ovis aries		RSArrrr/19	BTV-19		2	E3/BHK8	
+MN710216.1	2927	Bluetongue virus	South Africa	1976	South Africa	Ovis aries		RSArrrr/18	BTV-18		2	E1/BHK8	
+MN710215.1	2923	Bluetongue virus	USA	1979	USA			RSArrrr/17	BTV-17		2	S3/E2/LK7/BHK11	
+MN710214.1	2935	Bluetongue virus	South Africa	1959	South Africa	Ovis aries		RSArrrr/13	BTV-13		2	E1/BHK7	
+MN710213.1	2904	Bluetongue virus	South Africa	1941	South Africa	Ovis aries		RSArrrr/12	BTV-12		2	E1/BHK8	
+MN710212.1	2926	Bluetongue virus	South Africa	1944	South Africa	Ovis aries		RSArrrr/11	BTV-11		2	E1/BHK7	
+MN710211.1	2926	Bluetongue virus	Portugal	1956	Portugal	Ovis aries		RSArrrr/10	BTV-10		2	BHK7	
+MN710210.1	2935	Bluetongue virus	South Africa	1955	South Africa	Ovis aries		RSArrrr/07	BTV-7		2	E1/BHK10	
+MN710209.1	2921	Bluetongue virus	South Africa	1953	South Africa	Ovis aries		RSArrrr/05	BTV-5		2	E2/BHK7	
+MN710208.1	2870	Bluetongue virus	Israel	2010	Israel			ISR2010/36	BTV-12		2	KC1/BHK1/KC2	
+MN710207.1	2943	Bluetongue virus	Israel	2010	Israel			ISR2010/33	BTV-2A		2	KC1/BHK1/KC2	
+MN710206.1	2921	Bluetongue virus	Israel	2011	Israel			ISR2011/04	BTV-5		2	KC1	
+MN710205.1	2939	Bluetongue virus	Israel	2010	Israel	bovine		ISR2010/18	BTV-8		2	E1/V1/KC3	
+MN710204.1	2921	Bluetongue virus	Israel	2009	Israel	bovine		ISR2009/14	BTV-5		2	KC4	
+MN710203.1	2921	Bluetongue virus	Israel	2009	Israel	bovine		ISR2009/13	BTV-5		2	E1/BHK2/KC1	
+MN710202.1	2923	Bluetongue virus	Israel	2009	Israel	ovine		ISR2009/03	BTV-24		2	KC3	
+MN710201.1	2923	Bluetongue virus	Israel	2009	Israel	ovine		ISR2009/02	BTV-24		2	KC3	
+MN710200.1	2935	Bluetongue virus	Cyprus	2014	Cyprus: Nicosia	bovine		CYP2014/01	BTV-16B		2	KC4	
+MN710199.1	2935	Bluetongue virus	Cyprus	2010	Cyprus: Pegeia, Paphos	caprine		CYP2010/02	BTV-16B		2	KC3	
+MN710198.1	2935	Bluetongue virus	Cyprus	2010	Cyprus: Pegeia, Paphos	caprine		CYP2010/01	BTV-16B		2	KC2	
+MN710197.1	2934	Bluetongue virus	Cyprus	2016	Cyprus: Pyla, Larnaca	ovine		CYP2016/05	BTV-8		2	KC1/Vero1/KC3	
+MN710196.1	2939	Bluetongue virus	Cyprus	2016	Cyprus: Troulli, Larnaca	ovine		CYP2016/04	BTV-8		2	KC3	
+MN710195.1	2939	Bluetongue virus	Cyprus	2016	Cyprus: Pyla, Larnaca	ovine		CYP2016/03	BTV-8		2	KC3	
+MN710194.1	2939	Bluetongue virus	Cyprus	2016	Cyprus: Pyla, Larnaca	ovine		CYP2016/02	BTV-8		2	KC3/BSR1	
+MN710193.1	2939	Bluetongue virus	Cyprus	2016	Cyprus: Pyla, Larnaca	ovine		CYP2016/01	BTV-8		2	KC1/BSR1/KC1	
+MH028889.1	2888	Bluetongue virus 12	Australia	Feb-2015	Australia: Beatrice Hill, Northern Territory	cattle		DPP9244	12		2		12.643 S 131.30529 E
+MK250957.1	2922	Bluetongue virus 21	China	2017	China: Shangri-La Yunnan	goat		YN/2017	21		2		
+MH559807.1	2918	Bluetongue virus	Israel	2014	Israel			BTV-28/1537/14			2	Capripox vaccine	
+KX234079.2	2929	Bluetongue virus	Italy	30-Oct-2015	Italy: Sardinia	Capra aegagrus hircus	BTVX ITL2015 34200	BTV-X ITL2015			2		
+MH383090.1	2876	Bluetongue virus 6	Israel	12-Sep-2017	Israel			ISR-2095/3/17	6		2		
+MK348538.1	2899	Bluetongue virus 3	Italy	19-Sep-2018	Italy: Sardinia	infected sheep		BTV-3 SAR2018	3		2		
+MH778119.1	2935	Bluetongue virus 3	USA	2016	USA	white-tailed deer		USA2016/LA CC16-564	3		2		
+MG924987.1	2886	Bluetongue virus 5	Australia	Jan-2015	Australia: Beatrice Hill, Northern Territory	cattle		DPP9230	5		2		12.643 S 131.30529 E
+MG345001.1	2936	Bluetongue virus	Israel	16-Oct-2016	Israel	ovine		BTV3/ISR-2262/2/16	3		2		
+MG344991.1	2936	Bluetongue virus	Israel	28-Sep-2016	Israel	ovine		BTV3/ISR-2153/16	3		2		
+MG344981.1	2933	Bluetongue virus	Israel	Nov-2013	Israel	ovine		BTV3/ISR-2019/13	3		2		
+MG710531.1	2918	Bluetongue virus 16	India		India			KAR 50/IND	16		2		
+MG710530.1	2928	Bluetongue virus 16	India		India			SRL69/IND	16		2		
+MG710529.1	2922	Bluetongue virus 16	India		India			GNT7/07/Ind	16		2		

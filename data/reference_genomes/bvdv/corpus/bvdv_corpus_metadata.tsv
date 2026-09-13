@@ -1,0 +1,390 @@
+accession	length	organism	country	collection_date	geo_loc_name	host	strain	isolate	serotype	genotype	segment	note	lat_lon
+PX924419.1	12407	Bovine viral diarrhea virus 1	China	Aug-2024	China: QingHai	Bos grunniens		QH-B04					
+PX924418.1	12186	Bovine viral diarrhea virus 1	China	Jan-2024	China: Sichuan	Bos grunniens		SC-H03					
+PZ545515.1	12140	Bovine viral diarrhea virus 1	China	Jun-2024	China: Xizang Autonomous Region, Linzhi	Bos grunniens		XZ73-02					
+PZ545514.1	12158	Bovine viral diarrhea virus 1	China	Jun-2024	China: Xizang Autonomous Region, Linzhi	Bos grunniens		XZ73-01					
+PZ545513.1	12185	Bovine viral diarrhea virus 1	China	May-2024	China: Xizang Autonomous Region, Linzhi	Bos grunniens		XZ22					
+BK071688.1	12217	Bovine viral diarrhea virus 1				Bos indicus	1d	BVDV1/bovine/ERR5713674/Kenya/2018					
+PZ377092.1	12164	Bovine viral diarrhea virus 1	China	2026	China	cattle		BVDV 1m GXDA2601					
+PZ458627.1	12005	Bovine viral diarrhea virus 1	Switzerland	31-Jan-2017	Switzerland: BE	Bos taurus		R697-2017				subgenotype b	
+PZ458626.1	11994	Bovine viral diarrhea virus 1	Switzerland	24-Jul-2017	Switzerland: FR	Bos taurus		R6447-2017				subgenotype b	
+PZ458625.1	12061	Bovine viral diarrhea virus 1	Switzerland	05-Sep-2017	Switzerland: GR	Bos taurus		R6064-2017				subgenotype h	
+PZ458624.1	11827	Bovine viral diarrhea virus 1	Switzerland	09-Aug-2017	Switzerland: SG	Bos taurus		R5598-2017				subgenotype b	
+PZ458623.1	11986	Bovine viral diarrhea virus 1	Switzerland	27-Jul-2017	Switzerland: FR	Bos taurus		R5491-2017				subgenotype b	
+PZ458622.1	11684	Bovine viral diarrhea virus 1	Switzerland	25-Jul-2017	Switzerland: LU	Bos taurus		R5489-2017				subgenotype b	
+PZ458621.1	11897	Bovine viral diarrhea virus 1	Switzerland	07-Jul-2017	Switzerland: LU	Bos taurus		R5319-2017				subgenotype k	
+PZ458620.1	11955	Bovine viral diarrhea virus 1	Switzerland	06-Jun-2017	Switzerland: GR	Bos taurus		R4857-2017				subgenotype b	
+PZ458619.1	12049	Bovine viral diarrhea virus 1	Switzerland	25-Apr-2017	Switzerland: VD	Bos taurus		R4281-2017				subgenotype e	
+PZ458618.1	11701	Bovine viral diarrhea virus 1	Switzerland	01-May-2017	Switzerland: AG	Bos taurus		R4129-2017				subgenotype k	
+PZ458617.1	11958	Bovine viral diarrhea virus 1	Switzerland	02-Mar-2017	Switzerland: FR	Bos taurus		R4032-2017				subgenotype b	
+PZ458616.1	11959	Bovine viral diarrhea virus 1	Switzerland	16-Mar-2017	Switzerland: FR	Bos taurus		R4030-2017				subgenotype b	
+PZ458615.1	11796	Bovine viral diarrhea virus 1	Switzerland	24-Apr-2017	Switzerland: SG	Bos taurus		R3918-2017				subgenotype b	
+PZ458614.1	11947	Bovine viral diarrhea virus 1	Switzerland	13-Apr-2017	Switzerland: TG	Bos taurus		R3703-2017				subgenotype h	
+PZ458613.1	11983	Bovine viral diarrhea virus 1	Switzerland	13-Apr-2017	Switzerland: BE	Bos taurus		R3683-2017				subgenotype b	
+PZ458612.1	11798	Bovine viral diarrhea virus 1	Switzerland	30-Mar-2017	Switzerland: VD	Bos taurus		R3352-2017				subgenotype b	
+PZ458611.1	11974	Bovine viral diarrhea virus 1	Switzerland	10-Mar-2017	Switzerland: VS	Bos taurus		R2901-2017				subgenotype b	
+PZ458610.1	12123	Bovine viral diarrhea virus 1	Switzerland	07-Feb-2017	Switzerland: SZ	Bos taurus		R1155-2017				subgenotype h	
+PX868708.1	12064	Bovine viral diarrhea virus 1	United Kingdom	24-Sep-1980	United Kingdom	Bos taurus		MRI_A3-1837				genotype: BVDV1a	
+PX868707.1	12139	Bovine viral diarrhea virus 1	United Kingdom	09-Apr-1980	United Kingdom	Bos taurus		MRI_A1-699				genotype: BVDV1a	
+PX868706.1	12118	Bovine viral diarrhea virus 1	United Kingdom	17-Jan-2013	United Kingdom	Bos taurus		MRI0262				genotype: BVDV1a	
+PX868705.1	12202	Bovine viral diarrhea virus 1	United Kingdom	12-Aug-2019	United Kingdom	Bos taurus		MRI0146				genotype: BVDV1b	
+PX868704.1	12103	Bovine viral diarrhea virus 1	United Kingdom	27-Jun-2019	United Kingdom	bovine		MRI3700				genotype: BVDV1a	
+PZ146426.1	12246	Bovine viral diarrhea virus 1	China	2025	China	cow		BVDV 1a GX25					
+PX619761.1	12282	Bovine viral diarrhea virus 1	USA	30-Oct-2020	USA: California	bovine	UCD-16					genotype: BVDV1a	
+PZ196496.1	12188	Bovine viral diarrhea virus 1	China	10-Dec-2025	China	Bos taurus	GS2025-1					subtype: 1d	
+PZ179917.1	11781	Bovine viral diarrhea virus 1	China	May-2025	China: Qinghai-Tibet Plateau	yak		MDB5				genotype: 1v	
+PZ345903.1	12215	Bovine viral diarrhea virus 1	China	Aug-2025	China	bovine		serum-1m				genotype: 1m	
+PX999910.1	12207	Bovine viral diarrhea virus 1	China	2026	China	Bos taurus		ybyj				genotype: b	
+PX556467.1	12125	Bovine viral diarrhea virus 1		2024-07		cattle		XZ87					
+PX684447.1	12132	Bovine viral diarrhea virus 1	China	Jul-2024	China: Linzhi	cattle	type 1	BVDV-1/XZ87					
+PX942062.1	12206	Bovine viral diarrhea virus 1	China	2022	China: Ningxia	Bos taurus		XDN/12206				metagenomic	
+PX941965.1	12189	Bovine viral diarrhea virus 1	China	2022	China: Ningxia	Bos taurus		WBYDN/12189				metagenomic	
+PX941914.1	12202	Bovine viral diarrhea virus 1	China	2022	China: Shaanxi	Bos taurus		TQN/12202				metagenomic	
+PX941744.1	12217	Bovine viral diarrhea virus 1	China	2022	China: Ningxia	Bos taurus		NTN/12217				metagenomic	
+PX552531.1	12339	Bovine viral diarrhea virus 1	China	30-Mar-2025	China: Qinghai	yak	CHQHBVDV101-2025						
+PV554205.1	12096	Bovine viral diarrhea virus 1	Hungary	2023	Hungary	bovine		D7107/19/23					
+PX529693.1	12205	Bovine viral diarrhea virus 1	USA	12-Feb-2024	USA: Texas	bovine		USL186_TX					
+PX409525.1	12220	Bovine viral diarrhea virus 1	China	May-2022	China: Ningxia, Yinchuan	Bos taurus		BVDV 1b				metagenomic	
+PQ382802.1	12268	Bovine viral diarrhea virus 1	China	Mar-2024	China	cattle	BVDV-NM2404					noncytopathogenic strain; genotype: BVDV-1v	
+PX423613.1	12134	Bovine viral diarrhea virus 1	China	2024-06	China	yak		XZ74					
+PV426615.1	12207	Bovine viral diarrhea virus 1	Taiwan	07-Sep-2023	Taiwan	beef cattle		BV27				genotype: 1b	
+PX445908.1	12163	Bovine viral diarrhea virus 1	China	2017	China	bovine	BJ175170					non-cytopathic; genotype: 1c	
+PV346716.1	12064	Bovine viral diarrhea virus 1	Senegal	26-Oct-2022	Senegal	Mansonia uniformis		ARD410758					
+PV346715.1	12064	Bovine viral diarrhea virus 1	Senegal	14-Oct-2022	Senegal	Mansonia uniformis		ARD408029					
+PV346714.1	12064	Bovine viral diarrhea virus 1	Senegal	14-Oct-2022	Senegal	Mansonia uniformis		ARD408080					
+PV346713.1	12064	Bovine viral diarrhea virus 1	Senegal	2022	Senegal	Aedes vexans		ARD407778					
+PV346712.1	12064	Bovine viral diarrhea virus 1	Senegal	26-Oct-2022	Senegal	Mansonia uniformis		ARD410763					
+PV346711.1	12064	Bovine viral diarrhea virus 1	Senegal	26-Oct-2022	Senegal	Mansonia uniformis		ARD410779					
+PV346710.1	12064	Bovine viral diarrhea virus 1	Senegal	13-Oct-2022	Senegal	Mansonia uniformis		ARD407991					
+PV346709.1	12064	Bovine viral diarrhea virus 1	Senegal	14-Oct-2022	Senegal	Mansonia uniformis		ARD408047					
+PV346708.1	12064	Bovine viral diarrhea virus 1	Senegal	10-Oct-2022	Senegal	Mansonia uniformis		ARD407607					
+PV346707.1	12064	Bovine viral diarrhea virus 1	Senegal	21-Oct-2022	Senegal	Mansonia uniformis		ARD408157					
+PV346706.1	12064	Bovine viral diarrhea virus 1	Senegal	25-Oct-2022	Senegal	Aedes aegypti		ARD410701					
+PV346698.1	12065	Bovine viral diarrhea virus 1	Senegal	26-Oct-2022	Senegal	Mansonia uniformis		ARD410730					
+PX275359.1	12312	Bovine viral diarrhea virus 1	New Zealand	1997	New Zealand	Bos taurus		28326				genotype: 1a	
+PX275358.1	12577	Bovine viral diarrhea virus 1	New Zealand	1967	New Zealand	Bos taurus		Bovax				genotype: 1a	
+PV945812.1	12129	Bovine viral diarrhea virus 1	China	2025	China	cattle		Gansu2				genotype: 1v	
+PV945811.1	12265	Bovine viral diarrhea virus 1	China	2025	China	cattle		Gansu1				genotype: 1m	
+PQ816256.1	12215	Bovine viral diarrhea virus 1	China	2018	China	bovine	1m	BVDV-1m-HLJ-2018				noncytopathic	
+PV883047.1	12271	Bovine viral diarrhea virus 1	China	13-Sep-2023	China	bovine		HNL-1	1				
+PV806860.1	12098	Bovine viral diarrhea virus 1	China	2024	China	bovine		BVDV1/GS/10/2024/serum				genotype: BVDV-1b	
+PV626410.1	12279	Bovine viral diarrhea virus 1	USA	30-Aug-1995	USA	bovine		4310-BC				genotype: BVDV1a	
+PV626409.1	12254	Bovine viral diarrhea virus 1	USA	16-Jul-1996	USA: Wyoming	bovine		B4007c				genotype: BVDV1a	
+PV626408.1	12102	Bovine viral diarrhea virus 1	USA	14-Jul-2005	USA: Colorado	bovine		CSU454c				genotype: BVDV1a	
+PV626407.1	12270	Bovine viral diarrhea virus 1	USA	05-Oct-1992	USA: Iowa	bovine		MSV2B-8c				genotype: BVDV1a	
+PV626406.1	12789	Bovine viral diarrhea virus 1	USA	28-Feb-1992	USA	bovine		Olinger22039c				genotype: BVDV1a	
+PV626405.1	12046	Bovine viral diarrhea virus 1	USA	23-Aug-1990	USA	bovine		15-735				genotype: BVDV1a	
+PV626404.1	12296	Bovine viral diarrhea virus 1	USA	07-Dec-1989	USA	bovine		88-6675c				genotype: BVDV1a	
+PV626403.1	12211	Bovine viral diarrhea virus 1	USA	06-Nov-1992	USA	bovine		92-27854				genotype: BVDV1a	
+PV626402.1	11788	Bovine viral diarrhea virus 1	USA	05-Mar-2019	USA: South Dakota	bovine		92x2Sen78				genotype: BVDV1a	
+PV626401.1	11806	Bovine viral diarrhea virus 1	USA	05-Oct-1992	USA	bovine		190c				genotype: BVDV1a	
+PV626400.1	11815	Bovine viral diarrhea virus 1	USA	11-Jul-2006	USA	bovine		371F				genotype: BVDV1a	
+PV626399.1	11857	Bovine viral diarrhea virus 1	USA	30-Nov-2016	USA: Alabama	bovine		407				genotype: BVDV1a	
+PV626398.1	12252	Bovine viral diarrhea virus 1	USA	26-Jul-1994	USA	bovine		1687c				genotype: BVDV1a	
+PV626397.1	11874	Bovine viral diarrhea virus 1	USA	19-Sep-2000	USA: Washington	bovine		2000-2210				genotype: BVDV1a	
+PV626396.1	12299	Bovine viral diarrhea virus 1	USA	27-Oct-1989	USA	bovine		2052				genotype: BVDV1a	
+PV626395.1	12307	Bovine viral diarrhea virus 1	USA	19-Sep-2006	USA	bovine		2219				genotype: BVDV1a	
+PV626394.1	12257	Bovine viral diarrhea virus 1	USA	07-Oct-2003	USA	bovine		2645c				genotype: BVDV1a	
+PV626393.1	12305	Bovine viral diarrhea virus 1	USA	10-Oct-1986	USA	bovine		7443				genotype: BVDV1a	
+PV626392.1	12258	Bovine viral diarrhea virus 1	USA	31-Mar-1995	USA	bovine		9443				genotype: BVDV1a	
+PV626391.1	12454	Bovine viral diarrhea virus 1	USA	03-Nov-1989	USA	bovine		9657				genotype: BVDV1a	
+PV626390.1	12258	Bovine viral diarrhea virus 1	USA	16-Aug-2002	USA	bovine		9657c				genotype: BVDV1a	
+PV626389.1	12342	Bovine viral diarrhea virus 1	USA	1990	USA	bovine		11957				genotype: BVDV1a	
+PV626388.1	12310	Bovine viral diarrhea virus 1	USA	1990	USA	bovine		11957c				genotype: BVDV1a	
+PV626387.1	12171	Bovine viral diarrhea virus 1	USA	23-May-1992	USA	bovine		14908c				genotype: BVDV1a	
+PV626386.1	12297	Bovine viral diarrhea virus 1	USA	03-Aug-1993	USA	bovine		23776				genotype: BVDV1a	
+PV626385.1	11710	Bovine viral diarrhea virus 1	USA	03-Aug-1995	USA	bovine		23776c				genotype: BVDV1a	
+PV626384.1	12573	Bovine viral diarrhea virus 1	USA	20-Sep-1988	USA	bovine		88055c				genotype: BVDV1a	
+PV626383.1	11806	Bovine viral diarrhea virus 1	USA	12-Dec-1995	USA: Washington	bovine		110789				genotype: BVDV1a	
+PV626382.1	12252	Bovine viral diarrhea virus 1	USA	31-Oct-2007	USA	bovine		BAOEC5F1550				genotype: BVDV1a	
+PV626381.1	11741	Bovine viral diarrhea virus 1	USA	02-Apr-2007	USA	bovine		BAOEC1190				genotype: BVDV1a	
+PV626380.1	12374	Bovine viral diarrhea virus 1	USA	2016	USA	bovine		GL760				genotype: BVDV1a	
+PV626379.1	12179	Bovine viral diarrhea virus 1	USA	25-Dec-1987	USA	bovine		N2				genotype: BVDV1a	
+PV626378.1	12183	Bovine viral diarrhea virus 1	USA	08-Jan-1990	USA	bovine		15-262				genotype: BVDV1b	
+PV626377.1	12529	Bovine viral diarrhea virus 1	USA	27-Oct-1989	USA	bovine		144				genotype: BVDV1b	
+PV626376.1	12278	Bovine viral diarrhea virus 1	USA	26-Nov-1985	USA	bovine		639 1				genotype: BVDV1b	
+PV626375.1	12266	Bovine viral diarrhea virus 1	USA	21-Oct-1988	USA	bovine		967				genotype: BVDV1b	
+PV626374.1	12310	Bovine viral diarrhea virus 1	USA	30-Jun-1992	USA	bovine		967c				genotype: BVDV1b	
+PV626373.1	12310	Bovine viral diarrhea virus 1	USA	07-Oct-1989	USA	bovine		2110c				genotype: BVDV1b	
+PV626372.1	12205	Bovine viral diarrhea virus 1	USA	13-Aug-1993	USA	bovine		2291c				genotype: BVDV1b	
+PV626371.1	12037	Bovine viral diarrhea virus 1	USA	04-Nov-1988	USA	bovine		2321				genotype: BVDV1b	
+PV626370.1	12118	Bovine viral diarrhea virus 1	USA	27-Oct-1989	USA	bovine		2784				genotype: BVDV1b	
+PV626368.1	12241	Bovine viral diarrhea virus 1	USA	30-Apr-1986	USA	bovine		9762				genotype: BVDV1b	
+PV626367.1	12210	Bovine viral diarrhea virus 1	USA	15-Dec-2017	USA: Alabama	bovine		31501				genotype: BVDV1b	
+PV626366.1	12166	Bovine viral diarrhea virus 1	USA	15-Dec-2017	USA: Alabama	bovine		31583				genotype: BVDV1b	
+PV626365.1	12203	Bovine viral diarrhea virus 1	USA	11-Aug-2020	USA: Alabama	bovine		319920				genotype: BVDV1b	
+PV626364.1	12213	Bovine viral diarrhea virus 1	USA	11-Aug-2020	USA: Alabama	bovine		325271				genotype: BVDV1b	
+PV626363.1	12185	Bovine viral diarrhea virus 1	USA	11-Aug-2020	USA: Alabama	bovine		850890				genotype: BVDV1b	
+PV626362.1	12245	Bovine viral diarrhea virus 1	USA	07-Dec-1989	USA	bovine		Alliance				genotype: BVDV1b	
+PV626361.1	12302	Bovine viral diarrhea virus 1	USA	06-Aug-1993	USA: California	bovine		CaliSpl				genotype: BVDV1b	
+PV626360.1	12224	Bovine viral diarrhea virus 1	USA	03-Dec-1993	USA	bovine		Draper				genotype: BVDV1b	
+PV626359.1	12305	Bovine viral diarrhea virus 1	USA		USA	bovine		FD187-00				genotype: BVDV1b	
+PV626358.1	12310	Bovine viral diarrhea virus 1	USA	06-Feb-1986	USA: Illinois	bovine		Illcfull				genotype: BVDV1b	
+PV626357.1	12217	Bovine viral diarrhea virus 1	USA	13-Aug-1993	USA	bovine		MDA280				genotype: BVDV1b	
+PV626356.1	12358	Bovine viral diarrhea virus 1	USA	20-Oct-1989	USA	bovine		Morton				genotype: BVDV1b	
+PV626355.1	12178	Bovine viral diarrhea virus 1	USA		USA	bovine		MurphySpl				genotype: BVDV1b	
+PV626354.1	12210	Bovine viral diarrhea virus 1	USA	05-Feb-1996	USA: New York	bovine		NY-1				genotype: BVDV1b	
+PV626353.1	12285	Bovine viral diarrhea virus 1	USA	30-Dec-1992	USA	bovine		Schwartz-39350				genotype: BVDV1b	
+PV626352.1	12184	Bovine viral diarrhea virus 1	USA	2005	USA: California	bovine		T1186A				genotype: BVDV1b	
+PV626351.1	12291	Bovine viral diarrhea virus 1	USA	1985	USA	bovine		TGAC				genotype: BVDV1b	
+PV626350.1	12302	Bovine viral diarrhea virus 1	USA	1986	USA	bovine		TGAC 3-86				genotype: BVDV1b	
+PV626349.1	12293	Bovine viral diarrhea virus 1	USA	2005	USA	bovine		TGAC 05				genotype: BVDV1b	
+PV626348.1	12291	Bovine viral diarrhea virus 1	USA	18-Oct-1985	USA	bovine		TGAN				genotype: BVDV1b	
+PV626347.1	12306	Bovine viral diarrhea virus 1	USA	30-Nov-2016	USA: Alabama	bovine		32				genotype: BVDV1a	
+PV626346.1	12180	Bovine viral diarrhea virus 1	USA	26-Sep-1989	USA	bovine		16-829				genotype: BVDV1a	
+PV626345.1	12301	Bovine viral diarrhea virus 1	USA	13-Jun-2000	USA: Washington	bovine		99-113264-1				genotype: BVDV1a	
+PV626344.1	12276	Bovine viral diarrhea virus 1	USA	04-Apr-1994	USA: Colorado	bovine		454				genotype: BVDV1a	
+PV626343.1	12230	Bovine viral diarrhea virus 1	USA	27-Oct-1989	USA	bovine		1855				genotype: BVDV1a	
+PV554204.1	12179	Bovine viral diarrhea virus 1	Hungary	2023	Hungary	bovine		D7091/1/23					
+PV554203.1	12255	Bovine viral diarrhea virus 1	Hungary	2021	Hungary	bovine		D5995/6070/21					
+PV554202.1	12130	Bovine viral diarrhea virus 1	Hungary	2021	Hungary	bovine		D5960/6/21					
+PV554201.1	12214	Bovine viral diarrhea virus 1	Hungary	2021	Hungary	bovine		D5846/2/21					
+PV578941.1	12305	Bovine viral diarrhea virus 1	Australia	Mar-2021	Australia	Bovine		BVDV1/bovine/26/Australia/2021				metagenomic	
+PV363049.1	12232	Bovine viral diarrhea virus 1	China	2023	China	bovine	BVDV1-NX2023/01	serum					
+PQ782221.1	12189	Bovine viral diarrhea virus 1	China	Oct-2024	China	bovine	1d	BVDV-1d-HLJ-2024				noncytopathic	
+PV247157.1	11873	Bovine viral diarrhea virus 1	China	Sep-2023	China	cattle	PZ184						
+PV168123.1	12629	Bovine viral diarrhea virus 1	China	2020	China	bovine	1p	BVDV-1p-2020					
+PV168122.1	12470	Bovine viral diarrhea virus 1	China	2018	China	bovine	1a	BVDV-1a-HLJ-2018					
+PV208007.1	12045	Bovine viral diarrhea virus 1	China	Apr-2023	China	cattle	PZ27						
+PV208006.1	12520	Bovine viral diarrhea virus 1	China	Jun-2023	China	cattle	PZ54						
+PV208002.1	12126	Bovine viral diarrhea virus 1	China	Jun-2023	China	cattle	PZ155						
+PV208001.1	12247	Bovine viral diarrhea virus 1	China	May-2023	China	cattle	PZ132						
+PV208000.1	12083	Bovine viral diarrhea virus 1	China	Jun-2023	China	cattle	PZ78						
+PV207999.1	12146	Bovine viral diarrhea virus 1	China	May-2023	China	cattle	PZ61						
+PV207998.1	12058	Bovine viral diarrhea virus 1	China	Jun-2023	China	cattle	PZ56						
+PV207997.1	12146	Bovine viral diarrhea virus 1	China	Jun-2023	China	cattle	PZ55						
+PV207996.1	11941	Bovine viral diarrhea virus 1	China	Jun-2023	China	cattle	PZ50						
+PV207995.1	12336	Bovine viral diarrhea virus 1	China	Jun-2023	China	cattle	PZ40						
+PV207994.1	12597	Bovine viral diarrhea virus 1	China	Feb-2023	China	cattle	PZ20						
+PV038020.1	12121	Bovine viral diarrhea virus 1	China	Dec-2022	China: Inner Mongolia	cattle		NM2212				NCP; genotype: BVDV-1o	
+PQ782226.1	12218	Bovine viral diarrhea virus 1	China	2024	China	bovine	1d	BVDV-1d-IM-2024				noncytopathic	
+PQ782225.1	12177	Bovine viral diarrhea virus 1	China	2018	China	bovine	1m	BVDV-1m-IM-2018				noncytopathic	
+PQ782224.1	12177	Bovine viral diarrhea virus 1	China	2018	China	bovine	1c	BVDV-1c-IM-2018				noncytopathic	
+PQ782223.1	12217	Bovine viral diarrhea virus 1	China	Oct-2023	China	bovine	1m	BVDV-1m-IM-2023				noncytopathic	
+PQ782222.1	12174	Bovine viral diarrhea virus 1	China	Oct-2024	China	bovine	1m	BVDV-1m				noncytopathic	
+PQ613798.1	12200	Bovine viral diarrhea virus 1	USA	17-Dec-2021	USA	bovine		USMARC/PI-92-21/Serum					
+PQ613797.1	12200	Bovine viral diarrhea virus 1	USA		USA	cell culture		USMARC/PI-92-21/MDBK					
+PQ613796.1	12200	Bovine viral diarrhea virus 1	USA		USA	cell culture		USMARC/PI-92-21/Input					
+PQ613795.1	12200	Bovine viral diarrhea virus 1	USA		USA	cell culture		USMARC/PI-92-21/CD46KO					
+PQ613794.1	12200	Bovine viral diarrhea virus 1	USA		USA	cell culture		USMARC/PI-92-21/CD46GE					
+PQ613793.1	12286	Bovine viral diarrhea virus 1	USA	17-Dec-2021	USA	bovine		USMARC/PI-91-21/Serum					
+PQ613792.1	12286	Bovine viral diarrhea virus 1	USA		USA	cell culture		USMARC/PI-91-21/MDBK					
+PQ613791.1	12286	Bovine viral diarrhea virus 1	USA		USA	cell culture		USMARC/PI-91-21/Input					
+PQ613790.1	12286	Bovine viral diarrhea virus 1	USA		USA	cell culture		USMARC/PI-91-21/CD46KO					
+PQ613789.1	12286	Bovine viral diarrhea virus 1	USA		USA	cell culture		USMARC/PI-91-21/CD46GE					
+PQ613788.1	12139	Bovine viral diarrhea virus 1	USA	17-Dec-2021	USA	bovine		USMARC/PI-90-21/Serum					
+PQ613787.1	12139	Bovine viral diarrhea virus 1	USA		USA	cell culture		USMARC/PI-90-21/MDBK					
+PQ613786.1	12139	Bovine viral diarrhea virus 1	USA		USA	cell culture		USMARC/PI-90-21/Input					
+PQ613785.1	12139	Bovine viral diarrhea virus 1	USA		USA	cell culture		USMARC/PI-90-21/CD46KO					
+PQ613784.1	12139	Bovine viral diarrhea virus 1	USA		USA	cell culture		USMARC/PI-90-21/CD46GE					
+PQ613783.1	12107	Bovine viral diarrhea virus 1	USA	01-Dec-2022	USA	bovine		USMARC/PI-86-22/Serum					
+PQ613782.1	12107	Bovine viral diarrhea virus 1	USA		USA	cell culture		USMARC/PI-86-22/Input					
+PQ613781.1	12107	Bovine viral diarrhea virus 1	USA		USA	cell culture		USMARC/PI-86-22/72hr_MDBK					
+PQ613780.1	12107	Bovine viral diarrhea virus 1	USA		USA	cell culture		USMARC/PI-86-22/72hr_CD46GE					
+PQ613779.1	12107	Bovine viral diarrhea virus 1	USA	17-Dec-2021	USA	bovine		USMARC/PI-86-21/Serum					
+PQ613778.1	12107	Bovine viral diarrhea virus 1	USA		USA	cell culture		USMARC/PI-86-21/Input					
+PQ476186.1	12114	Bovine viral diarrhea virus 1	China	Apr-2019	China	bovine		NX2019/02					
+PP992316.2	12289	Bovine viral diarrhea virus 1	China	Dec-2023	China	cattle	BVDV-NM2312					noncytopathogenic strain; genotype: BVDV-1m	
+ON337882.1	12275	Bovine viral diarrhea virus 1	China	Mar-2021	China	cattle		NM2103				genotype: 1c	
+PP920639.1	12217	Bovine viral diarrhea virus 1	China	2022	China	bovine	CNIM-2202						
+PP856402.1	12271	Bovine viral diarrhea virus 1	China	27-May-2023	China	cattle	PZ33						
+PP856401.1	12223	Bovine viral diarrhea virus 1	China	May-2023	China	cattle	PZ31						
+PP856400.1	12129	Bovine viral diarrhea virus 1	China	25-Apr-2023	China	cattle	PZ29						
+PP856399.1	12120	Bovine viral diarrhea virus 1	China	27-Feb-2023	China	cattle	PZ11						
+PP856398.1	11819	Bovine viral diarrhea virus 1	China	20-Feb-2023	China	cattle	PZ04						
+PP770551.1	12263	Bovine viral diarrhea virus 1	China	2023	China	bovine		YN2-11/2023					
+PP706246.1	12446	Bovine viral diarrhea virus 1	China	2023	China	cattle	HeBN53					noncytopathic; genotype: 1p	
+PP680566.1	12232	Bovine viral diarrhea virus 1	China	2023	China	cattle		SDNF9				biotype: noncytopathic; genotype: 1c	
+PP277983.1	12174	Bovine viral diarrhea virus 1	China	Jul-2023	China	cattle		NX2023				genotype: 1d	
+OP649599.1	12112	Bovine viral diarrhea virus 1	South Korea	2019	South Korea	bovine		19Q060				genotype: 1n	
+OR611923.3	12238	Bovine viral diarrhea virus 1	Taiwan	27-Feb-2018	Taiwan	cattle		18H17				genotype: 1b	
+AF220247.2	11724	Bovine viral diarrhea virus 1					CP7-5A						
+ON676187.1	11697	Bovine viral diarrhea virus 1	South Korea	2018	South Korea	cattle	Chilgok					genotype: 1b	
+ON676186.1	11697	Bovine viral diarrhea virus 1	South Korea	2018	South Korea	cattle	Jincheon					genotype: 1a	
+OR753412.1	12273	Bovine viral diarrhea virus 1	China	2022	China	bovine		BI-2023					
+OR683432.1	12307	Bovine viral diarrhea virus 1	South Korea	2005	South Korea	cattle		KD26				genotype: 1a	
+OR670331.1	11697	Bovine viral diarrhea virus 1	South Korea	2005	South Korea	cattle		KD26				genotype 1a	
+OR482980.1	12248	Bovine viral diarrhea virus 1	China	2021	China	Bos taurus	NM21						
+OR620203.1	12213	Bovine viral diarrhea virus 1	Uruguay	2016	Uruguay	bovine	2402UYSJ/2016						
+OR620202.1	12279	Bovine viral diarrhea virus 1	Uruguay	2015	Uruguay	bovine	754UYAFA4/112015						
+ON732849.1	12294	Bovine viral diarrhea virus 1	China	2016	China	bovine		SDJN01				genotype: 1	
+OQ784258.1	11968	Bovine viral diarrhea virus 1	Russia	2023	Russia	Bos taurus	NADL-VIEV					genotype: 1	
+OR004813.1	12038	Bovine viral diarrhea virus 1	China	31-Dec-2020	China	bovine		TJ2109					
+OR004812.1	12001	Bovine viral diarrhea virus 1	China	31-Jan-2021	China	bovine		TJ2108					
+OR004811.1	12038	Bovine viral diarrhea virus 1	China	30-Jan-2021	China	bovine		TJ2107					
+OR004810.1	12007	Bovine viral diarrhea virus 1	China	30-Jan-2021	China	bovine		TJ2106					
+OR004809.1	12039	Bovine viral diarrhea virus 1	China	04-Feb-2021	China	bovine		TJ2105					
+OR004808.1	11999	Bovine viral diarrhea virus 1	China	04-Feb-2021	China	bovine		TJ2104					
+OR004807.1	12037	Bovine viral diarrhea virus 1	China	31-Jan-2021	China	bovine		TJ2103					
+OR004806.1	12007	Bovine viral diarrhea virus 1	China	05-Jan-2021	China	bovine		TJ2102					
+OR004805.1	12038	Bovine viral diarrhea virus 1	China	05-Jan-2021	China	bovine		TJ2101					
+OP661170.1	12213	Bovine viral diarrhea virus 1	China	2021	China	cattle		HH839				genotype: 1d	
+OP548503.1	12269	Bovine viral diarrhea virus 1	USA		USA			USMARC_PI20734					
+OQ348281.1	12065	Bovine viral diarrhea virus 1	Australia	2011	Australia	Bos taurus		ASRA2				metagenomic	27.4975 S 153.0137 E
+OQ348280.1	11742	Bovine viral diarrhea virus 1	Australia	2011	Australia	Bos taurus		ASRA5				metagenomic	27.4975 S 153.0137 E
+ON624287.1	12238	Bovine viral diarrhea virus 1	China	Sep-2021	China	bovine		21SD-16				genotype: 1	
+ON624286.1	12228	Bovine viral diarrhea virus 1	China	Sep-2021	China	bovine		22AH-1				genotype: 1	
+ON624285.1	12453	Bovine viral diarrhea virus 1	China	Sep-2021	China	bovine		22NX-9				genotype: 1	
+ON411193.1	12202	Bovine viral diarrhea virus 1	China	Sep-2021	China	cattle		22NX-197					
+ON411192.1	12132	Bovine viral diarrhea virus 1	China	Sep-2021	China	cattle		21NX-53					
+ON411191.1	12191	Bovine viral diarrhea virus 1	China	Sep-2021	China	cattle		21NM-44					
+ON165518.1	12216	Bovine viral diarrhea virus 1	China	May-2021	China	cattle		21SD-5					
+ON165517.1	12198	Bovine viral diarrhea virus 1	China	May-2021	China	cattle		21NX-69					
+ON098979.1	12149	Bovine viral diarrhea virus 1	China	May-2021	China	cattle		21NX-300					
+ON901785.1	12155	Bovine viral diarrhea virus 1	China	Mar-2018	China	bovine	BVDV-1/Bovine/CHN/HB-03/2017						
+ON901784.1	12189	Bovine viral diarrhea virus 1	China	Dec-2017	China	bovine	BVDV-1/Bovine/CHN/HB-01/2017						
+ON901783.1	12307	Bovine viral diarrhea virus 1	China	Dec-2017	China	bovine	BVDV-1/Bovine/CHN/HN-03/2017						
+LC727648.1	12183	Bovine viral diarrhea virus 1	Japan	2016-07-25	Japan:Hokkaido	Bos taurus		Tokachi-27					
+LC727647.1	12234	Bovine viral diarrhea virus 1	Japan	2016-09-27	Japan:Hokkaido	Bos taurus		Tokachi-22					
+LC727646.1	12168	Bovine viral diarrhea virus 1	Japan	2016-10-05	Japan:Hokkaido	Bos taurus		Tokachi-15					
+LC727645.1	12182	Bovine viral diarrhea virus 1	Japan	2016-12-06	Japan:Hokkaido	Bos taurus		Tokachi-13					
+LC727644.1	12117	Bovine viral diarrhea virus 1	Japan	2016-08-02	Japan:Hokkaido	Bos taurus		Tokachi-8					
+MZ188972.1	12215	Bovine viral diarrhea virus 1	China	24-Apr-2020	China: Hebei	Bos taurus	HB-1					genotype: 1m	
+MZ442301.1	12166	Bovine viral diarrhea virus 1						ncpBVDV_LFPK-alphaVbeta6_PI				Plum Island Animal Disease Center LFPK-alphaVbeta6 cell line contaminant	
+MW732739.1	11969	Bovine viral diarrhea virus 1	USA	1993	USA		YandaSpl					biotype: noncytopathic; genotype: 1a	
+MW732738.1	12076	Bovine viral diarrhea virus 1	USA	2015	USA		PI407					biotype: noncytopathic; genotype: 1b	
+MW713362.1	12312	Bovine viral diarrhea virus 1	USA	2017	USA: Alabama		PI819					biotype: noncytopathic; genotype: 1b	
+MW713361.1	11736	Bovine viral diarrhea virus 1	USA	2007	USA		BoAEC1190					biotype: noncytopathic; genotype: 1a	
+MW655632.1	12180	Bovine viral diarrhea virus 1	Switzerland	2002	Switzerland		SM09-20					biotype: noncytopathic; genotype: 1h	
+MW655631.1	12235	Bovine viral diarrhea virus 1	Switzerland	2003	Switzerland		S03-1175					biotype: noncytopathic; genotype: 1e	
+MW655630.1	12237	Bovine viral diarrhea virus 1	Switzerland	1996	Switzerland		R5013-96					biotype: noncytopathic; genotype: 1k	
+MW655629.1	12218	Bovine viral diarrhea virus 1	Switzerland	1990	Switzerland		R3572-90					biotype: noncytopathic; genotype: 1h	
+MW655628.1	12249	Bovine viral diarrhea virus 1	Switzerland	1995	Switzerland		R3230-95					biotype: noncytopathic; genotype: 1k	
+MW655627.1	12225	Bovine viral diarrhea virus 1	Switzerland	1995	Switzerland		R2000-95					biotype: noncytopathic; genotype: 1e	
+MW655626.1	12228	Bovine viral diarrhea virus 1	Switzerland	2004	Switzerland		Maria					biotype: noncytopathic; genotype: 1e	
+MW655625.1	12233	Bovine viral diarrhea virus 1	Switzerland	2004	Switzerland		CH-04-01b					biotype: noncytopathic; genotype: 1h	
+MW250803.1	12274	Bovine viral diarrhea virus 1	United Kingdom	2008	United Kingdom		69-1					biotype: noncytopathic; genotype: 1i	
+MW250802.1	12236	Bovine viral diarrhea virus 1	United Kingdom	2008	United Kingdom		68-1					biotype: noncytopathic; genotype: 1e	
+MW250801.1	12259	Bovine viral diarrhea virus 1	United Kingdom	2008	United Kingdom		67-2					biotype: noncytopathic; genotype: 1d	
+MW250800.1	12257	Bovine viral diarrhea virus 1	United Kingdom	2008	United Kingdom		67-1					biotype: noncytopathic; genotype: 1d	
+MW250799.1	12307	Bovine viral diarrhea virus 1	United Kingdom	2008	United Kingdom		63-1					biotype: noncytopathic; genotype: 1a	
+MW250798.1	12307	Bovine viral diarrhea virus 1	United Kingdom	2008	United Kingdom		62-2					biotype: noncytopathic; genotype: 1a	
+MW250797.1	12274	Bovine viral diarrhea virus 1	United Kingdom	2008	United Kingdom		58-2					biotype: noncytopathic; genotype: 1i	
+MW250796.1	12273	Bovine viral diarrhea virus 1	United Kingdom	2008	United Kingdom		58-1					biotype: noncytopathic; genotype: 1i	
+MW054940.1	12231	Bovine viral diarrhea virus 1	Italy	2005	Italy: Marche		MA/101/05					biotype: noncytopathic; genotype: 1e	
+MW054939.1	12225	Bovine viral diarrhea virus 1	Italy	2009	Italy: Lombardia		LO/151/09					biotype: noncytopathic; genotype: 1f	
+MW054938.1	12222	Bovine viral diarrhea virus 1	Italy	2009	Italy: Sardegna		SA/159/09					biotype: noncytopathic; genotype: 1k	
+MW054937.1	12214	Bovine viral diarrhea virus 1	Italy	2009	Italy: Sardegna		SA/158/09					biotype: noncytopathic; genotype: 1k	
+MW054936.1	12177	Bovine viral diarrhea virus 1	Italy	2006	Italy: Umbria		UM/111/06					biotype: noncytopathic; genotype: 1g	
+MW054935.1	12259	Bovine viral diarrhea virus 1	Italy	2011	Italy: Toscana		TO/197/11					biotype: noncytopathic; genotype: 1k	
+MW054934.1	12246	Bovine viral diarrhea virus 1	Italy	2005	Italy: Lazio		LA/87/05					biotype: noncytopathic; genotype: 1f	
+MW054933.1	12234	Bovine viral diarrhea virus 1	Italy	2014	Italy: Lazio		LA/230/14					biotype: noncytopathic; genotype: 1f	
+MW528225.1	11953	Bovine viral diarrhea virus 1	Germany	2016	Germany	sheep		2016BVD01436				genotype: BVDV1b	
+MW528224.1	11953	Bovine viral diarrhea virus 1	Germany	2016	Germany	cattle		2016BVD01435				genotype: BVDV1b	
+MW528233.1	12133	Bovine viral diarrhea virus 1	Germany	2019	Germany	Cattle		2019BVD04889				genotype: BVDV1d	
+MW528232.1	12133	Bovine viral diarrhea virus 1	Germany	2019	Germany	Cattle		2019BVD04888				genotype: BVDV1d	
+MW528231.1	12133	Bovine viral diarrhea virus 1	Germany	2019	Germany	Cattle		2019BVD04882				genotype: BVDV1d	
+MW528230.1	12133	Bovine viral diarrhea virus 1	Germany	2019	Germany	Cattle		2019BVD04871				genotype: BVDV1d	
+MW528229.1	12133	Bovine viral diarrhea virus 1	Germany	2018	Germany	Cattle		2018BVD06214				genotype: BVDV1d	
+MW528228.1	12133	Bovine viral diarrhea virus 1	Germany	2018	Germany	Cattle		2018BVD06212				genotype: BVDV1d	
+MW528227.1	12065	Bovine viral diarrhea virus 1	Germany	2018	Germany	Cattle		2018BVD01695				genotype: BVDV1f	
+MW528226.1	12241	Bovine viral diarrhea virus 1	Germany	2017	Germany	Cattle		2017BVD04597				genotype: BVDV1b	
+MT654137.1	12299	Bovine viral diarrhea virus 1	USA	21-Apr-2020	USA: Nebraska	Bison bison	20-8536						
+MW014288.1	12215	Bovine viral diarrhea virus 1	China	05-Mar-2018	China	cattle		GXSS03					
+MW014287.1	12215	Bovine viral diarrhea virus 1	China	19-Feb-2018	China	cattle		GXSS02					
+MW014286.1	11697	Bovine viral diarrhea virus 1	China	05-Feb-2018	China	cattle		GXSS01					
+MT002667.1	12254	Bovine viral diarrhea virus 1	USA		USA	bovine		8093				genotype: BVDV1c	
+MN623291.1	12107	Bovine viral diarrhea virus 1	China	Apr-2019	China	bovine		NX2019/01				genotype: 1m	
+LR760748.1	12297	Bovine viral diarrhea virus 1											
+MT079816.1	12277	Bovine viral diarrhea virus 1	China	09-Sep-2018	China	bovine		GXNN1					
+MH379234.1	11694	Bovine viral diarrhea virus 1	USA	10-Jan-2018	USA	porcine		P7F				biotype: noncytopathic	
+MH379233.1	11694	Bovine viral diarrhea virus 1	USA	10-Jan-2018	USA	porcine		P7E				biotype: noncytopathic	
+MH379232.1	11694	Bovine viral diarrhea virus 1	USA	10-Jan-2018	USA	porcine		P7C				biotype: noncytopathic	
+MH379231.1	11694	Bovine viral diarrhea virus 1	USA	10-Jan-2018	USA	porcine		P7A				biotype: noncytopathic	
+MH379230.1	11694	Bovine viral diarrhea virus 1	USA	26-Jul-2017	USA	porcine		P5F				biotype: noncytopathic	
+MH379229.1	11694	Bovine viral diarrhea virus 1	USA	26-Jul-2017	USA	porcine		P5D				biotype: noncytopathic	
+MH379228.1	11694	Bovine viral diarrhea virus 1	USA	26-Jul-2017	USA	porcine		P5C				biotype: noncytopathic	
+MH379227.1	11694	Bovine viral diarrhea virus 1	USA	26-Jul-2017	USA	porcine		P5B				biotype: noncytopathic	
+MH379226.1	11694	Bovine viral diarrhea virus 1	USA	26-Jul-2017	USA	porcine		P5A				biotype: noncytopathic	
+MH379225.1	11694	Bovine viral diarrhea virus 1	USA	27-Sep-2017	USA	porcine		P7				biotype: noncytopathic	
+MH379224.1	11694	Bovine viral diarrhea virus 1	USA	12-May-2017	USA	porcine		P6				biotype: noncytopathic	
+MH379223.1	11694	Bovine viral diarrhea virus 1	USA	05-May-2017	USA	porcine		P5				biotype: noncytopathic	
+MH379222.1	11694	Bovine viral diarrhea virus 1	USA	22-Feb-2017	USA	porcine		P2				biotype: noncytopathic	
+MH379221.1	11694	Bovine viral diarrhea virus 1	USA	15-Feb-2017	USA	porcine		P1				biotype: noncytopathic	
+MN188074.1	12222	Bovine viral diarrhea virus 1	USA	2017	USA	calf	PI285					biotype: noncytopathic; genotype: 1b	
+MN188073.1	12276	Bovine viral diarrhea virus 1	USA	2017	USA	calf	PI34					biotype: noncytopathic; genotype: 1a	
+KY849592.1	12241	Bovine viral diarrhea virus 1	Slovenia	18-Apr-2002	Slovenia	cattle		SLO/2416/2002				subtype: 1d	
+KX987157.1	12259	Bovine viral diarrhea virus 1	Slovenia	10-Nov-2000	Slovenia	cattle		SLO/1170/2000					
+LR699803.1	12023	Bovine viral diarrhea virus 1											
+LR699802.1	12043	Bovine viral diarrhea virus 1											
+LR699801.1	12043	Bovine viral diarrhea virus 1											
+LR699800.1	12296	Bovine viral diarrhea virus 1											
+LR699799.1	12292	Bovine viral diarrhea virus 1											
+MK102095.1	12271	Bovine viral diarrhea virus 1	China	26-Feb-2017	China	cattle		20170226					
+MH899945.1	12167	Bovine viral diarrhea virus 1	Slovenia	04-Mar-2013	Slovenia	cattle		SLO/1883/2013					
+MH899944.1	12297	Bovine viral diarrhea virus 1	Slovenia	27-Sep-2017	Slovenia	cattle		SLO/28537/2017					
+MH899943.1	12249	Bovine viral diarrhea virus 1	Slovenia	21-Feb-2014	Slovenia	cattle		SLO/1361/2014					
+MH899942.1	12180	Bovine viral diarrhea virus 1	Slovenia	23-Oct-2015	Slovenia	cattle		SLO/33529/2015					
+MH899941.1	12195	Bovine viral diarrhea virus 1	Slovenia	09-Apr-2014	Slovenia	cattle		SLO/3301/2014					
+MH133206.1	12303	Bovine viral diarrhea virus 1	China		China	Bos taurus	Singer Arg					genotype: 1	
+MH231153.1	12303	Bovine viral diarrhea virus 1	USA	1990	USA			Nebraska				noncytopathic; genotype: 1b	
+MH166806.1	12192	Bovine viral diarrhea virus 1	China	Sep-2015	China: Xichang	Bos taurus		XC				subtype: BVDV-1m	
+NC_001461.1	12573	Bovine viral diarrhea virus 1					NADL					cytopathogenic strain	
+KX577637.1	12258	Bovine viral diarrhea virus 1	Slovenia	08-Mar-2006	Slovenia	cattle		SLO/2407/2006					
+LC068605.1	12300	Bovine viral diarrhea virus 1					No.12_E-						
+LC068604.1	12300	Bovine viral diarrhea virus 1					No.12_E+						
+MH379638.1	12192	Bovine viral diarrhea virus 1	United Kingdom	1993	United Kingdom	Bos taurus		Ho916					
+LT968777.1	12225	Bovine viral diarrhea virus 1						MA/101/05				monopartite	
+LT907992.1	12258	Bovine viral diarrhea virus 1						VE/138ncp/05				monopartite	
+LT907991.1	12681	Bovine viral diarrhea virus 1						VE/138cp/05				monopartite	
+LT837585.1	12295	Bovine viral diarrhea virus 1		2012								monopartite	
+LT797813.1	12164	Bovine viral diarrhea virus 1										monopartite	
+AB078950.1	12306	Bovine viral diarrhea virus 1					KS86-1ncp						
+MF172980.1	11691	Bovine viral diarrhea virus 1	China	10-Feb-2012	China	yak	GSTZ						
+MF166858.1	12255	Bovine viral diarrhea virus 1	China	Jan-2015	China: Qinghai-Tibetan Plateau	yak		fecal				subgroup: 1d	
+MF693403.1	12178	Bovine viral diarrhea virus 1	China	2016	China: Qinghai-Tibetan Plateau	yak						subtype: BVDV-1a	
+MF278652.1	11697	Bovine viral diarrhea virus 1	China	2016	China	bovine	XZ02					subtype: 1b	
+MF278651.1	11742	Bovine viral diarrhea virus 1	China	2016	China	bovine	XZ01					subtype: 1b	
+KX857724.1	12231	Bovine viral diarrhea virus 1	Brazil	05-Jan-2016	Brazil	Bos taurus taurus	ACM/BR/2016					subtype: 1i	
+LT631725.1	12196	Bovine viral diarrhea virus 1	Italy	2007	Italy:Umbria, Perugia	Bos taurus	UM/126/07	UM/126/07	1h				
+KT943518.1	12219	Bovine viral diarrhea virus 1	China	Jan-2012	China	dairy cows (Holstein)		BJ1201				genotype: 1d	
+KU159365.1	12220	Bovine viral diarrhea virus 1	USA	2015	USA	cattle	USII-S15						
+KR029825.1	12217	Bovine viral diarrhea virus 1	Egypt	2014	Egypt	bovine		Egy/Ismailia/2014				genotype: 1b	
+LC089876.1	12266	Bovine viral diarrhea virus 1	Japan	2006	Japan: Aichi	Bos taurus	Shitara/02/06						
+LC089875.1	12268	Bovine viral diarrhea virus 1	Japan	2001	Japan: Ishikawa	Bos taurus	IS26/01ncp						
+KU200260.1	12184	Bovine viral diarrhea virus 1	Belgium	05-Dec-2014	Belgium	Bos taurus		BE/061536/2014					
+KR866116.1	12285	Bovine viral diarrhea virus 1	China	16-Jan-2015	China	Bos taurus		SD-15				noncytopathic; genotype: 1m	
+KP313732.1	12264	Bovine viral diarrhea virus 1	Switzerland	2014	Switzerland	cattle		Carlito				subgroup: 1e	
+KP941591.1	12224	Bovine viral diarrhea virus 1	USA	30-Apr-2014	USA	calf	USMARC-55925						
+KP941590.1	12224	Bovine viral diarrhea virus 1	USA	30-Apr-2014	USA	calf	USMARC-55924						
+KP941589.1	12250	Bovine viral diarrhea virus 1	USA	30-Apr-2014	USA	calf	USMARC-55923						
+KP941588.1	12243	Bovine viral diarrhea virus 1	USA	30-Apr-2014	USA	calf	USMARC-55922						
+KP941587.1	12192	Bovine viral diarrhea virus 1	USA	30-Apr-2014	USA	calf	USMARC-55478						
+KP941586.1	12165	Bovine viral diarrhea virus 1	USA	30-Apr-2014	USA	calf	USMARC-55477						
+KP941584.1	12294	Bovine viral diarrhea virus 1	USA	30-Apr-2014	USA	calf	USMARC-53875						
+KP941583.1	12224	Bovine viral diarrhea virus 1	USA	30-Apr-2014	USA	calf	USMARC-53874						
+KP941581.1	12227	Bovine viral diarrhea virus 1	USA	30-Apr-2014	USA	calf	USMARC-51998						
+KP941592.1	12212	Bovine viral diarrhea virus 1	USA	30-Apr-2014	USA	calf	USMARC-55926						
+JN400273.1	12271	Bovine viral diarrhea virus 1	China	26-Aug-2008	China	pig		SD0803					
+KF501393.1	12276	Bovine viral diarrhea virus 1	China	2009	China	cattle	BVDV JL-1						
+KC695810.1	12111	Bovine viral diarrhea virus 1	China	Dec-2010	China	Camelus bactrianus		camel-6				genotype: 1q	
+KJ689448.1	12218	Bovine viral diarrhea virus 1	China	06-Apr-2012	China	cattle		GX4				genotype: 1b	
+KJ620017.1	12264	Bovine viral diarrhea virus 1	Brazil		Brazil			IBSP4ncp				biotype: non-cytopathic; genotype: 1	
+KJ541471.1	12189	Bovine viral diarrhea virus 1	China	Dec-2013	China	bovine		GS5				subtype: 1a	
+KF896608.1	12193	Bovine viral diarrhea virus 1	Australia	Dec-2012	Australia	bovine		Bega-like				genotype: 1c	
+KF772785.1	12265	Bovine viral diarrhea virus 1	China	10-Mar-2013	China	cattle		CC13B				genotype: I	
+KC963967.1	12301	Bovine viral diarrhea virus 1	South Korea	2012	South Korea	cattle		12F004				genotype: 1b	
+KC757383.1	12267	Bovine viral diarrhea virus 1	South Korea	2010	South Korea	cattle		10JJ-SKR				genotype: 1d	
+KC853441.1	12355	Bovine viral diarrhea virus 1	Switzerland	1993	Switzerland	bovine		SuwaCp				sub-genotype k; cytopathogenic; genotype: 1	
+KC853440.1	12271	Bovine viral diarrhea virus 1	Switzerland	1993	Switzerland	bovine		SuwaNcp				sub-genotype k; non-cytopathogenic; genotype: 1	
+KC695814.1	12276	Bovine viral diarrhea virus 1	USA	Dec-2011	USA	bovine		Av69 VEDEVAC				genotype: 1b	
+JX419398.1	12064	Bovine viral diarrhea virus 1	Japan	01-Oct-2008	Japan							RK13/END+	
+JX419397.1	12064	Bovine viral diarrhea virus 1	Japan	01-Oct-2008	Japan							RK13/END- strain	
+HV932180.1	12573	Bovine viral diarrhea virus 1											
+JQ799141.1	12214	Bovine viral diarrhea virus 1	China	31-Dec-2010	China: Sichuan	yak	M31182						
+JQ418634.1	11697	Bovine viral diarrhea virus 1	South Korea		South Korea	cattle		08GB45-2				genotype: 1b	
+JQ418633.1	11733	Bovine viral diarrhea virus 1	South Korea		South Korea	cattle		08GB44-1				genotype: 1a	
+HV302650.1	12332	Bovine viral diarrhea virus 1											
+U86600.1	12267	Bovine viral diarrhea virus 1					ILLNC					ILLNC is the noncytopathic isolate from a pair of BVDV isolates from an animal with mucosal disease	
+AF041040.1	12260	Bovine viral diarrhea virus 1					Oregon						
+AF268278.1	12734	Bovine viral diarrhea virus 1											
+HC025131.1	12573	Bovine viral diarrhea virus 1											
+DQ088995.2	12230	Bovine viral diarrhea virus 1	Argentina		Argentina		Singer_Arg	Singer					
+EF101530.1	12248	Bovine viral diarrhea virus 1	Germany		Germany		KE9					biotype: ncp	
+E01149.1	12492	Bovine viral diarrhea virus 1											
+DD122170.1	12332	Bovine viral diarrhea virus 1											
+CS114709.1	12573	Bovine viral diarrhea virus 1					NADL						
+AJ133739.1	12308	Bovine viral diarrhea virus 1	USA		USA		type 1	non-cytopathic NADL					
+AJ133738.1	12578	Bovine viral diarrhea virus 1	USA		USA		type 1	NADL					
+CQ867015.1	12573	Bovine viral diarrhea virus 1											
+AX741975.1	12332	Bovine viral diarrhea virus 1											

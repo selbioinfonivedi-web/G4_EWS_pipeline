@@ -1,0 +1,390 @@
+accession	lineage_raw	lineage_normalized	country	passed	completeness_fraction	n_content_fraction	reasons_failed
+PX924419.1	China	China	China	True	0.9868	0.0	
+PX924418.1	China	China	China	True	0.9692	0.0	
+PZ545515.1	China	China	China	True	0.9656	0.0	
+PZ545514.1	China	China	China	True	0.967	0.0	
+PZ545513.1	China	China	China	True	0.9691	0.0	
+BK071688.1				False	0.9717	0.0	collection date missing year-level precision
+PZ377092.1	China	China	China	True	0.9675	0.0	
+PZ458627.1	Switzerland	Switzerland	Switzerland	True	0.9548	0.0017	
+PZ458626.1	Switzerland	Switzerland	Switzerland	True	0.9539	0.0013	
+PZ458625.1	Switzerland	Switzerland	Switzerland	True	0.9593	0.0317	
+PZ458624.1	Switzerland	Switzerland	Switzerland	True	0.9407	0.0021	
+PZ458623.1	Switzerland	Switzerland	Switzerland	True	0.9533	0.0068	
+PZ458622.1	Switzerland	Switzerland	Switzerland	False	0.9293	0.1482	N-content 14.8% above maximum 5%
+PZ458621.1	Switzerland	Switzerland	Switzerland	False	0.9462	0.0957	N-content 9.6% above maximum 5%
+PZ458620.1	Switzerland	Switzerland	Switzerland	True	0.9508	0.0089	
+PZ458619.1	Switzerland	Switzerland	Switzerland	False	0.9583	0.3275	N-content 32.7% above maximum 5%
+PZ458618.1	Switzerland	Switzerland	Switzerland	False	0.9306	0.3469	N-content 34.7% above maximum 5%
+PZ458617.1	Switzerland	Switzerland	Switzerland	True	0.9511	0.0003	
+PZ458616.1	Switzerland	Switzerland	Switzerland	True	0.9512	0.0004	
+PZ458615.1	Switzerland	Switzerland	Switzerland	False	0.9382	0.1612	N-content 16.1% above maximum 5%
+PZ458614.1	Switzerland	Switzerland	Switzerland	True	0.9502	0.0017	
+PZ458613.1	Switzerland	Switzerland	Switzerland	True	0.9531	0.0153	
+PZ458612.1	Switzerland	Switzerland	Switzerland	False	0.9384	0.0793	N-content 7.9% above maximum 5%
+PZ458611.1	Switzerland	Switzerland	Switzerland	True	0.9524	0.0019	
+PZ458610.1	Switzerland	Switzerland	Switzerland	True	0.9642	0.0015	
+PX868708.1	United Kingdom	United Kingdom	United Kingdom	True	0.9595	0.0005	
+PX868707.1	United Kingdom	United Kingdom	United Kingdom	True	0.9655	0.0016	
+PX868706.1	United Kingdom	United Kingdom	United Kingdom	True	0.9638	0.0012	
+PX868705.1	United Kingdom	United Kingdom	United Kingdom	True	0.9705	0.0003	
+PX868704.1	United Kingdom	United Kingdom	United Kingdom	True	0.9626	0.0002	
+PZ146426.1	China	China	China	True	0.974	0.0	
+PX619761.1	USA	USA	USA	True	0.9769	0.0	
+PZ196496.1	China	China	China	True	0.9694	0.0	
+PZ179917.1	China	China	China	True	0.937	0.0	
+PZ345903.1	China	China	China	True	0.9715	0.0	
+PX999910.1	China	China	China	True	0.9709	0.0	
+PX556467.1				True	0.9644	0.0	
+PX684447.1	China	China	China	True	0.9649	0.0	
+PX942062.1	China	China	China	True	0.9708	0.0	
+PX941965.1	China	China	China	True	0.9695	0.0	
+PX941914.1	China	China	China	True	0.9705	0.0	
+PX941744.1	China	China	China	True	0.9717	0.0	
+PX552531.1	China	China	China	True	0.9814	0.0	
+PV554205.1	Hungary	Hungary	Hungary	True	0.9621	0.0	
+PX529693.1	USA	USA	USA	True	0.9707	0.0	
+PX409525.1	China	China	China	True	0.9719	0.0	
+PQ382802.1	China	China	China	True	0.9757	0.0	
+PX423613.1	China	China	China	True	0.9651	0.0	
+PV426615.1	Taiwan	Taiwan	Taiwan	True	0.9709	0.0	
+PX445908.1	China	China	China	True	0.9674	0.0	
+PV346716.1	Senegal	Senegal	Senegal	True	0.9595	0.0415	
+PV346715.1	Senegal	Senegal	Senegal	True	0.9595	0.0394	
+PV346714.1	Senegal	Senegal	Senegal	True	0.9595	0.0391	
+PV346713.1	Senegal	Senegal	Senegal	True	0.9595	0.0364	
+PV346712.1	Senegal	Senegal	Senegal	True	0.9595	0.0343	
+PV346711.1	Senegal	Senegal	Senegal	True	0.9595	0.0374	
+PV346710.1	Senegal	Senegal	Senegal	True	0.9595	0.0387	
+PV346709.1	Senegal	Senegal	Senegal	True	0.9595	0.0382	
+PV346708.1	Senegal	Senegal	Senegal	True	0.9595	0.035	
+PV346707.1	Senegal	Senegal	Senegal	True	0.9595	0.0369	
+PV346706.1	Senegal	Senegal	Senegal	True	0.9595	0.0362	
+PV346698.1	Senegal	Senegal	Senegal	True	0.9596	0.0344	
+PX275359.1	New Zealand	New Zealand	New Zealand	True	0.9792	0.0	
+PX275358.1	New Zealand	New Zealand	New Zealand	True	1.0003	0.0	
+PV945812.1	China	China	China	True	0.9647	0.0	
+PV945811.1	China	China	China	True	0.9755	0.0	
+PQ816256.1	China	China	China	True	0.9715	0.0	
+PV883047.1	China	China	China	True	0.976	0.0	
+PV806860.1	China	China	China	True	0.9622	0.0	
+PV626410.1	USA	USA	USA	True	0.9766	0.0	
+PV626409.1	USA	USA	USA	True	0.9746	0.0	
+PV626408.1	USA	USA	USA	True	0.9625	0.0	
+PV626407.1	USA	USA	USA	True	0.9759	0.0	
+PV626406.1	USA	USA	USA	True	1.0172	0.0	
+PV626405.1	USA	USA	USA	True	0.9581	0.0	
+PV626404.1	USA	USA	USA	True	0.978	0.0002	
+PV626403.1	USA	USA	USA	True	0.9712	0.0	
+PV626402.1	USA	USA	USA	True	0.9376	0.0001	
+PV626401.1	USA	USA	USA	True	0.939	0.0007	
+PV626400.1	USA	USA	USA	True	0.9397	0.0003	
+PV626399.1	USA	USA	USA	True	0.9431	0.0003	
+PV626398.1	USA	USA	USA	True	0.9745	0.0002	
+PV626397.1	USA	USA	USA	True	0.9444	0.0007	
+PV626396.1	USA	USA	USA	True	0.9782	0.0002	
+PV626395.1	USA	USA	USA	True	0.9788	0.0002	
+PV626394.1	USA	USA	USA	True	0.9749	0.0002	
+PV626393.1	USA	USA	USA	True	0.9787	0.0	
+PV626392.1	USA	USA	USA	True	0.9749	0.0	
+PV626391.1	USA	USA	USA	True	0.9905	0.0032	
+PV626390.1	USA	USA	USA	True	0.9749	0.0	
+PV626389.1	USA	USA	USA	True	0.9816	0.0002	
+PV626388.1	USA	USA	USA	True	0.9791	0.0	
+PV626387.1	USA	USA	USA	True	0.968	0.0002	
+PV626386.1	USA	USA	USA	True	0.978	0.0	
+PV626385.1	USA	USA	USA	True	0.9314	0.0003	
+PV626384.1	USA	USA	USA	True	1.0	0.0	
+PV626383.1	USA	USA	USA	True	0.939	0.0001	
+PV626382.1	USA	USA	USA	True	0.9745	0.0001	
+PV626381.1	USA	USA	USA	True	0.9338	0.0001	
+PV626380.1	USA	USA	USA	True	0.9842	0.0	
+PV626379.1	USA	USA	USA	True	0.9687	0.0	
+PV626378.1	USA	USA	USA	True	0.969	0.0001	
+PV626377.1	USA	USA	USA	True	0.9965	0.0	
+PV626376.1	USA	USA	USA	True	0.9765	0.0004	
+PV626375.1	USA	USA	USA	True	0.9756	0.0	
+PV626374.1	USA	USA	USA	True	0.9791	0.0	
+PV626373.1	USA	USA	USA	True	0.9791	0.0	
+PV626372.1	USA	USA	USA	True	0.9707	0.0001	
+PV626371.1	USA	USA	USA	True	0.9574	0.0	
+PV626370.1	USA	USA	USA	True	0.9638	0.0	
+PV626368.1	USA	USA	USA	True	0.9736	0.0	
+PV626367.1	USA	USA	USA	True	0.9711	0.0	
+PV626366.1	USA	USA	USA	True	0.9676	0.0	
+PV626365.1	USA	USA	USA	True	0.9706	0.0	
+PV626364.1	USA	USA	USA	True	0.9714	0.0	
+PV626363.1	USA	USA	USA	True	0.9691	0.0	
+PV626362.1	USA	USA	USA	True	0.9739	0.0	
+PV626361.1	USA	USA	USA	True	0.9784	0.0	
+PV626360.1	USA	USA	USA	True	0.9722	0.0	
+PV626359.1	USA	USA	USA	False	0.9787	0.0001	collection date missing year-level precision
+PV626358.1	USA	USA	USA	True	0.9791	0.0	
+PV626357.1	USA	USA	USA	True	0.9717	0.0011	
+PV626356.1	USA	USA	USA	True	0.9829	0.0001	
+PV626355.1	USA	USA	USA	False	0.9686	0.0	collection date missing year-level precision
+PV626354.1	USA	USA	USA	True	0.9711	0.0	
+PV626353.1	USA	USA	USA	True	0.9771	0.0002	
+PV626352.1	USA	USA	USA	True	0.9691	0.0	
+PV626351.1	USA	USA	USA	True	0.9776	0.0002	
+PV626350.1	USA	USA	USA	True	0.9784	0.0002	
+PV626349.1	USA	USA	USA	True	0.9777	0.0001	
+PV626348.1	USA	USA	USA	True	0.9776	0.0	
+PV626347.1	USA	USA	USA	True	0.9788	0.0	
+PV626346.1	USA	USA	USA	True	0.9687	0.0	
+PV626345.1	USA	USA	USA	True	0.9784	0.0	
+PV626344.1	USA	USA	USA	True	0.9764	0.0	
+PV626343.1	USA	USA	USA	True	0.9727	0.0	
+PV554204.1	Hungary	Hungary	Hungary	True	0.9687	0.0	
+PV554203.1	Hungary	Hungary	Hungary	True	0.9747	0.0	
+PV554202.1	Hungary	Hungary	Hungary	True	0.9648	0.0	
+PV554201.1	Hungary	Hungary	Hungary	True	0.9714	0.0	
+PV578941.1	Australia	Australia	Australia	True	0.9787	0.0	
+PV363049.1	China	China	China	True	0.9729	0.0	
+PQ782221.1	China	China	China	True	0.9695	0.0	
+PV247157.1	China	China	China	True	0.9443	0.0	
+PV168123.1	China	China	China	True	1.0045	0.0	
+PV168122.1	China	China	China	True	0.9918	0.0002	
+PV208007.1	China	China	China	True	0.958	0.0	
+PV208006.1	China	China	China	True	0.9958	0.0	
+PV208002.1	China	China	China	True	0.9644	0.0	
+PV208001.1	China	China	China	True	0.9741	0.0	
+PV208000.1	China	China	China	True	0.961	0.0	
+PV207999.1	China	China	China	True	0.966	0.0	
+PV207998.1	China	China	China	True	0.959	0.0	
+PV207997.1	China	China	China	True	0.966	0.0	
+PV207996.1	China	China	China	True	0.9497	0.0	
+PV207995.1	China	China	China	True	0.9812	0.0	
+PV207994.1	China	China	China	True	1.0019	0.0	
+PV038020.1	China	China	China	True	0.964	0.0	
+PQ782226.1	China	China	China	True	0.9718	0.0	
+PQ782225.1	China	China	China	True	0.9685	0.0	
+PQ782224.1	China	China	China	True	0.9685	0.0	
+PQ782223.1	China	China	China	True	0.9717	0.0	
+PQ782222.1	China	China	China	True	0.9683	0.0002	
+PQ613798.1	USA	USA	USA	True	0.9703	0.0	
+PQ613797.1	USA	USA	USA	False	0.9703	0.0	collection date missing year-level precision
+PQ613796.1	USA	USA	USA	False	0.9703	0.0	collection date missing year-level precision
+PQ613795.1	USA	USA	USA	False	0.9703	0.0	collection date missing year-level precision
+PQ613794.1	USA	USA	USA	False	0.9703	0.0	collection date missing year-level precision
+PQ613793.1	USA	USA	USA	True	0.9772	0.0	
+PQ613792.1	USA	USA	USA	False	0.9772	0.0	collection date missing year-level precision
+PQ613791.1	USA	USA	USA	False	0.9772	0.0	collection date missing year-level precision
+PQ613790.1	USA	USA	USA	False	0.9772	0.0	collection date missing year-level precision
+PQ613789.1	USA	USA	USA	False	0.9772	0.0	collection date missing year-level precision
+PQ613788.1	USA	USA	USA	True	0.9655	0.0	
+PQ613787.1	USA	USA	USA	False	0.9655	0.0	collection date missing year-level precision
+PQ613786.1	USA	USA	USA	False	0.9655	0.0	collection date missing year-level precision
+PQ613785.1	USA	USA	USA	False	0.9655	0.0	collection date missing year-level precision
+PQ613784.1	USA	USA	USA	False	0.9655	0.0	collection date missing year-level precision
+PQ613783.1	USA	USA	USA	True	0.9629	0.0	
+PQ613782.1	USA	USA	USA	False	0.9629	0.0	collection date missing year-level precision
+PQ613781.1	USA	USA	USA	False	0.9629	0.0	collection date missing year-level precision
+PQ613780.1	USA	USA	USA	False	0.9629	0.0	collection date missing year-level precision
+PQ613779.1	USA	USA	USA	True	0.9629	0.0	
+PQ613778.1	USA	USA	USA	False	0.9629	0.0	collection date missing year-level precision
+PQ476186.1	China	China	China	True	0.9635	0.0002	
+PP992316.2	China	China	China	True	0.9774	0.0	
+ON337882.1	China	China	China	True	0.9763	0.0	
+PP920639.1	China	China	China	True	0.9717	0.0	
+PP856402.1	China	China	China	True	0.976	0.0	
+PP856401.1	China	China	China	True	0.9722	0.0	
+PP856400.1	China	China	China	True	0.9647	0.0	
+PP856399.1	China	China	China	True	0.964	0.0	
+PP856398.1	China	China	China	True	0.94	0.0	
+PP770551.1	China	China	China	True	0.9753	0.0	
+PP706246.1	China	China	China	True	0.9899	0.0	
+PP680566.1	China	China	China	True	0.9729	0.0	
+PP277983.1	China	China	China	True	0.9683	0.0	
+OP649599.1	South Korea	South Korea	South Korea	True	0.9633	0.0	
+OR611923.3	Taiwan	Taiwan	Taiwan	True	0.9734	0.0	
+AF220247.2				False	0.9325	0.0	collection date missing year-level precision
+ON676187.1	South Korea	South Korea	South Korea	True	0.9303	0.0	
+ON676186.1	South Korea	South Korea	South Korea	True	0.9303	0.0	
+OR753412.1	China	China	China	True	0.9761	0.0	
+OR683432.1	South Korea	South Korea	South Korea	True	0.9788	0.0	
+OR670331.1	South Korea	South Korea	South Korea	True	0.9303	0.0	
+OR482980.1	China	China	China	True	0.9742	0.0	
+OR620203.1	Uruguay	Uruguay	Uruguay	True	0.9714	0.0	
+OR620202.1	Uruguay	Uruguay	Uruguay	True	0.9766	0.0004	
+ON732849.1	China	China	China	True	0.9778	0.0	
+OQ784258.1	Russia	Russia	Russia	True	0.9519	0.0	
+OR004813.1	China	China	China	True	0.9574	0.0	
+OR004812.1	China	China	China	True	0.9545	0.0	
+OR004811.1	China	China	China	True	0.9574	0.0	
+OR004810.1	China	China	China	True	0.955	0.0	
+OR004809.1	China	China	China	True	0.9575	0.0	
+OR004808.1	China	China	China	True	0.9543	0.0	
+OR004807.1	China	China	China	True	0.9574	0.0	
+OR004806.1	China	China	China	True	0.955	0.0	
+OR004805.1	China	China	China	True	0.9574	0.0	
+OP661170.1	China	China	China	True	0.9714	0.0	
+OP548503.1	USA	USA	USA	False	0.9758	0.0	collection date missing year-level precision
+OQ348281.1	Australia	Australia	Australia	True	0.9596	0.0322	
+OQ348280.1	Australia	Australia	Australia	True	0.9339	0.0106	
+ON624287.1	China	China	China	True	0.9734	0.0	
+ON624286.1	China	China	China	True	0.9726	0.0	
+ON624285.1	China	China	China	True	0.9905	0.0	
+ON411193.1	China	China	China	True	0.9705	0.0	
+ON411192.1	China	China	China	True	0.9649	0.0	
+ON411191.1	China	China	China	True	0.9696	0.0	
+ON165518.1	China	China	China	True	0.9716	0.0	
+ON165517.1	China	China	China	True	0.9702	0.0	
+ON098979.1	China	China	China	True	0.9663	0.0	
+ON901785.1	China	China	China	True	0.9668	0.0	
+ON901784.1	China	China	China	True	0.9695	0.0	
+ON901783.1	China	China	China	True	0.9788	0.0	
+LC727648.1	Japan	Japan	Japan	True	0.969	0.0	
+LC727647.1	Japan	Japan	Japan	True	0.973	0.0	
+LC727646.1	Japan	Japan	Japan	True	0.9678	0.0	
+LC727645.1	Japan	Japan	Japan	True	0.9689	0.0	
+LC727644.1	Japan	Japan	Japan	True	0.9637	0.0	
+MZ188972.1	China	China	China	True	0.9715	0.0	
+MZ442301.1				False	0.9676	0.0	collection date missing year-level precision
+MW732739.1	USA	USA	USA	True	0.952	0.0	
+MW732738.1	USA	USA	USA	True	0.9605	0.0003	
+MW713362.1	USA	USA	USA	True	0.9792	0.0	
+MW713361.1	USA	USA	USA	True	0.9334	0.0	
+MW655632.1	Switzerland	Switzerland	Switzerland	True	0.9687	0.0001	
+MW655631.1	Switzerland	Switzerland	Switzerland	True	0.9731	0.0	
+MW655630.1	Switzerland	Switzerland	Switzerland	True	0.9733	0.0	
+MW655629.1	Switzerland	Switzerland	Switzerland	True	0.9718	0.0	
+MW655628.1	Switzerland	Switzerland	Switzerland	True	0.9742	0.0001	
+MW655627.1	Switzerland	Switzerland	Switzerland	True	0.9723	0.0	
+MW655626.1	Switzerland	Switzerland	Switzerland	True	0.9726	0.0	
+MW655625.1	Switzerland	Switzerland	Switzerland	True	0.973	0.0	
+MW250803.1	United Kingdom	United Kingdom	United Kingdom	True	0.9762	0.0	
+MW250802.1	United Kingdom	United Kingdom	United Kingdom	True	0.9732	0.0003	
+MW250801.1	United Kingdom	United Kingdom	United Kingdom	True	0.975	0.0	
+MW250800.1	United Kingdom	United Kingdom	United Kingdom	True	0.9749	0.0	
+MW250799.1	United Kingdom	United Kingdom	United Kingdom	True	0.9788	0.0	
+MW250798.1	United Kingdom	United Kingdom	United Kingdom	True	0.9788	0.0	
+MW250797.1	United Kingdom	United Kingdom	United Kingdom	True	0.9762	0.0	
+MW250796.1	United Kingdom	United Kingdom	United Kingdom	True	0.9761	0.0	
+MW054940.1	Italy	Italy	Italy	True	0.9728	0.0	
+MW054939.1	Italy	Italy	Italy	True	0.9723	0.0	
+MW054938.1	Italy	Italy	Italy	True	0.9721	0.0	
+MW054937.1	Italy	Italy	Italy	True	0.9714	0.0	
+MW054936.1	Italy	Italy	Italy	True	0.9685	0.0	
+MW054935.1	Italy	Italy	Italy	True	0.975	0.0	
+MW054934.1	Italy	Italy	Italy	True	0.974	0.0	
+MW054933.1	Italy	Italy	Italy	True	0.973	0.0001	
+MW528225.1	Germany	Germany	Germany	True	0.9507	0.0465	
+MW528224.1	Germany	Germany	Germany	False	0.9507	0.0507	N-content 5.1% above maximum 5%
+MW528233.1	Germany	Germany	Germany	True	0.965	0.0009	
+MW528232.1	Germany	Germany	Germany	True	0.965	0.001	
+MW528231.1	Germany	Germany	Germany	True	0.965	0.0004	
+MW528230.1	Germany	Germany	Germany	True	0.965	0.0004	
+MW528229.1	Germany	Germany	Germany	True	0.965	0.0005	
+MW528228.1	Germany	Germany	Germany	True	0.965	0.0005	
+MW528227.1	Germany	Germany	Germany	True	0.9596	0.0007	
+MW528226.1	Germany	Germany	Germany	True	0.9736	0.0007	
+MT654137.1	USA	USA	USA	True	0.9782	0.0	
+MW014288.1	China	China	China	True	0.9715	0.0	
+MW014287.1	China	China	China	True	0.9715	0.0	
+MW014286.1	China	China	China	True	0.9303	0.0	
+MT002667.1	USA	USA	USA	False	0.9746	0.0	collection date missing year-level precision
+MN623291.1	China	China	China	True	0.9629	0.0	
+LR760748.1				False	0.978	0.0	collection date missing year-level precision
+MT079816.1	China	China	China	True	0.9765	0.0	
+MH379234.1	USA	USA	USA	True	0.9301	0.0	
+MH379233.1	USA	USA	USA	True	0.9301	0.0	
+MH379232.1	USA	USA	USA	True	0.9301	0.0	
+MH379231.1	USA	USA	USA	True	0.9301	0.0003	
+MH379230.1	USA	USA	USA	True	0.9301	0.0	
+MH379229.1	USA	USA	USA	True	0.9301	0.0	
+MH379228.1	USA	USA	USA	True	0.9301	0.0	
+MH379227.1	USA	USA	USA	True	0.9301	0.0	
+MH379226.1	USA	USA	USA	True	0.9301	0.0	
+MH379225.1	USA	USA	USA	True	0.9301	0.0003	
+MH379224.1	USA	USA	USA	True	0.9301	0.0001	
+MH379223.1	USA	USA	USA	True	0.9301	0.0	
+MH379222.1	USA	USA	USA	True	0.9301	0.0	
+MH379221.1	USA	USA	USA	True	0.9301	0.0	
+MN188074.1	USA	USA	USA	True	0.9721	0.0	
+MN188073.1	USA	USA	USA	True	0.9764	0.0001	
+KY849592.1	Slovenia	Slovenia	Slovenia	True	0.9736	0.0	
+KX987157.1	Slovenia	Slovenia	Slovenia	True	0.975	0.0	
+LR699803.1				False	0.9563	0.0007	collection date missing year-level precision
+LR699802.1				False	0.9578	0.0006	collection date missing year-level precision
+LR699801.1				False	0.9578	0.0003	collection date missing year-level precision
+LR699800.1				False	0.978	0.0	collection date missing year-level precision
+LR699799.1				False	0.9777	0.0	collection date missing year-level precision
+MK102095.1	China	China	China	True	0.976	0.0001	
+MH899945.1	Slovenia	Slovenia	Slovenia	True	0.9677	0.0001	
+MH899944.1	Slovenia	Slovenia	Slovenia	True	0.978	0.0	
+MH899943.1	Slovenia	Slovenia	Slovenia	True	0.9742	0.0	
+MH899942.1	Slovenia	Slovenia	Slovenia	True	0.9687	0.0	
+MH899941.1	Slovenia	Slovenia	Slovenia	True	0.9699	0.0	
+MH133206.1	China	China	China	False	0.9785	0.0	collection date missing year-level precision
+MH231153.1	USA	USA	USA	True	0.9785	0.0	
+MH166806.1	China	China	China	True	0.9697	0.0	
+NC_001461.1				False	1.0	0.0	collection date missing year-level precision
+KX577637.1	Slovenia	Slovenia	Slovenia	True	0.9749	0.0	
+LC068605.1				False	0.9783	0.0	collection date missing year-level precision
+LC068604.1				False	0.9783	0.0	collection date missing year-level precision
+MH379638.1	United Kingdom	United Kingdom	United Kingdom	True	0.9697	0.0	
+LT968777.1				False	0.9723	0.0	collection date missing year-level precision
+LT907992.1				False	0.9749	0.0011	collection date missing year-level precision
+LT907991.1				False	1.0086	0.0	collection date missing year-level precision
+LT837585.1				True	0.9779	0.0	
+LT797813.1				False	0.9675	0.0	collection date missing year-level precision
+AB078950.1				False	0.9788	0.0	collection date missing year-level precision
+MF172980.1	China	China	China	True	0.9298	0.0	
+MF166858.1	China	China	China	True	0.9747	0.0	
+MF693403.1	China	China	China	True	0.9686	0.0	
+MF278652.1	China	China	China	True	0.9303	0.0	
+MF278651.1	China	China	China	True	0.9339	0.0	
+KX857724.1	Brazil	Brazil	Brazil	True	0.9728	0.0	
+LT631725.1	Italy	Italy	Italy	True	0.97	0.0	
+KT943518.1	China	China	China	True	0.9718	0.0	
+KU159365.1	USA	USA	USA	True	0.9719	0.0	
+KR029825.1	Egypt	Egypt	Egypt	True	0.9717	0.0	
+LC089876.1	Japan	Japan	Japan	True	0.9756	0.0	
+LC089875.1	Japan	Japan	Japan	True	0.9757	0.0	
+KU200260.1	Belgium	Belgium	Belgium	True	0.9691	0.0078	
+KR866116.1	China	China	China	True	0.9771	0.0	
+KP313732.1	Switzerland	Switzerland	Switzerland	True	0.9754	0.0001	
+KP941591.1	USA	USA	USA	True	0.9722	0.0003	
+KP941590.1	USA	USA	USA	True	0.9722	0.0001	
+KP941589.1	USA	USA	USA	True	0.9743	0.001	
+KP941588.1	USA	USA	USA	True	0.9738	0.0009	
+KP941587.1	USA	USA	USA	True	0.9697	0.0002	
+KP941586.1	USA	USA	USA	True	0.9675	0.0002	
+KP941584.1	USA	USA	USA	True	0.9778	0.0002	
+KP941583.1	USA	USA	USA	True	0.9722	0.0002	
+KP941581.1	USA	USA	USA	True	0.9725	0.0	
+KP941592.1	USA	USA	USA	True	0.9713	0.0002	
+JN400273.1	China	China	China	True	0.976	0.0001	
+KF501393.1	China	China	China	True	0.9764	0.0	
+KC695810.1	China	China	China	True	0.9633	0.0	
+KJ689448.1	China	China	China	True	0.9718	0.0	
+KJ620017.1	Brazil	Brazil	Brazil	False	0.9754	0.0	collection date missing year-level precision
+KJ541471.1	China	China	China	True	0.9695	0.0	
+KF896608.1	Australia	Australia	Australia	True	0.9698	0.0	
+KF772785.1	China	China	China	True	0.9755	0.0	
+KC963967.1	South Korea	South Korea	South Korea	True	0.9784	0.0	
+KC757383.1	South Korea	South Korea	South Korea	True	0.9757	0.0	
+KC853441.1	Switzerland	Switzerland	Switzerland	True	0.9827	0.0	
+KC853440.1	Switzerland	Switzerland	Switzerland	True	0.976	0.0	
+KC695814.1	USA	USA	USA	True	0.9764	0.0	
+JX419398.1	Japan	Japan	Japan	True	0.9595	0.0002	
+JX419397.1	Japan	Japan	Japan	True	0.9595	0.0002	
+HV932180.1				False	1.0	0.0	collection date missing year-level precision
+JQ799141.1	China	China	China	True	0.9714	0.0	
+JQ418634.1	South Korea	South Korea	South Korea	False	0.9303	0.0	collection date missing year-level precision
+JQ418633.1	South Korea	South Korea	South Korea	False	0.9332	0.0	collection date missing year-level precision
+HV302650.1				False	0.9808	0.0	collection date missing year-level precision
+U86600.1				False	0.9757	0.0	collection date missing year-level precision
+AF041040.1				False	0.9751	0.0	collection date missing year-level precision
+AF268278.1				False	1.0128	0.0001	collection date missing year-level precision
+HC025131.1				False	1.0	0.0	collection date missing year-level precision
+DQ088995.2	Argentina	Argentina	Argentina	False	0.9727	0.0	collection date missing year-level precision
+EF101530.1	Germany	Germany	Germany	False	0.9742	0.0	collection date missing year-level precision
+E01149.1				False	0.9936	0.0	collection date missing year-level precision
+DD122170.1				False	0.9808	0.0	collection date missing year-level precision
+CS114709.1				False	1.0	0.0	collection date missing year-level precision
+AJ133739.1	USA	USA	USA	False	0.9789	0.0	collection date missing year-level precision
+AJ133738.1	USA	USA	USA	False	1.0004	0.0	collection date missing year-level precision
+CQ867015.1				False	1.0	0.0	collection date missing year-level precision
+AX741975.1				False	0.9808	0.0	collection date missing year-level precision
