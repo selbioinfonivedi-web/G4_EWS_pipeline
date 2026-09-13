@@ -592,7 +592,27 @@ def cmd_align(args: argparse.Namespace) -> int:
     from .pipeline.stage1_align import run_alignment
 
     config = _load(args)
-    qc_passed = _resolve(config, args.qc_passed, f"{config.pathogen.lower()}_qc_passed.fasta")
+    # Two naming conventions exist in the repository: `g4watch qc` writes
+    # <pathogen>_corpus_qc_passed.fasta, while the 2026 FMDV corpus was
+    # built by hand as fmdv2026_qc_passed.fasta. Resolving only one of
+    # them meant this command failed on every corpus QC had produced.
+    # Both are tried, in the order the pipeline itself produces them.
+    stem = config.pathogen.lower()
+    qc_passed = None
+    if args.qc_passed:
+        qc_passed = Path(args.qc_passed)
+    else:
+        for candidate in (f"{stem}_corpus_qc_passed.fasta", f"{stem}_qc_passed.fasta"):
+            resolved = _resolve(config, None, candidate)
+            if resolved.is_file():
+                qc_passed = resolved
+                break
+        if qc_passed is None:
+            raise ConfigError(
+                f"no QC-passed FASTA found for {config.pathogen}. Expected "
+                f"{stem}_corpus_qc_passed.fasta or {stem}_qc_passed.fasta beside the corpus "
+                "metadata. Run `g4watch qc` first, or pass --qc-passed."
+            )
     result = run_alignment(
         config,
         qc_passed_fasta=qc_passed,
