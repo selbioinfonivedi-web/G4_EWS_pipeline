@@ -36,13 +36,21 @@ EWMA need 20 baseline observations and the corpus yields 8 — so the chain
 produces scores and stops short of a warning level. See
 `docs/revision_log.md` R-21 and R-22.
 
-| Pathogen | Corpus | D.H1 verdict | Scoring |
-|---|---|---|---|
-| FMDV | 848 aligned | `INSUFFICIENT_DATA` | blocked |
-| FMDV2026 | 936 aligned | `SIGNAL_OPPOSITE_DIRECTION` | blocked |
-| EBV | 209 aligned | not run (Atlas only) | blocked |
-| FMDV2026:O | 532 aligned | `SIGNAL_OPPOSITE_DIRECTION` (stratified; cannot open the FMDV2026 gate) | blocked |
-| LSDV · PPRV · NDV · CSFV | scaffold configs | not run | blocked |
+| Pathogen | Genome | Corpus | D.H1 verdict | Scoring |
+|---|---|---|---|---|
+| FMDV | ssRNA+ 8.2 kb | 848 aligned | `INSUFFICIENT_DATA` | blocked |
+| FMDV2026 | ssRNA+ 8.2 kb | 936 aligned | `SIGNAL_OPPOSITE_DIRECTION` | blocked |
+| PPRV | ssRNA− 15.9 kb | 73 aligned | `INSUFFICIENT_DATA` | blocked |
+| CSFV | ssRNA+ 12.3 kb | 896 aligned | not yet run | blocked |
+| NDV | ssRNA− 15.2 kb | 1,583 aligned | not yet run | blocked |
+| EBV | dsDNA 172 kb | 209 aligned | not run (Atlas only) | blocked |
+| LSDV | dsDNA 150 kb | scaffold config | not run | blocked |
+| FMDV2026:O | stratified | 532 aligned | `SIGNAL_OPPOSITE_DIRECTION` (cannot open the FMDV2026 gate) | blocked |
+
+Six pathogens are provisioned across positive- and negative-sense RNA and
+dsDNA genomes, 8 kb to 172 kb. LSDV remains a scaffold: it is a ~150 kb
+poxvirus with ~156 ORFs, and `GenomeAnnotation` models a single CDS span
+(`docs/revision_log.md` R-08).
 
 ```
 $ g4watch gate-status -p fmdv2026
@@ -134,14 +142,48 @@ screen runs before phylogenetics for every pathogen.
 ## Quick start
 
 ```bash
+git clone <repository-url> G4_WATCH && cd G4_WATCH
 make install          # creates .venv and installs the package
 make vendor           # builds PhiPack from the vendored source (no network)
 make doctor           # reports which external tools are present
 
 g4watch config list
-g4watch gate-status -p fmdv
-g4watch dashboard   -p fmdv
+g4watch gate-status -p fmdv2026
 ```
+
+### The web application
+
+```bash
+.venv/bin/python -m uvicorn web.runner.app:app --host 127.0.0.1 --port 8800
+```
+
+Open <http://127.0.0.1:8800/>. **Analyses** (mode 00) is the end-to-end
+path: create an analysis, upload a FASTA, validate it, launch the
+Nextflow pipeline with a chosen profile, watch the status, read the
+results — without a terminal.
+
+Analyses persist in SQLite (`data/analyses.sqlite3`, relocatable with
+`G4WATCH_DB`), so a run survives a restart. Anything left `RUNNING` when
+the service stopped is marked `FAILED` with an explanation rather than
+left claiming to be running: statuses persist and processes do not.
+
+### Deployment
+
+```bash
+docker compose -f containers/docker-compose.yml up --build -d
+```
+
+Serves the read-only public dashboard on <http://127.0.0.1:8080>. It
+never runs the pipeline and never writes the ledger — `data/` and
+`config/` are mounted read-only.
+
+**Tools that stay on the host.** The operator console shells out to
+MAFFT, IQ-TREE 2, TreeTime, Rscript (with `ape`) and Nextflow. They are
+not in the web images by design: the dashboard does not compute. Install
+them for pipeline work, or run the pipeline under `-profile docker`,
+which uses the built images instead. `make doctor` reports what is
+present, and every stage that needs a missing tool fails loudly rather
+than skipping.
 
 Run the whole pipeline. `-profile docker` needs the images built once
 with `make containers`; `-profile conda_free` runs against the host.
@@ -169,7 +211,20 @@ nextflow run workflow/main.nf -entry ACQUISITION \
   --pathogen <name> --accession_list <accessions.txt>
 ```
 
-Individual stages are also available directly:
+Individual stages are also available directly. The full chain for a
+newly provisioned pathogen, in order:
+
+```bash
+g4watch qc             -p <name>   # Stage 1  — QC filters
+g4watch align          -p <name>   # Stage 1  — MAFFT to the reference
+g4watch recombination  -p <name>   # Stage 1.5 — PHI screen (mandatory)
+g4watch phylogenetics  -p <name>   # Stage 2  — IQ-TREE, TreeTime, rooting
+g4watch stage0         -p <name>   # Stage 0  — build the Atlas
+g4watch atlas-conservation -p <name>  # populate conservation, re-tier
+g4watch dh1            -p <name>   # Stage 4/4.5 — the gated test
+```
+
+Others:
 
 ```bash
 g4watch stage0 -p <name>          # build the Atlas
@@ -185,6 +240,38 @@ g4watch report-card -p <name>     # the 12-section card
 
 A closed gate is a **successful** run. Stage 5 reports that scoring is
 blocked, Stage 6 publishes the gate status, and the workflow exits 0.
+
+### Testing
+
+```bash
+.venv/bin/python -m pytest -q              # the whole suite
+.venv/bin/python -m pytest tests/unit -q   # unit only, no corpus needed
+.venv/bin/python -m pytest tests/web -q    # API, store, validation, GUI contracts
+.venv/bin/ruff check g4watch web tests scripts
+```
+
+Tests that need a real corpus skip themselves when one is absent, so a
+fresh clone runs the suite without downloading anything.
+
+Synthetic edge-case datasets are built by
+`scripts/python/make_synthetic_datasets.py` into `data/synthetic/`. Every
+record id there begins with `SYNTH-`: nothing in that directory is a
+biological observation, and no result from it may be reported as one.
+
+### Debugging the pipeline directly
+
+When the console is not the problem, run Nextflow itself:
+
+```bash
+nextflow run workflow/main.nf -profile conda_free --pathogen fmdv2026 \
+  --atlas       data/atlases/G4_Reference_Atlas_v2.0.fmdv2026.tsv \
+  --alignment   data/reference_genomes/fmdv/corpus_2026/aligned/fmdv2026_qc_passed_aligned_to_ref.fasta \
+  --rooted_tree data/reference_genomes/fmdv/corpus_2026/phylogenetics/fmdv2026_rooted_div.nwk \
+  --skip_qc -resume
+```
+
+`-resume` reuses cached task results. `results/pipeline_info/` holds the
+trace, timeline and DAG for the run.
 
 ### Exit codes
 
