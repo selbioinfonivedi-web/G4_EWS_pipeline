@@ -1042,6 +1042,61 @@ proceeded into DH1_GATE.
 
 ---
 
+## R-26 — The per-lineage floor was blocked by the lineage FIELD, not the threshold
+
+**Design said** (Appendix C): at least 20 sequences in every lineage,
+because a lineage sampled fewer times than that cannot support a
+clade-level comparison.
+
+**What happened on three new pathogens.** None of PPRV, CSFV or NDV
+records a `/genotype` qualifier on **any** sequence — lineage is assigned
+in the literature from specific genes and simply is not in the GenBank
+source features. So `country` becomes the lineage field, as for EBV, and
+the floor then reads a sampling artefact as a biological grouping. NDV
+holds 1,798 sequences across 64 countries, **fifteen of them over the
+floor**, and a single sequence from one country halted the entire corpus.
+PPRV and CSFV failed identically.
+
+That is the floor working correctly. Twenty sequences per lineage is the
+right demand; "one genome from Oman" is not a lineage.
+
+**Implementation does:** `corpus.min_lineage_size` drops lineages below a
+declared threshold before any statistic is computed.
+
+**A RULE, not a list of names.** Writing `exclude_lineages: [Oman, Kenya,
+…]` would have worked today and been wrong twice over: the list goes
+stale the moment the corpus is re-fetched, and choosing which names to
+write down after seeing the corpus is the selection-on-outcome R-12's
+pre-specification exists to prevent. A threshold is a property of
+sampling, knowable before any test runs, and it lives in the config so a
+run stays fully described by (commit, config, accession list).
+
+**Applied in BOTH `load_samples` and `compute_corpus_minimum_data_stats`,**
+for the reason R-15 exists. That entry records the same shape of defect:
+`exclude_lineages` was honoured by the loader and not by the floor, so an
+excluded lineage was still counted against it and halted every locus
+while the lineages that mattered cleared it comfortably. One rule with
+two code paths and only one of them knowing.
+
+**Measured effect:**
+
+    NDV    1,372 samples, 15 lineages, smallest 21   (was: halted)
+    CSFV     810 samples,  3 lineages, smallest 53   (was: halted)
+
+**Where it is deliberately NOT used.** FMDV keeps `0`: it has real
+serotypes, and dropping one for being small would discard a biological
+group rather than a sampling artefact. PPRV keeps `0` too — applying the
+rule would reduce it to a single lineage of 20 sequences, and passing a
+*per-lineage* floor with one lineage is passing it vacuously. PPRV's
+`INSUFFICIENT_DATA` stands.
+
+**Cost, recorded in each config rather than hidden:** the dropped
+sequences are real observations this analysis does not use. Any statement
+about geographic coverage must be read against the retained set, not the
+fetched one — 312 NDV sequences and 161 CSFV sequences are set aside.
+
+---
+
 ## Current pathogen status
 
 As of 2026-09-11. No pathogen has an open gate.
