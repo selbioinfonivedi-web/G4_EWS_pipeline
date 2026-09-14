@@ -38,18 +38,24 @@
       <div><h1>G4</h1><div class="sub" id="build">workstation</div></div>
     </div>
 
+    <!-- Reference accession and sampling period are still shown, but as the
+         hover title of the organism rather than as two more header columns:
+         they are looked up occasionally, not read continuously. -->
     <div class="idf"><span class="tag">Project</span><span class="v" id="id-project">untitled</span></div>
-    <div class="idf"><span class="tag">Organism</span><span class="v" id="id-organism">—</span></div>
-    <div class="idf"><span class="tag">Reference</span><span class="v" id="id-ref">—</span></div>
+    <div class="idf" id="idf-organism"><span class="tag">Organism</span><span class="v" id="id-organism">—</span></div>
     <div class="idf"><span class="tag">Genomes</span><span class="v" id="id-n">—</span></div>
-    <div class="idf"><span class="tag">Period</span><span class="v" id="id-period">—</span></div>
+    <span hidden id="id-ref">—</span><span hidden id="id-period">—</span>
     <div class="dirty" id="dirty" hidden><span class="dot"></span><span>Unsaved changes</span></div>
 
     <div class="grow">
       <div class="search" style="width:100%;max-width:360px">
         <span class="glyph">⌕</span>
         <input id="q" type="search" placeholder="Search samples, genes, mutations, lineages, files…" aria-label="Global search">
-        <select class="select scope" id="q-scope" style="width:auto;border:0;border-left:1px solid var(--edge)" aria-label="Search scope">
+        <!-- Search across everything by default. The seven narrowing scopes are
+             kept in the markup and still honoured by runSearch(), but a scope
+             selector next to an empty box is a decision asked before there is
+             anything to decide about. -->
+        <select class="select scope" id="q-scope" hidden aria-label="Search scope">
           <option value="all">All</option><option value="samples">Samples</option>
           <option value="lineages">Lineages</option><option value="loci">Loci</option>
           <option value="countries">Countries</option><option value="files">Files</option>
@@ -59,11 +65,13 @@
     </div>
 
     <div class="sysmon" id="sysmon" title="Live host telemetry"></div>
+    <!-- The skin picker moved into Help: three visual skins is a preference set
+         once, not a control worth permanent header width. The shortcuts button
+         went with it — Help already links the same sheet, and so does "?". -->
     <div class="tools">
-      <select class="select" id="skin-pick" style="width:auto;font-size:10px" title="Visual skin"><option value="forecast">FORECAST</option><option value="institute">INSTITUTE</option><option value="redesign">DARK</option></select>
+      <select class="select" id="skin-pick" hidden aria-label="Visual skin"><option value="forecast">FORECAST</option><option value="institute">INSTITUTE</option><option value="redesign">DARK</option></select>
       <button class="btn tertiary sm" id="btn-theme" title="Toggle light / dark">◐</button>
-      <button class="btn tertiary sm" id="btn-shortcuts" title="Keyboard shortcuts">⌘</button>
-      <button class="btn tertiary sm" id="btn-help" title="Help and documentation">?</button>
+      <button class="btn tertiary sm" id="btn-help" title="Help, documentation and shortcuts">?</button>
     </div>
   </header>
 

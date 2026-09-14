@@ -26,6 +26,11 @@
   height: 100vh;
 }
 
+/* With the step-by-step modes folded away the stage spine has nothing to
+   track, so its column collapses rather than standing empty. */
+body.no-spine .app { grid-template-columns: 0 minmax(0, 1fr) 330px; }
+body.no-spine .flow { display: none; }
+
 /* ═══ IDENTITY STRIP ══════════════════════════════════════════════ */
 .identity {
   grid-area: identity; display: flex; align-items: stretch;
@@ -73,6 +78,13 @@
 .mode .n { font-size: 8.5px; color: var(--ink-4); }
 .mode.on .n { color: var(--ink-3); }
 .modes .push { margin-left: auto; display: flex; align-items: center; gap: 6px; padding: 0 12px; border-left: 1px solid var(--hair); }
+
+/* The four step-by-step modes read as secondary while they are disclosed,
+   so the five that matter stay the ones the eye lands on. */
+.mode.adv { color: var(--ink-4); }
+.mode.adv:hover, .mode.adv.on { color: var(--ink-2); }
+/* the "More steps" disclosure sits in the bar without stretching to its height */
+.modes > .btn { align-self: center; margin: 0 10px; flex: none; }
 
 /* per-mode accent, drawn from the spectral workflow ramp */
 .mode[data-accent="data"].on::after      { background: var(--flow-data-active); }
@@ -216,7 +228,11 @@
 .blank { padding: 34px 20px; color: var(--ink-3); font-size: 12.5px; max-width: 62ch; line-height: 1.65; }
 .blank b { display: block; color: var(--ink); font-weight: 600; margin-bottom: 6px; }
 
-@media (max-width: 1180px) { .app { grid-template-columns: 96px minmax(0,1fr); } .context { display: none; } }
+@media (max-width: 1180px) {
+  .app { grid-template-columns: 96px minmax(0,1fr); }
+  body.no-spine .app { grid-template-columns: 0 minmax(0,1fr); }
+  .context { display: none; }
+}
 
 /* ═══ SYNTHETIC-DATA MARKER (see bioluminescence.css for the rationale) */
 .synth {

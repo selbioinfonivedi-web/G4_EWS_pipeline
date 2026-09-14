@@ -104,6 +104,22 @@ ul, ol { list-style: none; }
 .btn-group .btn + .btn { border-left: 0; }
 .btn-group .btn.primary + .btn { border-left: 1px solid var(--edge); }
 
+/* The secondary-views select is styled to sit in the toolbar as one control
+   the width of a button, rather than six more buttons. */
+.viz-more {
+  appearance: none; cursor: pointer; width: auto; margin-left: -1px;
+  background: var(--bg-panel); border: 1px solid var(--edge); color: var(--ink-3);
+  font-family: var(--mono); font-size: 9.5px; letter-spacing: .06em;
+  text-transform: uppercase; padding: 5px 22px 5px 8px;
+  background-image: linear-gradient(45deg, transparent 50%, currentColor 50%),
+                    linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position: calc(100% - 12px) calc(50% + 1px), calc(100% - 8px) calc(50% + 1px);
+  background-size: 4px 4px, 4px 4px; background-repeat: no-repeat;
+}
+.viz-more:hover { color: var(--ink); border-color: var(--ink-3); }
+.viz-more.on { background-color: var(--ink); border-color: var(--ink); color: var(--bg-panel); }
+.viz-more option { color: var(--ink); background: var(--bg-panel); text-transform: none; }
+
 /* ═══ INPUTS ══════════════════════════════════════════════════════ */
 .field { display: flex; flex-direction: column; gap: 4px; }
 .field > label { font-family: var(--mono); font-size: 9.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); display: flex; align-items: center; gap: 5px; }

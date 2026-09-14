@@ -43,7 +43,10 @@ const S = {
   env: null, commands: [], pathogens: [], pathogen: null,
   data: null, inputs: [], validations: {}, projects: [],
   project: "untitled", dirty: false,
-  mode: "input", stage: "data", ctxTab: "params",
+  // Analyses is the landing mode: it creates, uploads, validates and launches
+  // in one place, which is what the step-by-step modes do one screen at a time.
+  mode: "analyses", stage: "data", ctxTab: "params",
+  showSteps: false,
   job: null, stream: null, lines: [], lineNo: 0, logFilter: "all",
   completed: new Set(), skipped: new Set(),
   params: {
@@ -71,16 +74,24 @@ async function api(path, opts) {
 const mark = () => { S.dirty = true; $("#dirty").hidden = false; };
 
 /* ═══ MODES ═══════════════════════════════════════════════════════ */
+/* Nine modes was too many to hold in mind, and four of them —
+   Data input, Validation, Configure, Run — are the manual equivalents of
+   what Analyses now does in one place: create, upload, validate, launch.
+   They still work and are still reachable; they are just no longer the
+   first thing a reader has to read past.
+
+   Nothing is deleted. `advanced: true` only decides what the mode bar
+   shows by default. */
 const MODES = [
-  { id: "analyses",  n: "00", label: "Analyses",     accent: "data" },
-  { id: "input",     n: "01", label: "Data input",   accent: "data" },
-  { id: "validate",  n: "02", label: "Validation",   accent: "qc" },
-  { id: "configure", n: "03", label: "Configure",    accent: "genomic" },
-  { id: "run",       n: "04", label: "Run",          accent: "evolution" },
-  { id: "visualize", n: "05", label: "Visualize",    accent: "network" },
-  { id: "interpret", n: "06", label: "Interpret",    accent: "interpret" },
-  { id: "surveil",   n: "07", label: "Surveillance", accent: "evolution" },
-  { id: "report",    n: "08", label: "Report",       accent: "report" },
+  { id: "analyses",  n: "1", label: "Analyses",     accent: "data" },
+  { id: "visualize", n: "2", label: "Explore",      accent: "network" },
+  { id: "interpret", n: "3", label: "Interpret",    accent: "interpret" },
+  { id: "surveil",   n: "4", label: "Surveillance", accent: "evolution" },
+  { id: "report",    n: "5", label: "Report",       accent: "report" },
+  { id: "input",     n: "",  label: "Data input",   accent: "data",       advanced: true },
+  { id: "validate",  n: "",  label: "Validation",   accent: "qc",         advanced: true },
+  { id: "configure", n: "",  label: "Configure",    accent: "genomic",    advanced: true },
+  { id: "run",       n: "",  label: "Manual run",   accent: "evolution",  advanced: true },
 ];
 
 /* ═══ PIPELINE ════════════════════════════════════════════════════
@@ -182,7 +193,11 @@ function applySkin(skin) {
 function wireChrome() {
   const saved = (() => { try { return localStorage.getItem("g4-skin-v2"); } catch { return null; } })();
   applySkin(saved || "forecast");
-  $("#skin-pick").onchange = (e) => applySkin(e.target.value);
+  try { S.showSteps = localStorage.getItem("g4-show-steps") === "1"; } catch { /* private mode */ }
+  syncChrome();
+  renderModes();
+  const skinPick = $("#skin-pick");
+  if (skinPick) skinPick.onchange = (e) => applySkin(e.target.value);
   api("/api/provenance").then((p) => {
     $("#trust-commit").textContent = `${p.software.name} ${p.software.version} · ${p.git_commit || "no commit"}`;
   }).catch(() => {});
@@ -192,7 +207,8 @@ function wireChrome() {
     if (S.mode === "visualize") renderWork();
   };
   $("#btn-help").onclick = () => helpSheet();
-  $("#btn-shortcuts").onclick = () => shortcutsSheet();
+  const shortcutsBtn = $("#btn-shortcuts");
+  if (shortcutsBtn) shortcutsBtn.onclick = () => shortcutsSheet();
   $("#log-toggle").onclick = () => { $("#console").classList.toggle("open"); $("#log-toggle").textContent = $("#console").classList.contains("open") ? "▼ LOG" : "▲ LOG"; };
   $("#log-clear").onclick = () => { S.lines = []; S.lineNo = 0; renderLog(); };
   $("#log-save").onclick = () => download(new Blob([S.lines.map((l) => `[${l.level}] ${l.text}`).join("\n")], { type: "text/plain" }), "g4_log.txt");
@@ -204,11 +220,17 @@ function wireChrome() {
   $("#q").oninput = (e) => runSearch(e.target.value);
   addEventListener("keydown", (e) => {
     if (e.target.matches("input,textarea,select")) return;
-    const idx = "1234567".indexOf(e.key);
+    // 1-5 are the five modes the bar shows by default; the advanced four
+    // are reached through "More steps", not through a key nobody would guess.
+    const idx = "12345".indexOf(e.key);
     if (idx >= 0) setMode(MODES[idx].id);
     if (e.key === "/") { e.preventDefault(); $("#q").focus(); }
     if (e.key === "?") helpSheet();
     if (e.key === "l") $("#log-toggle").click();
+    // Zoom keys replace the ＋/− buttons that were taking up toolbar width
+    // next to a scroll gesture and a double-click that already did the job.
+    if (e.key === "+" || e.key === "=") zoomActive(1.25);
+    if (e.key === "-") zoomActive(1 / 1.25);
   });
   addEventListener("resize", debounce(() => { if (S.mode === "visualize") renderWork(); renderSpine(); }, 150));
   addEventListener("beforeunload", (e) => { if (S.dirty) { e.preventDefault(); e.returnValue = ""; } });
@@ -227,6 +249,14 @@ function renderIdentity() {
   $("#id-ref").textContent = d ? d.identity.reference : "—";
   $("#id-n").innerHTML = d ? `${d.identity.n_samples} <em>of ${d.identity.n_raw}</em>` : "—";
   $("#id-period").textContent = d?.identity.period ? d.identity.period.join("–") : "—";
+  // Those two elements are hidden in the header; their content surfaces on hover.
+  const organism = $("#idf-organism");
+  if (organism) {
+    organism.title = d
+      ? `Reference ${d.identity.reference}`
+        + (d.identity.period ? ` · sampled ${d.identity.period.join("–")}` : "")
+      : "No dataset loaded";
+  }
 }
 
 async function pollSystem() {
@@ -259,19 +289,42 @@ function renderTelemetry() {
 
 /* ═══ MODE BAR + SPINE ════════════════════════════════════════════ */
 function renderModes() {
+  // An advanced mode stays visible while you are in it, so selecting one
+  // and then having it vanish cannot happen.
+  const shown = MODES.filter((m) => !m.advanced || S.showSteps || m.id === S.mode);
   $("#modes").replaceChildren(
-    ...MODES.map((m) => el("button", {
-      class: "mode" + (m.id === S.mode ? " on" : ""), "data-accent": m.accent,
+    ...shown.map((m) => el("button", {
+      class: "mode" + (m.id === S.mode ? " on" : "") + (m.advanced ? " adv" : ""),
+      "data-accent": m.accent,
       onclick: () => setMode(m.id),
-    }, el("span", { class: "n", text: m.n }), el("span", { text: m.label }))),
+    }, m.n ? el("span", { class: "n", text: m.n }) : null, el("span", { text: m.label }))),
+    el("button", {
+      class: "btn tertiary sm",
+      title: "Data input, Validation, Configure and Manual run — the step-by-step "
+           + "equivalents of what Analyses does in one place",
+      text: S.showSteps ? "Fewer steps" : "More steps",
+      onclick: () => { S.showSteps = !S.showSteps; saveShowSteps(); syncChrome(); renderModes(); },
+    }),
     el("div", { class: "push" },
-      el("button", { class: "btn tertiary sm", text: "New", onclick: newProject }),
-      el("button", { class: "btn tertiary sm", text: "Open", onclick: openProject }),
       el("button", { class: "btn secondary sm", text: "Save", onclick: () => saveProject(false) }),
-      el("button", { class: "btn tertiary sm", text: "Save as", onclick: () => saveProject(true) }),
-      el("button", { class: "btn tertiary sm", text: "Reset", onclick: resetWorkspace }),
+      el("button", { class: "btn tertiary sm", text: "Open", onclick: openProject }),
     ),
   );
+}
+
+/* The stage spine is the map of the step-by-step path. With the steps folded
+   away it is a permanent 96px column describing a route nobody is walking, so
+   it follows the same disclosure. It is still rendered — only the column is
+   hidden — so #flow-nodes stays inspectable and drawSpineEdges stays correct
+   the moment it is shown again. */
+function syncChrome() {
+  document.body.classList.toggle("no-spine", !S.showSteps);
+  const flow = $("#flow");
+  if (flow) flow.hidden = !S.showSteps;
+  if (S.showSteps) requestAnimationFrame(drawSpineEdges);
+}
+function saveShowSteps() {
+  try { localStorage.setItem("g4-show-steps", S.showSteps ? "1" : "0"); } catch { /* private mode */ }
 }
 
 function setMode(id) {
@@ -301,10 +354,16 @@ function renderSpine() {
 
 function drawSpineEdges() {
   const flow = $("#flow"), line = $("#flow-svg");
+  // A hidden spine measures as a zero-height box, so every edge would be drawn
+  // at the same point. Nothing to draw until the column is back.
+  if (!flow || flow.hidden) return;
   const box = flow.getBoundingClientRect();
   line.setAttribute("height", flow.scrollHeight);
   line.replaceChildren();
   const nodes = [...flow.querySelectorAll(".stagenode")];
+  // Edges are drawn between stage nodes; with no nodes rendered yet there is
+  // nothing to connect, and indexing into the empty list would throw.
+  if (nodes.length < STAGES.length) return;
   const at = (i) => { const r = nodes[i].getBoundingClientRect(); return { x: 24, y: r.top - box.top + flow.scrollTop + 14 }; };
   STAGES.forEach((st, i) => {
     for (const need of st.needs) {
@@ -1061,12 +1120,18 @@ function workRun(host) {
 }
 
 /* ── 05 · VISUALIZE ─────────────────────────────────────────────── */
+/* Four views answer the questions almost every session starts with:
+   what is the tree, where are the loci, how is sampling distributed over
+   time, and what do the tracks show. The other six are real and stay one
+   click away — they were simply never all needed at once. */
 const VIZ = {
-  tree: "Phylogeny", genome: "Genome map", tracks: "Genome tracks",
-  roottotip: "Root-to-tip", ordination: "Ordination", map: "Map",
-  temporal: "Temporal", matrix: "Lineage × geography",
-  alignment: "Alignment", spectrum: "Mutation spectrum",
+  tree: "Phylogeny", genome: "Genome map", temporal: "Temporal", tracks: "Tracks",
 };
+const VIZ_MORE = {
+  roottotip: "Root-to-tip", ordination: "Ordination", map: "Map",
+  matrix: "Lineage × geography", alignment: "Alignment", spectrum: "Mutation spectrum",
+};
+const ALL_VIZ = { ...VIZ, ...VIZ_MORE };
 const CACHE = {};
 async function cached(key, url) {
   if (CACHE[key] !== undefined) return CACHE[key];
@@ -1080,29 +1145,43 @@ function unavailable(host, why) {
 
 function workVisualize(host) {
   if (!S.data) { host.append(el("p", { class: "blank" }, el("b", { text: "No dataset loaded." }), "Load a provisioned pathogen from Data input.")); return; }
-  $("#stage-title").textContent = VIZ[S.viz];
+  $("#stage-title").textContent = ALL_VIZ[S.viz];
   const tool = (id, label, title) => btn("tool" + (S.tool === id ? " on" : ""), label, () => { S.tool = id; renderWork(); }, false, title);
+
+  // The six secondary views sit in a select rather than six more buttons.
+  // It reads as one control instead of six, and it shows which one is active
+  // when the active view happens to be one of them.
+  const more = el("select", {
+    class: "viz-more",
+    title: "Further views",
+    onchange: (e) => { if (e.target.value) { S.viz = e.target.value; renderWork(); } },
+  }, el("option", { value: "", text: S.viz in VIZ_MORE ? ALL_VIZ[S.viz] : "More views…" }),
+     ...Object.entries(VIZ_MORE).map(([k, v]) => el("option", { value: k, text: v })));
+  if (S.viz in VIZ_MORE) more.classList.add("on");
 
   $("#stage-tools").replaceChildren(
     el("div", { class: "btn-group" }, ...Object.entries(VIZ).map(([k, v]) =>
       btn("tool" + (S.viz === k ? " on" : ""), v, () => { S.viz = k; renderWork(); }))),
-    el("span", { style: "width:8px" }),
+    more,
+    // A fixed gap, not a `push`: each plot appends its own controls to
+    // #stage-tools after this runs, and margin-left:auto here would throw
+    // those to the far right, away from the view buttons they belong to.
+    el("span", { style: "width:10px" }),
     el("div", { class: "btn-group" },
       tool("select", "Select", "Click a mark to filter every view"),
       tool("pan", "Pan", "Drag to move the view"),
       tool("lasso", "Lasso", "Drag a region to select many samples"),
     ),
+    // Scrolling zooms and double-click fits, so the ＋/− pair was a third way
+    // to do what two gestures already do.
     el("div", { class: "btn-group" },
-      btn("tool", "＋", () => zoomActive(1.25), false, "Zoom in (or scroll on the plot)"),
-      btn("tool", "−", () => zoomActive(1 / 1.25), false, "Zoom out"),
       btn("tool", "Fit", fitActive, false, "Fit to screen (or double-click the plot)"),
       btn("tool", "Reset", () => { clearSel(); fitActive(); }, false, "Reset view and selection"),
     ),
     el("span", { class: "mono", id: "zoom-readout",
                  style: "font-size:10px;color:var(--ink-3);min-width:38px;text-align:right", text: "1.00×" }),
     btn("tool", S.labels ? "Hide labels" : "Show labels", () => { S.labels = !S.labels; renderWork(); }),
-    btn("tool", "Full screen", () => document.documentElement.requestFullscreen?.()),
-    btn("secondary", "Export figure", exportFigure),
+    btn("secondary", "Export", exportFigure, false, "Export this figure"),
   );
 
   ({ tree: plotTree, genome: plotGenome, tracks: plotTracks, roottotip: plotRootToTip,
@@ -1122,7 +1201,7 @@ function renderRegister() {
   if (f.sample) toks.push(token(f.sample, "genome", null, () => { f.sample = null; }));
 
   $("#footbar").replaceChildren(
-    toks.length ? el("span", { class: "tag", text: "brush" }) : el("span", { class: "hint", text: "No filter — click any mark to brush every view. Shift-click a tip for its clade." }),
+    toks.length ? el("span", { class: "tag", text: "brush" }) : el("span", { class: "hint", text: "No filter — click any mark to brush every view." }),
     ...toks,
     toks.length ? el("span", { class: "token", style: "border-color:var(--ink)" }, el("b", { text: `${n} / ${S.data.samples.length}` })) : null,
     toks.length ? btn("tertiary sm", "Clear", clearSel) : null,
@@ -1949,7 +2028,9 @@ function plotGenome(host) {
   $("#stage-tools").append(
     btn("tool", "Zoom to locus", () => { if (loci[0]) { S.sel.locus = loci[0].id; renderWork(); } }),
     btn("tool", "Search position", searchPosition),
-    btn("tool", S.labels ? "Hide annotation" : "Show annotation", () => { S.labels = !S.labels; renderWork(); }),
+    // The shared "Hide labels" button already toggles S.labels, which is the
+    // same flag this view's annotation obeys; two buttons for one flag read
+    // as two settings.
   );
   const w = host.clientWidth, h = host.clientHeight;
   const M = { l: 52, r: 52, t: 36, b: 44 };
@@ -2801,12 +2882,21 @@ function helpSheet() {
       btn("secondary", "Methods", () => previewFile("docs/methods_supplement.md")),
       btn("secondary", "Usage", () => previewFile("docs/usage.md")),
       btn("tertiary", "Keyboard shortcuts", shortcutsSheet),
-      btn("tertiary", "Report issue", () => notImplemented("Issue reporting needs a tracker URL; none configured.")))));
+      btn("tertiary", "Report issue", () => notImplemented("Issue reporting needs a tracker URL; none configured."))),
+    el("div", { class: "field", style: "max-width:220px" },
+      el("label", { text: "Visual skin" }),
+      el("select", { class: "select", onchange: (e) => applySkin(e.target.value) },
+        ...[["forecast", "Forecast"], ["institute", "Institute"], ["redesign", "Dark"]].map(([v, label]) =>
+          el("option", {
+            value: v, text: label,
+            selected: document.documentElement.getAttribute("data-skin") === v,
+          }))))));
 }
 function shortcutsSheet() {
   sheet("Keyboard shortcuts", el("div", { class: "stack tight" },
-    ...[["1–7", "Switch mode"], ["/", "Focus search"], ["l", "Toggle log console"], ["?", "Help"], ["Esc", "Close panel"],
-      ["Click", "Select / brush"], ["Shift-click", "Select clade (phylogeny)"], ["Scroll", "Zoom"], ["Drag", "Pan"]]
+    ...[["1–5", "Switch mode"], ["/", "Focus search"], ["l", "Toggle log console"], ["?", "Help"], ["Esc", "Close panel"],
+      ["Click", "Select / brush"], ["Shift-click", "Select clade (phylogeny)"], ["Scroll or + / −", "Zoom"],
+      ["Drag", "Pan"], ["Double-click", "Fit to screen"]]
       .map(([k, v]) => el("div", { style: "display:flex;justify-content:space-between;gap:16px;padding:5px 0;border-bottom:1px solid var(--hair)" },
         el("span", { class: "mono", style: "font-size:11.5px", text: k }), el("span", { class: "dim", text: v })))));
 }

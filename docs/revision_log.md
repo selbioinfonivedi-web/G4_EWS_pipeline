@@ -1240,3 +1240,69 @@ IQ-TREE2 and TreeTime are not installed in this environment. The config
 records this rather than implying a result: `operational_mode: false`,
 and the gate reports `BLOCKED_NO_LEDGER_ENTRY` — an unrun gate, not a
 failed one.
+
+
+## R-27 — The workstation's default surface, and what it hides rather than removes
+
+**What was on screen before anything was loaded.** Nine modes in the mode
+bar, ten visualisation sub-views as ten toolbar buttons, a permanently
+visible ten-node stage spine, five identity fields in the header, a search
+box with an eight-option scope selector beside it, a three-option skin
+picker, and a keyboard-shortcuts button next to a Help button that already
+links the shortcuts sheet. A reader had to get past all of it to reach the
+one control that does anything on a cold start.
+
+**The four modes that were pulling their weight twice.** Data input,
+Validation, Configure and Run are the step-by-step form of what Analyses
+(R-25) does in one place: create a run, attach files, validate them,
+launch. Both paths work and both are worth keeping — the step-by-step one
+is how you drive a partially-complete corpus, and it is where the spine's
+per-stage Skip and Reset controls live. But presenting the two paths as
+peers in one bar asks the reader to choose between them before they know
+either exists.
+
+**Implementation does:** four modes carry `advanced: true`, which decides
+only what the mode bar renders by default. Five modes show; a "More steps"
+disclosure shows all nine, and the choice persists in `localStorage`. The
+stage spine follows the same disclosure — it is the map of the
+step-by-step path, so with the steps folded away it was a 96px column
+describing a route nobody was walking. The six secondary visualisations
+moved from six buttons into one select.
+
+**Nothing was deleted, and that is the part worth testing.** "Make it
+simpler" and "remove things" are easy to confuse, and a reduction that
+quietly drops a working view is worse than no reduction — the code stays
+in the file and looks fine while the user can no longer reach it. Three
+specific ways that could have happened here, and what stops each:
+
+  - A view demoted to `VIZ_MORE` with no entry in the plot dispatch table
+    would throw the moment it is selected. `test_the_dispatch_table_covers_
+    every_view_that_can_be_selected` compares the two sets.
+  - The skin picker and the scope selector were hidden, not removed,
+    because `applySkin` writes to `#skin-pick` and `runSearch` reads
+    `#q-scope`. Deleting either element breaks both at runtime while
+    leaving the source reading correctly. `test_the_hidden_header_controls_
+    are_hidden_not_removed` pins the elements.
+  - Hiding a control is only safe if something else still offers it. The
+    skin selector and the shortcuts sheet both moved into Help, and
+    `test_the_skin_picker_is_reachable_now_that_it_left_the_header`
+    checks they are still reachable from there.
+
+**The rendered surface is asserted, not the source text.** Counting
+`advanced: true` in the file says nothing about what the mode bar draws.
+`tests/web/js/ui_surface.js` boots `g4.js` under a minimal DOM shim and
+asserts the rendered mode bar holds five buttons by default and nine after
+the disclosure, that an advanced mode selected while folded away stays
+visible rather than vanishing under the user, and that the reference
+accession and sampling period removed from the header survive as the
+organism field's hover title. The shim is not a browser and does not
+pretend to be: it checks structure, not paint.
+
+**Two latent crashes surfaced while wiring this up.** `drawSpineEdges`
+indexed `nodes[i]` for every entry in `STAGES` without checking that the
+spine had been rendered; it was safe only because of the order of calls in
+`boot()`. And the keyboard handler mapped `"1234567"` onto a nine-mode
+table, so two modes had no key and keys 6 and 7 pointed at modes whose
+position in the bar gave no hint of the number. Both are now guarded, and
+`test_the_mode_keys_match_the_modes_the_bar_shows` keeps the key string and
+the default mode count in agreement.
