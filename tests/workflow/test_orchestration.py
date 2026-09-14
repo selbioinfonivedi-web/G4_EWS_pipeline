@@ -109,3 +109,137 @@ def test_stage5_options_are_declared_as_params():
     declared = set(re.findall(r"^\s*([a-z_0-9]+)\s*=", config, re.M))
     missing = referenced - declared
     assert not missing, f"processes reference undeclared params: {sorted(missing)}"
+
+
+# ── the launch that the help message promises ───────────────────────
+#
+# `--pathogen btv -profile conda_free` -- the command the console builds,
+# and the one the help message says is sufficient -- aborted before any
+# process ran, with a Groovy stack trace ending "Missing `fromPath`
+# parameter". Two params defaulted to null and were then passed straight
+# into Channel.fromPath: `reference`, and `dates` immediately after it.
+#
+# Both values already exist. The reference FASTA is declared in
+# config/<pathogen>.yaml, which is where every other stage reads it from;
+# the dates are derived from the corpus metadata TSV the same config
+# declares. Requiring them again on the command line was a second copy of
+# each, and the run died when the second copy was not supplied.
+
+CONFIG = Path("config")
+NEXTFLOW_CONFIG = WORKFLOW / "nextflow.config"
+
+
+def test_no_path_param_defaulting_to_null_is_passed_straight_to_from_path():
+    """A null param reaching fromPath is a stack trace, not a message.
+
+    This is the shape of the original defect rather than the two specific
+    params, so a third one added later is caught the same way.
+    """
+    text = _main()
+    nullable = {
+        name for name, value in re.findall(
+            r"^\s*(\w+)\s*=\s*(null)\s*(?://.*)?$", NEXTFLOW_CONFIG.read_text(), re.M)
+    }
+    unguarded = []
+    for param in re.findall(r"Channel\.fromPath\(\s*params\.(\w+)", text):
+        if param not in nullable:
+            continue
+        # Guarded if something tests the same param first. Three forms
+        # appear in main.nf: a ternary, `if (params.X)`, and the early
+        # `if (!params.X) exit 1` that ACQUISITION uses.
+        guarded = re.search(
+            rf"(params\.{param}\s*\n?\s*\?|if \(!?params\.{param}\))", text)
+        if not guarded:
+            unguarded.append(param)
+    assert not unguarded, (
+        f"params {unguarded} default to null and reach Channel.fromPath unguarded; "
+        "a run without them dies inside Groovy instead of reporting what is missing"
+    )
+
+
+def test_the_reference_is_resolved_from_the_pathogen_config():
+    text = _main()
+    assert "def referenceFasta(pathogen)" in text
+    assert "reference?.fasta" in text, "the resolver must read reference.fasta from the YAML"
+    assert "Channel.fromPath(referenceFasta(pathogen)" in text, \
+        "the alignment branch must use the resolver, not params.reference directly"
+
+
+def test_every_config_declares_the_reference_the_resolver_reads():
+    """The resolver is only as good as the key it reads.
+
+    A config missing `reference.fasta` would fail at launch -- which is
+    the correct behaviour, and a clear message -- but it is worth knowing
+    that no provisioned pathogen is in that state.
+    """
+    import yaml
+
+    missing, unmarked = [], []
+    for path in sorted(CONFIG.glob("*.yaml")):
+        cfg = yaml.safe_load(path.read_text()) or {}
+        declared = (cfg.get("reference") or {}).get("fasta")
+        if cfg.get("provisioned") is False:
+            # A stub config: LSDV declares nulls on purpose rather than
+            # guessing an accession. It must stay declared as a stub, or
+            # it becomes indistinguishable from a config someone broke.
+            if declared:
+                unmarked.append(f"{path.name} declares a reference but provisioned: false")
+            continue
+        if not declared:
+            missing.append(path.name)
+            continue
+        if not Path(declared).is_file():
+            missing.append(f"{path.name} -> {declared} (not on disk)")
+    assert not missing, f"provisioned configs whose reference.fasta cannot be resolved: {missing}"
+    assert not unmarked, unmarked
+
+
+def test_the_dates_are_derived_rather_than_required():
+    text = _main()
+    assert "BUILD_DATES" in text, "the workflow must be able to build its own dates.csv"
+    assert (MODULES / "dates.nf").is_file()
+    assert "g4watch dates" in (MODULES / "dates.nf").read_text()
+
+
+def test_the_dates_derivation_is_a_real_cli_command():
+    """BUILD_DATES calls `g4watch dates`; the CLI must offer it.
+
+    The workflow invoking a command the CLI does not have is the exact
+    defect the module-level tests above exist for.
+    """
+    from g4watch.cli import build_parser
+
+    parser = build_parser()
+    actions = [a for a in parser._actions if hasattr(a, "choices") and a.choices]
+    subcommands = set()
+    for action in actions:
+        subcommands |= set(action.choices)
+    assert "dates" in subcommands
+
+
+# ── a failed process must not report success ────────────────────────
+#
+# Every g4watch process pipes into `tee` so its log is captured and
+# streamed at once. A pipeline's exit status is its LAST command's, so
+# `g4watch ... | tee x.log` exits 0 when g4watch does not exist, does not
+# run, or raises. RECOMBINATION_SCREEN -- mandatory, no skip flag --
+# reported COMPLETED with exit 0 after "g4watch: command not found".
+
+def test_the_process_shell_fails_a_pipeline_when_any_stage_fails():
+    text = NEXTFLOW_CONFIG.read_text()
+    shell = re.search(r"shell\s*=\s*\[([^\]]*)\]", text)
+    assert shell, "process.shell must be set; the default masks failures piped into tee"
+    flags = shell.group(1)
+    assert "pipefail" in flags, (
+        "without pipefail a process piping into tee reports exit 0 whatever happened upstream"
+    )
+
+
+def test_processes_that_pipe_into_tee_are_the_reason_pipefail_is_required():
+    """If the tee pattern ever disappears, this test should be revisited.
+
+    It is here so the pipefail requirement above carries its reason with
+    it rather than looking like a style preference.
+    """
+    piping = [p.name for p in MODULES.glob("*.nf") if "| tee" in p.read_text()]
+    assert piping, "no process pipes into tee any more; re-examine why pipefail is set"

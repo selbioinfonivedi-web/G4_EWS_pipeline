@@ -626,6 +626,38 @@ def cmd_align(args: argparse.Namespace) -> int:
     return EXIT_OK
 
 
+def cmd_dates(args: argparse.Namespace) -> int:
+    """Derive TreeTime's dates.csv from the corpus metadata.
+
+    This derivation already existed inside ``cmd_phylogenetics``, where it
+    was reachable only by also building a tree. The Nextflow workflow
+    builds its own tree with IQ-TREE and then needs the dates file on its
+    own, so it demanded ``--dates`` as a pre-made path -- and a run that
+    did not pass one died inside Nextflow's ``Channel.fromPath(null)``
+    rather than saying what was missing.
+
+    Exposing the derivation makes the workflow able to produce what the
+    CLI produces, from the same corpus metadata, by the same rules.
+    """
+    from .io.fasta import read_fasta
+    from .pipeline.stage1_align import build_dates_csv
+
+    config = _load(args)
+    alignment = _resolve(
+        config, args.alignment, "aligned", f"{config.pathogen.lower()}_qc_passed_aligned_to_ref.fasta"
+    )
+    out_path = Path(args.out) if args.out else _resolve(config, None, "phylogenetics", "dates.csv")
+    aligned = read_fasta(alignment)
+    dates_path, n_dated = build_dates_csv(config, aligned, Path(out_path))
+    print(f"dates — {config.pathogen}")
+    print(f"  {n_dated}/{len(aligned)} sequences carry a usable date -> {dates_path}")
+    if n_dated < 3:
+        # TreeTime regresses divergence on sampling date; two points is a
+        # line through two points, not a clock estimate.
+        print("  NOTE: fewer than 3 dated sequences. TreeTime cannot root on this.")
+    return EXIT_OK
+
+
 def cmd_phylogenetics(args: argparse.Namespace) -> int:
     """Stage 2 — maximum-likelihood tree, then TreeTime rooting."""
     from .pipeline.stage1_align import run_phylogenetics
@@ -1199,6 +1231,12 @@ def build_parser() -> argparse.ArgumentParser:
     aln.add_argument("--out", help="output directory (default: <corpus>/aligned)")
     aln.add_argument("--threads", type=int, default=4)
     aln.set_defaults(func=cmd_align)
+
+    dat = with_pathogen(sub.add_parser(
+        "dates", help="derive TreeTime's dates.csv from the corpus metadata"))
+    dat.add_argument("--alignment", help="aligned FASTA; only its sequences are dated")
+    dat.add_argument("--out", help="output CSV (default: <corpus>/phylogenetics/dates.csv)")
+    dat.set_defaults(func=cmd_dates)
 
     phy = with_pathogen(sub.add_parser("phylogenetics", help="Stage 2 — ML tree and TreeTime rooting"))
     phy.add_argument("--alignment", help="aligned FASTA")

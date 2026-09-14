@@ -1306,3 +1306,100 @@ table, so two modes had no key and keys 6 and 7 pointed at modes whose
 position in the bar gave no hint of the number. Both are now guarded, and
 `test_the_mode_keys_match_the_modes_the_bar_shows` keeps the key string and
 the default mode count in agreement.
+
+
+## R-28 — `--pathogen X` did not run, and a mandatory stage reported success without running
+
+**What the user did.** Launched the full Nextflow pipeline from the
+console for BTV. What the console built is the command the workflow's own
+help message documents as sufficient:
+
+    nextflow run workflow/main.nf --pathogen btv -profile conda_free \
+        -resume --outdir results/analyses/f5739f7d57c9
+
+It aborted before any process started, with a Groovy stack trace ending
+`Missing 'fromPath' parameter` and naming neither the parameter nor the
+pathogen.
+
+**Defect 1 — two paths the config already declares were demanded again.**
+`params.reference` and `params.dates` both default to null in
+`nextflow.config` and were passed straight into `Channel.fromPath`. The
+help message lists only `--pathogen` as required, and it is right to: the
+reference FASTA is `reference.fasta` in `config/<pathogen>.yaml`, which is
+where `g4watch qc`, `g4watch dh1` and every other stage reads it from,
+and the dates are derived from `corpus.metadata_tsv` in the same file.
+Alignment was the exception only because MAFFT runs as a bare tool rather
+than through the CLI, so Nextflow must stage the file and therefore must
+know its path. That is a reason to *resolve* the path, not to ask for a
+second copy of it.
+
+`referenceFasta(pathogen)` now reads the YAML. `--reference` still
+overrides, for a corpus deliberately aligned against something else.
+
+**Defect 2 — the dates file had to be made by hand.** `g4watch
+phylogenetics` already derives `dates.csv` when none exists; that
+derivation was reachable only by also building a tree, which this
+workflow does itself with IQ-TREE. `g4watch dates` exposes it, and
+`BUILD_DATES` calls it. Deriving beats requiring: a hand-made dates file
+is a second copy of the corpus's dates that can disagree with the first.
+
+**Defect 3, and the serious one — `| tee` was masking every failure.**
+With the launch fixed, the run reached the stages, and
+`RECOMBINATION_SCREEN` reported **COMPLETED, exit 0**, having printed:
+
+    .command.sh: line 2: g4watch: command not found
+
+Every g4watch process pipes into `tee` so its log is captured and
+streamed at once. A shell pipeline's exit status is its last command's,
+and `tee` succeeds at writing an error message. So the exit code said 0.
+
+This is the mandatory screen — Build Architecture Section 11 gives it no
+skip flag, because reconstructing ancestral states across a recombinant
+alignment reconstructs a history that never happened. Stage 4 is gated on
+`ch_recombination.completed` precisely so the floor cannot be told the
+screen ran when it did not. That gate was being satisfied by a process
+that had not run.
+
+It surfaced only by luck: `BUILD_DATES`, later in the same run, declares
+an output file that then did not exist, and Nextflow's missing-output
+check caught *that*. A process whose outputs are all optional would have
+passed silently, and so would every stage downstream.
+
+`process.shell = ['/bin/bash', '-euo', 'pipefail']` in `nextflow.config`.
+Eleven processes across nine modules pipe into `tee`; none had pipefail.
+Re-running the same command now fails at exit 127 and names the process.
+
+**Defect 4 — `conda_free` could not find `g4watch` at all.** The profile
+runs against host tools, and this project installs with `pip install -e .`
+into a virtualenv at the repo root, whose `bin/` is on PATH only while
+activated. Nextflow tasks inherit no activation. The profile now prepends
+`<repo>/.venv/bin` when it exists — found by position in the repo, not by
+a path on any one machine — with `G4WATCH_BIN` overriding and PATH left
+untouched when neither applies, which is what a system or conda install
+wants.
+
+The same gap existed one level up: `web/runner/commands.py` resolves
+`g4watch` by looking beside the running interpreter, so the console drives
+the g4watch it was launched from, but a child process cannot do that
+lookup. `jobs.py` now puts the interpreter's `bin/` on the child's PATH,
+extending that rule to everything the console launches.
+
+**A stub config now says it is a stub.** `--pathogen lsdv` reported
+"declares no reference.fasta", which is a symptom. LSDV sets
+`provisioned: false` deliberately, rather than guessing an accession, and
+the resolver now reports that instead.
+
+**Verified by running it, not by reading it.** BTV, `-profile
+conda_free`, with the existing alignment supplied so the hours-long MAFFT
+step was skipped: BUILD_ATLAS, RECOMBINATION_SCREEN, CALL_VARIANTS and
+BUILD_DATES all completed — the screen reporting 481 sequences, 2,680
+informative sites, PHI p = 0.918, `significant: False`, and BUILD_DATES
+writing 480 dated sequences of 481. Those exit codes now mean something.
+
+`tests/workflow/test_orchestration.py` gains seven tests. The one worth
+naming is `test_no_path_param_defaulting_to_null_is_passed_straight_to_
+from_path`, which checks the *shape* of defect 1 rather than the two
+params it found, so a third added later is caught the same way. Writing
+it surfaced that `accession_list` has the same shape and is already
+guarded — the guard is `if (!params.accession_list) exit 1`, which the
+first version of the test did not recognise.

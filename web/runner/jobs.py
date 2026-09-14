@@ -15,6 +15,7 @@ from __future__ import annotations
 import asyncio
 import os
 import signal
+import sys
 import time
 import uuid
 from collections import deque
@@ -327,6 +328,22 @@ class JobRunner:
         env = dict(os.environ)
         env["PYTHONUNBUFFERED"] = "1"
         env["COLUMNS"] = "100"
+        # commands.py resolves `g4watch` by looking beside the running
+        # interpreter, so the console drives the g4watch it was launched
+        # from. A child process cannot do that lookup: Nextflow spawns its
+        # tasks itself, and they see only PATH. When the server is started
+        # as `.venv/bin/python -m uvicorn ...` -- without activating the
+        # venv, which is how a service starts -- that PATH has no
+        # `.venv/bin`, and every g4watch task inside a Nextflow run failed
+        # with "command not found".
+        #
+        # Putting the interpreter's own bin/ on PATH extends the rule the
+        # docstring already states to everything the console launches. It
+        # is prepended, not substituted: a system g4watch is still there,
+        # just behind the one this console is actually running.
+        interpreter_bin = str(Path(sys.executable).parent)
+        if interpreter_bin not in env.get("PATH", "").split(os.pathsep):
+            env["PATH"] = os.pathsep.join([interpreter_bin, env.get("PATH", "")]).rstrip(os.pathsep)
 
         process = await asyncio.create_subprocess_exec(
             *argv,
