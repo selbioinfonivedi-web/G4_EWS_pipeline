@@ -148,3 +148,62 @@ def test_the_figures_are_built_from_the_repository_not_invented():
     assert "random" not in figures and "rng" not in figures, (
         "no figure in the overview deck may plot generated data"
     )
+
+
+# ── slide numbering ─────────────────────────────────────────────────
+def test_the_footer_page_numbers_are_consecutive():
+    """Inserting a slide mid-deck silently duplicates a page number.
+
+    It happened twice while the deck was being built: a new slide pushed
+    every later footer down, and hand-renumbering left two slides both
+    labelled 12. Nothing renders wrong, so nobody notices until a reader
+    tries to cite a slide.
+    """
+    numbers = [int(n) for n in re.findall(
+        r'footer\(s, "[^"]*", (\d+)\)', BUILDER.read_text())]
+    assert numbers == list(range(2, 2 + len(numbers))), (
+        f"footers are not consecutive from 2: {numbers}"
+    )
+
+
+def test_the_cone_counts_come_from_the_files_the_pipeline_wrote():
+    """The workflow cone's numbers are the ones most likely to drift.
+
+    They are typed into a table in make_figures.py rather than computed,
+    because several of them (tree tips, PHI p-value) live in tool logs
+    that are not worth parsing. So they are checked here instead.
+    """
+    figures = (ROOT / "deliverables/overview_assets/make_figures.py").read_text()
+    cone = re.search(r"CONE = \[(.*?)\n\]", figures, re.S)
+    assert cone, "the cone table should still be a literal list"
+    # A list, not a dict keyed by count: 936 appears three times (fetched,
+    # aligned, screened) and a dict would keep only the last.
+    bands = [(int(n.replace(",", "")), unit) for n, unit in
+             re.findall(r"\n\s+([\d,]+), \"([^\"]+)\"", cone.group(1))]
+
+    corpus = ROOT / "data/reference_genomes/fmdv/corpus_2026"
+    fetched = sum(1 for _ in open(corpus / "fmdv2026_corpus_metadata.tsv")) - 1
+    qc = list(csv.DictReader(open(corpus / "qc_report.tsv"), delimiter="\t"))
+    passed = sum(1 for r in qc if r["passed"] == "True")
+    aligned = sum(1 for line in open(
+        corpus / "aligned/fmdv2026_qc_passed_aligned_to_ref.fasta") if line.startswith(">"))
+    tips = len(re.findall(
+        r"[(,]([A-Za-z0-9_.|-]+):",
+        (corpus / "phylogenetics/fmdv2026_rooted.nwk").read_text()))
+    atlas = sum(1 for _ in open(
+        ROOT / "data/atlases/G4_Reference_Atlas_v2.0.fmdv2026.tsv")) - 1
+    rows = _latest_run("FMDV2026")
+
+    for expected, unit in [
+        (fetched, "genomes fetched"), (passed, "pass QC"), (aligned, "aligned"),
+        (aligned, "screened"), (tips, "tree tips"), (atlas, "Atlas loci"),
+        (len(rows), "analysis set"),
+        (sum(1 for r in rows if r["locus_disruption_rate"]), "past the floor"),
+        (sum(1 for r in rows if r["verdict"] in
+             ("SIGNAL_OPPOSITE_DIRECTION", "SIGNAL_EXPLAINED_BY_GC")), "reach q < 0.05"),
+        (sum(1 for r in rows if r["verdict"] == "SUPPORTED"), "SUPPORTED"),
+    ]:
+        actual = [count for count, label in bands if label == unit]
+        assert actual == [expected], (
+            f"cone band '{unit}' should read {expected}; table has {actual}"
+        )

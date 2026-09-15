@@ -1,7 +1,19 @@
 # Overview deck
 
-`../G4-WATCH_overview.pptx` — 13 slides answering two questions: how the
+`../G4-WATCH_overview.pptx` — 15 slides answering two questions: how the
 pipeline works, and what it found.
+
+Four figures, all built from repository data:
+
+| figure | what it shows |
+|---|---|
+| `fig_cone.png` | the pipeline as a cone — 936 genomes in, 0 supported out, with the method beside each band |
+| `fig_corpus.png` | the eleven corpora, fetched against passing QC |
+| `fig_atlas.png` | Atlas loci against the SC-eligible subset |
+| `fig_dh1.png` | every tested locus, its rate against its controls |
+
+Slide 13 is the methods table: every parameter that changes the answer,
+read from `config/fmdv2026.yaml` and `g4watch doctor`.
 
 Separate from `../G4-WATCH_technical_briefing.pptx` (built by
 `../ppt_assets/build_deck.py`), which is the long technical version.

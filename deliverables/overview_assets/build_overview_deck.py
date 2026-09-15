@@ -214,17 +214,20 @@ add_text(s, Inches(0.9), Inches(6.62), Inches(11), Inches(0.4),
 # ══════════════════════════════════════════════ 2 · the idea ═══════
 s = add_slide(); set_bg(s)
 header(s, "the idea", "A G-quadruplex is a structure, not just a sequence")
-bullets(s, Inches(0.55), Inches(1.45), Inches(6.5), Inches(4.6), [
-    (0, "Four runs of guanine can fold the strand back on itself into a stacked "
-        "four-stranded knot — a G-quadruplex, or G4."),
-    (0, "Where one forms, it physically obstructs the machinery that copies and reads "
-        "the genome. Viruses that carry one are under pressure either to keep it or to lose it."),
-    (0, "That makes a G4 site a candidate place to watch: if a virus population starts "
-        "losing or gaining structure at a known site, something about its biology is changing."),
-    (0, "The whole framework rests on one testable claim about that — stated on the next slide. "
-        "It is stated as a claim precisely so it can fail.",
+bullets(s, Inches(0.55), Inches(1.42), Inches(6.5), Inches(4.7), [
+    (0, "Four runs of guanine, separated by short loops, can fold the strand back on itself "
+        "into a stack of G-tetrads held together by Hoogsteen bonds — a G-quadruplex, or G4."),
+    (0, "Where one forms it obstructs polymerase and ribosome. A virus carrying one is under "
+        "selection either to keep it or to lose it, so the site is a place worth watching."),
+    (0, "Detection here is G4Hunter: a sliding window (w = 25) scoring G-skew from +4 to −4, "
+        "with |score| ≥ 1.2 called, plus an independent regex motif. Two methods must overlap "
+        "by ≥ 80% to count as concordant.", {"font": "Calibri"}),
+    (0, "Negative scores are C-rich windows — a G4 on the opposite strand. They are kept, and "
+        "strand is reported as a covariate rather than settled by exclusion."),
+    (0, "The framework rests on one testable claim about these sites, stated on the next slide. "
+        "It is stated as a claim precisely so that it can fail.",
         {"color": NAVY, "bold": True}),
-], size=15.5, space_after=15)
+], size=14.5, space_after=13)
 
 add_rect(s, Inches(7.4), Inches(1.55), Inches(5.4), Inches(4.35), LGREY)
 add_text(s, Inches(7.7), Inches(1.80), Inches(4.8), Inches(0.35),
@@ -258,14 +261,14 @@ add_text(s, Inches(0.55), Inches(3.25), Inches(12.2), Inches(0.35),
          size=14, color=GREY)
 for i, (title, body, colour) in enumerate([
     ("1 · A real difference",
-     "The locus disruption rate must differ from its matched controls by more than chance, "
-     "after Benjamini–Hochberg correction across every locus tested.", NAVY),
+     "Fisher exact test on the locus's clade-level disruption counts against those of its "
+     "5 matched controls, then Benjamini–Hochberg across the whole pre-specified set.", NAVY),
     ("2 · In the right direction",
-     "Lower, not merely different. A locus that is significantly MORE disrupted contradicts "
-     "D.H1 — it does not support it.", AMBER),
+     "Lower, not merely different. Both tests are two-sided, so the sign is checked explicitly: "
+     "a locus significantly MORE disrupted returns SIGNAL_OPPOSITE_DIRECTION.", AMBER),
     ("3 · Not just GC",
-     "G4 sites are G-rich by definition, and GC-rich DNA mutates differently. The difference "
-     "must survive GC adjustment or it is a composition artefact.", TEAL),
+     "G4 sites are G-rich by definition and GC-rich sequence mutates differently. A pooled "
+     "logistic model with flanking GC as a covariate must keep the locus term significant.", TEAL),
 ]):
     x = Inches(0.55) + i * Inches(4.16)
     add_rect(s, x, Inches(3.75), Inches(3.9), Pt(3.5), colour)
@@ -319,6 +322,21 @@ add_text(s, Inches(0.55), Inches(5.8), Inches(12.2), Inches(1.1),
          size=13, color=GREY, line_spacing=1.35)
 footer(s, "Orchestrated with Nextflow DSL2. Tools: MAFFT · PhiPack · IQ-TREE 2 · TreeTime", 4)
 
+# ══════════════════════════════════════════════ 5 · the cone ═══════
+# The pipeline's defining property is attrition: 936 genomes in, 67
+# candidate loci, 18 still testable, none supported. A box-and-arrow
+# flowchart hides that; a cone makes it the subject.
+s = add_slide(); set_bg(s)
+header(s, "the workflow, in one figure", "Where everything goes")
+# Full width: the per-stage methods down the right of the figure are the
+# point of it, and they are unreadable at anything narrower.
+pic(s, "fig_cone.png", Inches(0.42), Inches(1.20), Inches(12.5))
+add_text(s, Inches(0.55), Inches(6.90), Inches(12.2), Inches(0.3),
+         "Green bands are the statistical gates; red is the outcome. Two bands go UP — the "
+         "alignment adds the reference, which is why 936 follows 935.",
+         size=11, color=GREY, italic=True)
+footer(s, "FMDV2026 throughout — one pathogen end to end, not totals that mix corpora stopped at different stages", 5)
+
 # ══════════════════════════════════════════════ 5 · the floor ══════
 s = add_slide(); set_bg(s)
 header(s, "before any test runs", "A minimum-data floor, fixed in advance")
@@ -350,7 +368,7 @@ add_text(s, Inches(0.95), Inches(4.78), Inches(11.8), Inches(1.7),
          "A threshold is a property of sampling,\nknowable before any test runs, and it lives in "
          "the config — so a run stays fully described by (commit, config, accession list).",
          size=13.5, color=DARK, line_spacing=1.4)
-footer(s, "g4watch/validation/minimum_data_gate.py — thresholds from Build Architecture Appendix C", 5)
+footer(s, "g4watch/validation/minimum_data_gate.py — thresholds from Build Architecture Appendix C", 6)
 
 # ══════════════════════════════════════════════ 6 · corpora ════════
 s = add_slide(); set_bg(s)
@@ -363,7 +381,7 @@ add_text(s, Inches(0.55), Inches(5.95), Inches(12.2), Inches(1.0),
          "the\nsynthetic datasets used to test the software live separately under data/synthetic/ "
          "and are prefixed SYNTH-.",
          size=12.5, color=GREY, line_spacing=1.35)
-footer(s, "Counted from config/*.yaml and the aligned FASTA on disk by overview_assets/make_figures.py", 6)
+footer(s, "Counted from config/*.yaml and the aligned FASTA on disk by overview_assets/make_figures.py", 7)
 
 # ══════════════════════════════════════════ 7 · result · atlas ═════
 s = add_slide(); set_bg(s)
@@ -375,7 +393,7 @@ add_text(s, Inches(0.55), Inches(5.95), Inches(12.2), Inches(1.0),
          "computed from the alignment — deliberately NOT from the disruption rate, which would "
          "make\neligibility restate the very outcome D.H1 is meant to test.",
          size=12.5, color=GREY, line_spacing=1.35)
-footer(s, "Tiers: EC / BC / SC / MC / WC / AA. Scoring eligibility is SC and above", 7)
+footer(s, "Tiers: EC / BC / SC / MC / WC / AA. Scoring eligibility is SC and above", 8)
 
 # ══════════════════════════════════════════ 8 · result · D.H1 ══════
 s = add_slide(); set_bg(s)
@@ -393,7 +411,7 @@ bullets(s, Inches(6.75), Inches(1.60), Inches(6.05), Inches(5.0), [
     (0, "The one locus that IS significant sits above the diagonal: more disrupted than its "
         "controls, not less.", {"color": RED}),
 ], size=14.5, space_after=16)
-footer(s, "data/atlases/testing_ledger.tsv, latest run per pathogen. q = Benjamini-Hochberg adjusted p", 8)
+footer(s, "data/atlases/testing_ledger.tsv, latest run per pathogen. q = Benjamini-Hochberg adjusted p", 9)
 
 # ══════════════════════════════════════════ 9 · G4-004 ═════════════
 s = add_slide(); set_bg(s)
@@ -442,7 +460,7 @@ add_text(s, Inches(0.55), Inches(6.15), Inches(12.2), Inches(0.75),
          "MORE labile than matched controls, not less.\nThat contradicts D.H1. It is a real "
          "measurement, and reporting it as anything else would be the only actual failure here.",
          size=13.5, color=DARK, bold=True, line_spacing=1.35)
-footer(s, "Serotype breakdown recorded in docs/revision_log.md; the superseded verdict is kept in the ledger, not overwritten", 9)
+footer(s, "Serotype breakdown recorded in docs/revision_log.md; the superseded verdict is kept in the ledger, not overwritten", 10)
 
 # ══════════════════════════════════════ 10 · what it outputs ═══════
 s = add_slide(); set_bg(s)
@@ -484,7 +502,7 @@ add_text(s, Inches(0.55), Inches(5.95), Inches(12.2), Inches(0.9),
          "its own data does not support would be a\nnumber with nothing behind it — and it "
          "would look exactly like a number with something behind it.",
          size=13.5, color=DARK, line_spacing=1.32)
-footer(s, "Quoted verbatim from `g4watch score --pathogen fmdv2026`, which exits 3 rather than emitting a score", 10)
+footer(s, "Quoted verbatim from `g4watch score --pathogen fmdv2026`, which exits 3 rather than emitting a score", 11)
 
 # ══════════════════════════════════════ 11 · limits ════════════════
 s = add_slide(); set_bg(s)
@@ -520,7 +538,50 @@ add_text(s, Inches(0.95), Inches(5.58), Inches(11.5), Inches(1.1),
          "distrusting. What they do bound is how far it\ngeneralises: one hypothesis, one "
          "well-powered corpus, computational predictions, and no field validation yet.",
          size=13.5, color=NAVY, line_spacing=1.32)
-footer(s, "Recorded in docs/validation_report.md and docs/revision_log.md", 11)
+footer(s, "Recorded in docs/validation_report.md and docs/revision_log.md", 12)
+
+# ══════════════════════════════════════ 12 · methods table ═════════
+# A reader who wants to argue with the result needs the parameters, not a
+# description of them. Everything here is read from config/fmdv2026.yaml
+# and `g4watch doctor`.
+s = add_slide(); set_bg(s)
+header(s, "methods", "Every parameter that changes the answer")
+
+METHODS = [
+    ("Stage 0 · G4 prediction", "G4Hunter", "window 25 · |score| ≥ 1.2 · flank 100 nt"),
+    ("", "regex motif", "enabled · concordance at ≥ 80% overlap"),
+    ("", "not used", "G4RNA screener (Python 2 only) · pqsfinder (DNA-scoped)"),
+    ("Stage 1 · QC", "thresholds", "completeness ≥ 0.90 · N ≤ 0.05 · year-precision date"),
+    ("Stage 1 · Alignment", "MAFFT v7.526", "--auto --keeplength --addfragments · gap cap 0.50"),
+    ("Stage 1.5 · Recombination", "PhiPack Φ", "α = 0.05 · mandatory · tier: standard"),
+    ("Stage 2 · Phylogeny", "IQ-TREE 2.3.6", "GTR+F+I+G4 · 1,000 UFBoot · seed 20250823"),
+    ("", "TreeTime 0.11.4", "least-squares reroot · clock filter 3.0 IQD"),
+    ("", "ancestral states", "ape::ace on the DIVERGENCE tree, not the timetree"),
+    ("Stage 4 · Controls", "per locus", "5 controls · length ±10% · GC ±5% · 50 nt buffer"),
+    ("", "matched on", "the locus's own compartment (5'UTR / CDS / 3'UTR)"),
+    ("Stage 4.5 · D.H1", "tests", "Fisher exact + pooled GC-adjusted logistic"),
+    ("", "correction", "Benjamini–Hochberg · α = 0.05 · decision: GC-adjusted alone"),
+    ("", "analysis set", "loci in ≥ 20 genomes — pre-specified, score-blind"),
+]
+y = Inches(1.40)
+row_h = Inches(0.375)
+for i, (stage, item, value) in enumerate(METHODS):
+    if i % 2 == 0:
+        add_rect(s, Inches(0.55), y, Inches(12.25), row_h, LGREY)
+    if stage:
+        add_text(s, Inches(0.72), y + Inches(0.085), Inches(2.85), Inches(0.3), stage,
+                 size=11.5, color=NAVY, bold=True)
+    add_text(s, Inches(3.70), y + Inches(0.085), Inches(2.25), Inches(0.3), item,
+             size=11.5, color=GREY)
+    add_text(s, Inches(6.10), y + Inches(0.085), Inches(6.6), Inches(0.3), value,
+             size=11.5, color=DARK, font="Consolas")
+    y += row_h
+
+add_text(s, Inches(0.55), Inches(6.85), Inches(12.2), Inches(0.35),
+         "Two of these moved after data were seen, and both are recorded as post-hoc: the "
+         "SC operating point (R-11) and the GC-adjusted decision rule (R-12).",
+         size=11.5, color=AMBER, italic=True)
+footer(s, "config/fmdv2026.yaml and `g4watch doctor`. Changing any of these changes the result, so none is buried in nextflow.config", 13)
 
 # ══════════════════════════════════════ 12 · reproducibility ═══════
 s = add_slide(); set_bg(s)
@@ -558,7 +619,7 @@ for i, (v, lab) in enumerate([
     ("append-only", "testing ledger"),
 ]):
     stat(s, Inches(0.55) + i * Inches(3.15), Inches(5.65), Inches(3.0), v, lab)
-footer(s, "Profiles: docker · singularity · conda_free · slurm · awsbatch", 12)
+footer(s, "Profiles: docker · singularity · conda_free · slurm · awsbatch", 14)
 
 # ══════════════════════════════════════ 13 · close ═════════════════
 s = add_slide(); set_bg(s, NAVY)

@@ -204,6 +204,115 @@ def figure_corpus() -> Path:
     return out
 
 
+
+
+# ── figure 4: the pipeline as a cone ────────────────────────────────
+#
+# The pipeline IS a narrowing. 936 genomes enter, 67 candidate loci come
+# out of Stage 0, and 18 of those are still testable by the time the
+# minimum-data floor has run. Drawing it as a box-and-arrow flowchart
+# hides that; drawing it as a cone makes the attrition the subject, which
+# is the honest way to present a pipeline whose output is currently zero.
+#
+# Every count is FMDV2026 -- one pathogen end to end, rather than totals
+# that mix a corpus that reached Stage 4 with one that stopped at Stage 1.
+
+CONE = [
+    # (stage, method — what actually runs, count, unit, note)
+    ("Input", "GenBank corpus, whole genomes,\ncurated accession list",
+     936, "genomes fetched", "AY593823.1 as reference"),
+    ("Stage 1", "completeness ≥ 90% of reference length,\nN ≤ 5%, year-precision date required",
+     935, "pass QC", "1 dropped on N-content"),
+    ("Stage 1", "MAFFT v7.526 --keeplength --addfragments\n(reference coordinates preserved)",
+     936, "aligned", "935 + the reference itself"),
+    ("Stage 1.5", "PhiPack Φ, permutation test\n— mandatory, no skip flag",
+     936, "screened", "p = 1.00 · no recombination"),
+    ("Stage 2", "IQ-TREE 2.3.6 GTR+F+I+G4, 1,000 UFBoot;\nTreeTime 0.11.4 least-squares rooting",
+     933, "tree tips", "3 identical sequences collapsed"),
+    ("Stage 0", "G4Hunter w = 25, |score| ≥ 1.2, plus a regex\nmotif; ≥ 80% overlap to count as concordant",
+     67, "Atlas loci", "UNIT CHANGES: genomes → loci"),
+    ("Pre-spec", "loci carried by ≥ 20 genomes, irrespective\nof score or strand",
+     37, "analysis set", "fixed before any p-value existed"),
+    ("Appendix C", "≥ 30 seqs · ≥ 20 per lineage · ≥ 3 timepoints\n· ≥ 3 informative clades in each arm",
+     18, "past the floor", "19 returned INSUFFICIENT_DATA"),
+    ("Stage 4.5", "Fisher exact + pooled GC-adjusted logistic\nmodel; Benjamini–Hochberg across the set",
+     3, "reach q < 0.05", "1 opposite · 2 GC-explained"),
+    ("D.H1 gate", "lower than controls AND survives GC\nadjustment AND q < 0.05",
+     0, "SUPPORTED", "so Stage 5 never runs"),
+]
+
+#: Where the cone stops counting genomes and starts counting loci. Drawn as
+#: a rule rather than left implicit: a funnel whose unit changes silently
+#: two thirds of the way down invites the reader to compare 936 with 67.
+UNIT_CHANGE_AFTER = 4
+
+
+def figure_cone() -> Path:
+    from matplotlib.patches import Polygon
+
+    fig, ax = plt.subplots(figsize=(17.5, 8.1))
+    CX, n = 5.1, len(CONE)
+    ax.set_xlim(-2.6, 13.7)
+    ax.axis("off")
+
+    # The cone's half-width tapers linearly with POSITION in the pipeline,
+    # not with the counts. 936 against 0 on a linear width collapses eight
+    # bands into a line; on a log width the zero has no position at all.
+    # The counts are printed, where they can be read exactly.
+    top_half, bottom_half = 3.75, 1.10
+
+    def half(i):
+        return top_half - (top_half - bottom_half) * (i / n)
+
+    for i, (stage, method, count, unit, note) in enumerate(CONE):
+        y_top, y_bot = n - i, n - i - 1
+        pad = 0.085
+        ht, hb = half(i), half(i + 1)
+        closed = count == 0
+        fill = RED if closed else (TEAL if i >= n - 3 else NAVY)
+        alpha = 1.0 if (closed or i >= n - 3) else 0.88 - 0.05 * i
+
+        ax.add_patch(Polygon(
+            [(CX - ht, y_top - pad), (CX + ht, y_top - pad),
+             (CX + hb, y_bot + pad), (CX - hb, y_bot + pad)],
+            closed=True, facecolor=fill, edgecolor="white", linewidth=1.6,
+            alpha=alpha, zorder=2))
+
+        mid = y_bot + 0.5
+        ax.text(CX, mid + 0.15, f"{count:,} {unit}", ha="center", va="center",
+                fontsize=19 if closed else 17, color="white", weight="bold", zorder=3)
+        ax.text(CX, mid - 0.24, note, ha="center", va="center",
+                fontsize=10.5 if hb > 1.4 else 9, color="white", alpha=0.93, zorder=3)
+
+        # Labels sit outside the widest band, so nothing overlaps the cone.
+        ax.text(-2.55, mid, stage, ha="left", va="center", fontsize=13,
+                color=NAVY, weight="bold")
+        ax.text(13.65, mid, method, ha="right", va="center", fontsize=10.5,
+                color="#5a6670", linespacing=1.4)
+
+        if i == UNIT_CHANGE_AFTER:
+            y = n - i - 1
+            ax.plot([-2.6, 13.7], [y, y], color=AMBER, lw=1.2, ls=(0, (5, 4)), zorder=4)
+
+    # The title lives on the slide, so the figure carries only the caveats a
+    # reader needs while looking at the bands themselves.
+    ax.text(CX, n + 0.36,
+            "Width encodes POSITION in the pipeline, not the counts — the counts are printed."
+            "   ·   Above the dashed rule the unit is genomes; below it, loci.",
+            ha="center", fontsize=11, color="#8a949c", style="italic")
+    ax.annotate("", xy=(CX, -0.34), xytext=(CX, -0.04),
+                arrowprops=dict(arrowstyle="-|>", color=RED, lw=2.2))
+    ax.text(CX, -0.60, "Stage 5 scoring: BLOCKED — no G4-EWS score is produced",
+            ha="center", fontsize=14, color=RED, weight="bold")
+    ax.set_ylim(-0.85, n + 0.8)
+
+    fig.tight_layout()
+    out = HERE / "fig_cone.png"
+    fig.savefig(out, dpi=200, bbox_inches="tight")
+    plt.close(fig)
+    return out
+
+
 if __name__ == "__main__":
-    for fn in (figure_atlas, figure_dh1, figure_corpus):
+    for fn in (figure_atlas, figure_dh1, figure_corpus, figure_cone):
         print(f"wrote {fn()}")
