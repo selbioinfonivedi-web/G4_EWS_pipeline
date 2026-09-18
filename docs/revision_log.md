@@ -1403,3 +1403,110 @@ params it found, so a third added later is caught the same way. Writing
 it surfaced that `accession_list` has the same shape and is already
 guarded — the guard is `if (!params.accession_list) exit 1`, which the
 first version of the test did not recognise.
+
+
+## R-29 — The sanctuary/capsid hypothesis, tested properly: mixed, and dominated by the locus that already contradicted it
+
+**The external claim.** A colleague's concept deck (Sindhu, ICAR-NIVEDI,
+FMDV G-quadruplex Early Warning Signal) proposed that FMDV G4 motifs in the
+5' UTR and 2B/2C region ("sanctuary zones") stay conserved during outbreak
+years while motifs in the VP4-VP2-VP3-VP1 capsid region are lost, as the
+surface antigen escapes immunity. It is a genuine, testable directional
+claim about WHERE in the genome disruption differs — worth running through
+D.H1 properly rather than either adopting the deck's own composite score
+(raw motif counts, no matched controls, GC-adjustment, or FDR correction)
+or dismissing it.
+
+**Problem 1: AY593823.1 has no sub-CDS annotation.** The FMDV2026
+reference carries one undivided `CDS (polyprotein)` feature — no
+mat_peptide records, so `gene_feature` cannot distinguish VP1 from 2C.
+`g4watch/atlas/polyprotein_compartments.py` fixes this by deriving
+consensus cleavage coordinates from 132 independently mat_peptide-annotated
+FMDV genomes already in the corpus, each lifted onto AY593823.1's own
+coordinates via the same `mafft --keeplength --addfragments` invocation
+Stage 1 already uses for reference-anchored alignment.
+
+Two genomes were checked by hand before trusting the batch, and that
+caught a real error: MF372126.1 and PX864607.1 disagreed on the L start
+by 72 nt — not plausible as strain variation, since L begins exactly at
+the CDS start in every one of the 132 genomes (a biological fact, not an
+estimate), and AY593823.1's own known CDS start (1099) sits 14 nt from
+PX864607's liftover and 86 nt from MF372126's. MF372126's 5' UTR is
+independently annotated as containing a poly-C tract — FMDV's
+notoriously variable-length, low-complexity repeat — and a generic
+aligner misplacing that one repeat explains a roughly constant offset
+propagating through every downstream boundary. Median-of-132 rejected
+it: the consensus L start (1101) needed only a 2 nt reconciliation
+against the known 1099, not 86.
+
+A second error surfaced by its own unit test: computing each product's
+start and end as two independently-estimated medians left a 1 nt gap at
+the 3B/3C junction (position 6051 belonged to neither product). Fixed by
+deriving every end from the next product's median start, which makes
+exact adjacency a property of the construction rather than something to
+re-verify by eye — see `test_the_twelve_products_are_contiguous_and_non_
+overlapping` in `tests/unit/atlas/test_polyprotein_compartments.py`.
+
+**Problem 2: the test itself.** With coordinates in hand, the 67 Atlas
+loci were classified: 17 sanctuary (15 SC-tier), 34 capsid (18 SC-tier),
+16 neither. D.H1 was run on each subset separately (`--atlas` pointed at
+a filtered TSV, `--no-ledger`), reusing the pathogen's existing matched
+controls, GC-adjustment and FDR correction rather than raw motif counts.
+
+**The result.**
+
+Sanctuary (9 loci cleared the floor): pathogen-level verdict SUPPORTED —
+but that is carried by one locus (FMDV2026-G4-020, GC-adjusted p_fdr =
+0.0186, a real but modest significance). The same run's dominant result,
+by nine orders of magnitude, is FMDV2026-G4-004 — the locus flagged
+since Sprint 12 (R-18) as SIGNAL_OPPOSITE_DIRECTION — now confirmed on
+an isolated sanctuary-only subset with its own FDR family, p_fdr =
+1.09e-09, still pointing the wrong way. `dh1_gate.py`'s pathogen-level
+aggregation ranks any SUPPORTED locus above SIGNAL_OPPOSITE_DIRECTION
+(by design — see the comment at `dh1_gate.py:196`), so the printed
+verdict is technically SUPPORTED. Reporting only that number would be
+accurate and misleading in the same breath: the strongest evidence in
+the sanctuary compartment contradicts the hypothesis it was meant to
+confirm.
+
+Capsid (25 loci in the analysis set): 19 of them never reach the
+Appendix C floor at all — most capsid loci in this Atlas have only 2
+informative clades, nowhere near the minimum. Of the 6 actually tested,
+all 6 NOT_SUPPORTED, none in either direction. This is not evidence
+against Sindhu's capsid claim (motifs lost during outbreaks, which
+would present as SIGNAL_OPPOSITE_DIRECTION if real and detectable) — it
+is evidence that most of the capsid compartment cannot be tested with
+the data on hand.
+
+**What this does and does not mean.** The sanctuary/capsid split does
+not cleanly replicate. It sharpens what was already known — FMDV2026-
+G4-004 contradicts D.H1, now shown at finer resolution — and adds one
+marginal, isolated result that does not survive being read next to it.
+Neither run was written to the real ledger: `gating.py`'s
+`evaluate_gate` matches on the exact pathogen string, so a row under a
+stratified key (`FMDV2026:SANCTUARY`, mirroring the existing `--lineage`
+convention) cannot and must not open the real `fmdv2026` gate on its
+own — persisting a technically-SUPPORTED-but-substantively-contested
+result under the real pathogen key would misrepresent what the run
+found.
+
+**If a future run comes back clean**, two genuinely different scenarios
+need distinguishing before calling the gate open: the whole pre-specified
+37-locus set returning SUPPORTED with no SIGNAL_OPPOSITE_DIRECTION
+anywhere in it (the real gate opens automatically, no restructuring
+needed) versus a compartment subset coming back clean while G4-004 still
+contradicts it elsewhere in the genome (the gate stays shut under the
+real key by design, and opening it honestly means redefining
+`atlas.path` to the sanctuary subset permanently and documenting that
+capsid loci are excluded from scoring going forward — not changing the
+aggregation rule to stop counting G4-004).
+
+**Data added alongside this.** `data/epidemiology/fmdv_outbreak_years.tsv`
+— nine documented FMDV outbreak years (seven Indian, from a colleague's
+deck bibliography; UK 2001 and Taiwan 1997, independently verified by
+search since the deck named both events but cited neither). Seed only,
+same status as `data/calibration/`: most rows are `as_cited_not_
+reverified`, and the file's own README says so. This is Track A of the
+ERI integration plan — the real outcome label `lineage_outcomes.py`'s
+own docstring calls "the project's single largest gap" — not yet wired
+to anything, but no longer nonexistent.
