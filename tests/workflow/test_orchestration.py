@@ -243,3 +243,83 @@ def test_processes_that_pipe_into_tee_are_the_reason_pipefail_is_required():
     """
     piping = [p.name for p in MODULES.glob("*.nf") if "| tee" in p.read_text()]
     assert piping, "no process pipes into tee any more; re-examine why pipefail is set"
+
+
+# ── a mounted repo is not the same as a task's working directory ────
+#
+# The docker and singularity profiles bind-mount the repository at its own
+# absolute path so `config/` and `data/` are reachable inside the
+# container -- but that only makes the path REACHABLE, not the task's
+# current directory. g4watch/config.py's config_dir() falls through, in
+# order, from $G4WATCH_CONFIG_DIR to a packaged-beside-the-code guess (the
+# wrong one inside these images, which pip-install a built wheel into
+# site-packages, not an editable checkout) to a cwd-relative ./config --
+# and a Nextflow task's cwd is its own work/hash/ staging directory, never
+# launchDir. Every g4watch process that names a pathogen by string rather
+# than an explicit file path failed inside these profiles with "No config
+# at <task work dir>/config/<pathogen>.yaml" until $G4WATCH_CONFIG_DIR was
+# set explicitly -- caught by actually running `-profile docker` end to
+# end, not by reading the module scripts, since every one of them looks
+# correct in isolation and the failure is in what surrounds them.
+
+def test_the_containerised_profiles_set_an_explicit_config_dir():
+    text = NEXTFLOW_CONFIG.read_text()
+    for profile in ("docker", "singularity"):
+        block = re.search(rf"\n    {profile} \{{(.*?)\n    \}}", text, re.S)
+        assert block, f"the {profile} profile block was not found"
+        assert "G4WATCH_CONFIG_DIR" in block.group(1), (
+            f"-profile {profile} does not set G4WATCH_CONFIG_DIR -- every g4watch "
+            "process that names a pathogen by string will fail with "
+            "\"No config at <task work dir>/config/<pathogen>.yaml\", because a "
+            "bind mount makes the repo reachable without making it the task's cwd"
+        )
+
+
+# ── every process's script must exist inside the container it declares ──
+#
+# RECOMBINATION_SCREEN is labelled 'selection' -- routed to
+# g4watch/selection:1.0.0 -- and its script calls `g4watch recombination`.
+# That image built PhiPack's Phi binary and nothing else: no Python, no
+# g4watch. Every containerised run of Stage 1.5 -- mandatory, no skip flag
+# -- failed with "g4watch: command not found" until the image also
+# installed the package. Caught the same way as the config-dir defect
+# above: by actually running `-profile docker` end to end, since the
+# module script and the container each look correct read on their own.
+
+def test_every_containerised_process_has_its_script_command_in_its_image():
+    """Cross-check each process's script against its own Dockerfile.
+
+    Deliberately shallow -- it checks that the FIRST word of a process's
+    script (the command actually invoked) is installed somewhere in the
+    Dockerfile for the image that label maps to, via a `pip install`
+    naming the package, a `cp .../g4watch/binary`-shaped install line, or
+    the word appearing as an apt package. It will not catch every possible
+    image defect, but the one that already happened -- a label pointing at
+    an image with no code path to the command the script runs -- is
+    exactly its shape, and it would have caught it before a real
+    end-to-end run had to.
+    """
+    label_to_image = dict(re.findall(
+        r"withLabel:\s*'(\w+)'\s*\{\s*container\s*=\s*'g4watch/(\w+):", NEXTFLOW_CONFIG.read_text()))
+    assert label_to_image, "no withLabel -> container mappings found; profile block may have moved"
+
+    for module_path in MODULES.glob("*.nf"):
+        text = module_path.read_text()
+        label_match = re.search(r"label\s+'(\w+)'", text)
+        script_match = re.search(r"script:\s*\"\"\"\s*\n\s*(\S+)", text)
+        if not label_match or not script_match:
+            continue
+        label, command = label_match.group(1), script_match.group(1)
+        image = label_to_image.get(label)
+        if not image:
+            continue  # a label with no container mapping runs on the host, not in an image
+        dockerfile = Path("containers") / f"Dockerfile.{image}"
+        if not dockerfile.is_file():
+            continue
+        contents = dockerfile.read_text()
+        assert command in contents, (
+            f"{module_path.name} (label '{label}') runs `{command}`, but "
+            f"containers/Dockerfile.{image} never installs or copies anything "
+            f"named {command!r} -- the container this process is routed to "
+            "would not have the command it is told to run"
+        )

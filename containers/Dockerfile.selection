@@ -1,10 +1,26 @@
 # g4watch/selection — PhiPack (recombination screening).
-FROM debian:bookworm-slim
+#
+# Runs g4watch/phylo/recombination_screen.py, which calls the Phi binary
+# as a subprocess and then does its own statistical postprocessing (the
+# PHI p-value parsing, the tier classification) in Python. It is NOT a
+# thin wrapper around the binary alone: the g4watch package itself has to
+# be here, and until it was, RECOMBINATION_SCREEN -- Stage 1.5, mandatory,
+# no skip flag -- failed under every containerised profile with
+# "g4watch: command not found", because this image had the binary and
+# nothing else.
+#
+# g4watch (MIT) and PhiPack (GPL-3.0, see LICENSE.GPL-3.0 below) are kept
+# in this one image side by side rather than folded into g4watch/core:
+# PhiPack's build toolchain (build-essential, the vendored GPL source) has
+# no reason to be inside the image every OTHER stage runs from, and a
+# licence boundary is a real reason to keep two distributed images
+# separate rather than a style preference to relax under time pressure.
+FROM python:3.12-slim-bookworm
 
 LABEL org.opencontainers.image.title="g4watch-selection" \
-      org.opencontainers.image.description="PhiPack recombination screening" \
+      org.opencontainers.image.description="PhiPack recombination screening, with the g4watch CLI that orchestrates it" \
       org.opencontainers.image.vendor="ICAR-NIVEDI" \
-      org.opencontainers.image.licenses="MIT"
+      org.opencontainers.image.licenses="MIT AND GPL-3.0"
 
 # PhiPack is built from the VENDORED source at vendor/phipack-src, not
 # cloned from GitHub at build time.
@@ -34,6 +50,20 @@ RUN make -C /opt/phipack-src \
     && cp /opt/phipack-src/Phi /usr/local/bin/ \
     && chmod 0755 /usr/local/bin/Phi \
     && make -C /opt/phipack-src clean
+
+# The g4watch CLI that actually gets invoked (`g4watch recombination`).
+# Its default Phi binary path (vendor/phipack/Phi, NOT the /opt/phipack-src
+# this image builds from) is a repository-relative path resolved at
+# runtime -- it finds the real thing through the same launchDir bind mount
+# that makes config/ and data/ reachable, not through anything installed
+# here. This image's own /usr/local/bin/Phi is kept anyway: it is what a
+# bare `docker run g4watch/selection Phi` (the CMD below) actually uses,
+# and this image should be runnable on its own, not only under Nextflow's
+# mount.
+WORKDIR /opt/g4watch
+COPY pyproject.toml README.md ./
+COPY g4watch ./g4watch
+RUN pip install --no-cache-dir .
 
 USER 1000
 # NO ENTRYPOINT. Nextflow executes its own task script inside the

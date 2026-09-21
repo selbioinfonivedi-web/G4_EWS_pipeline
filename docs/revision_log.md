@@ -1510,3 +1510,115 @@ reverified`, and the file's own README says so. This is Track A of the
 ERI integration plan — the real outcome label `lineage_outcomes.py`'s
 own docstring calls "the project's single largest gap" — not yet wired
 to anything, but no longer nonexistent.
+
+
+## R-30 — `-profile docker` had never actually completed a run; two real bugs found by running it, not reading it
+
+**What prompted this.** A request to certify the pipeline end-to-end,
+production-ready. The Docker-based public dashboard (`web-backend` +
+`web-proxy` + `web-db`, port 8080) turned out to be healthy — 4 days
+uptime, unaffected by anything in this session. The interactive runner
+console (port 8800) had simply stopped when an earlier session ended;
+restarting it was mechanical. Neither was the real finding.
+
+**The real finding: nobody had run `-profile docker` all the way through.**
+`-profile conda_free` completed cleanly end to end for FMDV2026 — all 9
+DAG processes, gate correctly reported BLOCKED_SIGNAL_OPPOSITE_DIRECTION,
+no fabricated scores. That was reassuring and also the wrong profile to
+trust: the project's own docs say a published result must come from a
+containerised profile, and this repository has apparently never actually
+finished one for a real pathogen. Running it — not reading the module
+scripts, not reading the Dockerfiles, which each look correct in
+isolation — surfaced two real, blocking defects in sequence.
+
+**Bug 1 — every named-pathogen invocation failed with "No config at
+`<task work dir>/config/<pathogen>.yaml`".** `docker.runOptions` already
+bind-mounts the repository at its own absolute path, with a comment
+explaining exactly why: so `config/`, `data/` and the pathogen YAML are
+reachable inside the container. Reachable is not the same as being the
+task's working directory. A Nextflow task's cwd is always its own
+`work/hash/` staging directory, container or not, and
+`g4watch/config.py`'s `config_dir()` already had two resolution rules —
+an explicit `$G4WATCH_CONFIG_DIR` override, and a fallback keyed to
+`__file__`'s location, documented as correct for an editable checkout and
+wrong for an installed package. Neither of the containerised images uses
+an editable install (`pip install .`, not `-e .`), so the fallback landed
+in site-packages and then further fell through to a bare `Path.cwd() /
+"config"` — which resolved against the task directory, not the mounted
+repo. `CALL_VARIANTS` was the process an end-to-end run happened to
+reach first; `RECOMBINATION_SCREEN` and `DH1_GATE` use the identical
+resolution and would have failed the same way the moment they ran.
+
+Fixed by setting `env.G4WATCH_CONFIG_DIR = "${launchDir}/config"` in both
+the `docker` and `singularity` profiles — the override `config_dir()`'s
+own docstring already names as "the one a deployment should use," rather
+than depending on a CWD coincidence the bind mount does not create.
+
+**Bug 2 — `RECOMBINATION_SCREEN` had no code path to the command it
+runs.** Mandatory, no skip flag, and it failed with a plain
+"g4watch: command not found." `containers/Dockerfile.selection` built
+only the PhiPack `Phi` binary — the module's script calls
+`g4watch recombination`, the Python CLI, which was never installed in
+that image at all. Fixed by adding the g4watch package to the image
+(`FROM python:3.12-slim-bookworm` instead of a bare `debian:bookworm-slim`,
+plus `pip install .`), keeping it deliberately separate from
+`g4watch/core` rather than folding PhiPack in there: g4watch is MIT,
+PhiPack is GPL-3.0, and that is a real reason to keep two distributed
+images apart, not a style preference to relax under time pressure.
+
+That exposed **bug 2b**, one layer down: `g4watch/phylo/
+recombination_screen.py`'s default Phi binary path was *also* computed
+from its own `__file__` — the exact same defect `config_dir()` already
+documents, independently reinvented in a second module, and **duplicated
+a third time** in `g4watch/pipeline/stage15_recombination.py`, which
+carried its own separate frozen copy of the same constant. Fixing the
+first copy alone did nothing, because the actual CLI entry point
+(`cmd_recombination` → `run_stage15_recombination`) used the second,
+unfixed one. Both call sites also used the broken constant as a
+*function default argument*, evaluated once at import time — invisible
+under Nextflow, where a fresh process starts with the environment already
+set, but the same fragile pattern `CONFIG_DIR` (the frozen module
+constant `config_dir()` was written to replace) already warns against in
+its own docstring.
+
+Fixed by: deleting the duplicate in `stage15_recombination.py` in favour
+of importing the one real implementation; renaming the private
+`_default_phi_binary()` to a public `default_phi_binary()`; changing both
+`run_phi_test` and `screen_recombination` to default to `None` and
+resolve fresh inside the function body, not at import time; and adding
+the matching `env.G4WATCH_PHI_BINARY = "/usr/local/bin/Phi"` to both
+containerised profiles — pointed at the binary each image's own
+Dockerfile just built, not at the host's bind-mounted
+`vendor/phipack/Phi`, whose architecture and glibc compatibility with the
+container would otherwise have been an unstated assumption.
+
+**Verified by running the exact failing command four times**, not by
+reasoning about the fix: attempt 1 hit bug 1, attempt 2 (after fixing
+bug 1 and rebuilding `core`) hit bug 2, attempt 3 (after adding g4watch
+to `selection`) hit bug 2b, attempt 4 completed all 9 processes with
+`status: OK`, and its `gate_status.txt` is byte-identical (apart from the
+timestamp) to the same run under `-profile conda_free`.
+
+**Two regression tests, both static** so they run in seconds and catch
+the shape of each defect without needing Docker in CI:
+
+- `test_the_containerised_profiles_set_an_explicit_config_dir` — checks
+  both profile blocks declare `G4WATCH_CONFIG_DIR`.
+- `test_every_containerised_process_has_its_script_command_in_its_image`
+  — for every module, resolves its Nextflow `label` to the image tag the
+  profile maps it to, and checks that image's own Dockerfile mentions the
+  first word of the script it is asked to run. Deliberately shallow (a
+  substring check, not a build), and exactly the shape of bug 2: a label
+  pointing at an image with no path to the command the script invokes.
+
+**Docker images were also stale relative to the code** — every
+`g4watch`-embedding image (`core`, `selection`) predated commits up to
+six days old; the tool-wrapper images (`alignment`, `phylogenetics`,
+`statistics`, `g4prediction`, `acquisition`, `variants`) don't embed
+application code and were left alone. `web-backend`'s image is also old
+but its source has had zero commits since the image was built, and
+`config/`/`data/` are live bind-mounts — not actually stale in any way
+that matters. Rebuilt `core` and `selection` from current source as part
+of this verification; there is no automated trigger that rebuilds them
+on a commit, which is worth having before this is relied on operationally
+rather than rebuilt by hand before each real run.

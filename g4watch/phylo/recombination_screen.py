@@ -14,13 +14,39 @@ house rule says to orchestrate, not reimplement).
 
 from __future__ import annotations
 
+import os
 import re
 import subprocess
 from dataclasses import dataclass
 from enum import Enum
 from pathlib import Path
 
-_VENDOR_PHI_BINARY = Path(__file__).resolve().parents[2] / "vendor" / "phipack" / "Phi"
+
+def default_phi_binary() -> Path:
+    """Where the vendored Phi binary is, absent an explicit override.
+
+    Same defect g4watch/config.py's config_dir() documents, in a second
+    module: resolving from ``__file__`` is correct for an editable
+    checkout (``pip install -e .``, how the conda_free profile's host
+    venv is set up) and wrong for an installed package, where this file
+    lives under site-packages and ``parents[2]`` lands nowhere near a
+    real ``vendor/`` directory. Every containerised profile pip-installs
+    a built wheel, so RECOMBINATION_SCREEN -- Stage 1.5, mandatory, no
+    skip flag -- failed with "PhiPack binary not found at
+    .../site-packages/vendor/phipack/Phi" until this override existed.
+
+    ``$G4WATCH_PHI_BINARY`` is set only in the docker and singularity
+    profiles (workflow/nextflow.config), pointing at the binary each
+    image's own Dockerfile just built -- not at the host's
+    bind-mounted vendor/phipack/Phi, whose architecture and glibc
+    compatibility with the container would otherwise be an unstated
+    assumption rather than a guarantee.
+    """
+    override = os.environ.get("G4WATCH_PHI_BINARY")
+    if override:
+        return Path(override)
+    return Path(__file__).resolve().parents[2] / "vendor" / "phipack" / "Phi"
+
 
 _FOUND_SEQ_RE = re.compile(r"Found (\d+) sequences of length (\d+)")
 _INFORMATIVE_SITES_RE = re.compile(r"Found (\d+) informative sites")
@@ -97,8 +123,12 @@ def parse_phi_output(stdout: str) -> PhiTestResult:
     )
 
 
-def run_phi_test(fasta_path: str | Path, phi_binary: str | Path = _VENDOR_PHI_BINARY) -> PhiTestResult:
-    binary = Path(phi_binary)
+def run_phi_test(fasta_path: str | Path, phi_binary: str | Path | None = None) -> PhiTestResult:
+    # Resolved per call, not frozen as a default-argument value at import
+    # time -- the same reason g4watch/config.py's config_dir() is a
+    # function rather than a constant. $G4WATCH_PHI_BINARY is read from
+    # the environment at the moment the test actually runs.
+    binary = Path(phi_binary) if phi_binary is not None else default_phi_binary()
     if not binary.exists():
         raise PhiExecutionError(f"Phi binary not found at {binary} — build it via `make` in vendor/phipack/ first.")
 
@@ -120,7 +150,7 @@ def screen_recombination(
     fasta_path: str | Path,
     tier: RecombinationTier,
     alpha: float = 0.05,
-    phi_binary: str | Path = _VENDOR_PHI_BINARY,
+    phi_binary: str | Path | None = None,
 ) -> RecombinationScreenResult:
     """Runs the PHI test unconditionally (the test always runs — `tier`
     only controls how a positive/undefined result is handled downstream,
