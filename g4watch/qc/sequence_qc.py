@@ -74,6 +74,39 @@ def has_month_precision(date_str: str | None) -> bool:
     return bool(re.search(r"\b\d{4}-\d{2}(-\d{2})?\b", date_str))
 
 
+def extract_month(date_str: str | None) -> int | None:
+    """The calendar month (1-12), when the date has month precision.
+
+    Recognizes exactly the formats ``has_month_precision`` does, and
+    returns ``None`` on anything it does not -- a caller should always
+    check the two together, or just treat ``None`` as "not precise
+    enough", which is what every existing caller of
+    ``has_month_precision`` already does.
+
+    A GenBank collection_date is sometimes a range
+    ('18-Jul-2024/21-Jul-2024', a collector unsure of the exact day). Only
+    the first date in the range is read, on the assumption a range short
+    enough to be given as a range does not cross a month boundary -- true
+    of every real example seen in this corpus, and if it is ever wrong
+    for some record, the record still gets a real month, just from the
+    wrong half of a range that already could not be narrowed to a single
+    day.
+    """
+    if not has_month_precision(date_str):
+        return None
+    first = date_str.split("/")[0].strip()
+    lowered = first.lower()
+    for index, name in enumerate(_MONTH_NAMES):
+        if name in lowered:
+            return index + 1
+    numeric = re.search(r"\b\d{4}-(\d{2})(?:-\d{2})?\b", first)
+    if numeric:
+        month = int(numeric.group(1))
+        if 1 <= month <= 12:
+            return month
+    return None
+
+
 def evaluate_sequence_qc(
     seq_length: int,
     reference_length: int,

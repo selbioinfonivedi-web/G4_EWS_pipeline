@@ -6,6 +6,7 @@ import pytest
 
 from g4watch.qc.sequence_qc import (
     evaluate_sequence_qc,
+    extract_month,
     extract_year,
     genome_completeness_fraction,
     has_month_precision,
@@ -70,6 +71,39 @@ def test_has_month_precision_true_cases() -> None:
 def test_has_month_precision_false_for_year_only() -> None:
     assert has_month_precision("2024") is False
     assert has_month_precision(None) is False
+
+
+def test_extract_month_recognizes_every_format_has_month_precision_does() -> None:
+    assert extract_month("18-Jul-2024") == 7
+    assert extract_month("2024-07") == 7
+    assert extract_month("2024-07-18") == 7
+    assert extract_month("Jan-2024") == 1
+    assert extract_month("31-Dec-2024") == 12
+
+
+def test_extract_month_none_when_precision_is_absent() -> None:
+    assert extract_month("2024") is None
+    assert extract_month("") is None
+    assert extract_month(None) is None
+    assert extract_month("unknown") is None
+
+
+def test_extract_month_reads_the_first_date_of_a_range() -> None:
+    # GenBank collection_date ranges look like '18-Jul-2024/21-Jul-2024' --
+    # a collector unsure of the exact day within one span.
+    assert extract_month("18-Jul-2024/21-Jul-2024") == 7
+    assert extract_month("2024-07-18/2024-07-21") == 7
+
+
+def test_extract_month_agrees_with_has_month_precision_on_every_case() -> None:
+    """The two must never disagree: has_month_precision says a caller can
+    trust a month exists, extract_month is what supplies it."""
+    cases = [
+        "18-Jul-2024", "2024-07", "2024-07-18", "2024", "", "unknown",
+        None, "18-Jul-2024/21-Jul-2024", "Jan-2024", "2024/2025",
+    ]
+    for date_str in cases:
+        assert has_month_precision(date_str) == (extract_month(date_str) is not None), date_str
 
 
 def test_evaluate_sequence_qc_full_pass() -> None:

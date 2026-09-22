@@ -31,6 +31,7 @@ from ..config import PathogenConfig
 from ..metrics.surveillance_metrics import Sample
 from ..pipeline.stage45_dh1 import _extract_year
 from ..qc.metadata_normalization import LineageVocabulary
+from ..qc.sequence_qc import extract_month
 from .fasta import read_fasta
 
 
@@ -40,6 +41,14 @@ def _year(raw: str) -> int | None:
         return None
     value = int(text)
     return value if 1900 <= value <= 2100 else None
+
+
+def _month(raw: str) -> int | None:
+    """None whenever _year() is also None -- a month without a year is
+    not a usable calendar point, and monthly windowing needs both."""
+    if _year(raw) is None:
+        return None
+    return extract_month(raw or "")
 
 
 def aligned_path(config: PathogenConfig) -> Path | None:
@@ -103,6 +112,7 @@ def load_samples(
                     lineage=lineage or "—",
                     country=(row.get("country", "") or "").split(":")[0].strip() or "—",
                     year=_year(row.get("collection_date", "")),
+                    month=_month(row.get("collection_date", "")),
                     states={},
                     g4_mutations=None,
                     total_mutations=None,
