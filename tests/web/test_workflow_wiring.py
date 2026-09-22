@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import pytest
 
+from tests.conftest import requires_fmdv2026_corpus
 from web.runner.commands import COMMANDS, CommandError
 
 BY_KEY = {c.key: c for c in COMMANDS}
@@ -86,6 +87,8 @@ def test_the_ui_calls_the_workflow_command():
     assert Path(REPO_ROOT / "web" / "workstation" / "static" / "g4.js").stat().st_size > 0
 
 
+@requires_fmdv2026_corpus  # build_dataset() only reports "alignment" when
+# the file actually exists on disk; absent in a fresh clone or CI.
 def test_the_payload_carries_the_artifact_paths():
     """The panel supplies --atlas/--alignment/--rooted_tree so the run
     SKIPS the stages that would rebuild them. Without the paths it would

@@ -14,7 +14,7 @@ from pathlib import Path
 import pytest
 from fastapi.testclient import TestClient
 
-from tests.conftest import requires_real_corpus, skip_without_real_corpus
+from tests.conftest import requires_fmdv2026_corpus, requires_real_corpus, skip_without_real_corpus
 from web.runner.app import create_app
 from web.workstation.dataset import build_dataset, layout_tree, parse_newick
 
@@ -389,6 +389,8 @@ def test_missing_artifact_reports_unavailable_not_zero(client):
 
 
 # ── Stage 1.5 and Stage 3 in the payload ────────────────────────────
+@requires_fmdv2026_corpus  # asserts the resolved alignment path is_file();
+# the file is regenerable and gitignored, absent in a fresh clone or CI.
 def test_artifact_paths_come_from_the_config_not_the_pathogen_name():
     """_paths built them from data/reference_genomes/<pathogen>/corpus,
     which assumed every pathogen keeps its corpus in a directory named

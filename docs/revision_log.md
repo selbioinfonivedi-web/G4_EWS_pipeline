@@ -1622,3 +1622,57 @@ that matters. Rebuilt `core` and `selection` from current source as part
 of this verification; there is no automated trigger that rebuilds them
 on a commit, which is worth having before this is relied on operationally
 rather than rebuilt by hand before each real run.
+
+
+## R-31 — First real CI run on this branch: 4 test failures and a coverage gate, both fixed
+
+**What happened.** The `phases-0-3` branch had never been pushed before
+this session, so this was the first time GitHub Actions had ever run
+against its 43 commits. `gh pr checks` showed lint, the security
+boundary, container images, the Nextflow workflow check and the D.H1-
+gate-stays-closed check all green — and both Python test jobs (3.11,
+3.12) red.
+
+**4 real test failures, one real shape.** `tests/conftest.py` already has
+`requires_real_corpus`, guarding tests that read the FMDV corpus's
+gitignored, regenerable alignment/tree — present on a machine that has
+actually run the pipeline, absent in a fresh clone or CI. Two tests
+written in this session (`test_overview_deck_facts.py`) and two
+pre-existing ones (`test_workflow_wiring.py`,
+`test_workstation_dataset.py`) read the newer FMDV2026 corpus's aligned
+FASTA without any equivalent guard — because none existed for that
+corpus. Added `requires_fmdv2026_corpus` to `conftest.py`, next to the
+original, and applied it to all four. Verified by actually moving the
+alignment aside and confirming all four skip cleanly with the same
+message shape the rest of the suite already uses, rather than trusting
+that the guard would fire.
+
+**The coverage gate (85%, `pyproject.toml`) was failing at 83.17%, and it
+was a real regression, not a structural CI limitation.** `main`'s own CI
+has passed this gate before, in the same clean-checkout, no-corpus
+environment — so the shortfall was real code added across this branch's
+history with no tests behind it, concentrated almost entirely in two
+files: `g4watch/cli.py` at 34% (720 statements, 440 untested — 12 of 25
+command handlers had zero coverage) and `g4watch/pipeline/
+stage1_align.py` at 15% (untested entirely). CI installs R + ape but not
+MAFFT/IQ-TREE/TreeTime, so `cmd_align` and `cmd_phylogenetics` can only
+be exercised on their pre-flight error paths there; their real success
+paths are what the Nextflow end-to-end runs earlier in this session
+(R-30) already verify, under the tool availability CI does not have.
+
+Added 41 tests to `tests/unit/test_cli.py`, covering `dates` (code from
+this session, no excuse for it being untested), `dashboard`, `power`,
+`report-card`, `dh3`, `variants`, `atlas-conservation`,
+`atlas-reclassify`, `calibrate` and the pre-flight error paths of
+`align` and `stage5` — each exercising the real command dispatch against
+the repository's existing synthetic-pathogen fixtures
+(`synthetic_config`, `synthetic_corpus`, `atlas_record`) or, for
+`calibrate`, the real git-tracked calibration seed under
+`data/calibration/`. Not padding: every test asserts on real output from
+a real run of the command, the same standard the existing tests in that
+file already hold to.
+
+**Result: 89.26% (was 83.17%), 1240 tests pass, 0 failures, gate reached
+with margin** — verified locally with the identical `pytest --cov=g4watch
+--cov-report=term-missing` invocation CI runs, not assumed from the
+local number alone.

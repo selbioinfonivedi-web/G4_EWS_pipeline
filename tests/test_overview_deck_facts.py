@@ -23,6 +23,12 @@ from pathlib import Path
 import pytest
 import yaml
 
+# The aligned FASTA and rooted tree the last two tests below read are
+# regenerable and gitignored -- present on a machine that has actually run
+# the pipeline, absent in a fresh clone or CI. Every other test here reads
+# only the Atlas TSV and the ledger, both small and git-tracked.
+from tests.conftest import requires_fmdv2026_corpus
+
 ROOT = Path(__file__).resolve().parents[1]
 BUILDER = ROOT / "deliverables/overview_assets/build_overview_deck.py"
 
@@ -70,6 +76,8 @@ def test_the_pathogen_count_is_the_number_provisioned(declared):
     assert declared["N_PATHOGENS"] == len(_provisioned_configs())
 
 
+@requires_fmdv2026_corpus  # proxy for "real corpora exist here" across all 11 pathogens,
+# the same reasoning tests/conftest.py's requires_real_corpus already uses for one
 def test_the_genome_counts_match_the_corpora_on_disk(declared):
     fetched = aligned = 0
     for cfg in _provisioned_configs():
@@ -166,6 +174,7 @@ def test_the_footer_page_numbers_are_consecutive():
     )
 
 
+@requires_fmdv2026_corpus
 def test_the_cone_counts_come_from_the_files_the_pipeline_wrote():
     """The workflow cone's numbers are the ones most likely to drift.
 
