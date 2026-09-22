@@ -108,6 +108,22 @@ def load_samples(
                     total_mutations=None,
                 )
             )
+
+    # The min_lineage_size RULE, applied after the corpus is read because
+    # it needs the counts. Under-represented lineages are dropped whole:
+    # the Appendix C floor requires 20 sequences in EVERY lineage, so one
+    # singleton fails a corpus however well its real groups are sampled.
+    #
+    # Applied HERE and in compute_corpus_minimum_data_stats. One rule with
+    # two code paths and only one of them knowing is exactly the defect
+    # revision log R-15 records, where an excluded lineage was still
+    # counted against the floor and halted every locus.
+    minimum = config.min_lineage_size
+    if minimum > 0:
+        counts: dict[str, int] = {}
+        for sample in out:
+            counts[sample.lineage] = counts.get(sample.lineage, 0) + 1
+        out = [s for s in out if counts.get(s.lineage, 0) >= minimum]
     return out
 
 

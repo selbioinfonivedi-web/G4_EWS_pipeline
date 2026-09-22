@@ -1,0 +1,235 @@
+pathogen: FMDV2026
+display_name: Foot-and-Mouth Disease Virus (2026 corpus, 936 genomes)
+genome_type: ssRNA_positive
+taxonomy_id: 12110
+reference:
+  accession: AY593823.1
+  fasta: data/reference_genomes/fmdv/AY593823.fasta
+  cds_start: 1099
+  cds_end: 8097
+  genome_length: 8206
+corpus:
+  metadata_tsv: data/reference_genomes/fmdv/corpus_2026/fmdv2026_corpus_metadata.tsv
+  sequences_fasta: data/reference_genomes/fmdv/corpus_2026/fmdv2026_corpus_sequences.fasta
+  lineage_field: serotype
+  lineage_vocabulary:
+    canonical:
+    - O
+    - A
+    - C
+    - ASIA1
+    - SAT1
+    - SAT2
+    - SAT3
+    name_prefixes:
+    - FOOTANDMOUTHDISEASEVIRUS
+    - FMDV
+    subtype_pattern: ^([OAC])\d+$
+    aliases:
+      ASIA: ASIA1
+      PANASIA: O
+      PANASIAO: O
+  exclude_lineages:
+  - SAT3
+  - C
+qc:
+  min_completeness_fraction: 0.9
+  max_n_content_fraction: 0.05
+  require_year_precision_date: true
+alignment:
+  tool: mafft
+  args: --auto --keeplength --addfragments
+  max_gapped_fraction: 0.5
+recombination:
+  enabled: true
+  tier: standard
+  alpha: 0.05
+phylogenetics:
+  tool: iqtree2
+  model: GTR+F+I+G4
+  bootstrap_replicates: 1000
+  seed: 20250823
+  outgroup: null
+  ancestral_states: required
+  timetree:
+    tool: treetime
+    clock_rate: null
+    clock_filter_iqd: 3.0
+g4_prediction:
+  g4hunter:
+    window: 25
+    threshold: 1.2
+  pattern_motif:
+    enabled: true
+  g4rna_screener:
+    enabled: false
+    reason: upstream is Python 2-only with a pickled PyBrain classifier; see vendor/README.md
+  pqsfinder:
+    enabled: false
+    reason: DNA-virus-scoped tool, deferred to the LSDV sprint
+  concordance:
+    min_overlap_fraction: 0.8
+  flank: 100
+control_regions:
+  length_tolerance: 0.1
+  gc_tolerance: 0.05
+  pqs_overlap_score_threshold: 0.8
+  exclusion_buffer: 50
+  # Controls drawn per locus. More than one because the pooled GC model
+  # treats controls as its reference category across every locus at once:
+  # when one window serves as the control for many loci those rows are not
+  # independent, and the model's precision is overstated. A single control
+  # arm was also the binding constraint on power far more often than the
+  # locus arm -- 11 informative clades against 71 on this corpus.
+  #
+  # Controls are drawn from the locus's own compartment (5'UTR / CDS /
+  # 3'UTR) where one is available. See revision log R-20: matching on GC
+  # and length alone put 36 of 37 controls in the structured 5' UTR.
+  #
+  # Cost: six ancestral-state reconstructions per locus instead of two, so
+  # a D.H1 run takes roughly three times as long.
+  n_controls: 5
+atlas:
+  version: '1.0'
+  path: data/atlases/G4_Reference_Atlas_v2.0.fmdv2026.tsv
+dh1_gate:
+  alpha: 0.05
+
+  # PRE-SPECIFIED before the tree was built and before any p-value existed.
+  # Benjamini-Hochberg spends power on every locus tested, so the size of
+  # this set changes what counts as significant for all of them: the cutoff
+  # for the smallest p-value is 0.00075 across all 67 Atlas loci against
+  # 0.00135 across the 37 that meet this rule. Choosing after seeing the
+  # results would be selection on the outcome.
+  #
+  # The counts above were corrected 2026-09-11 from "0.00152 across 33",
+  # which was written against an earlier build of the Atlas and had gone
+  # stale when the survey was re-run. The RULE is unchanged -- only the
+  # arithmetic describing its effect on the current Atlas. Verify with
+  # `select_analysis_loci(atlas, 20)` rather than trusting this comment.
+  #
+  # RULE: loci present in >= 20 genomes of the corpus at the time of G4
+  # calling, irrespective of score or strand. Reference-native loci are
+  # always included. Carrier count is a property of the corpus, knowable
+  # before any test runs, which is what makes it pre-specifiable.
+  #
+  # Score is deliberately not part of the rule: filtering on it would
+  # couple the analysis set to the very threshold under question. Strand
+  # is deliberately not part of it either: that is a biological argument,
+  # reported as a covariate rather than settled by exclusion.
+  locus_selection:
+    min_carriers: 20
+    rule: >-
+      loci present in >= 20 genomes of the corpus at the time of G4
+      calling, irrespective of score or strand
+
+  # No ROC calibration of the structural-confidence thresholds was
+  # performed on THIS corpus, and none is planned on it. ROC needs
+  # confirmed positives; no FMDV G4 has been biophysically confirmed in
+  # the literature (CD, ThT or DMS-MaPseq). The confirmed positive-sense
+  # RNA virus G4s are in HIV-1 nef, SARS-CoV-2 5'UTR and Zika sfRNA --
+  # FMDV is not among them. Without ground truth a "ROC" fitted here would
+  # just be a threshold chosen by looking at this data, which is exactly
+  # what pre-specification exists to prevent.
+  #
+  # UPDATED 2026-09-11. This block previously ended "The 1.5 G4Hunter bar
+  # and the 2-predictor minimum stand as originally specified." That is no
+  # longer true and the sentence is removed rather than left to mislead:
+  # the operating point was relaxed to >= 1 tool / |G4Hunter| >= 1.2 /
+  # conservation >= 75% after `g4watch calibrate` measured 0% sensitivity
+  # for the old rule against the confirmed viral G4s available. See
+  # revision log R-11 for the measurement, the reasoning and the cost.
+  #
+  # That change is a judgment call made on cross-species evidence, NOT a
+  # ROC fit, and NOT derived from this corpus. It is recorded here because
+  # it changes which loci reach MC/SC on this Atlas, and a reader
+  # comparing runs needs to know the classifier moved between them.
+  threshold_calibration: not_performed_on_this_corpus
+  threshold_source: cross_species_judgment_see_revision_log_R-11
+
+  # DECISION RULE: the GC-adjusted test alone.
+  #
+  # CHANGED 2026-09-08, AFTER the first D.H1 run on this corpus. Recorded
+  # as post-hoc because it is: the run returned NOT_SUPPORTED, inspection
+  # showed FMDV2026-G4-004 had 71 informative clades against 11 controls,
+  # and the conjunction rule had rejected it on the raw Fisher test
+  # (p = 0.1385) without consulting the pooled GC-adjusted test
+  # (p_fdr = 9.7e-07). A reader is entitled to know the rule moved after
+  # the data were seen, and to discount accordingly.
+  #
+  # THE ARGUMENT FOR IT, independent of that result: G4 loci are G/C-rich
+  # by construction, so the raw Fisher test cannot separate "this is a G4"
+  # from "this is GC-rich" -- it is confounded on exactly the variable the
+  # gate exists to control. It also uses only one locus and its own
+  # matched control, so its power is set by whichever side has fewer
+  # informative clades. The pooled logistic model estimates the GC effect
+  # across every locus and control together and is FDR-corrected.
+  #
+  # THE ARGUMENT AGAINST: Fisher is exact and assumption-free; the pooled
+  # LRT relies on an asymptotic chi-squared approximation that is weaker
+  # at small clade counts. Requiring both was the more conservative
+  # position and it is being given up deliberately.
+  #
+  # The raw Fisher p-value is still computed and reported for every locus,
+  # so SIGNAL_EXPLAINED_BY_GC remains observable and the two tests can be
+  # compared wherever they disagree.
+  decision_rule: gc_adjusted
+
+  # REVERTED TO `refuse` 2026-09-11.
+  #
+  # This was set to `annotate` on 2026-09-09, when the D.H1 verdict on this
+  # corpus read SUPPORTED. The trade then was: produce the numbers with a
+  # disclaimer attached, to show what the machinery computes on a corpus
+  # that has not earned a score.
+  #
+  # That verdict was wrong. The gate was not checking the DIRECTION of the
+  # effect (revision log R-18), and the single locus carrying the verdict,
+  # FMDV2026-G4-004, is MORE disrupted than its matched control -- 0.775
+  # against 0.545. The corrected verdict is SIGNAL_OPPOSITE_DIRECTION.
+  #
+  # `annotate` is not defensible against that. Its argument was that a
+  # number carrying its own disclaimer is safer than no number, which holds
+  # when the evidence merely FAILS TO SUPPORT the hypothesis. Here the
+  # evidence CONTRADICTS it, and generating surveillance scores from a
+  # corpus whose only significant locus points the wrong way would put
+  # numbers in front of a reader that the data argues against. A missing
+  # file is the correct output.
+  on_block: refuse
+  ledger: data/atlases/testing_ledger.tsv
+# Layer 1 of the Section 12 two-layer gate. Stage 5 and Stage 6 also
+# require a SUPPORTED D.H1 verdict in the testing ledger; this flag alone
+# opens nothing, which is the point of there being two layers.
+#
+# Set true 2026-09-08 after D.H1 returned SUPPORTED on this corpus, then
+# SET BACK TO FALSE 2026-09-11 when that verdict did not survive review.
+#
+# The SUPPORTED verdict rested on a single locus, FMDV2026-G4-004, and the
+# gate was not checking the direction of the effect: that locus is MORE
+# disrupted than its matched control (0.775 vs 0.545), which is evidence
+# against D.H1, not for it. Both statistical tests are two-sided and
+# neither could distinguish the two. See revision log R-18.
+#
+# The corrected verdict is SIGNAL_OPPOSITE_DIRECTION. Layer 2 of the gate
+# blocks scoring on that verdict regardless of this flag -- which is the
+# point of there being two layers -- but leaving the flag true would
+# assert a readiness this corpus has not demonstrated, so it comes down.
+operational_mode: false
+
+# Detection-chart calibration. FMDV whole-genome submissions carry
+# year-only collection dates, so the score series is annual and cannot be
+# made longer by narrowing the window: 26 years of corpus yields at most
+# ~22 scored windows and ~11 baseline observations. The architecture's
+# default of 20 is unreachable on this cadence.
+#
+# Lowering it does NOT make the limit trustworthy, and nothing here
+# pretends otherwise. Below 20 the control limit is additionally
+# bootstrapped over resampled baselines and the interval it moves across
+# is reported, along with an explicit caveat that the nominal ARL is not
+# achieved. On this corpus that interval spans roughly a factor of three:
+# the threshold is a working figure, not a calibrated false-alarm rate.
+#
+# 8 is the absolute floor in code; below it the block bootstrap has too
+# few blocks to resample and calibration refuses outright.
+detection:
+  baseline_fraction: 0.5
+  min_baseline_windows: 8

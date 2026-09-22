@@ -12,18 +12,33 @@ from __future__ import annotations
 
 from .schema import AtlasCandidate, FunctionalContext, StructuralConfidence
 
-# Thresholds below are Revision 1's literature-default operating points,
-# carried forward unchanged. The review (Section 2 claim audit) flagged
-# these as borrowed, not re-derived for this cross-species application —
-# recalibrating them via ROC analysis against real data is planned but
-# requires real data to run against (Sprint 2 onward), not something this
-# module can do on its own.
-_SC_MIN_TOOLS = 2
-_SC_MIN_G4HUNTER = 1.5
-_SC_MIN_CONSERVATION_PCT = 85.0
-_MC_MIN_TOOLS_CONCORDANT = 2
-_MC_G4HUNTER_RANGE = (1.2, 1.5)  # inclusive lower, exclusive upper
-_MC_SINGLE_TOOL_MIN_G4HUNTER = 1.8
+# RELAXED OPERATING POINT (see the design note below for what changed and
+# why). These are still a judgment call, NOT a ROC-derived optimum: the
+# confirmed-positive set is far too small to fit one (calibration.py
+# requires 30 positives across 4 viruses; the curated set currently holds
+# 3 loci from 1 virus). What changed is that the previous operating point
+# was demonstrably too strict to admit ANY biophysically confirmed viral
+# G4 -- measured, not assumed:
+#
+#     HIV1-LTR-5U3   |G4Hunter| 1.107   concordant tools 1
+#     HIV1-NEF       |G4Hunter| 0.944   concordant tools 1
+#     HIV1-LTR-3U3   |G4Hunter| 1.205   concordant tools 1
+#
+# Every one failed BOTH the >=2-tool and the >=1.5-score bar, so the old
+# rule had 0% sensitivity against its own ground truth and no adjustment
+# to the score threshold alone could have fixed it.
+#
+# The tool-count bar is the one that most deserved relaxing: only two
+# predictors are actually wired up (G4Hunter and the pattern-motif
+# scanner; g4rna_screener is Python-2-only and pqsfinder is not yet
+# wired), so ">= 2 concordant tools" meant "both of the two must agree" --
+# a unanimity requirement dressed up as a concordance requirement.
+_SC_MIN_TOOLS = 1
+_SC_MIN_G4HUNTER = 1.2
+_SC_MIN_CONSERVATION_PCT = 75.0
+#: Floor for MC. Below this a candidate is a weak call (WC), not a
+#: moderate one.
+_MC_MIN_G4HUNTER = 0.9
 
 
 def structural_confidence(candidate: AtlasCandidate) -> StructuralConfidence:
@@ -59,18 +74,14 @@ def structural_confidence(candidate: AtlasCandidate) -> StructuralConfidence:
     ):
         return StructuralConfidence.SC
 
-    lo, hi = _MC_G4HUNTER_RANGE
-    concordant_moderate = (
-        candidate.concordant_tool_count >= _MC_MIN_TOOLS_CONCORDANT
-        and score is not None
-        and lo <= score < hi
-    )
-    single_tool_strong = (
-        candidate.concordant_tool_count == 1
-        and score is not None
-        and score >= _MC_SINGLE_TOOL_MIN_G4HUNTER
-    )
-    if concordant_moderate or single_tool_strong:
+    # MC is now a single condition rather than two disjoint special cases.
+    # This deliberately absorbs a class the old rule sent all the way to
+    # WC: a candidate that clears the SC score bar but misses only on
+    # conservation. Under the old thresholds a locus scoring 2.5 with two
+    # concordant tools and 60% conservation was classified WC -- the same
+    # bucket as a locus with no meaningful signal at all -- which threw
+    # away the distinction the axis exists to make.
+    if score is not None and score >= _MC_MIN_G4HUNTER:
         return StructuralConfidence.MC
 
     return StructuralConfidence.WC

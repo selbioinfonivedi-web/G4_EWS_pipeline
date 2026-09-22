@@ -15,6 +15,7 @@ from __future__ import annotations
 import asyncio
 import os
 import signal
+import sys
 import time
 import uuid
 from collections import deque
@@ -132,6 +133,11 @@ class Job:
 class JobRunner:
     """Serialised runner for whitelisted pipeline commands."""
 
+    #: Called with (job, analysis_status) on every state change, so an
+    #: Analysis record can follow its job without the runner needing to
+    #: know what an Analysis is. Set by the app; None in unit tests.
+    on_state_change = None
+
     def __init__(self, repo_root: Path = REPO_ROOT) -> None:
         self.repo_root = repo_root
         self.jobs: dict[str, Job] = {}
@@ -202,6 +208,20 @@ class JobRunner:
         self._enqueue(job.id)
         return job
 
+    def _notify(self, job: Job) -> None:
+        """Tell a listener the job moved. Never let a listener break a run.
+
+        A failing hook must not take the pipeline down with it: the job is
+        the real work and the record is bookkeeping, so an exception here
+        is emitted into the job log and swallowed rather than propagated.
+        """
+        if self.on_state_change is None:
+            return
+        try:
+            self.on_state_change(job)
+        except Exception as exc:  # noqa: BLE001 - bookkeeping must not kill the run
+            job.emit("meta", f"analysis record not updated: {exc}")
+
     def _evict(self) -> None:
         while len(self.order) > MAX_JOBS_KEPT:
             stale = self.order.popleft()
@@ -237,6 +257,7 @@ class JobRunner:
             job.paused_seconds += time.time() - job._paused_at
             job._paused_at = None
         job.state = JobState.RUNNING
+        self._notify(job)
         job.emit("meta", "Resumed — SIGCONT sent to the process group.")
         return True
 
@@ -302,10 +323,27 @@ class JobRunner:
         job.state = JobState.RUNNING
         job.started = time.time()
         audit.record("started", job)
+        self._notify(job)
 
         env = dict(os.environ)
         env["PYTHONUNBUFFERED"] = "1"
         env["COLUMNS"] = "100"
+        # commands.py resolves `g4watch` by looking beside the running
+        # interpreter, so the console drives the g4watch it was launched
+        # from. A child process cannot do that lookup: Nextflow spawns its
+        # tasks itself, and they see only PATH. When the server is started
+        # as `.venv/bin/python -m uvicorn ...` -- without activating the
+        # venv, which is how a service starts -- that PATH has no
+        # `.venv/bin`, and every g4watch task inside a Nextflow run failed
+        # with "command not found".
+        #
+        # Putting the interpreter's own bin/ on PATH extends the rule the
+        # docstring already states to everything the console launches. It
+        # is prepended, not substituted: a system g4watch is still there,
+        # just behind the one this console is actually running.
+        interpreter_bin = str(Path(sys.executable).parent)
+        if interpreter_bin not in env.get("PATH", "").split(os.pathsep):
+            env["PATH"] = os.pathsep.join([interpreter_bin, env.get("PATH", "")]).rstrip(os.pathsep)
 
         process = await asyncio.create_subprocess_exec(
             *argv,
@@ -342,6 +380,7 @@ class JobRunner:
             job.state = JobState.FAILED
 
         job.emit("meta", f"Exited with code {code} after {job.duration:.1f}s.")
+        self._notify(job)
         # One row per terminal outcome. GATE_CLOSED is recorded as a
         # finished run, not a failure: exit 3 is a correct scientific
         # result and an audit that called it a failure would misreport it.

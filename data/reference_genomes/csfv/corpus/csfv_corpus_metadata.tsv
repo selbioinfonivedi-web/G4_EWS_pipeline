@@ -1,0 +1,975 @@
+accession	length	organism	country	collection_date	geo_loc_name	host	strain	isolate	serotype	genotype	segment	note	lat_lon
+PX486029.1	12298	Classical swine fever virus	Viet Nam	15-Sep-2024	Viet Nam: Bac Ninh, DACOVET Pharmaceutical and Animal Heath Company Ltd.	pig	DACOVET-CSFV						
+PV453686.1	12147	Classical swine fever virus	Brazil	2019-04-28	Brazil: Piaui, Murici dos Portelas	domestic pig		Brazil/2019-0571/2019				genotype: 1.5	
+PV453678.1	12108	Classical swine fever virus	Brazil	2019-04-30	Brazil: Piaui, Cabeceiras do Piaui	domestic pig		Brazil/2019-0586/2019				genotype: 1.5	
+PV453677.1	12103	Classical swine fever virus	Brazil	2020-09-22	Brazil: Piaui, Parnaiba	domestic pig		Brazil/2020-1000/2020				genotype: 1.5	
+PV453676.1	12137	Classical swine fever virus	Brazil	2019-05-09	Brazil: Piaui, Domingos Mourao	domestic pig		Brazil/2019-0608/2019				genotype: 1.5	
+PV453675.1	12136	Classical swine fever virus	Brazil	2018-11-22	Brazil: Ceara, Moraujo	domestic pig		Brazil/2018-0867/2018				genotype: 1.5	
+PV453674.1	12080	Classical swine fever virus	Brazil	2019-03-08	Brazil: Ceara, Carire	domestic pig		Brazil/2019-0389/2019				genotype: 1.5	
+PV453673.1	12135	Classical swine fever virus	Brazil	2019-05-31	Brazil: Piaui, Milton Brandao	domestic pig		Brazil/2019-0717/2019				genotype: 1.5	
+PV453672.1	12103	Classical swine fever virus	Brazil	2021-03-31	Brazil: Piaui, Demerval Lobao	domestic pig		Brazil/2021-0266/2021				genotype: 1.5	
+PV453671.1	12162	Classical swine fever virus	Brazil	2019-04-10	Brazil: Piaui, Lagoa do Piaui	domestic pig		Brazil/2019-0494/2019				genotype: 1.5	
+PV454366.1	11878	Classical swine fever virus	Brazil	23-Nov-2023	Brazil: Piaui, Cocal da Telha	domestic pig		Brazil/LDDV-2023-872-02-03/2023				genotype: 1.5	
+PV454365.1	11914	Classical swine fever virus	Brazil	06-Dec-2023	Brazil: Piaui, Boqueirao do Piaui	domestic pig		Brazil/LDDV-2023-908-07/2023				genotype: 1.5	
+LC901925.1	12094	Classical swine fever virus	Japan	2025	Japan:Mie	Sus scrofa		CSFV/wb/Jpn-Mie/649/2025					
+LC901924.1	12094	Classical swine fever virus	Japan	2025	Japan:Mie	Sus scrofa		CSFV/wb/Jpn-Mie/369/2025					
+LC901923.1	12094	Classical swine fever virus	Japan	2024	Japan:Mie	Sus scrofa		CSFV/wb/Jpn-Mie/958/2024					
+LC901922.1	12094	Classical swine fever virus	Japan	2024	Japan:Mie	Sus scrofa		CSFV/wb/Jpn-Mie/483/2024					
+LC896121.1	11929	Classical swine fever virus	Japan	2024	Japan: Gifu	Sus scrofa		CSFV/WB/Gifu/12510/2024					
+LC896120.1	11889	Classical swine fever virus	Japan	2023	Japan: Mie	Sus scrofa		CSFV/WB/Mie/55/2023					
+PX447283.1	12237	Classical swine fever virus	Viet Nam	2023	Viet Nam: Quang Ninh	swine		CSF.QN7					
+PX395944.1	12301	Classical swine fever virus	Viet Nam	2023	Viet Nam: Ha Noi	swine	DTLBV						
+LC881651.1	11826	Classical swine fever virus	Japan	2024-06-28	Japan:Ehime,Saijo	Sus scrofa		CSFV/JPN/WB_EH170696/2024					
+LC881650.1	11826	Classical swine fever virus	Japan	2024-06-06	Japan:Saga,Karatsu	Sus scrofa		CSFV/JPN/WB_SG168761/2024					
+LC881649.1	11826	Classical swine fever virus	Japan	2024-06-03	Japan:Saga,Karatsu	Sus scrofa		CSFV/JPN/WB_SG167278/2024					
+LC881648.1	11826	Classical swine fever virus	Japan	2024-05-30	Japan:Saga,Karatsu	Sus scrofa		CSFV/JPN/WB_SG167277/2024					
+LC881647.1	11826	Classical swine fever virus	Japan	2023-07-18	Japan:Kagawa,Takamatsu	Sus scrofa		CSFV/JPN/WB_KA136710/2023					
+LC881646.1	11826	Classical swine fever virus	Japan	2023-05-01	Japan:Kagawa,Takamatsu	Sus scrofa		CSFV/JPN/WB_KA131796/2023					
+LC881645.1	11826	Classical swine fever virus	Japan	2023-04-25	Japan:Kagawa,Sakaide	Sus scrofa		CSFV/JPN/WB_KA131190/2023					
+LC881644.1	11826	Classical swine fever virus	Japan	2023-03-16	Japan:Hiroshima,Kitahiroshima	Sus scrofa		CSFV/JPN/WB_HS130021/2023					
+LC881643.1	11826	Classical swine fever virus	Japan	2023-02-10	Japan:Hiroshima,Hatsukaichi	Sus scrofa		CSFV/JPN/WB_HS127384/2023					
+LC881642.1	11826	Classical swine fever virus	Japan	2023-01-12	Japan:Hiroshima,Akiota	Sus scrofa		CSFV/JPN/WB_HS126618/2023					
+LC881641.1	11826	Classical swine fever virus	Japan	2022-11-24	Japan:Hiroshima,Hiroshima	Sus scrofa		CSFV/JPN/WB_HS99572/2022					
+LC881640.1	11826	Classical swine fever virus	Japan	2022-10-13	Japan:Hiroshima,Akiota	Sus scrofa		CSFV/JPN/WB_HS99548/2022					
+LC881639.1	11826	Classical swine fever virus	Japan	2022-12-15	Japan:Mie,Shima	Sus scrofa		CSFV/JPN/WB_ME107279/2022					
+LC881638.1	11826	Classical swine fever virus	Japan	2022-12-08	Japan:Mie,Minamiise	Sus scrofa		CSFV/JPN/WB_ME107154/2022					
+LC881637.1	11826	Classical swine fever virus	Japan	2022-10-24	Japan:Mie,Nabari	Sus scrofa		CSFV/JPN/WB_ME106138/2022					
+LC881636.1	11826	Classical swine fever virus	Japan	2022-10-20	Japan:Mie,Iga	Sus scrofa		CSFV/JPN/WB_ME106060/2022					
+LC881635.1	11826	Classical swine fever virus	Japan	2022-10-17	Japan:Mie,Komono	Sus scrofa		CSFV/JPN/WB_ME105984/2022					
+LC881634.1	11826	Classical swine fever virus	Japan	2022-10-17	Japan:Mie,Kihoku	Sus scrofa		CSFV/JPN/WB_ME105899/2022					
+LC881633.1	11826	Classical swine fever virus	Japan	2022-07-14	Japan:Mie,Shima	Sus scrofa		CSFV/JPN/WB_ME104395/2022					
+LC881632.1	11826	Classical swine fever virus	Japan	2022-02-14	Japan:Mie,Kiho	Sus scrofa		CSFV/JPN/WB_ME77318/2022					
+LC881631.1	11826	Classical swine fever virus	Japan	2022-01-31	Japan:Mie,Kiho	Sus scrofa		CSFV/JPN/WB_ME77175/2022					
+LC881630.1	11826	Classical swine fever virus	Japan	2021-11-04	Japan:Mie,Matsuzaka	Sus scrofa		CSFV/JPN/WB_ME76451/2021					
+LC881629.1	11826	Classical swine fever virus	Japan	2021-09-13	Japan:Mie,Kiho	Sus scrofa		CSFV/JPN/WB_ME76041/2021					
+LC881628.1	11826	Classical swine fever virus	Japan	2021-09-13	Japan:Mie,Kiho	Sus scrofa		CSFV/JPN/WB_ME76038/2021					
+LC881627.1	11826	Classical swine fever virus	Japan	2021-08-26	Japan:Mie,Ise	Sus scrofa		CSFV/JPN/WB_ME75591/2021					
+LC881626.1	11826	Classical swine fever virus	Japan	2021-08-12	Japan:Mie,Watarai	Sus scrofa		CSFV/JPN/WB_ME75418/2021					
+LC881625.1	11826	Classical swine fever virus	Japan	2021-07-29	Japan:Mie,Ise	Sus scrofa		CSFV/JPN/WB_ME75229/2021					
+LC881624.1	11826	Classical swine fever virus	Japan	2021-07-21	Japan:Mie,Ise	Sus scrofa		CSFV/JPN/WB_ME75098/2021					
+LC881623.1	11826	Classical swine fever virus	Japan	2021-07-08	Japan:Mie,Watarai	Sus scrofa		CSFV/JPN/WB_ME74923/2021					
+LC881622.1	11826	Classical swine fever virus	Japan	2023-01-25	Japan:Yamagata,Oguni	Sus scrofa		CSFV/JPN/WB_YG126259/2023					
+LC881621.1	11826	Classical swine fever virus	Japan	2023-01-18	Japan:Yamagata,Tsuruoka	Sus scrofa		CSFV/JPN/WB_YG125361/2023					
+LC881620.1	11826	Classical swine fever virus	Japan	2022-12-26	Japan:Yamagata,Higashine	Sus scrofa		CSFV/JPN/WB_YG119992/2022					
+LC881619.1	11826	Classical swine fever virus	Japan	2023-01-22	Japan:Shizuoka,Kakegawa	Sus scrofa		CSFV/JPN/WB_SZ125503/2023					
+LC881618.1	11826	Classical swine fever virus	Japan	2023-01-16	Japan:Shizuoka,Izu	Sus scrofa		CSFV/JPN/WB_SZ125453/2023					
+LC881617.1	11826	Classical swine fever virus	Japan	2023-01-04	Japan:Shizuoka,Numazu	Sus scrofa		CSFV/JPN/WB_SZ123605/2023					
+LC881616.1	11826	Classical swine fever virus	Japan	2022-12-16	Japan:Shizuoka,Kakegawa	Sus scrofa		CSFV/JPN/WB_SZ123387/2022					
+LC881615.1	11826	Classical swine fever virus	Japan	2022-08-23	Japan:Shizuoka,Izu	Sus scrofa		CSFV/JPN/WB_SZ121730/2022					
+LC881614.1	11826	Classical swine fever virus	Japan	2022-08-06	Japan:Shizuoka,Kannami	Sus scrofa		CSFV/JPN/WB_SZ121510/2022					
+LC881613.1	11826	Classical swine fever virus	Japan	2022-05-02	Japan:Shizuoka,Kannami	Sus scrofa		CSFV/JPN/WB_SZ120837/2022					
+LC881612.1	11826	Classical swine fever virus	Japan	2022-04-11	Japan:Shizuoka,Izunokuni	Sus scrofa		CSFV/JPN/WB_SZ120738/2022					
+LC881611.1	11826	Classical swine fever virus	Japan	2022-03-01	Japan:Shizuoka,Kakegawa	Sus scrofa		CSFV/JPN/WB_SZ72711/2022					
+LC881610.1	11826	Classical swine fever virus	Japan	2022-02-19	Japan:Shizuoka,Izunokuni	Sus scrofa		CSFV/JPN/WB_SZ72597/2022					
+LC881609.1	11826	Classical swine fever virus	Japan	2021-12-17	Japan:Shizuoka,Hamamasu	Sus scrofa		CSFV/JPN/WB_SZ71986/2021					
+LC881608.1	11826	Classical swine fever virus	Japan	2023-01-05	Japan:Kanagawa,Minamiashigara	Sus scrofa		CSFV/JPN/WB_KN116305/2023					
+LC881607.1	11826	Classical swine fever virus	Japan	2022-10-24	Japan:Kanagawa,Oiso	Sus scrofa		CSFV/JPN/WB_KN91185/2022					
+LC881606.1	11826	Classical swine fever virus	Japan	2022-11-09	Japan:Hyogo,Himeji	Sus scrofa		CSFV/JPN/WB_HG114697/2022					
+LC881605.1	11826	Classical swine fever virus	Japan	2022-08-22	Japan:Hyogo,Fukusaki	Sus scrofa		CSFV/JPN/WB_HG108866/2022					
+LC881604.1	11826	Classical swine fever virus	Japan	2022-05-27	Japan:Hyogo,Shiso	Sus scrofa		CSFV/JPN/WB_HG108719/2022					
+LC881603.1	11826	Classical swine fever virus	Japan	2022-04-25	Japan:Hyogo,Taka	Sus scrofa		CSFV/JPN/WB_HG108693/2022					
+LC881602.1	11826	Classical swine fever virus	Japan	2023-01-31	Japan:Shimane,Masuda	Sus scrofa		CSFV/JPN/WB_SM126333/2023					
+LC881601.1	11826	Classical swine fever virus	Japan	2022-11-29	Japan:Shimane,Masuda	Sus scrofa		CSFV/JPN/WB_SM116648/2022					
+LC881600.1	11826	Classical swine fever virus	Japan	2022-11-07	Japan:Shimane,Masuda	Sus scrofa		CSFV/JPN/WB_SM116626/2022					
+LC881599.1	11826	Classical swine fever virus	Japan	2022-09-15	Japan:Shimane,Tsuwano	Sus scrofa		CSFV/JPN/WB_SM116556/2022					
+LC881598.1	11826	Classical swine fever virus	Japan	2022-09-02	Japan:Shimane,Tsuwano	Sus scrofa		CSFV/JPN/WB_SM116524/2022					
+LC881597.1	11826	Classical swine fever virus	Japan	2022-08-29	Japan:Shimane,Yoshika	Sus scrofa		CSFV/JPN/WB_SM116517/2022					
+LC881596.1	11826	Classical swine fever virus	Japan	2022-06-07	Japan:Kyoto,Kyotango	Sus scrofa		CSFV/JPN/WB_KY91264/2022					
+LC881595.1	11826	Classical swine fever virus	Japan	2022-03-15	Japan:Kyoto,Kyotamba	Sus scrofa		CSFV/JPN/WB_KY78464/2022					
+LC881594.1	11826	Classical swine fever virus	Japan	2021-12-06	Japan:Kyoto,Fukuchiyama	Sus scrofa		CSFV/JPN/WB_KY78445/2021					
+LC881593.1	11826	Classical swine fever virus	Japan	2023-02-01	Japan:Kochi,Kami	Sus scrofa		CSFV/JPN/WB_KO126400/2023					
+LC881592.1	11826	Classical swine fever virus	Japan	2023-01-25	Japan:Kochi,Kami	Sus scrofa		CSFV/JPN/WB_KO125789/2023					
+LC881591.1	11826	Classical swine fever virus	Japan	2023-01-17	Japan:Kochi,Aki	Sus scrofa		CSFV/JPN/WB_KO124607/2023					
+LC881590.1	11826	Classical swine fever virus	Japan	2022-12-05	Japan:Kochi,Konan	Sus scrofa		CSFV/JPN/WB_KO120680/2022					
+LC881589.1	11826	Classical swine fever virus	Japan	2022-08-24	Japan:Miyagi,Shibata	Sus scrofa		CSFV/JPN/WB_MG107465/2022					
+LC881588.1	11826	Classical swine fever virus	Japan	2022-07-26	Japan:Miyagi,Ohira	Sus scrofa		CSFV/JPN/WB_MG107444/2022					
+LC881587.1	11826	Classical swine fever virus	Japan	2022-06-15	Japan:Miyagi,Kurihara	Sus scrofa		CSFV/JPN/WB_MG107433/2022					
+LC881586.1	11826	Classical swine fever virus	Japan	2022-06-03	Japan:Miyagi,Shikama	Sus scrofa		CSFV/JPN/WB_MG107429/2022					
+LC881585.1	11826	Classical swine fever virus	Japan	2022-06-08	Japan:Miyagi,Kurihara	Sus scrofa		CSFV/JPN/WB_MG107428/2022					
+LC881584.1	11826	Classical swine fever virus	Japan	2022-04-13	Japan:Miyagi,Marumori	Sus scrofa		CSFV/JPN/WB_MG107411/2022					
+LC881583.1	11826	Classical swine fever virus	Japan	2022-04-13	Japan:Miyagi,Marumori	Sus scrofa		CSFV/JPN/WB_MG107410/2022					
+LC881582.1	11826	Classical swine fever virus	Japan	2022-03-23	Japan:Miyagi,Kurihara	Sus scrofa		CSFV/JPN/WB_MG61795/2022					
+LC881581.1	11826	Classical swine fever virus	Japan	2022-02-16	Japan:Miyagi,Marumori	Sus scrofa		CSFV/JPN/WB_MG61741/2022					
+LC881580.1	11826	Classical swine fever virus	Japan	2022-02-02	Japan:Miyagi,Kami	Sus scrofa		CSFV/JPN/WB_MG61722/2022					
+LC881579.1	11826	Classical swine fever virus	Japan	2022-02-02	Japan:Miyagi,Kami	Sus scrofa		CSFV/JPN/WB_MG61717/2022					
+LC881578.1	11826	Classical swine fever virus	Japan	2022-02-02	Japan:Miyagi,Kami	Sus scrofa		CSFV/JPN/WB_MG61715/2022					
+LC881577.1	11826	Classical swine fever virus	Japan	2022-02-02	Japan:Miyagi,Marumori	Sus scrofa		CSFV/JPN/WB_MG61709/2022					
+LC881576.1	11826	Classical swine fever virus	Japan	2022-01-26	Japan:Miyagi,Marumori	Sus scrofa		CSFV/JPN/WB_MG61689/2022					
+LC881575.1	11826	Classical swine fever virus	Japan	2022-01-19	Japan:Miyagi,Osaki	Sus scrofa		CSFV/JPN/WB_MG61684/2022					
+LC881574.1	11826	Classical swine fever virus	Japan	2021-12-01	Japan:Miyagi,Marumori	Sus scrofa		CSFV/JPN/WB_MG61591/2021					
+LC881573.1	11826	Classical swine fever virus	Japan	2021-09-01	Japan:Miyagi,Zao	Sus scrofa		CSFV/JPN/WB_MG61402/2021					
+LC881572.1	11826	Classical swine fever virus	Japan	2023-01-18	Japan:Kagawa,Sakaide	Sus scrofa		CSFV/JPN/WB_KA125121/2023					
+LC881571.1	11826	Classical swine fever virus	Japan	2023-01-23	Japan:Aichi,Toyota	Sus scrofa		CSFV/JPN/WB_AI126910/2023					
+LC881570.1	11826	Classical swine fever virus	Japan	2023-01-26	Japan:Aichi,Toyota	Sus scrofa		CSFV/JPN/WB_AI126907/2023					
+LC881569.1	11826	Classical swine fever virus	Japan	2023-01-24	Japan:Aichi,Okazaki	Sus scrofa		CSFV/JPN/WB_AI126233/2023					
+LC881568.1	11826	Classical swine fever virus	Japan	2022-11-08	Japan:Aichi,Okazaki	Sus scrofa		CSFV/JPN/WB_AI89027/2022					
+LC881567.1	11826	Classical swine fever virus	Japan	2023-01-23	Japan:Tochigi,Nasukarasuyama	Sus scrofa		CSFV/JPN/WB_TC125270/2023					
+LC881566.1	11826	Classical swine fever virus	Japan	2022-07-29	Japan:Tochigi,Nikko	Sus scrofa		CSFV/JPN/WB_TC96640/2022					
+LC881565.1	11826	Classical swine fever virus	Japan	2022-04-05	Japan:Tochigi,Sano	Sus scrofa		CSFV/JPN/WB_TC96566/2022					
+LC881564.1	11826	Classical swine fever virus	Japan	2022-01-31	Japan:Tochigi,Sakura	Sus scrofa		CSFV/JPN/WB_TC63806/2022					
+LC881563.1	11826	Classical swine fever virus	Japan	2021-12-23	Japan:Tochigi,Kanuma	Sus scrofa		CSFV/JPN/WB_TC63744/2021					
+LC881562.1	11826	Classical swine fever virus	Japan	2021-08-11	Japan:Tochigi,Nikko	Sus scrofa		CSFV/JPN/WB_TC63538/2021					
+LC881561.1	11826	Classical swine fever virus	Japan	2023-01-19	Japan:Tochigi,Tochigi	Sus scrofa		CSFV/JPN/WB_TC125263/2023					
+LC881560.1	11826	Classical swine fever virus	Japan	2022-04-04	Japan:Tochigi,Motegi	Sus scrofa		CSFV/JPN/WB_TC96562/2022					
+LC881559.1	11826	Classical swine fever virus	Japan	2023-01-24	Japan:Ishikawa,Shika	Sus scrofa		CSFV/JPN/WB_IS125100/2023					
+LC881558.1	11826	Classical swine fever virus	Japan	2022-10-27	Japan:Ishikawa,Wajima	Sus scrofa		CSFV/JPN/WB_IS90834/2022					
+LC881557.1	11826	Classical swine fever virus	Japan	2022-07-04	Japan:Ishikawa,Komatsu	Sus scrofa		CSFV/JPN/WB_IS90508/2022					
+LC881556.1	11826	Classical swine fever virus	Japan	2022-05-02	Japan:Niigata,Niigata	Sus scrofa		CSFV/JPN/WB_NI108889/2022					
+LC881555.1	11826	Classical swine fever virus	Japan	2021-12-28	Japan:Niigata,Nagaoka	Sus scrofa		CSFV/JPN/WB_NI65864/2021					
+LC881554.1	11826	Classical swine fever virus	Japan	2021-09-21	Japan:Niigata,Murakami	Sus scrofa		CSFV/JPN/WB_NI65809/2021					
+LC881553.1	11826	Classical swine fever virus	Japan	2022-04-07	Japan:Hyogo,Awaji	Sus scrofa		CSFV/JPN/WB_HG108685/2022					
+LC881552.1	11826	Classical swine fever virus	Japan	2022-01-02	Japan:Hyogo,Minamiawaji	Sus scrofa		CSFV/JPN/WB_HG78914/2022					
+LC881551.1	11826	Classical swine fever virus	Japan	2021-12-06	Japan:Hyogo,Awaji	Sus scrofa		CSFV/JPN/WB_HG78839/2021					
+LC881550.1	11826	Classical swine fever virus	Japan	2021-11-16	Japan:Hyogo,Awaji	Sus scrofa		CSFV/JPN/WB_HG78810/2021					
+LC881549.1	11826	Classical swine fever virus	Japan	2021-08-06	Japan:Hyogo,Awaji	Sus scrofa		CSFV/JPN/WB_HG78645/2021					
+LC881548.1	11826	Classical swine fever virus	Japan	2022-11-11	Japan:Hyogo,Kami	Sus scrofa		CSFV/JPN/WB_HG114696/2022					
+LC881547.1	11826	Classical swine fever virus	Japan	2023-02-01	Japan:Shiga,Nagahama	Sus scrofa		CSFV/JPN/WB_SI126578/2023					
+LC881546.1	11826	Classical swine fever virus	Japan	2023-02-01	Japan:Shiga,Nagahama	Sus scrofa		CSFV/JPN/WB_SI126574/2023					
+LC881545.1	11826	Classical swine fever virus	Japan	2023-01-11	Japan:Shiga,Hikone	Sus scrofa		CSFV/JPN/WB_SI123872/2023					
+LC881544.1	11826	Classical swine fever virus	Japan	2022-12-07	Japan:Shiga,Maibara	Sus scrofa		CSFV/JPN/WB_SI91683/2022					
+LC881543.1	11826	Classical swine fever virus	Japan	2022-07-27	Japan:Shiga,Hikone	Sus scrofa		CSFV/JPN/WB_SI91385/2022					
+LC881542.1	11826	Classical swine fever virus	Japan	2022-03-23	Japan:Shiga,Nagahama	Sus scrofa		CSFV/JPN/WB_SI78224/2022					
+LC881541.1	11826	Classical swine fever virus	Japan	2022-12-22	Japan:Iwate,Shizukuishi	Sus scrofa		CSFV/JPN/WB_IT116381/2022					
+LC881540.1	11826	Classical swine fever virus	Japan	2022-11-11	Japan:Iwate,Morioka	Sus scrofa		CSFV/JPN/WB_IT116243/2022					
+LC881539.1	11826	Classical swine fever virus	Japan	2022-11-08	Japan:Iwate,Ichinoseki	Sus scrofa		CSFV/JPN/WB_IT116240/2022					
+LC881538.1	11826	Classical swine fever virus	Japan	2021-10-11	Japan:Ibaraki,Daigo	Sus scrofa		CSFV/JPN/WB_IB62977/2021					
+LC881537.1	11826	Classical swine fever virus	Japan	2022-07-13	Japan:Wakayama,Arita	Sus scrofa		CSFV/JPN/WB_WA98319/2022					
+LC881536.1	11826	Classical swine fever virus	Japan	2022-01-27	Japan:Wakayama,Kamitonda	Sus scrofa		CSFV/JPN/WB_WA79394/2022					
+LC881535.1	11826	Classical swine fever virus	Japan	2022-01-21	Japan:Wakayama,Inami	Sus scrofa		CSFV/JPN/WB_WA79387/2022					
+LC881534.1	11826	Classical swine fever virus	Japan	2021-11-30	Japan:Wakayama,Shirahama	Sus scrofa		CSFV/JPN/WB_WA79338/2021					
+LC881533.1	11826	Classical swine fever virus	Japan	2021-09-16	Japan:Wakayama,Kushimoto	Sus scrofa		CSFV/JPN/WB_WA79292/2021					
+LC881532.1	11826	Classical swine fever virus	Japan	2021-06-24	Japan:Wakayama,Nachikatsuura	Sus scrofa		CSFV/JPN/WB_WA79217/2021					
+LC881531.1	11826	Classical swine fever virus	Japan	2023-03-24	Japan:Yamaguchi,Hagi	Sus scrofa		CSFV/JPN/WB_YA130183/2023					
+LC881530.1	11826	Classical swine fever virus	Japan	2023-02-03	Japan:Yamaguchi,Yamaguchi	Sus scrofa		CSFV/JPN/WB_YA126461/2023					
+LC881529.1	11826	Classical swine fever virus	Japan	2023-01-05	Japan:Yamaguchi,Hofu	Sus scrofa		CSFV/JPN/WB_YA119729/2023					
+LC881528.1	11826	Classical swine fever virus	Japan	2022-06-10	Japan:Yamaguchi,Yanai	Sus scrofa		CSFV/JPN/WB_YA114875/2022					
+LC881527.1	11826	Classical swine fever virus	Japan	2022-08-24	Japan:Yamaguchi,Shunan	Sus scrofa		CSFV/JPN/WB_YA114846/2022					
+LC881526.1	11826	Classical swine fever virus	Japan	2022-08-04	Japan:Yamaguchi,Shunan	Sus scrofa		CSFV/JPN/WB_YA114844/2022					
+LC881525.1	11826	Classical swine fever virus	Japan	2022-08-25	Japan:Gifu,Gifu	Sus scrofa		CSFV/JPN/WB_GI87196/2022					
+LC881524.1	11826	Classical swine fever virus	Japan	2022-08-23	Japan:Gifu,Tajimi	Sus scrofa		CSFV/JPN/WB_GI87182/2022					
+LC881523.1	11826	Classical swine fever virus	Japan	2022-06-23	Japan:Gifu,Ena	Sus scrofa		CSFV/JPN/WB_GI86352/2022					
+LC881522.1	11826	Classical swine fever virus	Japan	2021-05-21	Japan:Nara,Oyodo	Sus scrofa		CSFV/JPN/WB_NR319/2021					
+LC881521.1	11826	Classical swine fever virus	Japan	2021-04-02	Japan:Kyoto,Maizuru	Sus scrofa		CSFV/JPN/WB_KY281/2021					
+LC881520.1	11826	Classical swine fever virus	Japan	2021-04-23	Japan:Shizuoka,Kosai	Sus scrofa		CSFV/JPN/WB_SZ3843/2021					
+LC881519.1	11826	Classical swine fever virus	Japan	2021-01-21	Japan:Yamanashi,Fujikawaguchiko	Sus scrofa		CSFV/JPN/WB_YN342/2021					
+LC881518.1	11826	Classical swine fever virus	Japan	2021-05-25	Japan:Fukui,Takahama	Sus scrofa		CSFV/JPN/WB_FI1358/2021					
+LC881517.1	11826	Classical swine fever virus	Japan	2021-01-18	Japan:Ishikawa,Nanao	Sus scrofa		CSFV/JPN/WB_IS618/2021					
+LC881516.1	11826	Classical swine fever virus	Japan	2021-05-18	Japan:Tochigi,Nasu	Sus scrofa		CSFV/JPN/WB_TC780/2021					
+LC881515.1	11826	Classical swine fever virus	Japan	2020-11-05	Japan:Mie,Tsu	Sus scrofa		CSFV/JPN/WB_ME3161/2020					
+LC881514.1	11826	Classical swine fever virus	Japan	2020-11-02	Japan:Mie,Iga	Sus scrofa		CSFV/JPN/WB_ME3138/2020					
+LC881513.1	11826	Classical swine fever virus	Japan	2020-09-10	Japan:Nagano,Yamanouchi	Sus scrofa		CSFV/JPN/WB_NA941/2020					
+LC881512.1	11826	Classical swine fever virus	Japan	2020-08-03	Japan:Nagano,Takayama	Sus scrofa		CSFV/JPN/WB_NA873/2020					
+LC881511.1	11826	Classical swine fever virus	Japan	2020-06-08	Japan:Nagano,Miyata	Sus scrofa		CSFV/JPN/WB_NA784/2020					
+LC881510.1	11826	Classical swine fever virus	Japan	2020-04-23	Japan:Nagano,Fujimi	Sus scrofa		CSFV/JPN/WB_NA739/2020					
+LC881509.1	11826	Classical swine fever virus	Japan	2020-03-24	Japan:Nagano,Karuizawa	Sus scrofa		CSFV/JPN/WB_NA698/2020					
+LC881508.1	11826	Classical swine fever virus	Japan	2020-03-23	Japan:Nagano,Omachi	Sus scrofa		CSFV/JPN/WB_NA693/2020					
+LC881507.1	11826	Classical swine fever virus	Japan	2020-03-23	Japan:Nagano,Matsumoto	Sus scrofa		CSFV/JPN/WB_NA692/2020					
+LC881506.1	11826	Classical swine fever virus	Japan	2020-03-05	Japan:Nagano,Karuizawa	Sus scrofa		CSFV/JPN/WB_NA662/2020					
+LC881505.1	11826	Classical swine fever virus	Japan	2020-01-28	Japan:Nagano,Karuizawa	Sus scrofa		CSFV/JPN/WB_NA601/2020					
+LC881504.1	11826	Classical swine fever virus	Japan	2020-01-27	Japan:Nagano,Agematsu	Sus scrofa		CSFV/JPN/WB_NA595/2020					
+LC881503.1	11826	Classical swine fever virus	Japan	2020-01-22	Japan:Nagano,Kiso	Sus scrofa		CSFV/JPN/WB_NA585/2020					
+LC881502.1	11826	Classical swine fever virus	Japan	2020-01-15	Japan:Nagano,Tatsuno	Sus scrofa		CSFV/JPN/WB_NA574/2020					
+LC881501.1	11826	Classical swine fever virus	Japan	2020-01-06	Japan:Nagano,Ina	Sus scrofa		CSFV/JPN/WB_NA558/2020					
+LC881500.1	11826	Classical swine fever virus	Japan	2020-08-26	Japan:Yamanashi,Minobu	Sus scrofa		CSFV/JPN/WB_YN224/2020					
+LC881499.1	11826	Classical swine fever virus	Japan	2020-08-12	Japan:Yamanashi,Hokuto	Sus scrofa		CSFV/JPN/WB_YN214/2020					
+LC881498.1	11826	Classical swine fever virus	Japan	2020-07-06	Japan:Yamanashi,Otsuki	Sus scrofa		CSFV/JPN/WB_YN180/2020					
+LC881497.1	11826	Classical swine fever virus	Japan	2020-03-02	Japan:Yamanashi,Yamanashi	Sus scrofa		CSFV/JPN/WB_YN139/2020					
+LC881496.1	11826	Classical swine fever virus	Japan	2020-02-25	Japan:Ishikawa,Kaga	Sus scrofa		CSFV/JPN/WB_IS246/2020					
+LC881495.1	11826	Classical swine fever virus	Japan	2020-02-19	Japan:Ishikawa,Kaga	Sus scrofa		CSFV/JPN/WB_IS242/2020					
+LC881494.1	11826	Classical swine fever virus	Japan	2020-01-27	Japan:Ishikawa,Hakusan	Sus scrofa		CSFV/JPN/WB_IS233/2020					
+LC881493.1	11826	Classical swine fever virus	Japan	2020-05-26	Japan:Toyama,Imizu	Sus scrofa		CSFV/JPN/WB_TM288/2020					
+LC881492.1	11826	Classical swine fever virus	Japan	2020-02-22	Japan:Toyama,Kamiichi	Sus scrofa		CSFV/JPN/WB_TM235/2020					
+LC881491.1	11826	Classical swine fever virus	Japan	2020-12-07	Japan:Fukushima,Sukagawa	Sus scrofa		CSFV/JPN/WB_FS83/2020					
+LC881490.1	11826	Classical swine fever virus	Japan	2020-09-17	Japan:Fukushima,Aizuwakamatsu	Sus scrofa		CSFV/JPN/WB_FS49/2020					
+LC881489.1	11826	Classical swine fever virus	Japan	2019-12-05	Japan:Shiga,Maibara	Sus scrofa		CSFV/JPN/WB_SI335/2019					
+LC881488.1	11826	Classical swine fever virus	Japan	2019-10-23	Japan:Shiga,Nagahama	Sus scrofa		CSFV/JPN/WB_SI76/2019					
+LC881487.1	11826	Classical swine fever virus	Japan	2019-10-17	Japan:Shizuoka,Fujieda	Sus scrofa		CSFV/JPN/WB_SZ386/2019					
+LC881486.1	11826	Classical swine fever virus	Japan	2019-11-26	Japan:Gifu,Ena	Sus scrofa		CSFV/JPN/WB_GI2982/2019					
+LC881485.1	11826	Classical swine fever virus	Japan	2019-08-13	Japan:Gifu,Takayama	Sus scrofa		CSFV/JPN/WB_GI2040/2019					
+LC881484.1	11826	Classical swine fever virus	Japan	2019-07-08	Japan:Gifu,Gujo	Sus scrofa		CSFV/JPN/WB_GI1674/2019					
+LC881483.1	11826	Classical swine fever virus	Japan	2019-06-25	Japan:Gifu,Gujo	Sus scrofa		CSFV/JPN/WB_GI1599/2019					
+LC881482.1	11826	Classical swine fever virus	Japan	2019-06-23	Japan:Gifu,Gujo	Sus scrofa		CSFV/JPN/WB_GI1570/2019					
+LC881481.1	11826	Classical swine fever virus	Japan	2019-06-14	Japan:Gifu,Motosu	Sus scrofa		CSFV/JPN/WB_GI1487/2019					
+LC881480.1	11826	Classical swine fever virus	Japan	2019-05-09	Japan:Gifu,Gujo	Sus scrofa		CSFV/JPN/WB_GI1167/2019					
+LC881479.1	11826	Classical swine fever virus	Japan	2019-12-23	Japan:Ishikawa,Kanazawa	Sus scrofa		CSFV/JPN/WB_IS223/2019					
+LC881478.1	11826	Classical swine fever virus	Japan	2019-11-20	Japan:Ishikawa,Kaga	Sus scrofa		CSFV/JPN/WB_IS215/2019					
+LC881477.1	11826	Classical swine fever virus	Japan	2019-08-26	Japan:Ishikawa,Hakusan	Sus scrofa		CSFV/JPN/WB_IS94/2019					
+LC881476.1	11826	Classical swine fever virus	Japan	2019-08-26	Japan:Ishikawa,Hakusan	Sus scrofa		CSFV/JPN/WB_IS93/2019					
+LC881475.1	11826	Classical swine fever virus	Japan	2019-08-05	Japan:Toyama,Nanto	Sus scrofa		CSFV/JPN/WB_TM19/2019					
+LC881474.1	11826	Classical swine fever virus	Japan	2022-07-25	Japan:Ibaraki,Shirosato	Sus scrofa		CSFV/JPN/WB_IB2296/2022					
+LC881473.1	11826	Classical swine fever virus	Japan	2022-02-28	Japan:Ibaraki,Shirosato	Sus scrofa		CSFV/JPN/WB_IB2034/2022					
+LC881472.1	11826	Classical swine fever virus	Japan	2022-09-27	Japan:Gifu,Ibigawa	Sus scrofa		CSFV/JPN/WB_GI87495/2022					
+LC881471.1	11826	Classical swine fever virus	Japan	2022-09-27	Japan:Ishikawa,Anamizu	Sus scrofa		CSFV/JPN/WB_IS1177/2022					
+LC881470.1	11826	Classical swine fever virus	Japan	2021-12-07	Japan:Ibaraki,Tsukuba	Sus scrofa		CSFV/JPN/WB_IB1881/2021					
+LC881469.1	11826	Classical swine fever virus	Japan	2021-11-09	Japan:Ibaraki,Chikusei	Sus scrofa		CSFV/JPN/WB_IB1811/2021					
+LC881468.1	11826	Classical swine fever virus	Japan	2021-11-01	Japan:Ibaraki,Daigo	Sus scrofa		CSFV/JPN/WB_IB1756/2021					
+LC881467.1	11826	Classical swine fever virus	Japan	2021-10-18	Japan:Ibaraki,Shirosato	Sus scrofa		CSFV/JPN/WB_IB1700/2021					
+LC881466.1	11826	Classical swine fever virus	Japan	2021-10-11	Japan:Ibaraki,Takahagi	Sus scrofa		CSFV/JPN/WB_IB1677/2021					
+LC881465.1	11826	Classical swine fever virus	Japan	2021-09-14	Japan:Ibaraki,Shirosato	Sus scrofa		CSFV/JPN/WB_IB1629/2021					
+LC881464.1	11826	Classical swine fever virus	Japan	2023-01-06	Japan:Akita,Higashinaruse	Sus scrofa		CSFV/JPN/WB_AK116318/2023					
+LC881463.1	11826	Classical swine fever virus	Japan	2023-01-10	Japan:Iwate,Shizukuishi	Sus scrofa		CSFV/JPN/WB_IT119725/2023					
+LC881462.1	11826	Classical swine fever virus	Japan	2022-11-29	Japan:Iwate,Shizukuishi	Sus scrofa		CSFV/JPN/WB_IT116257/2022					
+LC881461.1	11826	Classical swine fever virus	Japan	2022-11-28	Japan:Iwate,Shizukuishi	Sus scrofa		CSFV/JPN/WB_IT116255/2022					
+LC881460.1	11826	Classical swine fever virus	Japan	2022-11-27	Japan:Iwate,Shizukuishi	Sus scrofa		CSFV/JPN/WB_IT116254/2022					
+LC881459.1	11826	Classical swine fever virus	Japan	2022-10-31	Japan:Iwate,Oshu	Sus scrofa		CSFV/JPN/WB_IT116237/2022					
+LC881458.1	11826	Classical swine fever virus	Japan	2022-10-24	Japan:Iwate,Takizawa	Sus scrofa		CSFV/JPN/WB_IT116228/2022					
+LC881457.1	11826	Classical swine fever virus	Japan	2022-01-11	Japan:Ibaraki,Hitachi	Sus scrofa		CSFV/JPN/WB_IB63235/2022					
+LC881456.1	11826	Classical swine fever virus	Japan	2022-01-11	Japan:Ibaraki,Hitachi	Sus scrofa		CSFV/JPN/WB_IB63233/2022					
+LC881455.1	11826	Classical swine fever virus	Japan	2021-11-09	Japan:Ibaraki,Chikusei	Sus scrofa		CSFV/JPN/WB_IB63108/2021					
+LC881454.1	11826	Classical swine fever virus	Japan	2021-11-01	Japan:Ibaraki,Daigo	Sus scrofa		CSFV/JPN/WB_IB63053/2021					
+LC881453.1	11826	Classical swine fever virus	Japan	2021-10-11	Japan:Ibaraki,Takahagi	Sus scrofa		CSFV/JPN/WB_IB62974/2021					
+LC881452.1	11826	Classical swine fever virus	Japan	2022-02-14	Japan:Wakayama,Gobo	Sus scrofa		CSFV/JPN/WB_WA79415/2022					
+LC881451.1	11826	Classical swine fever virus	Japan	2021-12-10	Japan:Wakayama,Tanabe	Sus scrofa		CSFV/JPN/WB_WA79349/2021					
+LC881450.1	11826	Classical swine fever virus	Japan	2021-12-10	Japan:Wakayama,Tanabe	Sus scrofa		CSFV/JPN/WB_WA79348/2021					
+LC881449.1	11826	Classical swine fever virus	Japan	2021-11-25	Japan:Wakayama,Tanabe	Sus scrofa		CSFV/JPN/WB_WA79335/2021					
+LC881448.1	11826	Classical swine fever virus	Japan	2021-11-11	Japan:Wakayama,Tanabe	Sus scrofa		CSFV/JPN/WB_WA79321/2021					
+LC881447.1	11826	Classical swine fever virus	Japan	2021-09-16	Japan:Wakayama,Hidaka	Sus scrofa		CSFV/JPN/WB_WA79294/2021					
+LC881446.1	11826	Classical swine fever virus	Japan	2021-06-29	Japan:Wakayama,Susami	Sus scrofa		CSFV/JPN/WB_WA79222/2021					
+LC881445.1	11826	Classical swine fever virus	Japan	2022-12-09	Japan:Yamaguchi,Hikari	Sus scrofa		CSFV/JPN/WB_YA114864/2022					
+LC881444.1	11826	Classical swine fever virus	Japan	2023-01-23	Japan:Yamaguchi,Hofu	Sus scrofa		CSFV/JPN/WB_YA125118/2023					
+LC881443.1	11826	Classical swine fever virus	Japan	2023-01-06	Japan:Yamaguchi,Suo-oshima	Sus scrofa		CSFV/JPN/WB_YA119733/2023					
+LC881442.1	11826	Classical swine fever virus	Japan	2022-07-22	Japan:Yamaguchi,Shunan	Sus scrofa		CSFV/JPN/WB_YA114881/2022					
+LC881441.1	11826	Classical swine fever virus	Japan	2022-10-07	Japan:Yamaguchi,Hikari	Sus scrofa		CSFV/JPN/WB_YA114855/2022					
+LC881440.1	11826	Classical swine fever virus	Japan	2022-10-05	Japan:Yamaguchi,Yamaguchi	Sus scrofa		CSFV/JPN/WB_YA114854/2022					
+LC881439.1	11826	Classical swine fever virus	Japan	2022-09-22	Japan:Yamaguchi,Iwakuni	Sus scrofa		CSFV/JPN/WB_YA114852/2022					
+LC881438.1	11826	Classical swine fever virus	Japan	2022-09-13	Japan:Yamaguchi,Iwakuni	Sus scrofa		CSFV/JPN/WB_YA114851/2022					
+LC881437.1	11826	Classical swine fever virus	Japan	2022-09-01	Japan:Yamaguchi,Shunan	Sus scrofa		CSFV/JPN/WB_YA114848/2022					
+LC881436.1	11826	Classical swine fever virus	Japan	2022-07-22	Japan:Yamaguchi,Iwakuni	Sus scrofa		CSFV/JPN/WB_YA114839/2022					
+LC881435.1	11826	Classical swine fever virus	Japan	2022-05-26	Japan:Yamaguchi,Kudamatsu	Sus scrofa		CSFV/JPN/WB_YA114831/2022					
+LC881434.1	11826	Classical swine fever virus	Japan	2022-12-31	Japan:Akita,Yokote	Sus scrofa		CSFV/JPN/WB_AK116320/2022					
+LC881433.1	11826	Classical swine fever virus	Japan	2022-10-11	Japan:Akita,Yuzawa	Sus scrofa		CSFV/JPN/WB_AK90418/2022					
+LC881432.1	11826	Classical swine fever virus	Japan	2022-08-27	Japan:Akita,Yuzawa	Sus scrofa		CSFV/JPN/WB_AK90413/2022					
+LC881431.1	11826	Classical swine fever virus	Japan	2022-12-12	Japan:Tokushima,Ishii	Sus scrofa		CSFV/JPN/WB_TK116970/2022					
+LC881430.1	11826	Classical swine fever virus	Japan	2022-11-26	Japan:Tokushima,Katsuura	Sus scrofa		CSFV/JPN/WB_TK116947/2022					
+LC881429.1	11826	Classical swine fever virus	Japan	2022-11-25	Japan:Tokushima,Kamiyama	Sus scrofa		CSFV/JPN/WB_TK116943/2022					
+LC881428.1	11826	Classical swine fever virus	Japan	2022-11-23	Japan:Tokushima,Kamiyama	Sus scrofa		CSFV/JPN/WB_TK116936/2022					
+LC881427.1	11826	Classical swine fever virus	Japan	2022-11-22	Japan:Tokushima,Mima	Sus scrofa		CSFV/JPN/WB_TK116935/2022					
+LC881426.1	11826	Classical swine fever virus	Japan	2022-10-09	Japan:Tokushima,Kamiyama	Sus scrofa		CSFV/JPN/WB_TK116880/2022					
+LC881425.1	11826	Classical swine fever virus	Japan	2022-09-21	Japan:Tokushima,Yamakawa	Sus scrofa		CSFV/JPN/WB_TK116862/2022					
+LC881424.1	11826	Classical swine fever virus	Japan	2022-08-21	Japan:Tokushima,Sanagochi	Sus scrofa		CSFV/JPN/WB_TK116821/2022					
+LC881423.1	11826	Classical swine fever virus	Japan	2023-01-27	Japan:Tottori,Yazu	Sus scrofa		CSFV/JPN/WB_TT126210/2023					
+LC881422.1	11826	Classical swine fever virus	Japan	2022-09-07	Japan:Kochi,Kami	Sus scrofa		CSFV/JPN/WB_KO68/2022					
+LC881421.1	11826	Classical swine fever virus	Japan	2021-08-27	Japan:Ibaraki,Tsuchiura	Sus scrofa		CSFV/JPN/WB_IB1541/2021					
+LC881420.1	11826	Classical swine fever virus	Japan	2021-08-26	Japan:Ibaraki,Tsukuba	Sus scrofa		CSFV/JPN/WB_IB1537/2021					
+LC881419.1	11826	Classical swine fever virus	Japan	2021-08-23	Japan:Ibaraki,Tsukuba	Sus scrofa		CSFV/JPN/WB_IB1506/2021					
+LC881418.1	11826	Classical swine fever virus	Japan	2021-08-23	Japan:Ibaraki,Tsukuba	Sus scrofa		CSFV/JPN/WB_IB1505/2021					
+LC881417.1	11826	Classical swine fever virus	Japan	2021-08-19	Japan:Ibaraki,Tsukuba	Sus scrofa		CSFV/JPN/WB_IB1503/2021					
+LC881416.1	11826	Classical swine fever virus	Japan	2021-08-24	Japan:Ibaraki,Hitachiota	Sus scrofa		CSFV/JPN/WB_IB1502/2021					
+LC881415.1	11826	Classical swine fever virus	Japan	2021-08-19	Japan:Ibaraki,Kasama	Sus scrofa		CSFV/JPN/WB_IB1489/2021					
+LC881414.1	11826	Classical swine fever virus	Japan	2022-08-21	Japan:Akita,Yuzawa	Sus scrofa		CSFV/JPN/WB_AK83/2022					
+LC881413.1	11826	Classical swine fever virus	Japan	2022-08-13	Japan:Tokushima,Tokushima	Sus scrofa		CSFV/JPN/WB_TK218/2022					
+LC881412.1	11826	Classical swine fever virus	Japan	2022-07-20	Japan:Tokushima,Tokushima	Sus scrofa		CSFV/JPN/WB_TK156/2022					
+LC881411.1	11826	Classical swine fever virus	Japan	2022-07-04	Japan:Gunma,Kiryu	Sus scrofa		CSFV/JPN/WB_GU2981/2022					
+LC881410.1	11826	Classical swine fever virus	Japan	2022-05-26	Japan:Gunma,Kiryu	Sus scrofa		CSFV/JPN/WB_GU2899/2022					
+LC881409.1	11826	Classical swine fever virus	Japan	2022-02-18	Japan:Gunma,Ota	Sus scrofa		CSFV/JPN/WB_GU2759/2022					
+LC881408.1	11826	Classical swine fever virus	Japan	2022-02-17	Japan:Gunma,Ota	Sus scrofa		CSFV/JPN/WB_GU2758/2022					
+LC881407.1	11826	Classical swine fever virus	Japan	2022-01-26	Japan:Gunma,Katashina	Sus scrofa		CSFV/JPN/WB_GU2705/2022					
+LC881406.1	11826	Classical swine fever virus	Japan	2021-11-14	Japan:Gunma,Maebashi	Sus scrofa		CSFV/JPN/WB_GU2528/2021					
+LC881405.1	11826	Classical swine fever virus	Japan	2021-08-02	Japan:Gunma,Naganohara	Sus scrofa		CSFV/JPN/WB_GU2340/2021					
+LC881404.1	11826	Classical swine fever virus	Japan	2021-07-16	Japan:Gunma,Maebashi	Sus scrofa		CSFV/JPN/WB_GU2299/2021					
+LC881403.1	11826	Classical swine fever virus	Japan	2022-05-17	Japan:Shimane,Yoshika	Sus scrofa		CSFV/JPN/WB_SM325/2022					
+LC881402.1	11826	Classical swine fever virus	Japan	2022-04-21	Japan:Iwate,Ichinoseki	Sus scrofa		CSFV/JPN/WB_IT547/2022					
+LC881401.1	11826	Classical swine fever virus	Japan	2022-04-20	Japan:Iwate,Ichinoseki	Sus scrofa		CSFV/JPN/WB_IT546/2022					
+LC881400.1	11826	Classical swine fever virus	Japan	2022-02-28	Japan:Gifu,Mizunami	Sus scrofa		CSFV/JPN/WB_GI6902/2022					
+LC881399.1	11826	Classical swine fever virus	Japan	2022-03-18	Japan:Yamaguchi,Iwakuni	Sus scrofa		CSFV/JPN/WB_YA19/2022					
+LC881398.1	11826	Classical swine fever virus	Japan	2022-02-11	Japan:Shizuoka,Fujieda	Sus scrofa		CSFV/JPN/WB_SZ6436/2022					
+LC881397.1	11826	Classical swine fever virus	Japan	2022-01-04	Japan:Aichi,Toyota	Sus scrofa		CSFV/JPN/WB_AI3594/2022					
+LC881396.1	11826	Classical swine fever virus	Japan	2021-12-10	Japan:Aichi,Toyota	Sus scrofa		CSFV/JPN/WB_AI3558/2021					
+LC881395.1	11826	Classical swine fever virus	Japan	2020-12-22	Japan:Yamagata,Oguni	Sus scrofa		CSFV/JPN/WB_YG145/2020					
+LC881394.1	11826	Classical swine fever virus	Japan	2022-03-13	Japan:Yamaguchi,Iwakuni	Sus scrofa		CSFV/JPN/WB_YA18/2022					
+LC881393.1	11826	Classical swine fever virus	Japan	2021-08-06	Japan:Ibaraki,Sakuragawa	Sus scrofa		CSFV/JPN/WB_IB1474/2021					
+LC881392.1	11826	Classical swine fever virus	Japan	2021-05-10	Japan:Nara,Gojo	Sus scrofa		CSFV/JPN/WB_NR312/2021					
+LC881391.1	11826	Classical swine fever virus	Japan	2021-04-24	Japan:Nara,Oyodo	Sus scrofa		CSFV/JPN/WB_NR311/2021					
+LC881390.1	11826	Classical swine fever virus	Japan	2020-11-26	Japan:Nara,Oyodo	Sus scrofa		CSFV/JPN/WB_NR272/2020					
+LC881389.1	11826	Classical swine fever virus	Japan	2020-10-17	Japan:Yamanashi,Fuefuki	Sus scrofa		CSFV/JPN/WB_YN271/2020					
+LC881388.1	11826	Classical swine fever virus	Japan	2021-04-14	Japan:Tochigi,Nasu	Sus scrofa		CSFV/JPN/WB_TC731/2021					
+LC881387.1	11826	Classical swine fever virus	Japan	2021-07-30	Japan:Ibaraki,Kasama	Sus scrofa		CSFV/JPN/WB_IB1411/2021					
+LC881386.1	11826	Classical swine fever virus	Japan	2021-05-20	Japan:Ibaraki,Hitachiota	Sus scrofa		CSFV/JPN/WB_IB1190/2021					
+LC881385.1	11826	Classical swine fever virus	Japan	2021-02-12	Japan:Ibaraki,Hitachiota	Sus scrofa		CSFV/JPN/WB_IB1033/2021					
+LC881384.1	11826	Classical swine fever virus	Japan	2021-05-02	Japan:Fukushima,Fukushima	Sus scrofa		CSFV/JPN/WB_FS232/2021					
+LC881383.1	11826	Classical swine fever virus	Japan	2021-08-06	Japan:Ibaraki,Kasumigaura	Sus scrofa		CSFV/JPN/WB_IB1473/2021					
+LC881382.1	11826	Classical swine fever virus	Japan	2021-06-10	Japan:Fukushima,Koori	Sus scrofa		CSFV/JPN/WB_FS238/2021					
+LC881381.1	11826	Classical swine fever virus	Japan	2021-02-02	Japan:Fukushima,Nishiaizu	Sus scrofa		CSFV/JPN/WB_FS173/2021					
+LC881380.1	11826	Classical swine fever virus	Japan	2020-12-17	Japan:Fukushima,Tenei	Sus scrofa		CSFV/JPN/WB_FS87/2020					
+LC881379.1	11826	Classical swine fever virus	Japan	2020-12-07	Japan:Fukushima,Sukagawa	Sus scrofa		CSFV/JPN/WB_FS84/2020					
+LC881378.1	11826	Classical swine fever virus	Japan	2020-12-02	Japan:Fukushima,Nishigo	Sus scrofa		CSFV/JPN/WB_FS81/2020					
+LC881377.1	11826	Classical swine fever virus	Japan	2020-11-27	Japan:Fukushima,Tenei	Sus scrofa		CSFV/JPN/WB_FS77/2020					
+LC881376.1	11826	Classical swine fever virus	Japan	2020-09-16	Japan:Fukushima,Aizuwakamatsu	Sus scrofa		CSFV/JPN/WB_FS38/2020					
+LC881375.1	11826	Classical swine fever virus	Japan	2021-03-09	Japan:Wakayama,Wakayama	Sus scrofa		CSFV/JPN/WB_WA380/2021					
+LC881374.1	11826	Classical swine fever virus	Japan	2021-02-04	Japan:Wakayama,Wakayama	Sus scrofa		CSFV/JPN/WB_WA334/2021					
+LC881373.1	11826	Classical swine fever virus	Japan	2021-04-14	Japan:Gunma,Maebashi	Sus scrofa		CSFV/JPN/WB_GU2172/2021					
+LC881372.1	11826	Classical swine fever virus	Japan	2021-06-02	Japan:Wakayama,Kushimoto	Sus scrofa		CSFV/JPN/WB_WA462/2021					
+LC881371.1	11826	Classical swine fever virus	Japan	2021-04-13	Japan:Wakayama,Hirokawa	Sus scrofa		CSFV/JPN/WB_WA408/2021					
+LC881370.1	11826	Classical swine fever virus	Japan	2020-12-03	Japan:Nara,Oyodo	Sus scrofa		CSFV/JPN/WB_NR279/2020					
+LC881369.1	11826	Classical swine fever virus	Japan	2021-05-27	Japan:Hyogo,Tamba	Sus scrofa		CSFV/JPN/WB_HG195/2021					
+LC881368.1	11826	Classical swine fever virus	Japan	2021-07-30	Japan:Osaka,Taishi	Sus scrofa		CSFV/JPN/WB_OS43/2021					
+LC881367.1	11826	Classical swine fever virus	Japan	2021-05-12	Japan:Kyoto,Maizuru	Sus scrofa		CSFV/JPN/WB_KY316/2021					
+LC881366.1	11826	Classical swine fever virus	Japan	2021-02-18	Japan:Kyoto,Ayabe	Sus scrofa		CSFV/JPN/WB_KY245/2021					
+LC881365.1	11826	Classical swine fever virus	Japan	2021-02-11	Japan:Kyoto,Minamiyamashiro	Sus scrofa		CSFV/JPN/WB_KY244/2021					
+LC881364.1	11826	Classical swine fever virus	Japan	2021-01-21	Japan:Kyoto,Ayabe	Sus scrofa		CSFV/JPN/WB_KY241/2021					
+LC881363.1	11826	Classical swine fever virus	Japan	2021-04-01	Japan:Shiga,Ohmihachiman	Sus scrofa		CSFV/JPN/WB_SI1237/2021					
+LC881362.1	11826	Classical swine fever virus	Japan	2021-01-04	Japan:Shiga,Takashima	Sus scrofa		CSFV/JPN/WB_SI1132/2021					
+LC881361.1	11826	Classical swine fever virus	Japan	2021-06-12	Japan:Gunma,Numata	Sus scrofa		CSFV/JPN/WB_GU2260/2021					
+LC881360.1	11826	Classical swine fever virus	Japan	2021-01-21	Japan:Mie,Suzuka	Sus scrofa		CSFV/JPN/WB_ME3492/2021					
+LC881359.1	11826	Classical swine fever virus	Japan	2021-01-10	Japan:Mie,Matsuzaka	Sus scrofa		CSFV/JPN/WB_ME3393/2021					
+LC881358.1	11826	Classical swine fever virus	Japan	2020-12-26	Japan:Mie,Matsuzaka	Sus scrofa		CSFV/JPN/WB_ME3323/2020					
+LC881357.1	11826	Classical swine fever virus	Japan	2020-10-05	Japan:Mie,Tsu	Sus scrofa		CSFV/JPN/WB_ME2978/2020					
+LC881356.1	11826	Classical swine fever virus	Japan	2020-08-05	Japan:Mie,Iga	Sus scrofa		CSFV/JPN/WB_ME2356/2020					
+LC881355.1	11826	Classical swine fever virus	Japan	2021-05-07	Japan:Shizuoka,Shimizu	Sus scrofa		CSFV/JPN/WB_SZ3883/2021					
+LC881354.1	11826	Classical swine fever virus	Japan	2021-04-03	Japan:Shizuoka,Shimizu	Sus scrofa		CSFV/JPN/WB_SZ3791/2021					
+LC881353.1	11826	Classical swine fever virus	Japan	2021-04-03	Japan:Shizuoka,Shimizu	Sus scrofa		CSFV/JPN/WB_SZ3790/2021					
+LC881352.1	11826	Classical swine fever virus	Japan	2021-01-31	Japan:Shizuoka,Makinohara	Sus scrofa		CSFV/JPN/WB_SZ3493/2021					
+LC881351.1	11826	Classical swine fever virus	Japan	2021-01-10	Japan:Shizuoka,Hamamasu	Sus scrofa		CSFV/JPN/WB_SZ3373/2021					
+LC881350.1	11826	Classical swine fever virus	Japan	2021-01-04	Japan:Shizuoka,Mori	Sus scrofa		CSFV/JPN/WB_SZ3277/2021					
+LC881349.1	11826	Classical swine fever virus	Japan	2020-11-14	Japan:Shizuoka,Iwata	Sus scrofa		CSFV/JPN/WB_SZ2954/2020					
+LC881348.1	11826	Classical swine fever virus	Japan	2020-11-14	Japan:Shizuoka,Fukuroi	Sus scrofa		CSFV/JPN/WB_SZ2952/2020					
+LC881347.1	11826	Classical swine fever virus	Japan	2020-11-06	Japan:Shizuoka,Fukuroi	Sus scrofa		CSFV/JPN/WB_SZ2830/2020					
+LC881346.1	11826	Classical swine fever virus	Japan	2020-10-22	Japan:Shizuoka,Kosai	Sus scrofa		CSFV/JPN/WB_SZ2713/2020					
+LC881345.1	11826	Classical swine fever virus	Japan	2020-10-07	Japan:Shizuoka,Hamamatsu	Sus scrofa		CSFV/JPN/WB_SZ2547/2020					
+LC881344.1	11826	Classical swine fever virus	Japan	2020-04-23	Japan:Gifu,Hida	Sus scrofa		CSFV/JPN/WB_GI3397/2020					
+LC881343.1	11826	Classical swine fever virus	Japan	2020-03-17	Japan:Gifu,Takayama	Sus scrofa		CSFV/JPN/WB_GI3369/2020					
+LC881342.1	11826	Classical swine fever virus	Japan	2020-03-12	Japan:Gifu,Takayama	Sus scrofa		CSFV/JPN/WB_GI3348/2020					
+LC881341.1	11826	Classical swine fever virus	Japan	2020-12-08	Japan:Nagano,Otari	Sus scrofa		CSFV/JPN/WB_NA1058/2020					
+LC881340.1	11826	Classical swine fever virus	Japan	2020-11-24	Japan:Nagano,Shimosuwa	Sus scrofa		CSFV/JPN/WB_NA1050/2020					
+LC881339.1	11826	Classical swine fever virus	Japan	2020-09-22	Japan:Nagano,Nagano	Sus scrofa		CSFV/JPN/WB_NA967/2020					
+LC881338.1	11826	Classical swine fever virus	Japan	2020-09-14	Japan:Nagano,Otari	Sus scrofa		CSFV/JPN/WB_NA946/2020					
+LC881337.1	11826	Classical swine fever virus	Japan	2020-08-04	Japan:Nagano,Yamanouchi	Sus scrofa		CSFV/JPN/WB_NA880/2020					
+LC881336.1	11826	Classical swine fever virus	Japan	2020-05-18	Japan:Nagano,Matsumoto	Sus scrofa		CSFV/JPN/WB_NA760/2020					
+LC881335.1	11826	Classical swine fever virus	Japan	2020-04-02	Japan:Nagano,Ogawa	Sus scrofa		CSFV/JPN/WB_NA706/2020					
+LC881334.1	11826	Classical swine fever virus	Japan	2020-04-01	Japan:Nagano,Sakuho	Sus scrofa		CSFV/JPN/WB_NA704/2020					
+LC881333.1	11826	Classical swine fever virus	Japan	2020-06-12	Japan:Shiga,Ryuoh	Sus scrofa		CSFV/JPN/WB_SI819/2020					
+LC881332.1	11826	Classical swine fever virus	Japan	2020-03-12	Japan:Shiga,Nagahama	Sus scrofa		CSFV/JPN/WB_SI646/2020					
+LC881331.1	11826	Classical swine fever virus	Japan	2020-03-08	Japan:Shiga,Nagahama	Sus scrofa		CSFV/JPN/WB_SI614/2020					
+LC881330.1	11826	Classical swine fever virus	Japan	2021-05-21	Japan:Mie,Watarai	Sus scrofa		CSFV/JPN/WB_ME4365/2021					
+LC881329.1	11826	Classical swine fever virus	Japan	2021-04-22	Japan:Mie,Kihoku	Sus scrofa		CSFV/JPN/WB_ME4050/2021					
+LC881328.1	11826	Classical swine fever virus	Japan	2020-03-23	Japan:Nagano,Sakuho	Sus scrofa		CSFV/JPN/WB_NA695/2020					
+LC881327.1	11826	Classical swine fever virus	Japan	2020-03-08	Japan:Nagano,Ueda	Sus scrofa		CSFV/JPN/WB_NA665/2020					
+LC881326.1	11826	Classical swine fever virus	Japan	2021-06-10	Japan:Yamanashi,Hokuto	Sus scrofa		CSFV/JPN/WB_YN364/2021					
+LC881325.1	11826	Classical swine fever virus	Japan	2020-11-09	Japan:Yamanashi,Kosuge	Sus scrofa		CSFV/JPN/WB_YN298/2020					
+LC881324.1	11826	Classical swine fever virus	Japan	2020-07-05	Japan:Yamanashi,Kofu	Sus scrofa		CSFV/JPN/WB_YN181/2020					
+LC881323.1	11826	Classical swine fever virus	Japan	2021-07-03	Japan:Fukui,Echizen	Sus scrofa		CSFV/JPN/WB_FI1416/2021					
+LC881322.1	11826	Classical swine fever virus	Japan	2021-05-02	Japan:Fukui,Takahama	Sus scrofa		CSFV/JPN/WB_FI1357/2021					
+LC881321.1	11826	Classical swine fever virus	Japan	2021-03-12	Japan:Ishikawa,Wajima	Sus scrofa		CSFV/JPN/WB_IS637/2021					
+LC881320.1	11826	Classical swine fever virus	Japan	2021-02-12	Japan:Ishikawa,Anamizu	Sus scrofa		CSFV/JPN/WB_IS624/2021					
+LC881319.1	11826	Classical swine fever virus	Japan	2021-02-03	Japan:Ishikawa,Nanao	Sus scrofa		CSFV/JPN/WB_IS622/2021					
+LC881318.1	11826	Classical swine fever virus	Japan	2020-05-22	Japan:Ishikawa,Kahoku	Sus scrofa		CSFV/JPN/WB_IS276/2020					
+LC881317.1	11826	Classical swine fever virus	Japan	2020-04-21	Japan:Ishikawa,Tsubata	Sus scrofa		CSFV/JPN/WB_IS262/2020					
+LC881316.1	11826	Classical swine fever virus	Japan	2020-03-30	Japan:Ishikawa,Tsubata	Sus scrofa		CSFV/JPN/WB_IS258/2020					
+LC881315.1	11826	Classical swine fever virus	Japan	2020-04-20	Japan:Toyama,Uozu	Sus scrofa		CSFV/JPN/WB_TM273/2020					
+LC881314.1	11826	Classical swine fever virus	Japan	2020-04-08	Japan:Toyama,Uozu	Sus scrofa		CSFV/JPN/WB_TM259/2020					
+LC881313.1	11826	Classical swine fever virus	Japan	2021-07-24	Japan:Kanagawa,Isehara	Sus scrofa		CSFV/JPN/WB_KN1011/2021					
+LC881312.1	11826	Classical swine fever virus	Japan	2021-04-23	Japan:Kanagawa,Isehara	Sus scrofa		CSFV/JPN/WB_KN926/2021					
+LC881311.1	11826	Classical swine fever virus	Japan	2021-03-09	Japan:Kanagawa,Isehara	Sus scrofa		CSFV/JPN/WB_KN890/2021					
+LC881310.1	11826	Classical swine fever virus	Japan	2020-12-18	Japan:Saitama,Ranzan	Sus scrofa		CSFV/JPN/WB_ST1157/2020					
+LC881309.1	11826	Classical swine fever virus	Japan	2020-12-01	Japan:Saitama,Ranzan	Sus scrofa		CSFV/JPN/WB_ST1131/2020					
+LC881308.1	11826	Classical swine fever virus	Japan	2020-06-11	Japan:Saitama,Higashimatsuyama	Sus scrofa		CSFV/JPN/WB_ST896/2020					
+LC881307.1	11826	Classical swine fever virus	Japan	2021-05-07	Japan:Gunma,Naganohara	Sus scrofa		CSFV/JPN/WB_GU2226/2021					
+LC881306.1	11826	Classical swine fever virus	Japan	2021-02-26	Japan:Fukushima,Shirakawa	Sus scrofa		CSFV/JPN/WB_FS196/2021					
+LC881305.1	11826	Classical swine fever virus	Japan	2020-09-16	Japan:Fukushima,Aizuwakamatsu	Sus scrofa		CSFV/JPN/WB_FS40/2020					
+LC881304.1	11826	Classical swine fever virus	Japan	2021-04-22	Japan:Wakayama,Hidakagawa	Sus scrofa		CSFV/JPN/WB_WA415/2021					
+LC881303.1	11826	Classical swine fever virus	Japan	2021-04-09	Japan:Gunma,Kiryu	Sus scrofa		CSFV/JPN/WB_GU2169/2021					
+LC881302.1	11826	Classical swine fever virus	Japan	2021-08-16	Japan:Ibaraki,Kasumigaura	Sus scrofa		CSFV/JPN/WB_IB1487/2021					
+LC881301.1	11826	Classical swine fever virus	Japan	2021-05-10	Japan:Fukushima,Kitakata	Sus scrofa		CSFV/JPN/WB_FS234/2021					
+LC881300.1	11826	Classical swine fever virus	Japan	2021-05-04	Japan:Yamagata,Tsuruoka	Sus scrofa		CSFV/JPN/WB_YG203/2021					
+LC881299.1	11826	Classical swine fever virus	Japan	2021-05-16	Japan:Hyogo,Tambasasayama	Sus scrofa		CSFV/JPN/WB_HG172/2021					
+LC881298.1	11826	Classical swine fever virus	Japan	2021-08-02	Japan:Yamagata,Takahata	Sus scrofa		CSFV/JPN/WB_YG214/2021					
+LC881297.1	11826	Classical swine fever virus	Japan	2020-10-12	Japan:Tokyo,Hachioji	Sus scrofa		CSFV/JPN/WB_TY113/2020					
+LC881296.1	11826	Classical swine fever virus	Japan	2021-02-26	Japan:Fukui,Takahama	Sus scrofa		CSFV/JPN/WB_FI1316/2021					
+LC881295.1	11826	Classical swine fever virus	Japan	2018-12-11	Japan:Gifu,Kakamigahara	Sus scrofa		CSFV/JPN/WB_GI413/2018					
+LC881294.1	11826	Classical swine fever virus	Japan	2020-06-30	Japan:Shiga,Otsu	Sus scrofa		CSFV/JPN/WB_SI42/2020					
+LC881293.1	11826	Classical swine fever virus	Japan	2021-11-23	Japan:Gunma,Shibukawa	Sus scrofa		CSFV/JPN/WB_GU2543/2021					
+LC881292.1	11826	Classical swine fever virus	Japan	2021-08-18	Japan:Gifu,Yamagata	Sus scrofa		CSFV/JPN/WB_GI5919/2021					
+LC881291.1	11826	Classical swine fever virus	Japan	2021-06-17	Japan:Hyogo,Inagawa	Sus scrofa		CSFV/JPN/WB_HG196/2021					
+LC881290.1	11826	Classical swine fever virus	Japan	2021-05-19	Japan:Hyogo,Takarazuka	Sus scrofa		CSFV/JPN/WB_HG154/2021					
+LC881289.1	11826	Classical swine fever virus	Japan	2021-04-26	Japan:Hyogo,Kawanishi	Sus scrofa		CSFV/JPN/WB_HG116/2021					
+LC881288.1	11826	Classical swine fever virus	Japan	2021-05-31	Japan:Hyogo,Tambasasayama	Sus scrofa		CSFV/JPN/WB_HG163/2021					
+LC881287.1	11826	Classical swine fever virus	Japan	2021-07-08	Japan:Osaka,Kaizuka	Sus scrofa		CSFV/JPN/WB_OS42/2021					
+LC881286.1	11826	Classical swine fever virus	Japan	2021-05-27	Japan:Osaka,Kumatori	Sus scrofa		CSFV/JPN/WB_OS40/2021					
+LC881285.1	11826	Classical swine fever virus	Japan	2021-08-04	Japan:Shizuoka,Fuji	Sus scrofa		CSFV/JPN/WB_SZ4484/2021					
+LC881284.1	11826	Classical swine fever virus	Japan	2020-12-25	Japan:Nagano,Shimosuwa	Sus scrofa		CSFV/JPN/WB_NA1073/2020					
+LC881283.1	11826	Classical swine fever virus	Japan	2021-06-14	Japan:Niigata,Agano	Sus scrofa		CSFV/JPN/WB_NI402/2021					
+LC881282.1	11826	Classical swine fever virus	Japan	2021-05-19	Japan:Niigata,Agano	Sus scrofa		CSFV/JPN/WB_NI400/2021					
+LC881281.1	11826	Classical swine fever virus	Japan	2021-04-12	Japan:Tochigi,Nasushiobara	Sus scrofa		CSFV/JPN/WB_TC729/2021					
+LC881280.1	11826	Classical swine fever virus	Japan	2021-06-24	Japan:Ibaraki,Ishioka	Sus scrofa		CSFV/JPN/WB_IB1286/2021					
+LC881279.1	11826	Classical swine fever virus	Japan	2021-06-09	Japan:Ibaraki,Ishioka	Sus scrofa		CSFV/JPN/WB_IB1243/2021					
+LC881278.1	11826	Classical swine fever virus	Japan	2021-03-27	Japan:Ibaraki,Daigo	Sus scrofa		CSFV/JPN/WB_IB1121/2021					
+LC881277.1	11826	Classical swine fever virus	Japan	2021-03-26	Japan:Fukushima,Inawashiro	Sus scrofa		CSFV/JPN/WB_FS230/2021					
+LC881276.1	11826	Classical swine fever virus	Japan	2021-07-26	Japan:Yamagata,Tsuruoka	Sus scrofa		CSFV/JPN/WB_YG213/2021					
+LC881275.1	11826	Classical swine fever virus	Japan	2021-04-21	Japan:Shizuoka,Fuji	Sus scrofa		CSFV/JPN/WB_SZ3820/2021					
+LC881274.1	11826	Classical swine fever virus	Japan	2021-01-30	Japan:Shizuoka,Fujinomiya	Sus scrofa		CSFV/JPN/WB_SZ3489/2021					
+LC881273.1	11826	Classical swine fever virus	Japan	2020-12-26	Japan:Shizuoka,Makinohara	Sus scrofa		CSFV/JPN/WB_SZ3241/2020					
+LC881272.1	11826	Classical swine fever virus	Japan	2021-02-02	Japan:Nagano,Toyooka	Sus scrofa		CSFV/JPN/WB_NA1091/2021					
+LC881271.1	11826	Classical swine fever virus	Japan	2020-04-24	Japan:Nagano,Yasuoka	Sus scrofa		CSFV/JPN/WB_NA736/2020					
+LC881270.1	11826	Classical swine fever virus	Japan	2021-06-07	Japan:Yamanashi,Yamanakako	Sus scrofa		CSFV/JPN/WB_YN363/2021					
+LC881269.1	11826	Classical swine fever virus	Japan	2021-03-09	Japan:Yamanashi,Fujiyoshida	Sus scrofa		CSFV/JPN/WB_YN359/2021					
+LC881268.1	11826	Classical swine fever virus	Japan	2021-02-12	Japan:Yamanashi,Ichikawamisato	Sus scrofa		CSFV/JPN/WB_YN351/2021					
+LC881267.1	11826	Classical swine fever virus	Japan	2021-02-03	Japan:Yamanashi,Chuo	Sus scrofa		CSFV/JPN/WB_YN347/2021					
+LC881266.1	11826	Classical swine fever virus	Japan	2020-11-10	Japan:Yamanashi,Nirasaki	Sus scrofa		CSFV/JPN/WB_YN295/2020					
+LC881265.1	11826	Classical swine fever virus	Japan	2020-09-14	Japan:Yamanashi,Otsuki	Sus scrofa		CSFV/JPN/WB_YN242/2020					
+LC881264.1	11826	Classical swine fever virus	Japan	2020-05-25	Japan:Yamanashi,Kosuge	Sus scrofa		CSFV/JPN/WB_YN174/2020					
+LC881263.1	11826	Classical swine fever virus	Japan	2021-08-19	Japan:Kanagawa,Aikawa	Sus scrofa		CSFV/JPN/WB_KN1040/2021					
+LC881262.1	11826	Classical swine fever virus	Japan	2021-08-05	Japan:Kanagawa,Matsuda	Sus scrofa		CSFV/JPN/WB_KN1025/2021					
+LC881261.1	11826	Classical swine fever virus	Japan	2021-06-02	Japan:Kanagawa,Hadano	Sus scrofa		CSFV/JPN/WB_KN968/2021					
+LC881260.1	11826	Classical swine fever virus	Japan	2021-04-13	Japan:Kanagawa,Kiyokawa	Sus scrofa		CSFV/JPN/WB_KN921/2021					
+LC881259.1	11826	Classical swine fever virus	Japan	2021-04-01	Japan:Kanagawa,Atsugi	Sus scrofa		CSFV/JPN/WB_KN917/2021					
+LC881258.1	11826	Classical swine fever virus	Japan	2021-04-12	Japan:Tokyo,Hachioji	Sus scrofa		CSFV/JPN/WB_TY132/2021					
+LC881257.1	11826	Classical swine fever virus	Japan	2021-06-09	Japan:Miyagi,Shichikashuku	Sus scrofa		CSFV/JPN/WB_MG1/2021					
+LC881256.1	11826	Classical swine fever virus	Japan	2021-07-10	Japan:Kyoto,Kyotamba	Sus scrofa		CSFV/JPN/WB_KY3/2021					
+LC881255.1	11826	Classical swine fever virus	Japan	2021-07-29	Japan:Hyogo,Awaji	Sus scrofa		CSFV/JPN/WB_HG29/2021					
+LC881254.1	11826	Classical swine fever virus	Japan	2021-03-07	Japan:Shizuoka,Mori	Sus scrofa		CSFV/JPN/WB_SZ6/2021					
+LC881253.1	11826	Classical swine fever virus	Japan	2021-03-22	Japan:Kyoto,Kasagi	Sus scrofa		CSFV/JPN/WB_KY2/2021					
+LC881252.1	11826	Classical swine fever virus	Japan	2021-03-03	Japan:Ishikawa,Shika	Sus scrofa		CSFV/JPN/WB_IS5/2021					
+LC881251.1	11826	Classical swine fever virus	Japan	2021-03-14	Japan:Hyogo,Tamba	Sus scrofa		CSFV/JPN/WB_HG2/2021					
+LC881250.1	11826	Classical swine fever virus	Japan	2019-01-14	Japan:Gifu,Kawabe	Sus scrofa		CSFV/JPN/WB_GI91/2019					
+LC881249.1	11826	Classical swine fever virus	Japan	2019-01-05	Japan:Gifu,Kakamigahara	Sus scrofa		CSFV/JPN/WB_GI88/2019					
+LC881248.1	11826	Classical swine fever virus	Japan	2019-01-03	Japan:Gifu,Kakamigahara	Sus scrofa		CSFV/JPN/WB_GI87/2019					
+LC881247.1	11826	Classical swine fever virus	Japan	2019-01-03	Japan:Gifu,Seki	Sus scrofa		CSFV/JPN/WB_GI86/2019					
+LC881246.1	11826	Classical swine fever virus	Japan	2018-12-28	Japan:Gifu,Yaotsu	Sus scrofa		CSFV/JPN/WB_GI85/2018					
+LC881245.1	11826	Classical swine fever virus	Japan	2018-12-26	Japan:Gifu,Kani	Sus scrofa		CSFV/JPN/WB_GI83/2018					
+LC881244.1	11826	Classical swine fever virus	Japan	2018-12-26	Japan:Gifu,Sakahogi	Sus scrofa		CSFV/JPN/WB_GI82/2018					
+LC881243.1	11826	Classical swine fever virus	Japan	2018-12-25	Japan:Gifu,Yamagata	Sus scrofa		CSFV/JPN/WB_GI81/2018					
+LC881242.1	11826	Classical swine fever virus	Japan	2018-12-24	Japan:Gifu,Kawabe	Sus scrofa		CSFV/JPN/WB_GI80/2018					
+LC881241.1	11826	Classical swine fever virus	Japan	2018-12-21	Japan:Gifu,Gifu	Sus scrofa		CSFV/JPN/WB_GI79/2018					
+LC881240.1	11826	Classical swine fever virus	Japan	2018-12-18	Japan:Gifu,Kani	Sus scrofa		CSFV/JPN/WB_GI78/2018					
+LC881239.1	11826	Classical swine fever virus	Japan	2018-12-17	Japan:Gifu,Kakamigahara	Sus scrofa		CSFV/JPN/WB_GI77/2018					
+LC881238.1	11826	Classical swine fever virus	Japan	2018-12-15	Japan:Gifu,Minokamo	Sus scrofa		CSFV/JPN/WB_GI76/2018					
+LC881237.1	11826	Classical swine fever virus	Japan	2018-12-14	Japan:Gifu,Sakahogi	Sus scrofa		CSFV/JPN/WB_GI75/2018					
+LC881236.1	11826	Classical swine fever virus	Japan	2018-12-10	Japan:Gifu,Yaotsu	Sus scrofa		CSFV/JPN/WB_GI72/2018					
+LC881235.1	11826	Classical swine fever virus	Japan	2018-12-10	Japan:Gifu,Seki	Sus scrofa		CSFV/JPN/WB_GI71/2018					
+LC881234.1	11826	Classical swine fever virus	Japan	2018-12-07	Japan:Gifu,Seki	Sus scrofa		CSFV/JPN/WB_GI70/2018					
+LC881233.1	11826	Classical swine fever virus	Japan	2018-12-06	Japan:Gifu,Sakahogi	Sus scrofa		CSFV/JPN/WB_GI68/2018					
+LC881232.1	11826	Classical swine fever virus	Japan	2018-12-06	Japan:Gifu,Gifu	Sus scrofa		CSFV/JPN/WB_GI67/2018					
+LC881231.1	11826	Classical swine fever virus	Japan	2018-12-04	Japan:Gifu,Kakamigahara	Sus scrofa		CSFV/JPN/WB_GI65/2018					
+LC881230.1	11826	Classical swine fever virus	Japan	2018-12-04	Japan:Gifu,Kani	Sus scrofa		CSFV/JPN/WB_GI64/2018					
+LC881229.1	11826	Classical swine fever virus	Japan	2021-03-13	Japan:Fukui,Takahama	Sus scrofa		CSFV/JPN/WB_FI5/2021					
+LC881228.1	11826	Classical swine fever virus	Japan	2021-03-09	Japan:Fukui,Takahama	Sus scrofa		CSFV/JPN/WB_FI4/2021					
+LC881227.1	11826	Classical swine fever virus	Japan	2021-02-26	Japan:Fukui,Takahama	Sus scrofa		CSFV/JPN/WB_FI2/2021					
+LC881226.1	11826	Classical swine fever virus	Japan	2018-11-30	Japan:Gifu,Kakamigahara	Sus scrofa		CSFV/JPN/WB_GI61/2018					
+LC881225.1	11826	Classical swine fever virus	Japan	2018-11-24	Japan:Gifu,Sakahogi	Sus scrofa		CSFV/JPN/WB_GI59/2018					
+LC881224.1	11826	Classical swine fever virus	Japan	2018-11-21	Japan:Gifu,Kakamigahara	Sus scrofa		CSFV/JPN/WB_GI57/2018					
+LC881223.1	11826	Classical swine fever virus	Japan	2018-11-21	Japan:Gifu,Kakamigahara	Sus scrofa		CSFV/JPN/WB_GI56/2018					
+LC881222.1	11826	Classical swine fever virus	Japan	2018-11-21	Japan:Gifu,Kakamigahara	Sus scrofa		CSFV/JPN/WB_GI55/2018					
+LC881221.1	11826	Classical swine fever virus	Japan	2018-11-20	Japan:Gifu,Seki	Sus scrofa		CSFV/JPN/WB_GI54/2018					
+LC881220.1	11826	Classical swine fever virus	Japan	2018-11-19	Japan:Gifu,Seki	Sus scrofa		CSFV/JPN/WB_GI52/2018					
+LC881219.1	11826	Classical swine fever virus	Japan	2018-11-16	Japan:Gifu,Seki	Sus scrofa		CSFV/JPN/WB_GI50/2018					
+LC881218.1	11826	Classical swine fever virus	Japan	2018-11-10	Japan:Gifu,Seki	Sus scrofa		CSFV/JPN/WB_GI48/2018					
+LC881217.1	11826	Classical swine fever virus	Japan	2018-11-07	Japan:Gifu,Seki	Sus scrofa		CSFV/JPN/WB_GI46/2018					
+LC881216.1	11826	Classical swine fever virus	Japan	2018-11-05	Japan:Gifu,Seki	Sus scrofa		CSFV/JPN/WB_GI45/2018					
+LC881215.1	11826	Classical swine fever virus	Japan	2018-11-01	Japan:Gifu,Yamagata	Sus scrofa		CSFV/JPN/WB_GI42/2018					
+LC881214.1	11826	Classical swine fever virus	Japan	2018-10-29	Japan:Gifu,Gifu	Sus scrofa		CSFV/JPN/WB_GI40/2018					
+LC881213.1	11826	Classical swine fever virus	Japan	2018-10-28	Japan:Gifu,Seki	Sus scrofa		CSFV/JPN/WB_GI39/2018					
+LC881212.1	11826	Classical swine fever virus	Japan	2018-10-19	Japan:Gifu,Seki	Sus scrofa		CSFV/JPN/WB_GI34/2018					
+LC881211.1	11826	Classical swine fever virus	Japan	2018-10-17	Japan:Gifu,Gifu	Sus scrofa		CSFV/JPN/WB_GI32/2018					
+LC881210.1	11826	Classical swine fever virus	Japan	2018-10-17	Japan:Gifu,Gifu	Sus scrofa		CSFV/JPN/WB_GI31/2018					
+LC881209.1	11826	Classical swine fever virus	Japan	2018-10-16	Japan:Gifu,Gifu	Sus scrofa		CSFV/JPN/WB_GI27/2018					
+LC881208.1	11826	Classical swine fever virus	Japan	2020-11-12	Japan:Gifu,Yamagata	Sus scrofa		CSFV/JPN/WB_GI1205/2020					
+LC881207.1	11826	Classical swine fever virus	Japan	2020-11-20	Japan:Tochigi,Nasushiobara	Sus scrofa		CSFV/JPN/WB_TC1/2020					
+LC881206.1	11826	Classical swine fever virus	Japan	2020-11-16	Japan:Nara,Nara	Sus scrofa		CSFV/JPN/WB_NR2/2020					
+LC881205.1	11826	Classical swine fever virus	Japan	2019-02-25	Japan:Gifu,Seki	Sus scrofa		CSFV/JPN/WB_GI197/2019					
+LC881204.1	11826	Classical swine fever virus	Japan	2019-02-25	Japan:Gifu,Gifu	Sus scrofa		CSFV/JPN/WB_GI195/2019					
+LC881203.1	11826	Classical swine fever virus	Japan	2019-02-25	Japan:Gifu,Gifu	Sus scrofa		CSFV/JPN/WB_GI194/2019					
+LC881202.1	11826	Classical swine fever virus	Japan	2019-02-25	Japan:Gifu,Kani	Sus scrofa		CSFV/JPN/WB_GI193/2019					
+LC881201.1	11826	Classical swine fever virus	Japan	2019-02-25	Japan:Gifu,Mino	Sus scrofa		CSFV/JPN/WB_GI192/2019					
+LC881200.1	11826	Classical swine fever virus	Japan	2019-02-25	Japan:Gifu,Kani	Sus scrofa		CSFV/JPN/WB_GI191/2019					
+LC881199.1	11826	Classical swine fever virus	Japan	2019-02-25	Japan:Gifu,Seki	Sus scrofa		CSFV/JPN/WB_GI190/2019					
+LC881198.1	11826	Classical swine fever virus	Japan	2019-02-25	Japan:Gifu,Mitake	Sus scrofa		CSFV/JPN/WB_GI189/2019					
+LC881197.1	11826	Classical swine fever virus	Japan	2020-10-30	Japan:Wakayama,Kinokawa	Sus scrofa		CSFV/JPN/WB_WA2/2020					
+LC881196.1	11826	Classical swine fever virus	Japan	2020-10-30	Japan:Wakayama,Kinokawa	Sus scrofa		CSFV/JPN/WB_WA1/2020					
+LC881195.1	11826	Classical swine fever virus	Japan	2020-10-29	Japan:Osaka,Ibaraki	Sus scrofa		CSFV/JPN/WB_OS1/2020					
+LC881194.1	11826	Classical swine fever virus	Japan	2020-10-20	Japan:Ishikawa,Nanao	Sus scrofa		CSFV/JPN/WB_IS4/2020					
+LC881193.1	11826	Classical swine fever virus	Japan	2019-02-25	Japan:Gifu,Ena	Sus scrofa		CSFV/JPN/WB_GI182/2019					
+LC881192.1	11826	Classical swine fever virus	Japan	2019-02-21	Japan:Gifu,Minokamo	Sus scrofa		CSFV/JPN/WB_GI179/2019					
+LC881191.1	11826	Classical swine fever virus	Japan	2020-06-30	Japan:Shiga,Otsu	Sus scrofa		CSFV/JPN/WB_SI9/2020					
+LC881190.1	11826	Classical swine fever virus	Japan	2020-03-09	Japan:Shizuoka,Hamamatsu	Sus scrofa		CSFV/JPN/WB_SZ4/2020					
+LC881189.1	11826	Classical swine fever virus	Japan	2020-01-30	Japan:Shizuoka,Hamamatsu	Sus scrofa		CSFV/JPN/WB_SZ3/2020					
+LC881188.1	11826	Classical swine fever virus	Japan	2020-10-12	Japan:Nara,Nara	Sus scrofa		CSFV/JPN/WB_NR1/2020					
+LC881187.1	11826	Classical swine fever virus	Japan	2020-09-30	Japan:Aichi,Tahara	Sus scrofa		CSFV/JPN/WB_AI8/2020					
+LC881186.1	11826	Classical swine fever virus	Japan	2020-08-07	Japan:Gunma,Naganohara	Sus scrofa		CSFV/JPN/WB_GU14/2020					
+LC881185.1	11826	Classical swine fever virus	Japan	2020-08-07	Japan:Gunma,Higashiagatsuma	Sus scrofa		CSFV/JPN/WB_GU13/2020					
+LC881184.1	11826	Classical swine fever virus	Japan	2020-06-07	Japan:Shiga,Higashiomi	Sus scrofa		CSFV/JPN/WB_SI7/2020					
+LC881183.1	11826	Classical swine fever virus	Japan	2020-05-27	Japan:Shiga,Higashiomi	Sus scrofa		CSFV/JPN/WB_SI6/2020					
+LC881182.1	11826	Classical swine fever virus	Japan	2020-04-27	Japan:Ishikawa,Nanao	Sus scrofa		CSFV/JPN/WB_IS3/2020					
+LC881181.1	11826	Classical swine fever virus	Japan	2020-09-08	Japan:Fukushima,Aizuwakamatsu	Sus scrofa		CSFV/JPN/WB_FS1/2020					
+LC881180.1	11826	Classical swine fever virus	Japan	2020-08-20	Japan:Gunma,Katashina	Sus scrofa		CSFV/JPN/WB_GU12/2020					
+LC881179.1	11826	Classical swine fever virus	Japan	2020-06-11	Japan:Ishikawa,Nakanoto	Sus scrofa		CSFV/JPN/WB_IS2/2020					
+LC881178.1	11826	Classical swine fever virus	Japan	2020-05-13	Japan:Saitama,Hanno	Sus scrofa		CSFV/JPN/WB_ST8/2020					
+LC881177.1	11826	Classical swine fever virus	Japan	2020-05-18	Japan:Gunma,Naganohara	Sus scrofa		CSFV/JPN/WB_GU11/2020					
+LC881176.1	11826	Classical swine fever virus	Japan	2020-05-01	Japan:Gunma,Naganohara	Sus scrofa		CSFV/JPN/WB_GU10/2020					
+LC881175.1	11826	Classical swine fever virus	Japan	2020-06-27	Japan:Tokyo,Ome	Sus scrofa		CSFV/JPN/WB_TY1/2020					
+LC881174.1	11826	Classical swine fever virus	Japan	2020-06-25	Japan:Ibaraki,Toride	Sus scrofa		CSFV/JPN/WB_IB1/2020					
+LC881173.1	11826	Classical swine fever virus	Japan	2019-02-25	Japan:Gifu,Mitake	Sus scrofa		CSFV/JPN/WB_GI186/2019					
+LC881172.1	11826	Classical swine fever virus	Japan	2019-02-25	Japan:Gifu,Minokamo	Sus scrofa		CSFV/JPN/WB_GI185/2019					
+LC881171.1	11826	Classical swine fever virus	Japan	2019-02-25	Japan:Gifu,Gifu	Sus scrofa		CSFV/JPN/WB_GI183/2019					
+LC881170.1	11826	Classical swine fever virus	Japan	2019-02-21	Japan:Gifu,Gifu	Sus scrofa		CSFV/JPN/WB_GI177/2019					
+LC881169.1	11826	Classical swine fever virus	Japan	2020-05-09	Japan:Kanagawa,Sagamihara	Sus scrofa		CSFV/JPN/WB_KN1/2020					
+LC881168.1	11826	Classical swine fever virus	Japan	2020-04-20	Japan:Niigata,Myoko	Sus scrofa		CSFV/JPN/WB_NI1/2020					
+LC881167.1	11826	Classical swine fever virus	Japan	2020-04-21	Japan:Kyoto,Ujitawara	Sus scrofa		CSFV/JPN/WB_KY1/2020					
+LC881166.1	11826	Classical swine fever virus	Japan	2019-02-21	Japan:Gifu,Gifu	Sus scrofa		CSFV/JPN/WB_GI175/2019					
+LC881165.1	11826	Classical swine fever virus	Japan	2019-02-21	Japan:Gifu,Minokamo	Sus scrofa		CSFV/JPN/WB_GI174/2019					
+LC881164.1	11826	Classical swine fever virus	Japan	2019-02-20	Japan:Gifu,Mino	Sus scrofa		CSFV/JPN/WB_GI173/2019					
+LC881163.1	11826	Classical swine fever virus	Japan	2019-02-19	Japan:Gifu,Yamagata	Sus scrofa		CSFV/JPN/WB_GI172/2019					
+LC881162.1	11826	Classical swine fever virus	Japan	2019-02-20	Japan:Gifu,Kawabe	Sus scrofa		CSFV/JPN/WB_GI170/2019					
+LC881161.1	11826	Classical swine fever virus	Japan	2019-02-19	Japan:Gifu,Yaotsu	Sus scrofa		CSFV/JPN/WB_GI169/2019					
+LC881160.1	11826	Classical swine fever virus	Japan	2019-02-19	Japan:Gifu,Yaotsu	Sus scrofa		CSFV/JPN/WB_GI167/2019					
+LC881159.1	11826	Classical swine fever virus	Japan	2024-05-27	Japan:Iwate,Hirono	Sus scrofa domesticus		CSFV/JPN/110/2024					
+LC881158.1	11826	Classical swine fever virus	Japan	2024-05-24	Japan:Tochigi,Nasushiobara	Sus scrofa domesticus		CSFV/JPN/109/2024					
+LC881157.1	11826	Classical swine fever virus	Japan	2024-02-16	Japan:Tochigi,Tochigi	Sus scrofa domesticus		CSFV/JPN/108/2024					
+LC881156.1	11826	Classical swine fever virus	Japan	2023-08-31	Japan:Saga,Karatsu	Sus scrofa domesticus		CSFV/JPN/107/2023					
+LC881155.1	11826	Classical swine fever virus	Japan	2023-08-30	Japan:Saga,Karatsu	Sus scrofa domesticus		CSFV/JPN/106/2023					
+LC881154.1	11826	Classical swine fever virus	Japan	2023-07-22	Japan:Hyogo,Minamiawaji	Sus scrofa domesticus		CSFV/JPN/105/2023					
+LC881153.1	11826	Classical swine fever virus	Japan	2023-02-28	Japan:Ibaraki,Kasumigaura	Sus scrofa domesticus		CSFV/JPN/104/2023					
+LC881152.1	11826	Classical swine fever virus	Japan	2022-11-19	Japan:Tokyo,Kodaira	Sus scrofa domesticus		CSFV/JPN/103/2022					
+LC881151.1	11826	Classical swine fever virus	Japan	2022-09-20	Japan:Gunma,Itakura	Sus scrofa domesticus		CSFV/JPN/102/2022					
+LC881150.1	11826	Classical swine fever virus	Japan	2022-07-22	Japan:Tochigi,Nasukarasuyama	Sus scrofa domesticus		CSFV/JPN/101/2022					
+LC881149.1	11826	Classical swine fever virus	Japan	2022-06-14	Japan:Gunma,Kiryu	Sus scrofa domesticus		CSFV/JPN/100/2022					
+LC881148.1	11826	Classical swine fever virus	Japan	2022-05-09	Japan:Gunma,Kiryu	Sus scrofa domesticus		CSFV/JPN/99/2022					
+LC881147.1	11826	Classical swine fever virus	Japan	2022-04-21	Japan:Gunma,Ota	Sus scrofa domesticus		CSFV/JPN/98/2022					
+LC881146.1	11826	Classical swine fever virus	Japan	2022-04-14	Japan:Ibaraki,Shirosato	Sus scrofa domesticus		CSFV/JPN/97/2022					
+LC881145.1	11826	Classical swine fever virus	Japan	2022-04-12	Japan:Ibaraki,Ishioka	Sus scrofa domesticus		CSFV/JPN/96/2022					
+LC881144.1	11826	Classical swine fever virus	Japan	2022-03-24	Japan:Tochigi,Nakagawa	Sus scrofa domesticus		CSFV/JPN/95/2022					
+LC881143.1	11826	Classical swine fever virus	Japan	2021-12-24	Japan:Miyagi,Marumori	Sus scrofa domesticus		CSFV/JPN/94/2021					
+LC881142.1	11826	Classical swine fever virus	Japan	2021-12-11	Japan:Miyagi,Ogawara	Sus scrofa domesticus		CSFV/JPN/93/2021					
+LC881141.1	11826	Classical swine fever virus	Japan	2021-11-25	Japan:Gunma,Kiryu	Sus scrofa domesticus		CSFV/JPN/92/2021					
+LC881140.1	11826	Classical swine fever virus	Japan	2021-10-18	Japan:Gunma,Maebashi	Sus scrofa domesticus		CSFV/JPN/91/2021					
+LC881139.1	11826	Classical swine fever virus	Japan	2021-10-05	Japan:Shiga,Ohmihachiman	Sus scrofa domesticus		CSFV/JPN/90/2021					
+LC881138.1	11826	Classical swine fever virus	Japan	2021-08-06	Japan:Gunma,Kiryu	Sus scrofa domesticus		CSFV/JPN/89/2021					
+LC881137.1	11826	Classical swine fever virus	Japan	2021-08-04	Japan:Yamanashi,Doshi	Sus scrofa domesticus		CSFV/JPN/88/2021					
+LC881136.1	11826	Classical swine fever virus	Japan	2021-07-07	Japan:Kanagawa,Sagamihara	Sus scrofa domesticus		CSFV/JPN/87/2021					
+LC881135.1	11826	Classical swine fever virus	Japan	2021-05-10	Japan:Yamanashi,Chuo	Sus scrofa domesticus		CSFV/JPN/86/2021					
+LC881134.1	11826	Classical swine fever virus	Japan	2021-04-16	Japan:Tochigi,Nasushiobara	Sus scrofa domesticus		CSFV/JPN/85/2021					
+LC881133.1	11826	Classical swine fever virus	Japan	2021-04-16	Japan:Tochigi,Nasushiobara	Sus scrofa domesticus		CSFV/JPN/84/2021					
+LC881132.1	11826	Classical swine fever virus	Japan	2021-04-13	Japan:Mie,Tsu	Sus scrofa domesticus		CSFV/JPN/83/2021					
+LC881131.1	11826	Classical swine fever virus	Japan	2021-04-01	Japan:Gunma,Maebashi	Sus scrofa domesticus		CSFV/JPN/82/2021					
+LC881130.1	11826	Classical swine fever virus	Japan	2021-03-29	Japan:Nara,Nara	Sus scrofa domesticus		CSFV/JPN/81/2021					
+LC881129.1	11826	Classical swine fever virus	Japan	2021-01-25	Japan:Wakayama,Katsuragi	Sus scrofa domesticus		CSFV/JPN/80/2021					
+LC881128.1	11826	Classical swine fever virus	Japan	2020-12-28	Japan:Mie,Iga	Sus scrofa domesticus		CSFV/JPN/79/2020					
+LC881127.1	11826	Classical swine fever virus	Japan	2020-12-24	Japan:Yamagata,Tsuruoka	Sus scrofa domesticus		CSFV/JPN/78/2020					
+LC881126.1	11826	Classical swine fever virus	Japan	2020-09-25	Japan:Gunma,Takasaki	Sus scrofa domesticus		CSFV/JPN/77/2020					
+LC881125.1	11826	Classical swine fever virus	Japan	2020-03-11	Japan:Okinawa,Uruma	Sus scrofa domesticus		CSFV/JPN/76/2020					
+PP874933.1	12296	Classical swine fever virus	China	Feb-2024	China	Sus scrofa		GD-2024					
+LC713055.1	12094	Classical swine fever virus	Japan	2019	Japan: Mie	Sus scrofa	CSFV/wb/Jpn-Mie/P96/2019						
+PQ282313.1	12297	Classical swine fever virus	South Korea	01-Jun-2024	South Korea	pig		GNU-240601					
+LC702341.1	12143	Classical swine fever virus	United Kingdom	2000-11-03	United Kingdom	Sus scrofa	UK2000 sF16						
+LC702340.1	12147	Classical swine fever virus	United Kingdom	2000-09-17	United Kingdom	Sus scrofa	UK2000 SF13						
+LC702339.1	12147	Classical swine fever virus	United Kingdom	2000-09-13	United Kingdom	Sus scrofa	UK2000 SF12						
+LC702338.1	12147	Classical swine fever virus	United Kingdom	2000-09-12	United Kingdom	Sus scrofa	UK2000 SF11						
+LC702337.1	12147	Classical swine fever virus	United Kingdom	2000-09-10	United Kingdom	Sus scrofa	UK2000 SF10						
+LC702336.1	12147	Classical swine fever virus	United Kingdom	2000-09-10	United Kingdom	Sus scrofa	UK2000 SF09						
+LC702335.1	12147	Classical swine fever virus	United Kingdom	2000-09-06	United Kingdom	Sus scrofa	UK2000 SF08						
+LC702334.1	12147	Classical swine fever virus	United Kingdom	2000-09-05	United Kingdom	Sus scrofa	UK2000 SF07						
+LC702333.1	12147	Classical swine fever virus	United Kingdom	2000-09-04	United Kingdom	Sus scrofa	UK2000 SF06						
+LC702332.1	12147	Classical swine fever virus	United Kingdom	2000-08-12	United Kingdom	Sus scrofa	UK2000 SF05						
+LC702331.1	12147	Classical swine fever virus	United Kingdom	2000-08-12	United Kingdom	Sus scrofa	UK2000 SF04						
+LC702330.1	12147	Classical swine fever virus	United Kingdom	2000-08-09	United Kingdom	Sus scrofa	UK2000 SF03						
+LC702329.1	12147	Classical swine fever virus	United Kingdom	2000-08-09	United Kingdom	Sus scrofa	UK2000 SF02						
+LC702328.1	12147	Classical swine fever virus	United Kingdom	2000-08-08	United Kingdom	Sus scrofa	UK2000 SF01_7.2						
+LC702327.1	12147	Classical swine fever virus	United Kingdom	2000-08-08	United Kingdom	Sus scrofa	UK2000 SF01						
+OR428229.1	12216	Classical swine fever virus						2639/2014					
+LC780768.1	12245	Classical swine fever virus	Japan	2019-04	Japan	Sus scrofa	Gifu-18-2019-NVAL01					genotype: 2; subgenotype: 2.1	
+PP209412.1	12301	Classical swine fever virus	India	12-Jul-2023	India: Sonapur	Sus scrofa		CSFV/ASM/IND/S2				genotype: 2.2	26.1172 N 91.9802 E
+PP209411.1	12301	Classical swine fever virus	India	22-Jun-2022	India: Dhemaji	Sus scrofa		CSFV/ASM/IND/S1				genotype: 2.2	27.4811 N 94.5573 E
+PP209410.1	12301	Classical swine fever virus	India	12-Sep-2021	India: Lakhimpur	Sus scrofa		CSFV/ASM/IND/L1				genotype: 2.2	27.2064 N 94.1514 E
+OR195698.1	11821	Classical swine fever virus	China	16-Jul-2022	China	Sus scrofa		CSFV/HeNLY2022					
+OR997840.1	12298	Classical swine fever virus	Cuba	1958	Cuba	Sus scrofa domesticus		CSFV/Margarita/1958				subtype: 1.4	
+OR459954.1	12222	Classical swine fever virus	China	2018	China	pig	LX/2018						
+OQ883956.1	12288	Classical swine fever virus	China	2022	China	swine	YN-WS						
+OM201207.1	11697	Classical swine fever virus	China	2018	China	Pig		CSFV/S001					
+OM201206.1	11697	Classical swine fever virus	China	2018	China	Pig		CSFV/S019					
+OM201205.1	11697	Classical swine fever virus	China	2018	China	Pig		CSFV/S009					
+OM201204.1	11697	Classical swine fever virus	China	2018	China	Pig		CSFV/S007					
+OM201203.1	11697	Classical swine fever virus	China	2018	China	Pig		CSFV/H013					
+OM201202.1	11697	Classical swine fever virus	China	2019	China	Pig		CSFV/Y112					
+OM201201.1	11697	Classical swine fever virus	China	2018	China	Pig		CSFV/G124					
+OM201200.1	11697	Classical swine fever virus	China	2018	China	Pig		CSFV/G123					
+OM817567.1	12221	Classical swine fever virus	Peru	2007/2008	Peru: Lima, Villa El Salvador	domestic pig		Peru-L-8					
+OM817566.1	12221	Classical swine fever virus	Peru	2007/2008	Peru: Lima, Huachipa	domestic pig		Peru-L-39					
+OM817565.1	12224	Classical swine fever virus	Peru	2007/2008	Peru: Lima, Lurin	domestic pig		Peru-L-24					
+OM817564.1	12226	Classical swine fever virus	Peru	2007/2008	Peru: Lima, Cajamarquilla	domestic pig		Peru-L-20					
+OM817563.1	12224	Classical swine fever virus	Peru	2007/2008	Peru: Lima, Villa El Salvador	domestic pig		Peru-L-2					
+OM817562.1	12220	Classical swine fever virus	Peru	2007/2008	Peru: Ancash, Huaraz	domestic pig		Peru-An-5					
+OM817561.1	12143	Classical swine fever virus	Peru	2007/2008	Peru: Puno, Tampopata	domestic pig		Peru-P-19					
+OM817560.1	12221	Classical swine fever virus	Peru	2007/2008	Peru: Arequipa, Cerro Colorado	domestic pig		Peru-A-42					
+OL963699.1	12148	Classical swine fever virus	Colombia	2017	Colombia: Polonuevo, Atlantico	Sus scrofa		2017_Polonuevo_CO					
+OL963698.1	11921	Classical swine fever virus	Colombia	2017	Colombia: Galeras, Sucre	Sus scrofa		2017_Galeras_CO					
+OL963697.1	12227	Classical swine fever virus	Colombia	2016	Colombia: Santa-Ana, Magdalena	Sus scrofa		2016_Santa_Ana_CO					
+OL963696.1	11978	Classical swine fever virus	Colombia	2016	Colombia: Pinillos, Bolivar	Sus scrofa		2016_Pinillos_CO					
+OL963695.1	12156	Classical swine fever virus	Colombia	2015	Colombia: Morales, Bolivar	Sus scrofa		2015_Morales_Bolivar_CO					
+OL963694.1	11888	Classical swine fever virus	Colombia	2014	Colombia: El-Paso, Cesar	Sus scrofa		2014_El_Paso_CO					
+OL963693.1	12159	Classical swine fever virus	Colombia	2013	Colombia: Chiriguana, Cesar	Sus scrofa		2013_Chiriguana_CO					
+OL963692.1	12154	Classical swine fever virus	Colombia	1980	Colombia: Cucuta, Norte De Santander	Sus scrofa		1980s_Cucuta_CO					
+OM925903.1	12295	Classical swine fever virus	China	2020	China	pig	SC5						
+MW853932.1	12109	Classical swine fever virus	China	2017/2018	China	porcine	AH-CSFV20178-9						
+MW853931.1	12189	Classical swine fever virus	China	2017/2018	China	porcine	AH-CSFV20178-8						
+MW853930.1	12079	Classical swine fever virus	China	2017/2018	China	porcine	AH-CSFV20178-7						
+MW853929.1	12068	Classical swine fever virus	China	2017/2018	China	porcine	AH-CSFV20178-6						
+MW853928.1	12363	Classical swine fever virus	China	2017/2018	China	porcine	AH-CSFV20178-5						
+MW853927.1	12182	Classical swine fever virus	China	2017/2018	China	porcine	AH-CSFV20178-4						
+MW853926.1	12200	Classical swine fever virus	China	2017/2018	China	porcine	AH-CSFV20178-3						
+MW853925.1	12127	Classical swine fever virus	China	2017/2018	China	porcine	AH-CSFV20178-2						
+MW853924.1	12157	Classical swine fever virus	China	2017/2018	China	porcine	AH-CSFV20178-1						
+LC583718.1	11826	Classical swine fever virus	Japan	2019-02-18	Japan:Gifu,Yamagata	Sus scrofa	CSFV/JPN/WB165/2019						
+LC583717.1	11826	Classical swine fever virus	Japan	2019-02-18	Japan:Gifu,Gifu	Sus scrofa	CSFV/JPN/WB160/2019						
+LC583716.1	11826	Classical swine fever virus	Japan	2019-02-18	Japan:Gifu,Yaotsu	Sus scrofa	CSFV/JPN/WB157/2019						
+LC583715.1	11826	Classical swine fever virus	Japan	2019-02-18	Japan:Gifu,Mizunami	Sus scrofa	CSFV/JPN/WB154/2019						
+LC583714.1	11826	Classical swine fever virus	Japan	2019-02-15	Japan:Gifu,Kani	Sus scrofa	CSFV/JPN/WB153/2019						
+LC583713.1	11826	Classical swine fever virus	Japan	2019-02-18	Japan:Gifu,Sakahogi	Sus scrofa	CSFV/JPN/WB162/2019						
+LC583712.1	11826	Classical swine fever virus	Japan	2019-02-18	Japan:Gifu,Gifu	Sus scrofa	CSFV/JPN/WB161/2019						
+LC583711.1	11826	Classical swine fever virus	Japan	2019-02-14	Japan:Gifu,Gifu	Sus scrofa	CSFV/JPN/WB151/2019						
+LC583710.1	11826	Classical swine fever virus	Japan	2019-02-14	Japan:Gifu,Gifu	Sus scrofa	CSFV/JPN/WB150/2019						
+LC583709.1	11826	Classical swine fever virus	Japan	2019-02-14	Japan:Gifu,Tajimi	Sus scrofa	CSFV/JPN/WB148/2019						
+LC583708.1	11826	Classical swine fever virus	Japan	2020-02-10	Japan:Yamanashi,Kosuge	Sus scrofa	CSFV/JPN/WB-YN1/2019						
+LC583707.1	11826	Classical swine fever virus	Japan	2019-12-26	Japan:Shiga,Higashiomi	Sus scrofa	CSFV/JPN/WB-S4/2019						
+LC583706.1	11826	Classical swine fever virus	Japan	2019-12-19	Japan:Shiga,Higashiomi	Sus scrofa	CSFV/JPN/WB-S3/2019						
+LC583705.1	11826	Classical swine fever virus	Japan	2019-12-17	Japan:Shiga,Higashiomi	Sus scrofa	CSFV/JPN/WB-S2/2019						
+LC583704.1	11826	Classical swine fever virus	Japan	2019-12-22	Japan:Nagano,Ueda	Sus scrofa	CSFV/JPN/WB-N12/2019						
+LC583703.1	11826	Classical swine fever virus	Japan	2019-11-23	Japan:Gunma,Tomioka	Sus scrofa	CSFV/JPN/WB-GM9/2019						
+LC583702.1	11826	Classical swine fever virus	Japan	2020-02-25	Japan:Okinawa,Uruma	Sus scrofa domesticus	CSFV/JPN/75/2020						
+LC583701.1	11826	Classical swine fever virus	Japan	2019-11-20	Japan:Gunma,Fujioka	Sus scrofa	CSFV/JPN/WB-GM8/2019						
+LC583700.1	11826	Classical swine fever virus	Japan	2019-11-14	Japan:Saitama,Yorii	Sus scrofa	CSFV/JPN/WB-ST7/2019						
+LC583699.1	11826	Classical swine fever virus	Japan	2019-11-12	Japan:Saitama,Yorii	Sus scrofa	CSFV/JPN/WB-ST5/2019						
+LC583698.1	11826	Classical swine fever virus	Japan	2019-11-12	Japan:Nagano,Achi	Sus scrofa	CSFV/JPN/WB-N11/2019						
+LC583697.1	11826	Classical swine fever virus	Japan	2019-11-11	Japan:Nagano,Achi	Sus scrofa	CSFV/JPN/WB-N10/2019						
+LC583696.1	11826	Classical swine fever virus	Japan	2019-09-17	Japan:Toyama,Toyama	Sus scrofa	CSFV/JPN/WB-T6/2019						
+LC583695.1	11826	Classical swine fever virus	Japan	2019-09-04	Japan:Toyama,Toyama	Sus scrofa	CSFV/JPN/WB-T4/2019						
+LC583694.1	11826	Classical swine fever virus	Japan	2019-08-29	Japan:Toyama,Toyama	Sus scrofa	CSFV/JPN/WB-T3/2019						
+LC583693.1	11826	Classical swine fever virus	Japan	2019-08-29	Japan:Toyama,Toyama	Sus scrofa	CSFV/JPN/WB-T2/2019						
+LC583692.1	11826	Classical swine fever virus	Japan	2019-03-31	Japan:Aichi,Kasugai	Sus scrofa	CSFV/JPN/WB-A7/2019						
+LC583691.1	11826	Classical swine fever virus	Japan	2020-02-02	Japan:Okinawa,Okinawa	Sus scrofa domesticus	CSFV/JPN/74/2020						
+LC583690.1	11826	Classical swine fever virus	Japan	2019-02-14	Japan:Gifu,Minokamo	Sus scrofa	CSFV/JPN/WB147/2019						
+LC583689.1	11826	Classical swine fever virus	Japan	2019-02-14	Japan:Gifu,Tajimi	Sus scrofa	CSFV/JPN/WB146/2019						
+LC583688.1	11826	Classical swine fever virus	Japan	2019-02-13	Japan:Gifu,Tomika	Sus scrofa	CSFV/JPN/WB145/2019						
+LC583687.1	11826	Classical swine fever virus	Japan	2019-02-12	Japan:Gifu,Yamagata	Sus scrofa	CSFV/JPN/WB142/2019						
+LC583686.1	11826	Classical swine fever virus	Japan	2019-02-12	Japan:Gifu,Minokamo	Sus scrofa	CSFV/JPN/WB141/2019						
+LC583685.1	11826	Classical swine fever virus	Japan	2019-02-12	Japan:Gifu,Minokamo	Sus scrofa	CSFV/JPN/WB140/2019						
+LC583684.1	11826	Classical swine fever virus	Japan	2019-02-12	Japan:Gifu,Yaotsu	Sus scrofa	CSFV/JPN/WB139/2019						
+LC583683.1	11826	Classical swine fever virus	Japan	2020-01-15	Japan:Okinawa,Uruma	Sus scrofa domesticus	CSFV/JPN/73/2020						
+LC583682.1	11826	Classical swine fever virus	Japan	2020-01-10	Japan:Okinawa,Okinawa	Sus scrofa domesticus	CSFV/JPN/72/2020						
+LC583681.1	11826	Classical swine fever virus	Japan	2020-01-11	Japan:Okinawa,Uruma	Sus scrofa domesticus	CSFV/JPN/71/2020						
+LC583680.1	11826	Classical swine fever virus	Japan	2020-01-08	Japan:Okinawa,Uruma	Sus scrofa domesticus	CSFV/JPN/70/2020						
+LC583679.1	11826	Classical swine fever virus	Japan	2020-01-06	Japan:Okinawa,Uruma	Sus scrofa domesticus	CSFV/JPN/69/2020						
+LC583678.1	11826	Classical swine fever virus	Japan	2019-12-17	Japan:Aichi,Tahara	Sus scrofa domesticus	CSFV/JPN/68/2019						
+LC583677.1	11826	Classical swine fever virus	Japan	2019-11-07	Japan:Saitama,Misato	Sus scrofa	CSFV/JPN/WB-ST4/2019						
+LC583676.1	11826	Classical swine fever virus	Japan	2019-10-21	Japan:Saitama,Kamikawa	Sus scrofa	CSFV/JPN/WB-ST3/2019						
+LC583675.1	11826	Classical swine fever virus	Japan	2019-10-01	Japan:Saitama,Chichibu	Sus scrofa	CSFV/JPN/WB-ST2/2019						
+LC583674.1	11826	Classical swine fever virus	Japan	2019-11-20	Japan:Gunma,Fujioka	Sus scrofa	CSFV/JPN/WB-GM6/2019						
+LC583673.1	11826	Classical swine fever virus	Japan	2019-11-18	Japan:Aichi,Nishio	Sus scrofa domesticus	CSFV/JPN/67/2019						
+LC583672.1	11826	Classical swine fever virus	Japan	2019-11-14	Japan:Yamanashi,Nirasaki	Sus scrofa domesticus	CSFV/JPN/66/2019						
+LC583671.1	11826	Classical swine fever virus	Japan	2019-11-08	Japan:Saitama,Fukaya	Sus scrofa domesticus	CSFV/JPN/65/2019						
+LC583670.1	11826	Classical swine fever virus	Japan	2019-07-23	Japan:Mie,Inabe	Sus scrofa domesticus	CSFV/JPN/48/2019						
+LC583669.1	11826	Classical swine fever virus	Japan	2019-11-05	Japan:Saitama,Honjo	Sus scrofa domesticus	CSFV/JPN/64/2019						
+LC583668.1	11826	Classical swine fever virus	Japan	2019-10-18	Japan:Shizuoka,Fujieda	Sus scrofa	CSFV/JPN/WB-SO1/2019						
+LC583667.1	11826	Classical swine fever virus	Japan	2019-10-11	Japan:Saitama,Honjo	Sus scrofa domesticus	CSFV/JPN/63/2019						
+LC583666.1	11826	Classical swine fever virus	Japan	2019-10-03	Japan:Gunma,Ueno	Sus scrofa	CSFV/JPN/WB-GM5/2019						
+LC583665.1	11826	Classical swine fever virus	Japan	2019-09-27	Japan:Gifu,Ena	Sus scrofa domesticus	CSFV/JPN/62/2019						
+LC583664.1	11826	Classical swine fever virus	Japan	2019-09-24	Japan:Nagano,Takamori	Sus scrofa domesticus	CSFV/JPN/61/2019						
+LC583663.1	11826	Classical swine fever virus	Japan	2019-02-13	Japan:Gifu,Mizunami	Sus scrofa	CSFV/JPN/WB144/2019						
+LC583662.1	11826	Classical swine fever virus	Japan	2019-02-13	Japan:Gifu,Mizunami	Sus scrofa	CSFV/JPN/WB143/2019						
+LC583661.1	11826	Classical swine fever virus	Japan	2019-02-12	Japan:Gifu,Kawabe	Sus scrofa	CSFV/JPN/WB138/2019						
+LC583660.1	11826	Classical swine fever virus	Japan	2019-09-13	Japan:Shiga,Taga	Sus scrofa	CSFV/JPN/WB-S1/2019						
+LC583659.1	11826	Classical swine fever virus	Japan	2019-09-16	Japan:Saitama,Ogano	Sus scrofa domesticus	CSFV/JPN/60/2019						
+LC583658.1	11826	Classical swine fever virus	Japan	2019-09-12	Japan:Nagano,Shiojiri	Sus scrofa domesticus	CSFV/JPN/59/2019						
+LC583657.1	11826	Classical swine fever virus	Japan	2019-09-12	Japan:Saitama,Chichibu	Sus scrofa domesticus	CSFV/JPN/58/2019						
+LC583656.1	11826	Classical swine fever virus	Japan	2019-07-09	Japan:Gifu,Hichiso	Sus scrofa domesticus	CSFV/JPN/47/2019						
+LC583655.1	11826	Classical swine fever virus	Japan	2019-02-12	Japan:Gifu,Yaotsu	Sus scrofa	CSFV/JPN/WB136/2019						
+LC583654.1	11826	Classical swine fever virus	Japan	2019-02-12	Japan:Gifu,Yaotsu	Sus scrofa	CSFV/JPN/WB134/2019						
+LC583653.1	11826	Classical swine fever virus	Japan	2019-02-12	Japan:Gifu,Seki	Sus scrofa	CSFV/JPN/WB133/2019						
+LC583652.1	11826	Classical swine fever virus	Japan	2019-09-04	Japan:Gifu,Nakatsugawa	Sus scrofa domesticus	CSFV/JPN/56/2019						
+LC583651.1	11826	Classical swine fever virus	Japan	2019-08-30	Japan:Aichi,Toyota	Sus scrofa domesticus	CSFV/JPN/55/2019						
+LC583650.1	11826	Classical swine fever virus	Japan	2019-08-16	Japan:Gifu,Ibigawa	Sus scrofa domesticus	CSFV/JPN/54/2019						
+LC583649.1	11826	Classical swine fever virus	Japan	2019-08-11	Japan:Fukui,Echizen	Sus scrofa domesticus	CSFV/JPN/53/2019						
+LC583648.1	11826	Classical swine fever virus	Japan	2019-07-28	Japan:Fukui,Echizen	Sus scrofa domesticus	CSFV/JPN/52/2019						
+LC583647.1	11826	Classical swine fever virus	Japan	2019-02-08	Japan:Gifu,Yamagata	Sus scrofa	CSFV/JPN/WB131/2019						
+LC583646.1	11826	Classical swine fever virus	Japan	2019-02-07	Japan:Gifu,Yamagata	Sus scrofa	CSFV/JPN/WB130/2019						
+LC583645.1	11826	Classical swine fever virus	Japan	2019-07-05	Japan:Fukui,Ono	Sus scrofa	CSFV/JPN/WB-F1/2019						
+LC583644.1	11826	Classical swine fever virus	Japan	2019-07-12	Japan:Nagano,Kiso	Sus scrofa	CSFV/JPN/WB-N1/2019						
+LC583643.1	11826	Classical swine fever virus	Japan	2019-07-28	Japan:Toyama,Toyama	Sus scrofa	CSFV/JPN/WB-T1/2019						
+LC583642.1	11826	Classical swine fever virus	Japan	2019-02-07	Japan:Gifu,Yamagata	Sus scrofa	CSFV/JPN/WB129/2019						
+LC583641.1	11826	Classical swine fever virus	Japan	2019-02-06	Japan:Gifu,Seki	Sus scrofa	CSFV/JPN/WB128/2019						
+LC583640.1	11826	Classical swine fever virus	Japan	2019-02-06	Japan:Gifu,Kani	Sus scrofa	CSFV/JPN/WB127/2019						
+LC583639.1	11826	Classical swine fever virus	Japan	2019-02-06	Japan:Gifu,Gifu	Sus scrofa	CSFV/JPN/WB126/2019						
+LC583638.1	11826	Classical swine fever virus	Japan	2019-02-06	Japan:Gifu,Yamagata	Sus scrofa	CSFV/JPN/WB125/2019						
+LC583637.1	11826	Classical swine fever virus	Japan	2019-02-05	Japan:Gifu,Minokamo	Sus scrofa	CSFV/JPN/WB123/2019						
+LC583636.1	11826	Classical swine fever virus	Japan	2019-02-05	Japan:Gifu,Kawabe	Sus scrofa	CSFV/JPN/WB122/2019						
+LC583635.1	11826	Classical swine fever virus	Japan	2019-02-04	Japan:Gifu,Seki	Sus scrofa	CSFV/JPN/WB117/2019						
+LC583634.1	11826	Classical swine fever virus	Japan	2019-02-04	Japan:Gifu,Yamagata	Sus scrofa	CSFV/JPN/WB115/2019						
+LC583633.1	11826	Classical swine fever virus	Japan	2019-02-04	Japan:Gifu,Seki	Sus scrofa	CSFV/JPN/WB114/2019						
+LC583632.1	11826	Classical swine fever virus	Japan	2019-02-04	Japan:Gifu,Yamagata	Sus scrofa	CSFV/JPN/WB113/2019						
+LC583631.1	11826	Classical swine fever virus	Japan	2019-01-30	Japan:Gifu,Kakamigahara	Sus scrofa	CSFV/JPN/WB110/2019						
+LC583630.1	11826	Classical swine fever virus	Japan	2019-01-25	Japan:Gifu,Kani	Sus scrofa	CSFV/JPN/WB108/2019						
+LC583629.1	11826	Classical swine fever virus	Japan	2019-01-25	Japan:Gifu,Gifu	Sus scrofa	CSFV/JPN/107/2019						
+LC583628.1	11826	Classical swine fever virus	Japan	2019-01-24	Japan:Gifu,Minokamo	Sus scrofa	CSFV/JPN/WB105/2019						
+LC583627.1	11826	Classical swine fever virus	Japan	2019-01-22	Japan:Gifu,Gifu	Sus scrofa	CSFV/JPN/WB103/2019						
+LC583626.1	11826	Classical swine fever virus	Japan	2019-01-22	Japan:Gifu,Gifu	Sus scrofa	CSFV/JPN/WB102/2019						
+LC583625.1	11826	Classical swine fever virus	Japan	2019-08-09	Japan:Aichi,Nagakute	Sus scrofa domesticus	CSFV/JPN/51/2019						
+LC583624.1	11826	Classical swine fever virus	Japan	2019-08-09	Japan:Aichi,Toyota	Sus scrofa domesticus	CSFV/JPN/50/2019						
+LC583623.1	11826	Classical swine fever virus	Japan	2019-07-26	Japan:Gifu,Ena	Sus scrofa domesticus	CSFV/JPN/49/2019						
+LC583622.1	11826	Classical swine fever virus	Japan	2019-07-07	Japan:Aichi,Nagakute	Sus scrofa domesticus	CSFV/JPN/46/2019						
+LC583621.1	11826	Classical swine fever virus	Japan	2019-07-02	Japan:Gifu,Ena	Sus scrofa domesticus	CSFV/JPN/45/2019						
+LC583620.1	11826	Classical swine fever virus	Japan	2019-06-28	Japan:Aichi,Nishio	Sus scrofa domesticus	CSFV/JPN/44/2019						
+LC583619.1	11826	Classical swine fever virus	Japan	2019-06-25	Japan:Mie,Inabe	Sus scrofa	CSFV/JPN/WB-M1/2019						
+LC583618.1	11826	Classical swine fever virus	Japan	2019-06-13	Japan:Gifu,Seki	Sus scrofa domesticus	CSFV/JPN/43/2019						
+LC583617.1	11826	Classical swine fever virus	Japan	2019-06-12	Japan:Aichi,Tahara	Sus scrofa domesticus	CSFV/JPN/42/2019						
+LC583616.1	11826	Classical swine fever virus	Japan	2019-01-17	Japan:Aichi,Inuyama	Sus scrofa	CSFV/JPN/WB-A6/2018						
+LC583615.1	11826	Classical swine fever virus	Japan	2019-01-17	Japan:Aichi,Inuyama	Sus scrofa	CSFV/JPN/WB-A5/2018						
+LC583614.1	11826	Classical swine fever virus	Japan	2018-12-20	Japan:Aichi,Inuyama	Sus scrofa	CSFV/JPN/WB-A1/2018						
+LC583613.1	11826	Classical swine fever virus	Japan	2019-02-18	Japan:Gifu,Motosu	Sus scrofa	CSFV/JPN/WB171/2019						
+LC583612.1	11826	Classical swine fever virus	Japan	2019-02-18	Japan:Gifu,Ena	Sus scrofa	CSFV/JPN/WB156/2019						
+LC583611.1	11826	Classical swine fever virus	Japan	2019-01-21	Japan:Gifu,Kani	Sus scrofa	CSFV/JPN/WB101/2019						
+LC583610.1	11826	Classical swine fever virus	Japan	2019-01-21	Japan:Gifu,Kawabe	Sus scrofa	CSFV/JPN/WB100/2019						
+LC583609.1	11826	Classical swine fever virus	Japan	2019-01-21	Japan:Gifu,Yamagata	Sus scrofa	CSFV/JPN/WB99/2019						
+LC583608.1	11826	Classical swine fever virus	Japan	2019-01-21	Japan:Gifu,Kakamigahara	Sus scrofa	CSFV/JPN/WB98/2019						
+LC583607.1	11826	Classical swine fever virus	Japan	2019-01-16	Japan:Gifu,Yaotsu	Sus scrofa	CSFV/JPN/WB96/2019						
+LC583606.1	11826	Classical swine fever virus	Japan	2019-01-15	Japan:Gifu,Seki	Sus scrofa	CSFV/JPN/WB92/2019						
+LC583605.1	11826	Classical swine fever virus	Japan	2018-11-28	Japan:Gifu,Seki	Sus scrofa	CSFV/JPN/WB74/2018						
+LC583604.1	11826	Classical swine fever virus	Japan	2018-11-26	Japan:Gifu,Yaotsu	Sus scrofa	CSFV/JPN/WB60/2018						
+LC583603.1	11826	Classical swine fever virus	Japan	2018-10-31	Japan:Gifu,Kani	Sus scrofa	CSFV/JPN/WB41/2018						
+LC583602.1	11826	Classical swine fever virus	Japan	2018-10-14	Japan:Gifu,Gifu	Sus scrofa	CSFV/JPN/WB26/2018						
+LC583601.1	11826	Classical swine fever virus	Japan	2018-10-14	Japan:Gifu,Kakamigahara	Sus scrofa	CSFV/JPN/WB23/2018						
+LC583600.1	11826	Classical swine fever virus	Japan	2018-10-14	Japan:Gifu,Kakamigahara	Sus scrofa	CSFV/JPN/WB22/2018						
+LC583599.1	11826	Classical swine fever virus	Japan	2018-10-13	Japan:Gifu,Kakamigahara	Sus scrofa	CSFV/JPN/WB21/2018						
+LC583598.1	11826	Classical swine fever virus	Japan	2018-10-08	Japan:Gifu,Gifu	Sus scrofa	CSFV/JPN/WB18/2018						
+LC583597.1	11826	Classical swine fever virus	Japan	2018-10-06	Japan:Gifu,Gifu	Sus scrofa	CSFV/JPN/WB16/2018						
+LC583596.1	11826	Classical swine fever virus	Japan	2018-10-04	Japan:Gifu,Kakamigahara	Sus scrofa	CSFV/JPN/WB13/2018						
+LC583595.1	11826	Classical swine fever virus	Japan	2018-10-03	Japan:Gifu,Gifu	Sus scrofa	CSFV/JPN/WB12/2018						
+LC583594.1	11826	Classical swine fever virus	Japan	2018-09-29	Japan:Gifu,Kakamigahara	Sus scrofa	CSFV/JPN/WB10/2018						
+LC583593.1	11826	Classical swine fever virus	Japan	2018-09-28	Japan:Gifu,Kakamigahara	Sus scrofa	CSFV/JPN/WB8/2018						
+LC583592.1	11826	Classical swine fever virus	Japan	2019-06-05	Japan:Gifu,Yamagata	Sus scrofa domesticus	CSFV/JPN/41/2019						
+LC583591.1	11826	Classical swine fever virus	Japan	2019-05-25	Japan:Gifu,Yamagata	Sus scrofa domesticus	CSFV/JPN/40/2019						
+LC583590.1	11826	Classical swine fever virus	Japan	2019-05-17	Japan:Aichi,Tahara	Sus scrofa domesticus	CSFV/JPN/39/2019						
+LC583589.1	11826	Classical swine fever virus	Japan	2019-04-22	Japan:Aichi,Seto	Sus scrofa domesticus	CSFV/JPN/38/2019						
+LC583588.1	11826	Classical swine fever virus	Japan	2019-04-21	Japan:Aichi,Tahara	Sus scrofa domesticus	CSFV/JPN/37/2019						
+LC583587.1	11826	Classical swine fever virus	Japan	2019-04-17	Japan:Gifu,Ena	Sus scrofa domesticus	CSFV/JPN/36/2019						
+LC583586.1	11826	Classical swine fever virus	Japan	2019-04-10	Japan:Aichi,Seto	Sus scrofa domesticus	CSFV/JPN/35/2019						
+LC583585.1	11826	Classical swine fever virus	Japan	2019-04-09	Japan:Gifu,Ena	Sus scrofa domesticus	CSFV/JPN/34/2019						
+LC583584.1	11826	Classical swine fever virus	Japan	2019-03-29	Japan:Gifu,Minokamo	Sus scrofa domesticus	CSFV/JPN/33/2019						
+LC583583.1	11826	Classical swine fever virus	Japan	2019-03-29	Japan:Aichi,Tahara	Sus scrofa domesticus	CSFV/JPN/32/2019						
+LC583582.1	11826	Classical swine fever virus	Japan	2019-03-29	Japan:Aichi,Seto	Sus scrofa domesticus	CSFV/JPN/31/2019						
+LC583581.1	11826	Classical swine fever virus	Japan	2019-03-28	Japan:Aichi,Tahara	Sus scrofa domesticus	CSFV/JPN/30/2019						
+LC583580.1	11826	Classical swine fever virus	Japan	2019-03-27	Japan:Aichi,Seto	Sus scrofa domesticus	CSFV/JPN/29/2019						
+LC583579.1	11826	Classical swine fever virus	Japan	2019-03-23	Japan:Gifu,Yamagata	Sus scrofa domesticus	CSFV/JPN/28/2019						
+LC583578.1	11826	Classical swine fever virus	Japan	2019-03-07	Japan:Gifu,Yamagata	Sus scrofa domesticus	CSFV/JPN/27/2019						
+LC583577.1	11826	Classical swine fever virus	Japan	2019-02-19	Japan:Gifu,Mizunami	Sus scrofa domesticus	CSFV/JPN/23/2019						
+LC583576.1	11826	Classical swine fever virus	Japan	2019-02-12	Japan:Aichi,Tahara	Sus scrofa domesticus	CSFV/JPN/22/2018						
+LC583575.1	11826	Classical swine fever virus	Japan	2019-02-13	Japan:Aichi,Tahara	Sus scrofa domesticus	CSFV/JPN/21/2018						
+LC583574.1	11826	Classical swine fever virus	Japan	2019-02-06	Japan:Nagano,Kamiina	Sus scrofa domesticus	CSFV/JPN/17/2018						
+LC583573.1	11826	Classical swine fever virus	Japan	2019-02-06	Japan:Shiga,Ohmihachiman	Sus scrofa domesticus	CSFV/JPN/19/2018						
+LC583572.1	11826	Classical swine fever virus	Japan	2019-02-06	Japan:Osaka,Higashiosaka	Sus scrofa domesticus	CSFV/JPN/20/2018						
+LC583571.1	11826	Classical swine fever virus	Japan	2019-02-06	Japan:Gifu,Ena	Sus scrofa domesticus	CSFV/JPN/18/2018						
+LC583570.1	11826	Classical swine fever virus	Japan	2019-02-06	Japan:Aichi,Tahara	Sus scrofa domesticus	CSFV/JPN/26/2019						
+LC583569.1	11826	Classical swine fever virus	Japan	2019-02-06	Japan:Aichi,Toyota	Sus scrofa domesticus	CSFV/JPN/15/2018						
+LC583568.1	11826	Classical swine fever virus	Japan	2019-01-29	Japan:Gifu,Motosu	Sus scrofa domesticus	CSFV/JPN/14/2018						
+LC583567.1	11826	Classical swine fever virus	Japan	2019-01-28	Japan:Gifu,Kakamigahara	Sus scrofa domesticus	CSFV/JPN/13/2018						
+LC583566.1	11826	Classical swine fever virus	Japan	2018-12-24	Japan:Gifu,Seki	Sus scrofa domesticus	CSFV/JPN/12/2018						
+LC583565.1	11826	Classical swine fever virus	Japan	2018-12-15	Japan:Gifu,Kani	Sus scrofa domesticus	CSFV/JPN/24/2019						
+LC583564.1	11826	Classical swine fever virus	Japan	2018-12-09	Japan:Gifu,Seki	Sus scrofa domesticus	CSFV/JPN/10/2018						
+LC583563.1	11826	Classical swine fever virus	Japan	2018-12-04	Japan:Gifu,Minokamo	Sus scrofa domesticus	CSFV/JPN/9/2018						
+LC583562.1	11826	Classical swine fever virus	Japan	2018-11-16	Japan:Gifu,Gifu	Sus scrofa domesticus	CSFV/JPN/8/2018						
+MT799520.1	12279	Classical swine fever virus	China	2016/2018	China	pig		NM16-333				genotype: 2.1	
+MT799519.1	12280	Classical swine fever virus	China	2016/2018	China	pig		NM16-323				genotype: 2.1	
+MT799518.1	12279	Classical swine fever virus	China	2016/2018	China	pig		HL18-490				genotype: 2.1	
+MT799517.1	12279	Classical swine fever virus	China	2016/2018	China	pig		HL18-462				genotype: 2.1	
+MT799516.1	12305	Classical swine fever virus	China	2016/2018	China	pig		SD18-461				genotype: 2.1	
+MT799515.1	12279	Classical swine fever virus	China	2016/2018	China	pig		HL18-494				genotype: 2.1	
+MT799514.1	12303	Classical swine fever virus	China	2016/2018	China	pig		HL18-416				genotype: 2.1	
+MT799513.1	12295	Classical swine fever virus	China	2016/2018	China	pig		HL16-205				genotype: 2.1	
+MT586134.1	12272	Classical swine fever virus	India	2019	India	Sus scrofa		IVRI-CSF-BS				live attenuated CSF cell culture vaccine virus; genotype: 1.1	
+MN399384.1	12300	Classical swine fever virus	South Korea	Jul-2019	South Korea	pig		KNU-1922					
+MN399383.1	12302	Classical swine fever virus	South Korea	Jun-2019	South Korea	pig		KNU-1919					
+MN399382.1	12300	Classical swine fever virus	South Korea	Apr-2019	South Korea	pig		KNU-1913					
+MN399381.1	12299	Classical swine fever virus	South Korea	Mar-2019	South Korea	pig		KNU-1906					
+MN399380.1	12297	Classical swine fever virus	South Korea	Jan-2019	South Korea	pig		KNU-1905					
+MN558889.1	12298	Classical swine fever virus	South Korea	2018	South Korea	pig	JJ18LOM-PIC03					genotype: 1	
+MN558888.1	12298	Classical swine fever virus	South Korea	2018	South Korea	pig	JJ18LOM-KYN02					genotype: 1	
+MN558887.1	12298	Classical swine fever virus	South Korea	2018	South Korea	pig	JJ18LOM-KGS01					genotype: 1	
+MN558886.1	12298	Classical swine fever virus	South Korea	2017	South Korea	pig	JJ17LOM-HSJ13					genotype: 1	
+MN558885.1	12298	Classical swine fever virus	South Korea	2017	South Korea	pig	JJ17LOM-JSJ12					genotype: 1	
+MN558884.1	12298	Classical swine fever virus	South Korea	2017	South Korea	pig	JJ17LOM-LHH10					genotype: 1	
+MN558883.1	12298	Classical swine fever virus	South Korea	2017	South Korea	pig	JJ17LOM-IGS08					genotype: 1	
+MN558882.1	12298	Classical swine fever virus	South Korea	2017	South Korea	pig	JJ17LOM-IGS07					genotype: 1	
+MN558881.1	12298	Classical swine fever virus	South Korea	2017	South Korea	pig	JJ17LOM-SJM06					genotype: 1	
+MN558880.1	12298	Classical swine fever virus	South Korea	2017	South Korea	pig	JJ17LOM-CCJ04					genotype: 1	
+MN558879.1	12298	Classical swine fever virus	South Korea	2017	South Korea	pig	JJ17LOM-KJS09					genotype: 1	
+MN558878.1	12298	Classical swine fever virus	South Korea	2017	South Korea	pig	JJ17LOM-PYS03					genotype: 1	
+MN558877.1	12298	Classical swine fever virus	South Korea	2016	South Korea	pig	JJ16LOM-YJK08					genotype: 1	
+MN558876.1	12298	Classical swine fever virus	South Korea	2016	South Korea	pig	JJ16LOM-WSH03					genotype: 1	
+MN558875.1	12298	Classical swine fever virus	South Korea	2016	South Korea	pig	JJ16LOM-YYM02					genotype: 1	
+MN558874.1	12152	Classical swine fever virus	South Korea	2014	South Korea	pig	JJ14LOM-WSH01					genotype: 1	
+MN558873.1	12158	Classical swine fever virus	South Korea	2007	South Korea	pig	JJ07LOM-JSG02					genotype: 1	
+MN558872.1	12157	Classical swine fever virus	South Korea	2007	South Korea	pig	JJ07LOM-JSM01					genotype: 1	
+MN558871.1	12160	Classical swine fever virus	South Korea	2006	South Korea	pig	JJ06LOM-JSY01					genotype: 1	
+MN558870.1	12148	Classical swine fever virus	South Korea	2005	South Korea	pig	JJ05LOM-KSM01					genotype: 1	
+MN558869.1	12160	Classical swine fever virus	South Korea	2004	South Korea	pig	JJ04LOM-Tamra01					genotype: 1	
+MN558868.1	12298	Classical swine fever virus	South Korea	2016	South Korea	Vaccine	16LOM-KR00					genotype: 1	
+MN558867.1	12298	Classical swine fever virus	South Korea	2016	South Korea	Vaccine	16LOM-KM00					genotype: 1	
+MN558866.1	12298	Classical swine fever virus	South Korea	2016	South Korea	Vaccine	16LOM-JY00					genotype: 1	
+MN558865.1	12298	Classical swine fever virus	South Korea	2016	South Korea	Vaccine	16LOM-GC00					genotype: 1	
+MN558864.1	12298	Classical swine fever virus	South Korea	1988	South Korea	Vaccine	88LOM-Suri					genotype: 1	
+MN558863.1	12298	Classical swine fever virus	South Korea	2002	South Korea	Vaccine	02LOM-JY00					genotype: 1	
+MN558862.1	12298	Classical swine fever virus	South Korea	1987	South Korea	Vaccine	LOM-850					genotype: 1	
+MK425024.2	12295	Classical swine fever virus	China	15-Nov-2018	China	wild boar		CN-JLwb04					
+MN128600.1	12303	Classical swine fever virus	India	Jul-2013	India		IVRI/STDN/PK-15_adapted/1					vaccine strain	
+KY849594.1	12285	Classical swine fever virus	Serbia	04-Sep-2006	Serbia	domestic pig		CSFV/2.3/SRB/6168/2006					
+KY849593.1	12285	Classical swine fever virus	Serbia	28-Mar-2005	Serbia	domestic pig		CSFV/2.3/SRB/1264/2005					
+MK211486.1	12295	Classical swine fever virus	China	2016	China	pig		SDWF-2016				genotype: 2.1d	
+MH734359.1	12297	Classical swine fever virus	India	2007	India	pig		NIVEDI-165				genotype: 1.1	
+MK405703.1	12294	Classical swine fever virus	India	30-Aug-2012	India	pig		IVRI/Std|India				challenge virus	
+MK405702.1	12297	Classical swine fever virus	India	30-Dec-2012	India: Rohtak, Haryana	pig		VTCC_Haryana_46-12				genotype: 2.2	
+MA795255.1	11550	Classical swine fever virus											
+MK121886.1	12298	Classical swine fever virus	South Korea	Oct-2018	South Korea	pig							
+MK093252.1	12298	Classical swine fever virus	South Korea	Jul-2018	South Korea	pig		KNU-1827-3					
+MK093251.1	12298	Classical swine fever virus	South Korea	Jul-2018	South Korea	pig		KNU-1827-2					
+MK093250.1	12298	Classical swine fever virus	South Korea	Jul-2018	South Korea	pig		KNU-1827-1					
+MK093249.1	12298	Classical swine fever virus	South Korea	Jul-2018	South Korea	pig		KNU-1826-4					
+MK093248.1	12298	Classical swine fever virus	South Korea	Jul-2018	South Korea	pig		KNU-1826-3					
+MK093247.1	12298	Classical swine fever virus	South Korea	Jul-2018	South Korea	pig		KNU-1826-2					
+MK093246.1	12298	Classical swine fever virus	South Korea	Jul-2018	South Korea	pig		KNU-1826-1					
+MK093245.1	12298	Classical swine fever virus	South Korea	Jun-2018	South Korea	pig		KNU-1825-3					
+MK093244.1	12298	Classical swine fever virus	South Korea	Jun-2018	South Korea	pig		KNU-1825-2					
+MK093243.1	12298	Classical swine fever virus	South Korea	Jun-2018	South Korea	pig		KNU-1825-1					
+MK093242.1	12298	Classical swine fever virus	South Korea	Sep-2017	South Korea	pig		KNU-1824					
+MK093241.1	12298	Classical swine fever virus	South Korea	Mar-2017	South Korea	pig		KNU-1823					
+MH979232.1	12301	Classical swine fever virus	Viet Nam	Jun-2014	Viet Nam	pig		ND20				Subgenotype: 2.2	
+MH979231.1	12301	Classical swine fever virus	Viet Nam	Sep-2015	Viet Nam	pig		HY78				Subgenotype: 2.1	
+MG387218.1	12295	Classical swine fever virus	China	09-Aug-2017	China	swine		BJ2-2017				genotype: 2.1d	
+MG387217.1	12295	Classical swine fever virus	China	09-Aug-2017	China	swine		BJ1-2017				genotype: 2.1d	
+MG655308.1	11955	Classical swine fever virus	Guatemala	07-Oct-1982	Guatemala	swine		Guatemala					
+LC425854.1	12094	Classical swine fever virus	Japan	2018-09	Japan	Sus scrofa domesticus	CSFV/JPN/1/2018					genotype: 2; subgenotype: 2.1	
+MG599478.1	11602	Classical swine fever virus										virulent strain adapted in PK-15 cells	
+NC_002657.1	12301	Classical swine fever virus					strain Eystrup					Pestivirus type 2	
+LC388757.1	12296	Classical swine fever virus	Viet Nam	2013	Viet Nam	Sus scrofa	Nghe An/2013						
+LC374604.1	12298	Classical swine fever virus	Viet Nam	1991	Viet Nam	Sus scrofa	VN91						
+LT593762.1	12266	Classical swine fever virus						CSF1047 T2-DP365C10B				monopartite	
+LT593761.1	12266	Classical swine fever virus						CSF1047 T2-DP366C10B				monopartite	
+LT593760.1	12295	Classical swine fever virus						Alfort-p447 T1-Inoculum				monopartite	
+LT593759.1	12266	Classical swine fever virus						CSF1047 T2-Inoculum-pass5				monopartite	
+LT593758.1	12296	Classical swine fever virus						CSFV/2.3/wb/CSF1045/2009/Roesrath T3-DP49AL14L				monopartite	
+LT593757.1	12296	Classical swine fever virus						CSFV/2.3/wb/CSF1045/2009/Roesrath T3-WB16AL14L				monopartite	
+LT593756.1	12266	Classical swine fever virus						CSF1047 T2-DP365C41B				monopartite	
+LT593755.1	12266	Classical swine fever virus						CSF1047 T2-DP366C41B				monopartite	
+LT593754.1	12295	Classical swine fever virus						Alfort-p447 T1-DP43C44S				monopartite	
+LT593753.1	12266	Classical swine fever virus						CSF1047 T2-Inoculum-pass4				monopartite	
+LT593752.1	12266	Classical swine fever virus						CSF1047 T2-DP368AL14B				monopartite	
+LT593751.1	12296	Classical swine fever virus						CSFV/2.3/wb/CSF1045/2009/Roesrath T3-DP53AL14L				monopartite	
+LT593750.1	12296	Classical swine fever virus						CSFV/2.3/wb/CSF1045/2009/Roesrath T3-WB15C14L				monopartite	
+LT593749.1	12296	Classical swine fever virus						CSFV/2.3/wb/CSF1045/2009/Roesrath T3-Inoculum				monopartite	
+LT593748.1	12295	Classical swine fever virus						Alfort-p447 T1-DP43C10L				monopartite	
+MF149063.1	12296	Classical swine fever virus	China	Dec-2014	China	pig		SD2014-3				subtype: 2.1b	
+MF149062.1	12296	Classical swine fever virus	China	Dec-2014	China	pig		SD2014-2				subtype: 2.1b	
+MF149061.1	12296	Classical swine fever virus	China	Dec-2014	China	pig		SD2014-1				subtype: 2.1b	
+MF679604.1	12296	Classical swine fever virus	China	2013	China: Fujian	swine		CN-FJLY					
+MF150646.1	12295	Classical swine fever virus	China	2015	China	pig		SDZC150601				subtype: 2.1d	
+MF150645.1	12295	Classical swine fever virus	China	2014	China	pig		SDSG1410				subtype: 2.1d	
+MF150644.1	12296	Classical swine fever virus	China	2014	China	pig		SDLS1410				subtype: 2.1d	
+MF150643.1	12295	Classical swine fever virus	China	2015	China	pig		NK150425				subtype: 2.1d	
+MF150642.1	12295	Classical swine fever virus	China	2015	China	pig		JL150418				subtype: 2.1d	
+MF150641.1	12295	Classical swine fever virus	China	2015	China	pig		HLJ1				subtype: 2.1d	
+MF150640.1	12295	Classical swine fever virus	China	2015	China	pig		HB150309				subtype: 2.1d	
+KC533775.2	12298	Classical swine fever virus	India	Nov-2006	India	domestic pig		CSFV-UP-BR-KHG-06				genotype: 2	
+KC533793.2	12298	Classical swine fever virus	India	2011	India	domestic pig		CSFV-UP-ND-169-11				genotype: 2	
+KC533776.2	12297	Classical swine fever virus	India		India	domestic pig		CSFV-UP-BD-SKN-11				genotype: 2	
+KX870109.1	12104	Classical swine fever virus	South Korea	02-Sep-2016	South Korea	Sus scrofa (pig)		KU16Y				genotype: 2	
+KY860615.2	12300	Classical swine fever virus	India	2013	India	pig		CSFV212L-13				genotype: 1.1	
+MS946453.1	11550	Classical swine fever virus											
+KX576461.1	12329	Classical swine fever virus	Cuba	2010	Cuba	Sus scrofa domesticus	CSFV/1.4/dp/CSF1058/2010/Pinar del Rio	CSF1058				genotype: 1.4	
+JQ861548.3	12298	Classical swine fever virus	India	Nov-2011	India	domestic pig		CSFV-UP-GZ-NVD-11				genotype: 2.2	
+KY290453.1	12297	Classical swine fever virus	South Korea	Sep-2016	South Korea	pig	CSFV/swine/S.Korea/YC16CS/2016					genotype: 2.1	
+KY132096.1	12295	Classical swine fever virus	China	2011	China	Sus scrofa		GD317/2011				genotype: 2.1i	
+KX064281.1	12295	Classical swine fever virus	China	Mar-2015	China	porcine	CSFV-JXNC01-2015					genotype: 2.1b	
+KU504339.1	12298	Classical swine fever virus	China	2011	China	domestic pig	GD19/2011					genotype: sub-subgenotype 2.1g	
+LT158502.1	12104	Classical swine fever virus						CSF/wb/FR67/2003/0647-19				monopartite	
+LT158410.1	12104	Classical swine fever virus						CSF/wb/FR67/2007/0192-01				monopartite	
+LT158409.1	12104	Classical swine fever virus						CSF/wb/FR67/2006/0199-01				monopartite	
+LT158408.1	12104	Classical swine fever virus						CSF/wb/FR67/2006/060003-06				monopartite	
+LT158407.1	12104	Classical swine fever virus						CSF/wb/FR67/2005/0238-02				monopartite	
+LT158406.1	12104	Classical swine fever virus						CSF/wb/FR67/2005/0125-05				monopartite	
+LT158405.1	12104	Classical swine fever virus						CSF/wb/FR67/2005/0018-06				monopartite	
+LT158404.1	12104	Classical swine fever virus						CSF/wb/FR57/2004/0964-03				monopartite	
+LT158403.1	12104	Classical swine fever virus						CSF/wb/FR67/2004/0910-01				monopartite	
+LT158402.1	12104	Classical swine fever virus						CSF/wb/FR67/2004/0916-02				monopartite	
+LT158401.1	12104	Classical swine fever virus						CSF/wb/FR67/2003/0864-107				monopartite	
+KU556758.1	12296	Classical swine fever virus	China	May-2015	China	Sus scrofa		HeN1505					
+KP343640.1	12296	Classical swine fever virus	China	2011	China	swine	GD53/2011					genotype: 2.1	
+LQ067545.1	12301	Classical swine fever virus											
+KT716271.1	12296	Classical swine fever virus	South Korea	1999	South Korea	domestic pig	YI9908					genotype: 3.2	
+KF669877.1	12298	Classical swine fever virus	South Korea	1998	South Korea	pig	JJ9811					genotype: 3.2	
+KT119352.1	12297	Classical swine fever virus	China	Dec-2014	China	pig		JSZL				subtype: 2.1d	
+LC086647.1	12295	Classical swine fever virus	Mongolia	2014-07-30	Mongolia	Sus scrofa	CSFV/Mongolia/Bu08/2014						
+KP233071.1	12295	Classical swine fever virus	China	Jun-2013	China	pig	HuN23/2013					group: II; subgroup: 2.1b	
+KP233070.1	12296	Classical swine fever virus	China	Jun-2013	China	pig	GXF29/2013					subgroup: 2.1C	
+KC503764.1	12302	Classical swine fever virus	India	Sep-2011	India			CSFV-PK15C-NG79-11				genotype: 1.1	
+KJ873238.1	12304	Classical swine fever virus	USA	1994	USA	swine	Rovac						
+KM362426.1	12289	Classical swine fever virus	India		India	backyard pig		IND/AS/GHY/G4					
+LC016722.1	11677	Classical swine fever virus	Thailand	1993	Thailand	Sus scrofa domesticus	KPP/93						
+HW614280.1	12310	Classical swine fever virus											
+DI400982.1	12310	Classical swine fever virus											
+KF977610.1	12298	Classical swine fever virus		01-Jan-2013		domestic pig	Koslov					genotype: 1.1	
+KF977609.1	12298	Classical swine fever virus		01-Jan-2013		domestic pig	Koslov					genotype: 1.1	
+KF977608.1	12298	Classical swine fever virus		01-Jan-2013		domestic pig	Koslov					genotype: 1.1	
+KF977607.1	12298	Classical swine fever virus		01-Jan-2013		domestic pig	Koslov					genotype: 1.1	
+KM522833.1	12130	Classical swine fever virus	USSR		USSR			LK-VNIVViM					
+KM262189.1	12300	Classical swine fever virus	India	Aug-2009	India	pig		CSFV/IVRI/VB-131				genotype: 1.1	
+KJ619377.1	12295	Classical swine fever virus	Netherlands	01-Jan-1977	Netherlands	pig	Bergen					genotype: 2.2	
+KC851953.1	12297	Classical swine fever virus	India	05-Jan-2012	India	backyard pig		CSFV_IND/UK/LAL-290				genotype: 2.2	
+KC149991.1	12295	Classical swine fever virus	South Korea	2011	South Korea	wild boar	PC11WB					genotype: 2	
+KC149990.1	12296	Classical swine fever virus	South Korea	2011	South Korea	wild boar	YC11WB					genotype: 2	
+JQ595295.1	12262	Classical swine fever virus	Belgium		Belgium	domestic pig		Wingene				collected in 1993-1994; genotype: 2.3	
+JX262391.1	12296	Classical swine fever virus	China	Mar-2011	China	swine	HNLY-2011					genotype: 2.1	
+JX218094.1	12296	Classical swine fever virus	China	May-2012	China	swine	HNSD-2012					genotype: 2.1	
+EU915211.1	12298	Classical swine fever virus										derived from strain LOM; full-length cDNA was generated from LOM genomic RNA and was cloned into plasmid vector; following in vitro transcription and RNA transfection, infectious virus was recovered	
+JQ268754.1	12296	Classical swine fever virus	China	20-Nov-2010	China	swine	Heb52010						
+JA693668.1	12301	Classical swine fever virus											
+JA672670.1	12301	Classical swine fever virus											
+HQ148063.1	12296	Classical swine fever virus	Lithuania	2009	Lithuania: Penevezys	Sus scrofa domestica	CSFV/2.1/dp/CSF1048/2009/LT/Penevezys					genotype: 2.1	
+HQ148062.1	12296	Classical swine fever virus	Bulgaria	2007	Bulgaria: Jambul	Sus scrofa domestica	CSFV/2.3/dp/CSF864/2007/BG/Jambul					genotype: 2.3	
+HQ148061.1	12295	Classical swine fever virus	Croatia	2002	Croatia: Novska	Sus scrofa domestica	CSFV/2.3/dp/CSF0821/2002/HR/Novska					genotype: 2.3	
+HQ380231.1	12298	Classical swine fever virus	China	2009	China: Guangzhou	pig		CSFV-GZ-2009				highly virulent group I strain; genotype: 1.1	
+HM175885.1	12311	Classical swine fever virus	China	2008	China	pig	C-ZJ-2008					vaccine strain; subgroup: 1.1	
+HI516623.1	12357	Classical swine fever virus											
+HM237795.1	12298	Classical swine fever virus	Czech Republic		Czech Republic: Koslov	domestic pig	CSFV/1.1/dp/CSF0382/XXXX/Koslov					genotype: 1.1	
+GU324242.1	12297	Classical swine fever virus	Germany	2004	Germany: Uelzen	wild boar	CSFV/2.3/wb/XXX0609/2004/Uelzen					genotype: 2.3	
+GU233734.1	12297	Classical swine fever virus	Germany	2009	Germany	wild boar	CSFV/2.3/wb/CSF1045/2009/Roesrath	CSF1045				genotype: 2.3	
+GU233733.1	12297	Classical swine fever virus	Germany	2009	Germany	wild boar	CSFV/2.3/wb/CSF1046/2009/Hennef	CSF1046				genotype: 2.3	
+GU233732.1	12297	Classical swine fever virus	Germany	2005	Germany	wild boar	CSFV/2.3/wb/XXX0608/2005/Euskirchen	XXX0608				genotype: 2.3	
+GU233731.1	12297	Classical swine fever virus	Germany	2006	Germany	domestic pig	CSFV/2.3/dp/CSF857/2006/Borken	CSF857				genotype: 2.3	
+AY578688.1	12308	Classical swine fever virus						RUCSFPLUM				attenuated vaccine strain; isolated in 2001	
+AY578687.1	12285	Classical swine fever virus						BRESCIAX				virulent; isolated in 2001	
+AY663656.1	12310	Classical swine fever virus											
+GQ902941.1	12296	Classical swine fever virus					Paderborn						
+GU592790.1	12296	Classical swine fever virus	China	20-Oct-2009	China	swine	HEBZ						
+AY382481.1	12310	Classical swine fever virus										Chinese vaccine strain	
+AY259122.1	12289	Classical swine fever virus					Riems					vaccine strain	
+AF531433.1	12310	Classical swine fever virus					HCLV						
+AY072924.1	12229	Classical swine fever virus						Paderborn					
+AF352565.1	12344	Classical swine fever virus					LPC						
+AF099102.3	12310	Classical swine fever virus					CS					attenuated vaccine strain	
+AY805221.1	12310	Classical swine fever virus	China		China		C/HVRI					genotype: 1.1	
+AF092448.2	12298	Classical swine fever virus					Shimen						
+AF091507.1	12310	Classical swine fever virus					HCLV					classical swine fever virus	
+AF091661.1	12297	Classical swine fever virus					Brescia					highly virulent for specific-pathogen-free pigs; virus isolated from a diseased SPF pig at 7 days post experimental infection; virus was not cell culture passaged	
+GQ923951.1	12296	Classical swine fever virus	China	10-Mar-2009	China	swine	SXCDK						
+GQ122383.1	12295	Classical swine fever virus	China	Mar-2006	China: Shaanxi	swine	SXYL2006						
+AY568569.1	12296	Classical swine fever virus	Taiwan		Taiwan		0406/CH/01/TWN					Pestivirus type 2	
+AY367767.1	12296	Classical swine fever virus					GXWZ02	AF760229					
+AF333000.1	12297	Classical swine fever virus					cF114						
+U90951.1	12298	Classical swine fever virus					Alfort A19					classical swine fever virus CSFV; hog cholera virus strain Alfort A19	
+U45478.1	12278	Classical swine fever virus					Glentorf					passed in cell line PK15	
+U45477.1	12298	Classical swine fever virus					Riems, C						
+EU789580.1	12298	Classical swine fever virus	Japan	Jun-1980	Japan	pig	LOM						
+DM056973.1	12298	Classical swine fever virus											
+FJ529205.1	12296	Classical swine fever virus	China	Mar-2008	China	swine	Zj0801						
+FJ265020.1	12299	Classical swine fever virus	Spain	2001	Spain	Sus scrofa (domestic pig)		Sp01				acronym: CSFV	
+EU857642.1	12311	Classical swine fever virus	India		India	pig (swine)						lapinized vaccine strain; acronym: HCLV	
+EU490425.1	12321	Classical swine fever virus	France		France		Thiverval						
+EU497410.1	12298	Classical swine fever virus	China	20-Oct-2006	China		JL1(06)					subgroup: 1.1; genotype: 1	
+AY775178.2	12297	Classical swine fever virus	China		China		Shimen/HVRI					genotype: 1.1	
+AY646427.1	12296	Classical swine fever virus	Taiwan		Taiwan: northeastern Taiwan		94.4/IL/94/TWN					originally isolated in 1994; passaged in PK15 cells	
+AX191158.1	12284	Classical swine fever virus					ALFORT						
+DQ127910.1	12296	Classical swine fever virus	China		China		SWH					high virulence strain	
+L49347.1	12144	Classical swine fever virus					P97						
+A16790.1	12284	Classical swine fever virus											
+X96550.1	12297	Classical swine fever virus					CAP						
+CQ867021.1	12301	Classical swine fever virus											
+A77196.1	12284	Classical swine fever virus					ALFORT						
+A47690.1	12311	Classical swine fever virus											
+D49532.1	12298	Classical swine fever virus					ALD						
+D49533.1	12298	Classical swine fever virus					GPE-						

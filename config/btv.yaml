@@ -1,0 +1,107 @@
+# G4-WATCH pathogen configuration — Bluetongue Virus (segment 2, VP2)
+#
+# Provisioned 2026-09-13. Every value read from the record it claims to
+# come from, not inferred.
+
+pathogen: BTV
+display_name: "Bluetongue Virus (segment 2, VP2)"
+genome_type: dsRNA_segmented
+taxonomy_id: 40051
+provisioned: true
+
+reference:
+  accession: NC_006013.2
+  fasta: data/reference_genomes/btv/NC_006013.2.fasta
+  genome_length: 2921
+  # Single ORF, 15..2885, read from NC_006013.2's own CDS feature.
+  # VP2, the serotype determinant. This config analyses ONE SEGMENT:
+  # BTV has ten, each with its own RefSeq record, and there is no
+  # whole-genome reference to be reference-relative against. Analysing
+  # a mixed-segment corpus against a segment-2 reference is meaningless,
+  # and the completeness classifier says so -- it reported such a corpus
+  # as 'Mixed corpus (130 complete, 270 partial), median coverage 68%'.
+  cds_start: 15
+  cds_end: 2885
+
+corpus:
+  metadata_tsv: data/reference_genomes/btv/corpus/btv_corpus_metadata.tsv
+  sequences_fasta: data/reference_genomes/btv/corpus/btv_corpus_sequences.fasta
+  # Serotype, and it is REAL here: 455 of 500 records carry a populated
+  # /serotype qualifier. BTV serotypes (1-27) are the conventional
+  # grouping and are recorded in the source features, unlike every other
+  # pathogen in this repository added since FMDV.
+  #
+  # So no min_lineage_size rule: serotypes are biological groups, and
+  # dropping one for being small would discard a real lineage rather than
+  # a sampling artefact. If the floor fails here, that is a finding about
+  # serotype sampling and must be reported as one.
+  lineage_field: serotype
+  lineage_fallback_fields: [isolate, strain]
+  exclude_lineages: []
+  min_lineage_size: 0
+
+qc:
+  min_completeness_fraction: 0.90
+  max_n_content_fraction: 0.05
+  require_year_precision_date: true
+
+alignment:
+  tool: mafft
+  args: "--auto --keeplength --addfragments"
+  max_gapped_fraction: 0.50
+
+recombination:
+  enabled: true
+  tier: high_priority
+  alpha: 0.05
+
+phylogenetics:
+  tool: iqtree2
+  model: GTR+F+I+G4
+  bootstrap_replicates: 1000
+  seed: 20250823
+  outgroup: null
+  ancestral_states: required
+  timetree:
+    tool: treetime
+    clock_rate: null
+    clock_filter_iqd: 3.0
+
+g4_prediction:
+  g4hunter:
+    window: 25
+    threshold: 1.2
+  pattern_motif:
+    enabled: true
+  g4rna_screener:
+    enabled: false
+    reason: "Python 2-only with a pickled PyBrain classifier; see vendor/README.md"
+  pqsfinder:
+    enabled: false
+    reason: "DNA-virus-scoped tool, deferred"
+  concordance:
+    min_overlap_fraction: 0.80
+  flank: 100
+
+control_regions:
+  length_tolerance: 0.10
+  gc_tolerance: 0.05
+  pqs_overlap_score_threshold: 0.80
+  exclusion_buffer: 50
+  n_controls: 5
+
+atlas:
+  version: "1.0"
+  path: data/atlases/G4_Reference_Atlas_v1.0.btv.tsv
+
+dh1_gate:
+  alpha: 0.05
+  ledger: data/atlases/testing_ledger.tsv
+
+detection:
+  baseline_fraction: 0.5
+  min_baseline_windows: 8
+
+# Layer 1 of the Section 12 gate. False until a SUPPORTED D.H1 verdict
+# exists, which no run has produced.
+operational_mode: false

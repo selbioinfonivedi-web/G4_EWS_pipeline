@@ -18,8 +18,14 @@
 
 :root {
   --u: 4px;
-  --sans: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
-  --mono: "DM Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  /* Repointed to the Source family. These previously named IBM Plex /
+     Space Grotesk / DM Mono / Instrument Sans, none of which the page
+     loads any more — so each fell straight through to a system font
+     and reintroduced exactly the flattening the forecast skin was
+     fixed for. Skins should differ by colour and density, not by
+     typeface. */
+  --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
   --ink: var(--text-primary);
   --ink-2: var(--text-secondary);
   --ink-3: var(--text-tertiary);
@@ -97,6 +103,22 @@ ul, ol { list-style: none; }
 .btn-group { display: inline-flex; }
 .btn-group .btn + .btn { border-left: 0; }
 .btn-group .btn.primary + .btn { border-left: 1px solid var(--edge); }
+
+/* The secondary-views select is styled to sit in the toolbar as one control
+   the width of a button, rather than six more buttons. */
+.viz-more {
+  appearance: none; cursor: pointer; width: auto; margin-left: -1px;
+  background: var(--bg-panel); border: 1px solid var(--edge); color: var(--ink-3);
+  font-family: var(--mono); font-size: 9.5px; letter-spacing: .06em;
+  text-transform: uppercase; padding: 5px 22px 5px 8px;
+  background-image: linear-gradient(45deg, transparent 50%, currentColor 50%),
+                    linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position: calc(100% - 12px) calc(50% + 1px), calc(100% - 8px) calc(50% + 1px);
+  background-size: 4px 4px, 4px 4px; background-repeat: no-repeat;
+}
+.viz-more:hover { color: var(--ink); border-color: var(--ink-3); }
+.viz-more.on { background-color: var(--ink); border-color: var(--ink); color: var(--bg-panel); }
+.viz-more option { color: var(--ink); background: var(--bg-panel); text-transform: none; }
 
 /* ═══ INPUTS ══════════════════════════════════════════════════════ */
 .field { display: flex; flex-direction: column; gap: 4px; }

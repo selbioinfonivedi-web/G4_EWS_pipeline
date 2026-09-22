@@ -1,11 +1,11 @@
 image	local_image_id	registry_digest
-g4watch/core:1.0.0	sha256:f63f278af513f2630a47a32bc27055f46ed7e5f0fad3cfa112f02b77b7211743	not pushed
+g4watch/core:1.0.0	sha256:eb29dcd325fe3e6b32de1cb5f46ada2b7d530e65131409e191d1f49e9851444b	not pushed
 g4watch/alignment:1.0.0	sha256:66aa93396270d4ad1bd28613c2ef5f2838d80a99bcb2bd2e0e6a6d6fc7fb19b5	not pushed
 g4watch/phylogenetics:1.0.0	sha256:4e6b874eee68d1f4674b6b345ff793f1fdf2aff92bd14804134b382590eaef1e	not pushed
-g4watch/selection:1.0.0	sha256:e8099229127f5b67d308dff4da94eeb6e56554ecb8a36dc83c79d6dcd88fbdcb	not pushed
+g4watch/selection:1.0.0	sha256:65962cc33c2df3b8045d61d6defecda19584ae56be543c762b8cdec6ceb17ed7	not pushed
 g4watch/statistics:1.0.0	sha256:0cefe728a890b4628cadb17fbe81596ce04d63f2811590559d3d9ef3476808ef	not pushed
 g4watch/g4prediction:1.0.0	sha256:d6ea1daea4955a740241d78f37af11c01f75bccc0b7fd0fe174dff150d1be07f	not pushed
-g4watch/web-backend:1.0.0	sha256:1843e159ccd515a1bf745926ac01cd2d4dece7cc002fe62fe68ecf69e712afde	not pushed
+g4watch/web-backend:1.0.0	sha256:1b35f59c7fef4438f841ee6e2a7ce36a9f6657442d0af828aae890a35328f9f5	not pushed
 g4watch/web-db:1.0.0	sha256:249d6da100a00fc81ae4bab7bbee8c24ee4c0c5cc3d9a2bc07155323402c8f4c	not pushed
 g4watch/web-proxy:1.0.0	sha256:bad8fa44fbd1b7c55e9dbb6239b72914f73645ea5fd19271e53fa1ec501a4891	not pushed
 g4watch/acquisition:1.0.0	sha256:b77c0811b942df274cc6ebf6d5b73519cc5737d31baa110a54b1012bd49ca0d4	not pushed

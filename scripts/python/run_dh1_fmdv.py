@@ -25,7 +25,7 @@ from __future__ import annotations
 import csv
 import sys
 from dataclasses import replace
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -190,7 +190,7 @@ def main() -> None:
     print(f"  alignment_qc_pass_fraction: {base_data_input.alignment_qc_pass_fraction:.4f}")
     print()
 
-    timestamp = datetime.now(timezone.utc).isoformat()
+    timestamp = datetime.now(UTC).isoformat()
     ledger_rows: list[dict] = []
     loci_data = []
     per_locus_gate_results = {}

@@ -64,15 +64,34 @@ vendor/g4rna_screener/
 # rebuilt by `nextflow run workflow/main.nf`; the accession lists,
 # metadata, QC reports, atlases and testing ledger that define the run
 # ARE committed. See docs/installation.md.
-data/reference_genomes/*/corpus/*.fasta
-data/reference_genomes/*/corpus/*.gb
-data/reference_genomes/*/corpus/aligned/
-data/reference_genomes/*/corpus/phylogenetics/
-data/reference_genomes/*/corpus/variants/
-data/reference_genomes/*/corpus/recombination/
-data/reference_genomes/*/corpus/serotype_o/
-!data/reference_genomes/*/corpus/*_metadata.tsv
-!data/reference_genomes/*/corpus/qc_report.tsv
+# Corpus artifacts are derived data, regenerable from the accession list
+# and the pipeline. The metadata table and the QC report are kept because
+# they are small, they are what the Appendix C floor is evaluated on, and
+# a reader needs them to check a published verdict.
+#
+# Matched as corpus* rather than corpus/ so a second corpus for the same
+# pathogen is covered too. The original rules were keyed to the exact
+# directory name, so data/reference_genomes/fmdv/corpus_2026/ — 105 MB of
+# alignments, trees and variant tables — was not ignored at all.
+data/reference_genomes/*/corpus*/*.fasta
+data/reference_genomes/*/corpus*/*.gb
+data/reference_genomes/*/corpus*/aligned/
+data/reference_genomes/*/corpus*/phylogenetics/
+data/reference_genomes/*/corpus*/variants/
+data/reference_genomes/*/corpus*/recombination/
+data/reference_genomes/*/corpus*/serotype_o/
+!data/reference_genomes/*/corpus*/*_metadata.tsv
+!data/reference_genomes/*/corpus*/qc_report.tsv
+
+# Raw NCBI downloads staged before corpus assembly: an input to
+# acquisition, not an output of it, and re-fetchable from the accessions.
+fmdvmetadata/
+
+# Session scratch from an interactive IQ-TREE run.
+/iqtree_run.log
+
+# Saved workstation sessions are per-user state, not project data.
+projects/
 
 # --- Office lock files ---
 # LibreOffice writes these beside any open document; they are per-machine
@@ -103,3 +122,19 @@ web/mockups/
 
 # commit message drafts, local only
 /.commits/
+
+# build_deck.py writes numbered scratch decks as it goes; only the final
+# deck in deliverables/ is a deliverable.
+deliverables/ppt_assets/_partial_*.pptx
+# and the deck itself is published one level up, never here
+deliverables/ppt_assets/*.pptx
+results/stratified/
+data/uploads/
+data/analyses.sqlite3*
+results/analyses/
+
+# Corpus GenBank downloads: large, regenerable from the accession query
+# recorded in each config, and the parsed metadata/FASTA are what the
+# pipeline reads.
+data/reference_genomes/*/corpus/*_complete_genomes.gb
+data/synthetic/*.fasta

@@ -20,10 +20,9 @@ from ..config import ConfigError, PathogenConfig
 from ..phylo.recombination_screen import (
     PhiExecutionError,
     RecombinationScreenResult,
+    default_phi_binary,
     screen_recombination,
 )
-
-_VENDOR_PHI_BINARY = Path(__file__).resolve().parents[2] / "vendor" / "phipack" / "Phi"
 
 
 @dataclass(frozen=True)
@@ -65,7 +64,14 @@ def run_stage15_recombination(
     if not alignment_path.exists():
         raise ConfigError(f"Alignment not found: {alignment_path}")
 
-    binary = phi_binary or _VENDOR_PHI_BINARY
+    # A second, independently-frozen copy of this constant used to live
+    # here, computed from THIS file's own __file__ — same bug as the one
+    # documented on default_phi_binary(), duplicated rather than shared,
+    # so fixing one copy silently left the other broken. This is the path
+    # `g4watch recombination` (the CLI, and the only thing Nextflow's
+    # RECOMBINATION_SCREEN actually calls) runs through; the other copy
+    # was fixed but never exercised by a real containerised run.
+    binary = phi_binary or default_phi_binary()
     if not Path(binary).exists():
         # No silent skip: an unrun mandatory screen must stop the pipeline,
         # because minimum_data_gate is about to be told it completed.

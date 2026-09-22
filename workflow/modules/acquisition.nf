@@ -24,11 +24,23 @@ process FETCH_CORPUS {
 
     script:
     """
-    python3 ${projectDir}/../scripts/python/parse_fmdv_corpus_metadata.py \\
+    # fetch_corpus.py, not parse_fmdv_corpus_metadata.py. The latter took
+    # every path from module-level constants and accepted no arguments at
+    # all, so Python discarded these four flags in silence: the process
+    # reported success having fetched nothing and having overwritten the
+    # FMDV corpus, whatever --pathogen it was given.
+    python3 ${projectDir}/../scripts/python/fetch_corpus.py \\
         --accessions ${accession_list} \\
         --genbank-out corpus.gb \\
         --metadata-out corpus_metadata.tsv \\
         --fasta-out corpus.fasta \\
         2>&1 | tee fetch.log
+
+    # A process that emits its declared outputs while having fetched
+    # nothing is worse than one that fails.
+    if [ ! -s corpus.fasta ] || [ ! -s corpus_metadata.tsv ]; then
+        echo "acquisition produced an empty corpus" >&2
+        exit 1
+    fi
     """
 }

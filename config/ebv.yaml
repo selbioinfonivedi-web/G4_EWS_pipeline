@@ -1,0 +1,89 @@
+pathogen: EBV
+display_name: Epstein-Barr virus (human gammaherpesvirus 4)
+genome_type: dsDNA
+taxonomy_id: 10376
+provisioned: true
+reference:
+  accession: NC_007605.1
+  fasta: data/reference_genomes/ebv/NC_007605.fasta
+  genome_length: 171823
+corpus:
+  metadata_tsv: data/reference_genomes/ebv/corpus/ebv_corpus_metadata.tsv
+  sequences_fasta: data/reference_genomes/ebv/corpus/ebv_corpus_sequences.fasta
+  lineage_field: country
+  lineage_fallback_fields: []
+  # Corpus composition is constrained by an EBV-specific assembly artifact,
+  # not by biology. Whole submission batches (UK 2015 n=106, China 2015/2016/2020
+  # n~130) N-mask the internal repeats: every genome in those batches carries an
+  # identical 23,181 bp N-run at ~12.05 kb (IR1/BamHI-W) plus fixed runs at
+  # ~38.3 kb (IR2), ~96.1 kb and ~140.9 kb -- 17% of a 172 kb genome. Identical
+  # lengths and offsets across genomes make this deterministic repeat masking,
+  # not sequencing dropout; the unique regions are fully assembled.
+  #
+  # Those batches are dropped at SELECTION time rather than rescued by relaxing
+  # max_n_content_fraction, because a reference G4Hunter scan puts 27 of 52
+  # strong (|score|>=1.5) loci inside the masked blocks -- a 3.1x enrichment over
+  # the 16.9% of the genome they occupy. Admitting those genomes would add
+  # sample count while leaving them unassessable at half the strong loci
+  # (classify_tip_state correctly returns UNKNOWN for an all-N span, so they
+  # drop out of the denominators rather than counting as false G4 loss).
+  #
+  # The retained corpus is therefore China/Japan/USA, 2009-2014, sampled to
+  # balance YEARS rather than countries: a flat country quota let the two
+  # single-timepoint batches (Japan 2013, UK 2015) dominate and left 72% of the
+  # series in one year. Selection seed 20260909; this affects the LF term.
+  exclude_lineages: []
+qc:
+  min_completeness_fraction: 0.9
+  max_n_content_fraction: 0.05
+  require_year_precision_date: true
+alignment:
+  tool: mafft
+  args: --auto --keeplength --addfragments
+  max_gapped_fraction: 0.5
+recombination:
+  enabled: true
+  tier: high_priority
+  alpha: 0.05
+phylogenetics:
+  tool: iqtree2
+  model: GTR+F+I+G4
+  bootstrap_replicates: 1000
+  seed: 20250823
+  outgroup: null
+  ancestral_states: required
+  timetree:
+    tool: treetime
+    clock_rate: null
+    clock_filter_iqd: 3.0
+g4_prediction:
+  g4hunter:
+    window: 25
+    threshold: 1.2
+  pattern_motif:
+    enabled: true
+  g4rna_screener:
+    enabled: false
+    reason: Python 2 only; see vendor/README.md
+  pqsfinder:
+    enabled: false
+    reason: not yet wired; g4prediction image is built
+  concordance:
+    min_overlap_fraction: 0.8
+  flank: 100
+control_regions:
+  length_tolerance: 0.1
+  gc_tolerance: 0.05
+  pqs_overlap_score_threshold: 0.8
+  exclusion_buffer: 50
+atlas:
+  version: '1.0'
+  path: data/atlases/G4_Reference_Atlas_v1.0.ebv.tsv
+dh1_gate:
+  alpha: 0.05
+  ledger: data/atlases/testing_ledger.tsv
+  locus_selection:
+    min_carriers: 20
+    rule: loci present in >= 20 genomes of the corpus at the time of G4 calling, irrespective
+      of score or strand
+operational_mode: false

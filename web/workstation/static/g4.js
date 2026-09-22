@@ -43,7 +43,10 @@ const S = {
   env: null, commands: [], pathogens: [], pathogen: null,
   data: null, inputs: [], validations: {}, projects: [],
   project: "untitled", dirty: false,
-  mode: "input", stage: "data", ctxTab: "params",
+  // Analyses is the landing mode: it creates, uploads, validates and launches
+  // in one place, which is what the step-by-step modes do one screen at a time.
+  mode: "analyses", stage: "data", ctxTab: "params",
+  showSteps: false,
   job: null, stream: null, lines: [], lineNo: 0, logFilter: "all",
   completed: new Set(), skipped: new Set(),
   params: {
@@ -71,14 +74,24 @@ async function api(path, opts) {
 const mark = () => { S.dirty = true; $("#dirty").hidden = false; };
 
 /* ═══ MODES ═══════════════════════════════════════════════════════ */
+/* Nine modes was too many to hold in mind, and four of them —
+   Data input, Validation, Configure, Run — are the manual equivalents of
+   what Analyses now does in one place: create, upload, validate, launch.
+   They still work and are still reachable; they are just no longer the
+   first thing a reader has to read past.
+
+   Nothing is deleted. `advanced: true` only decides what the mode bar
+   shows by default. */
 const MODES = [
-  { id: "input",     n: "01", label: "Data input",   accent: "data" },
-  { id: "validate",  n: "02", label: "Validation",   accent: "qc" },
-  { id: "configure", n: "03", label: "Configure",    accent: "genomic" },
-  { id: "run",       n: "04", label: "Run",          accent: "evolution" },
-  { id: "visualize", n: "05", label: "Visualize",    accent: "network" },
-  { id: "interpret", n: "06", label: "Interpret",    accent: "interpret" },
-  { id: "report",    n: "07", label: "Report",       accent: "report" },
+  { id: "analyses",  n: "1", label: "Analyses",     accent: "data" },
+  { id: "visualize", n: "2", label: "Explore",      accent: "network" },
+  { id: "interpret", n: "3", label: "Interpret",    accent: "interpret" },
+  { id: "surveil",   n: "4", label: "Surveillance", accent: "evolution" },
+  { id: "report",    n: "5", label: "Report",       accent: "report" },
+  { id: "input",     n: "",  label: "Data input",   accent: "data",       advanced: true },
+  { id: "validate",  n: "",  label: "Validation",   accent: "qc",         advanced: true },
+  { id: "configure", n: "",  label: "Configure",    accent: "genomic",    advanced: true },
+  { id: "run",       n: "",  label: "Manual run",   accent: "evolution",  advanced: true },
 ];
 
 /* ═══ PIPELINE ════════════════════════════════════════════════════
@@ -88,9 +101,9 @@ const STAGES = [
   { id: "data",     ord: "01", name: "Data",           needs: [],            cmd: null,            mode: "input" },
   { id: "valid",    ord: "02", name: "Validation",     needs: ["data"],      cmd: null,            mode: "validate" },
   { id: "qc",       ord: "03", name: "QC",             needs: ["valid"],     cmd: "qc",            mode: "run" },
-  { id: "prep",     ord: "04", name: "Preprocessing",  needs: ["qc"],        cmd: null,            mode: "run", tools: ["mafft"] },
+  { id: "prep",     ord: "04", name: "Preprocessing",  needs: ["qc"],        cmd: "align",         mode: "run", tools: ["mafft"] },
   { id: "genomic",  ord: "05", name: "Genomic",        needs: ["qc"],        cmd: "stage0",        mode: "run" },
-  { id: "phylo",    ord: "06", name: "Phylogenetics",  needs: ["prep"],      cmd: null,            mode: "run", tools: ["iqtree2"] },
+  { id: "phylo",    ord: "06", name: "Phylogenetics",  needs: ["prep"],      cmd: "phylogenetics", mode: "run", tools: ["iqtree2", "treetime"] },
   { id: "evo",      ord: "07", name: "Evolution",      needs: ["phylo"],     cmd: "recombination", mode: "run" },
   { id: "model",    ord: "08", name: "Modelling",      needs: ["evo"],       cmd: "dh1",           mode: "run" },
   { id: "interp",   ord: "09", name: "Interpretation", needs: ["model"],     cmd: "score",         mode: "interpret", gated: true },
@@ -174,14 +187,17 @@ function applySkin(skin) {
   localStorage.setItem("g4-skin-v2", skin);
   const pick = $("#skin-pick");
   if (pick) pick.value = skin;
-  if (skin === "glass") startField(); else stopField();
   if (S.mode === "visualize") renderWork();
 }
 
 function wireChrome() {
   const saved = (() => { try { return localStorage.getItem("g4-skin-v2"); } catch { return null; } })();
   applySkin(saved || "forecast");
-  $("#skin-pick").onchange = (e) => applySkin(e.target.value);
+  try { S.showSteps = localStorage.getItem("g4-show-steps") === "1"; } catch { /* private mode */ }
+  syncChrome();
+  renderModes();
+  const skinPick = $("#skin-pick");
+  if (skinPick) skinPick.onchange = (e) => applySkin(e.target.value);
   api("/api/provenance").then((p) => {
     $("#trust-commit").textContent = `${p.software.name} ${p.software.version} · ${p.git_commit || "no commit"}`;
   }).catch(() => {});
@@ -191,7 +207,8 @@ function wireChrome() {
     if (S.mode === "visualize") renderWork();
   };
   $("#btn-help").onclick = () => helpSheet();
-  $("#btn-shortcuts").onclick = () => shortcutsSheet();
+  const shortcutsBtn = $("#btn-shortcuts");
+  if (shortcutsBtn) shortcutsBtn.onclick = () => shortcutsSheet();
   $("#log-toggle").onclick = () => { $("#console").classList.toggle("open"); $("#log-toggle").textContent = $("#console").classList.contains("open") ? "▼ LOG" : "▲ LOG"; };
   $("#log-clear").onclick = () => { S.lines = []; S.lineNo = 0; renderLog(); };
   $("#log-save").onclick = () => download(new Blob([S.lines.map((l) => `[${l.level}] ${l.text}`).join("\n")], { type: "text/plain" }), "g4_log.txt");
@@ -203,121 +220,26 @@ function wireChrome() {
   $("#q").oninput = (e) => runSearch(e.target.value);
   addEventListener("keydown", (e) => {
     if (e.target.matches("input,textarea,select")) return;
-    const idx = "1234567".indexOf(e.key);
+    // 1-5 are the five modes the bar shows by default; the advanced four
+    // are reached through "More steps", not through a key nobody would guess.
+    const idx = "12345".indexOf(e.key);
     if (idx >= 0) setMode(MODES[idx].id);
     if (e.key === "/") { e.preventDefault(); $("#q").focus(); }
     if (e.key === "?") helpSheet();
     if (e.key === "l") $("#log-toggle").click();
+    // Zoom keys replace the ＋/− buttons that were taking up toolbar width
+    // next to a scroll gesture and a double-click that already did the job.
+    if (e.key === "+" || e.key === "=") zoomActive(1.25);
+    if (e.key === "-") zoomActive(1 / 1.25);
   });
-  addEventListener("resize", debounce(() => { if (S.mode === "visualize") renderWork(); renderSpine(); startField(); }, 150));
+  addEventListener("resize", debounce(() => { if (S.mode === "visualize") renderWork(); renderSpine(); }, 150));
   addEventListener("beforeunload", (e) => { if (S.dirty) { e.preventDefault(); e.returnValue = ""; } });
 }
 
-/* ═══ LUMINOUS FIELD (glass skin) ═════════════════════════════════
-   The same disjoint-clade cut used in the studio: a cut of the tree, so
-   no halo is nested inside another and the field cannot saturate. It
-   sits behind the glass at low opacity — atmosphere that happens to be
-   the dataset. */
-let FIELD = null;
-
-function startField() {
-  const cv = $("#glassfield");
-  if (!cv || !S.data?.tree) return;
-  const dpr = Math.min(devicePixelRatio || 1, 2);
-  cv.width = innerWidth * dpr; cv.height = innerHeight * dpr;
-  const g = cv.getContext("2d");
-  g.setTransform(dpr, 0, 0, dpr, 0, 0);
-  FIELD = { g, w: innerWidth, h: innerHeight };
-  drawGlassField();
-}
-function stopField() { FIELD = null; }
-
-function glassCells() {
-  const t = S.data.tree, W = FIELD.w, H = FIELD.h;
-  const cx = W * 0.5, cy = H * 0.5, R = Math.min(W, H) * 0.42;
-  const pos = (n) => {
-    const a = n.y * Math.PI * 2 - Math.PI / 2, r = (0.16 + n.x * 0.84) * R;
-    return { x: cx + Math.cos(a) * r, y: cy + Math.sin(a) * r };
-  };
-  const kids = new Map();
-  for (const n of t.nodes) if (n.p != null) { if (!kids.has(n.p)) kids.set(n.p, []); kids.get(n.p).push(n.i); }
-  const members = new Array(t.nodes.length);
-  const order = [], stack = [[0, false]];
-  while (stack.length) {
-    const [i, done] = stack.pop();
-    if (done) { order.push(i); continue; }
-    stack.push([i, true]);
-    for (const c of kids.get(i) || []) stack.push([c, false]);
-  }
-  for (const i of order) {
-    const n = t.nodes[i];
-    if (n.s >= 0) { members[i] = [n.s]; continue; }
-    const out = [];
-    for (const k of kids.get(i) || []) out.push(...members[k]);
-    members[i] = out;
-  }
-  const tips = t.nodes.filter((n) => n.s >= 0).map((n) => ({ ...pos(n), s: n.s }));
-  const byS = new Map(tips.map((tp) => [tp.s, tp]));
-  const cells = [], queue = [0];
-  while (queue.length) {
-    const i = queue.shift(), m = members[i];
-    if (m.length > 90 && (kids.get(i) || []).length) { queue.push(...kids.get(i)); continue; }
-    if (m.length < 6) continue;
-    const tally = new Map();
-    let sx = 0, sy = 0;
-    for (const si of m) {
-      const L = S.data.samples[si].l;
-      tally.set(L, (tally.get(L) || 0) + 1);
-      const tp = byS.get(si);
-      if (tp) { sx += tp.x; sy += tp.y; }
-    }
-    const dom = [...tally.entries()].sort((a, b) => b[1] - a[1])[0];
-    cells.push({ x: sx / m.length, y: sy / m.length, n: m.length, lineage: dom[0] });
-  }
-  return { tips, cells, pos, nodes: t.nodes };
-}
-
-function drawGlassField() {
-  if (!FIELD || !S.data?.tree) return;
-  const { g, w, h } = FIELD;
-  g.clearRect(0, 0, w, h);
-  const cream = false;   // cream skin retired
-  const bg = g.createRadialGradient(w / 2, h / 2, 0, w / 2, h / 2, Math.max(w, h) * 0.7);
-  if (cream) {
-    bg.addColorStop(0, "#FBF6EA"); bg.addColorStop(0.6, "#F2EADA"); bg.addColorStop(1, "#E6DAC4");
-  } else {
-    bg.addColorStop(0, "#161E3C"); bg.addColorStop(0.6, "#0C1226"); bg.addColorStop(1, "#070A14");
-  }
-  g.fillStyle = bg; g.fillRect(0, 0, w, h);
-
-  const { tips, cells, pos, nodes } = glassCells();
-  g.lineWidth = 0.5;
-  g.strokeStyle = cream ? "rgba(150,128,96,0.16)" : "rgba(157,180,255,0.09)";
-  for (const n of nodes) {
-    if (n.p == null) continue;
-    const a = pos(n), b = pos(nodes[n.p]);
-    g.beginPath(); g.moveTo(b.x, b.y); g.lineTo(a.x, a.y); g.stroke();
-  }
-  for (const c of cells) {
-    const r = 14 + Math.sqrt(c.n) * 7;
-    const col = css(`--cat-${S.order.indexOf(c.lineage) % 8}`) || "#9DB4FF";
-    const grd = g.createRadialGradient(c.x, c.y, 0, c.x, c.y, r);
-    grd.addColorStop(0, rgba(col, 0.26)); grd.addColorStop(0.5, rgba(col, 0.09)); grd.addColorStop(1, rgba(col, 0));
-    g.fillStyle = grd; g.beginPath(); g.arc(c.x, c.y, r, 0, 7); g.fill();
-  }
-  for (const tp of tips) {
-    const col = css(`--cat-${S.order.indexOf(S.data.samples[tp.s].l) % 8}`);
-    g.shadowBlur = 4; g.shadowColor = col;
-    g.fillStyle = rgba(col, 0.85);
-    g.beginPath(); g.arc(tp.x, tp.y, 1.2, 0, 7); g.fill();
-  }
-  g.shadowBlur = 0;
-}
-function rgba(hex, a) {
-  const h = (hex || "#9DB4FF").trim().replace("#", "");
-  const n = parseInt(h.length === 3 ? h.split("").map((c) => c + c).join("") : h, 16);
-  return `rgba(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255},${a})`;
-}
+/* The luminous canvas field was removed with the glass skin: a
+   requestAnimationFrame loop painting halos behind a translucent
+   shell, costing a repaint every frame on a page whose job is to
+   show numbers. Nothing else referenced it. */
 
 /* ═══ IDENTITY + TELEMETRY ════════════════════════════════════════ */
 function renderIdentity() {
@@ -327,6 +249,14 @@ function renderIdentity() {
   $("#id-ref").textContent = d ? d.identity.reference : "—";
   $("#id-n").innerHTML = d ? `${d.identity.n_samples} <em>of ${d.identity.n_raw}</em>` : "—";
   $("#id-period").textContent = d?.identity.period ? d.identity.period.join("–") : "—";
+  // Those two elements are hidden in the header; their content surfaces on hover.
+  const organism = $("#idf-organism");
+  if (organism) {
+    organism.title = d
+      ? `Reference ${d.identity.reference}`
+        + (d.identity.period ? ` · sampled ${d.identity.period.join("–")}` : "")
+      : "No dataset loaded";
+  }
 }
 
 async function pollSystem() {
@@ -359,19 +289,42 @@ function renderTelemetry() {
 
 /* ═══ MODE BAR + SPINE ════════════════════════════════════════════ */
 function renderModes() {
+  // An advanced mode stays visible while you are in it, so selecting one
+  // and then having it vanish cannot happen.
+  const shown = MODES.filter((m) => !m.advanced || S.showSteps || m.id === S.mode);
   $("#modes").replaceChildren(
-    ...MODES.map((m) => el("button", {
-      class: "mode" + (m.id === S.mode ? " on" : ""), "data-accent": m.accent,
+    ...shown.map((m) => el("button", {
+      class: "mode" + (m.id === S.mode ? " on" : "") + (m.advanced ? " adv" : ""),
+      "data-accent": m.accent,
       onclick: () => setMode(m.id),
-    }, el("span", { class: "n", text: m.n }), el("span", { text: m.label }))),
+    }, m.n ? el("span", { class: "n", text: m.n }) : null, el("span", { text: m.label }))),
+    el("button", {
+      class: "btn tertiary sm",
+      title: "Data input, Validation, Configure and Manual run — the step-by-step "
+           + "equivalents of what Analyses does in one place",
+      text: S.showSteps ? "Fewer steps" : "More steps",
+      onclick: () => { S.showSteps = !S.showSteps; saveShowSteps(); syncChrome(); renderModes(); },
+    }),
     el("div", { class: "push" },
-      el("button", { class: "btn tertiary sm", text: "New", onclick: newProject }),
-      el("button", { class: "btn tertiary sm", text: "Open", onclick: openProject }),
       el("button", { class: "btn secondary sm", text: "Save", onclick: () => saveProject(false) }),
-      el("button", { class: "btn tertiary sm", text: "Save as", onclick: () => saveProject(true) }),
-      el("button", { class: "btn tertiary sm", text: "Reset", onclick: resetWorkspace }),
+      el("button", { class: "btn tertiary sm", text: "Open", onclick: openProject }),
     ),
   );
+}
+
+/* The stage spine is the map of the step-by-step path. With the steps folded
+   away it is a permanent 96px column describing a route nobody is walking, so
+   it follows the same disclosure. It is still rendered — only the column is
+   hidden — so #flow-nodes stays inspectable and drawSpineEdges stays correct
+   the moment it is shown again. */
+function syncChrome() {
+  document.body.classList.toggle("no-spine", !S.showSteps);
+  const flow = $("#flow");
+  if (flow) flow.hidden = !S.showSteps;
+  if (S.showSteps) requestAnimationFrame(drawSpineEdges);
+}
+function saveShowSteps() {
+  try { localStorage.setItem("g4-show-steps", S.showSteps ? "1" : "0"); } catch { /* private mode */ }
 }
 
 function setMode(id) {
@@ -401,10 +354,16 @@ function renderSpine() {
 
 function drawSpineEdges() {
   const flow = $("#flow"), line = $("#flow-svg");
+  // A hidden spine measures as a zero-height box, so every edge would be drawn
+  // at the same point. Nothing to draw until the column is back.
+  if (!flow || flow.hidden) return;
   const box = flow.getBoundingClientRect();
   line.setAttribute("height", flow.scrollHeight);
   line.replaceChildren();
   const nodes = [...flow.querySelectorAll(".stagenode")];
+  // Edges are drawn between stage nodes; with no nodes rendered yet there is
+  // nothing to connect, and indexing into the empty list would throw.
+  if (nodes.length < STAGES.length) return;
   const at = (i) => { const r = nodes[i].getBoundingClientRect(); return { x: 24, y: r.top - box.top + flow.scrollTop + 14 }; };
   STAGES.forEach((st, i) => {
     for (const need of st.needs) {
@@ -423,8 +382,9 @@ function drawSpineEdges() {
 
 /* ═══ WORKSPACE ═══════════════════════════════════════════════════ */
 const WORK = {
-  input: workInput, validate: workValidate, configure: workConfigure,
-  run: workRun, visualize: workVisualize, interpret: workInterpret, report: workReport,
+  analyses: workAnalyses, input: workInput, validate: workValidate, configure: workConfigure,
+  run: workRun, visualize: workVisualize, interpret: workInterpret,
+  surveil: workSurveillance, report: workReport,
 };
 
 function renderWork() {
@@ -563,6 +523,272 @@ function inputSpec() {
     body);
   body.hidden = !open;
   return panel;
+}
+
+/* ── ANALYSES ─────────────────────────────────────────────────────────
+   The unit of work a researcher creates, as opposed to a `job`, which is
+   one process the runner executed. An analysis outlives its job: it
+   survives a restart, records what it ran on by checksum, and keeps its
+   error text after the job has been evicted from the runner's ring.
+
+   The endpoints existed and had no surface, which is the same defect
+   /api/stage5 and /api/report-card had: the server does the real work and
+   the interface cannot reach it. ─────────────────────────────────── */
+const AN = { list: [], selected: null, detail: null, creating: false,
+             form: { name: "", pathogen: "", inputs: [] },
+             profile: "conda_free", resume: true, busy: "" };
+
+const AN_STATUS_COLOUR = {
+  QUEUED: "--ink-3", VALIDATING: "--st-running", RUNNING: "--st-running",
+  COMPLETED: "--st-complete", FAILED: "--st-error", CANCELLED: "--ink-3",
+};
+
+const when = (t) => t ? new Date(t * 1000).toLocaleString() : "—";
+
+async function anRefresh() {
+  try { AN.list = await api("/api/analyses"); } catch (e) { AN.list = []; }
+  if (AN.selected) {
+    try { AN.detail = await api(`/api/analyses/${AN.selected}/results`); }
+    catch { AN.detail = null; }
+  }
+  if (S.mode === "analyses") renderWork();
+}
+
+/* Poll only while something is live. A dashboard that polls a finished
+   run forever is a dashboard that is wrong about what it is watching. */
+let AN_TIMER = null;
+function anPoll() {
+  clearInterval(AN_TIMER);
+  AN_TIMER = setInterval(() => {
+    if (S.mode !== "analyses") { clearInterval(AN_TIMER); return; }
+    if (AN.list.some((a) => !a.terminal)) anRefresh();
+  }, 4000);
+}
+
+async function anCreate() {
+  const f = AN.form;
+  if (!f.name.trim()) return notify("error", "Name required", "Give the analysis a name you will recognise later.");
+  if (!f.pathogen) return notify("error", "Pathogen required", "Select which pathogen this analysis is for.");
+  AN.busy = "creating"; renderWork();
+  try {
+    const created = await api("/api/analyses", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name: f.name, pathogen: f.pathogen, inputs: f.inputs }),
+    });
+    AN.selected = created.id;
+    AN.creating = false;
+    AN.form = { name: "", pathogen: f.pathogen, inputs: [] };
+    notify("success", "Analysis created", `${created.name} — validate its inputs next.`);
+    await anValidate(created.id);
+  } catch (e) {
+    notify("error", "Could not create", e.message);
+  } finally { AN.busy = ""; await anRefresh(); }
+}
+
+async function anValidate(id) {
+  AN.busy = "validating"; renderWork();
+  try {
+    const out = await api(`/api/analyses/${id}/validate`, { method: "POST" });
+    AN.validation = out;
+    if (out.valid) notify("success", "Inputs valid", "Ready to launch.");
+    else notify("error", `${out.errors.length} problem(s) with the inputs`, out.errors[0] || "");
+  } catch (e) {
+    notify("error", "Validation failed", e.message);
+  } finally { AN.busy = ""; await anRefresh(); }
+}
+
+async function anLaunch(id) {
+  AN.busy = "launching"; renderWork();
+  try {
+    await api(`/api/analyses/${id}/launch`, {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ profile: AN.profile, resume: AN.resume }),
+    });
+    notify("running", "Nextflow started", `profile ${AN.profile}. A closed D.H1 gate completes normally.`);
+    anPoll();
+  } catch (e) {
+    notify("error", "Launch refused", e.message);
+  } finally { AN.busy = ""; await anRefresh(); }
+}
+
+async function anCancel(id) {
+  try { await api(`/api/analyses/${id}/cancel`, { method: "POST" }); }
+  catch (e) { notify("error", "Cancel failed", e.message); }
+  await anRefresh();
+}
+
+/* Upload straight into the form, so a file goes from the researcher's
+   disk to a declared input without a detour through the file tray. */
+async function anUpload(fileList, role) {
+  const files = Array.from(fileList || []);
+  if (!files.length) return;
+  for (const file of files) {
+    const body = new FormData();
+    body.append("file", file);
+    try {
+      const r = await fetch("/api/upload", { method: "POST", body });
+      const d = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(d.detail || `HTTP ${r.status}`);
+      AN.form.inputs.push({ path: d.path, role });
+      notify("success", "Staged", `${d.name} (${bytes(d.bytes)}) as ${role}`);
+    } catch (e) { notify("error", `Upload refused — ${file.name}`, e.message); }
+  }
+  renderWork();
+}
+
+function anCompletenessBadge(comp) {
+  if (!comp) return null;
+  const bad = comp.category !== "complete";
+  return el("div", { style: `margin-top:6px;padding:8px 11px;border-left:2px solid var(--${bad ? "st-warning" : "st-complete"})` },
+    el("p", { style: `font-size:12.5px;font-weight:600;color:var(--${bad ? "st-warning" : "st-complete"})`,
+              text: comp.description }),
+    comp.caveat ? el("p", { style: "font-size:11.5px;line-height:1.55;color:var(--ink-2);margin-top:4px;max-width:84ch",
+                            text: comp.caveat }) : null);
+}
+
+function anCreateForm() {
+  const f = AN.form;
+  const pathogens = (S.pathogens || []).filter((p) => p.provisioned);
+  if (!f.pathogen && pathogens.length) f.pathogen = pathogens[0].name;
+
+  const fileBtn = (role, label) => btn("secondary", label, () => {
+    const i = el("input", { type: "file", multiple: true });
+    i.onchange = () => anUpload(i.files, role);
+    i.click();
+  });
+
+  return el("div", { class: "sec" },
+    el("h3", { text: "New analysis" }),
+    field("Analysis name", el("input", { class: "input", value: f.name, placeholder: "FMDV 2026 surveillance",
+      onchange: (e) => { f.name = e.target.value; } })),
+    field("Pathogen", el("select", { class: "select", onchange: (e) => { f.pathogen = e.target.value; } },
+      ...pathogens.map((p) => el("option", { value: p.name, text: `${p.name} — ${p.display_name}`,
+                                             selected: p.name === f.pathogen })))),
+    field("Sequence data",
+      el("div", { class: "btn-row" }, fileBtn("sequences", "Upload FASTA"),
+         fileBtn("reference", "Upload reference (optional)"),
+         fileBtn("metadata", "Upload metadata (optional)")),
+      "Uploads are staged under data/uploads/ and recorded by SHA-256. Leaving this empty runs "
+      + "against the pathogen's configured corpus."),
+    f.inputs.length ? el("div", { style: "margin-top:8px" },
+      ...f.inputs.map((i, idx) => el("div", { style: "display:flex;gap:10px;align-items:center;padding:4px 0" },
+        el("span", { class: "mono", style: "font-size:11px", text: i.path }),
+        el("span", { class: "st", text: i.role }),
+        btn("tertiary sm", "Remove", () => { f.inputs.splice(idx, 1); renderWork(); })))) : null,
+    el("div", { class: "btn-row", style: "margin-top:12px" },
+      btn("primary", AN.busy === "creating" ? "Creating…" : "Create analysis", anCreate, !!AN.busy),
+      btn("tertiary", "Cancel", () => { AN.creating = false; renderWork(); })),
+  );
+}
+
+function anValidationPanel() {
+  const v = AN.validation;
+  if (!v) return null;
+  return el("div", { class: "sec" }, el("h3", { text: "Input validation" }),
+    el("p", { style: `font-size:12.5px;font-weight:600;color:var(--st-${v.valid ? "complete" : "error"})`,
+              text: v.valid ? "All inputs valid." : `${v.errors.length} problem(s) found.` }),
+    ...v.errors.map((e) => el("p", { style: "font-size:12px;line-height:1.55;color:var(--st-error);padding-left:10px;border-left:2px solid var(--st-error);margin-top:5px;max-width:88ch", text: e })),
+    ...v.reports.map((r) => el("div", { style: "padding:8px 0;border-bottom:1px solid var(--hair)" },
+      el("p", { class: "mono", style: "font-size:11.5px", text: `${r.path}  [${r.role}]  ${r.status}` }),
+      r.n_records != null ? el("p", { class: "hint",
+        text: `${r.n_records.toLocaleString()} records · ${(r.total_bases || 0).toLocaleString()} bases` }) : null,
+      anCompletenessBadge(r.completeness))),
+  );
+}
+
+function anDetail() {
+  const d = AN.detail;
+  if (!d) return null;
+  const a = d.analysis;
+  const row = (k, v) => el("div", { style: "display:grid;grid-template-columns:180px 1fr;gap:12px;padding:4px 0" },
+    el("span", { class: "hint", text: k }),
+    el("span", { class: "mono", style: "font-size:11.5px", text: String(v ?? "—") }));
+
+  return el("div", {},
+    el("div", { class: "sec" }, el("h3", { text: a.name }),
+      el("div", { style: "display:flex;gap:16px;align-items:baseline;flex-wrap:wrap" },
+        el("span", { style: `font-size:19px;font-weight:600;color:var(${AN_STATUS_COLOUR[a.status]})`, text: a.status }),
+        el("span", { class: "mono", style: "font-size:11px;color:var(--ink-3)",
+          text: `${a.pathogen} · ${a.id} · ${a.duration ? clock(a.duration) : "not started"}` })),
+      a.error ? el("p", { style: "font-size:12px;line-height:1.6;color:var(--st-error);padding:8px 11px;margin-top:8px;border-left:2px solid var(--st-error);white-space:pre-wrap;max-width:90ch", text: a.error }) : null,
+      d.gate ? el("p", { style: `font-size:12px;margin-top:8px;color:var(--${d.gate.permitted ? "st-complete" : "st-warning"})`,
+                         text: `D.H1 gate: ${d.gate.permission}` }) : null,
+      el("div", { class: "btn-row", style: "margin-top:12px" },
+        btn("secondary", "Validate", () => anValidate(a.id), !!AN.busy),
+        btn("primary", AN.busy === "launching" ? "Launching…" : "Launch pipeline",
+            () => anLaunch(a.id), !!AN.busy || a.status === "RUNNING"),
+        btn("danger", "Cancel", () => anCancel(a.id), a.terminal),
+        btn("tertiary", "Refresh", anRefresh)),
+      el("div", { style: "display:flex;gap:18px;align-items:center;margin-top:10px;flex-wrap:wrap" },
+        el("label", { style: "display:flex;gap:6px;align-items:center;font-size:12px" },
+          el("span", { text: "profile" }),
+          el("select", { class: "select", style: "width:auto",
+            onchange: (e) => { AN.profile = e.target.value; } },
+            ...["conda_free", "docker", "singularity", "standard"].map((p) =>
+              el("option", { value: p, text: p, selected: p === AN.profile })))),
+        el("label", { style: "display:flex;gap:6px;align-items:center;font-size:12px" },
+          el("input", { type: "checkbox", checked: AN.resume,
+                        onchange: (e) => { AN.resume = e.target.checked; } }),
+          el("span", { text: "resume" })))),
+
+    el("div", { style: "height:18px" }),
+    /* Reproducibility. Enough to re-run from the record alone, which is
+       the point of recording it at all. */
+    el("div", { class: "sec" }, el("h3", { text: "Reproducibility" }),
+      row("created", when(a.created_at)), row("started", when(a.started_at)),
+      row("finished", when(a.finished_at)), row("git commit", a.git_commit),
+      row("pipeline version", a.pipeline_version), row("nextflow", a.nextflow_version),
+      row("exit code", a.exit_code), row("output directory", a.outdir),
+      ...a.inputs.map((i) => row(`input · ${i.role}`,
+        `${i.path}  sha256:${(i.sha256 || "").slice(0, 16)}…`))),
+
+    el("div", { style: "height:18px" }),
+    el("div", { class: "sec" }, el("h3", { text: `Output files (${d.n_files})` }),
+      d.n_files === 0
+        ? el("p", { class: "hint", text: "No outputs yet." })
+        : el("div", { class: "scroll-x" }, el("table", { class: "grid" },
+            el("thead", {}, el("tr", {}, ...["File", "Size", ""].map((h) => el("th", { text: h })))),
+            el("tbody", {}, ...d.files.map((f) => el("tr", {},
+              el("td", { class: "mono", text: f.path.split("/").slice(-2).join("/") }),
+              el("td", { class: "num", text: bytes(f.bytes) }),
+              el("td", {}, btn("tertiary sm", "View", () => previewFile(f.path))))))))),
+  );
+}
+
+function workAnalyses(host) {
+  $("#stage-title").textContent = "Analyses";
+  $("#stage-sub").textContent = `${AN.list.length} recorded · persisted across restarts`;
+  $("#stage-tools").replaceChildren(
+    btn("primary", "+ New analysis", () => { AN.creating = true; AN.validation = null; renderWork(); }),
+    btn("tertiary", "Refresh", anRefresh),
+  );
+
+  if (AN.creating) { host.append(anCreateForm()); return; }
+
+  const table = el("table", { class: "grid" },
+    el("thead", {}, el("tr", {}, ...["Name", "Pathogen", "Status", "Created", "Duration", ""]
+      .map((h) => el("th", { text: h })))),
+    el("tbody", {}, ...AN.list.map((a) => el("tr", { class: a.id === AN.selected ? "sel" : "" },
+      el("td", {}, el("b", { text: a.name })),
+      el("td", { class: "mono dim", text: a.pathogen }),
+      el("td", {}, el("span", { style: `color:var(${AN_STATUS_COLOUR[a.status]});font-weight:600;font-size:11px`, text: a.status })),
+      el("td", { class: "mono dim", style: "font-size:11px", text: when(a.created_at) }),
+      el("td", { class: "num", text: a.duration ? clock(a.duration) : "—" }),
+      el("td", {}, btn("tertiary sm", "Open", () => { AN.selected = a.id; anRefresh(); }))))),
+  );
+
+  host.append(
+    AN.list.length
+      ? el("div", { class: "sec" }, el("h3", { text: "Analyses" }), el("div", { class: "scroll-x" }, table))
+      : el("p", { class: "blank" }, el("b", { text: "No analyses yet." }),
+          "An analysis records what was run, on which inputs by checksum, with which parameters, and what came out. "
+          + "Create one to run the pipeline from here rather than from a terminal."),
+    AN.validation ? el("div", { style: "height:18px" }) : null,
+    anValidationPanel(),
+    AN.detail ? el("div", { style: "height:18px" }) : null,
+    anDetail(),
+  );
+  anPoll();
 }
 
 /* ── 01 · DATA INPUT ────────────────────────────────────────────── */
@@ -735,6 +961,123 @@ function workConfigure(host) {
   );
 }
 
+/* ── Nextflow orchestration ───────────────────────────────────────────
+   The stage table above runs one CLI step at a time. This runs the whole
+   DAG as Nextflow sees it: one work directory, one provenance trace, one
+   resume point. The command was registered in the runner's whitelist and
+   no part of the interface had ever called it, so the orchestrated path —
+   the one the architecture actually specifies — was unreachable here.
+
+   Profile matters enough to be a first-class control rather than a
+   default: `standard` runs against host tools, `docker` and `singularity`
+   use the built images. Running the wrong one silently produces results
+   from different tool versions. */
+const NF = {
+  profile: "conda_free",
+  resume: true,
+  supply: { alignment: true, rooted_tree: true, atlas: true },
+  force_unchecked: false,
+};
+
+const NF_PROFILES = [
+  ["conda_free", "host tools, no containers"],
+  ["docker", "the built images — needs `make containers`"],
+  ["singularity", "the built images, rootless"],
+  ["standard", "host tools, default resources"],
+  ["test", "the synthetic demo corpus"],
+];
+
+/* Supplying a pre-computed artifact SKIPS the stage that would rebuild
+   it. That is the point: rebuilding a published alignment or tree can
+   change it, and nothing downstream would report that it had. */
+function nfOptions() {
+  const o = { profile: NF.profile, resume: NF.resume };
+  const d = S.data;
+  if (NF.supply.atlas && d?.identity?.atlas_version) o.atlas = d.paths?.atlas;
+  if (NF.supply.alignment && d?.paths?.alignment) o.alignment = d.paths.alignment;
+  if (NF.supply.rooted_tree && d?.paths?.rooted_tree) o.rooted_tree = d.paths.rooted_tree;
+  if (NF.force_unchecked) o.force_unchecked = true;
+  for (const k of Object.keys(o)) if (o[k] == null || o[k] === false) delete o[k];
+  return o;
+}
+
+async function runWorkflow() {
+  const cmd = (S.commands || []).find((c) => c.key === "workflow");
+  if (!cmd) return notify("error", "Unavailable", "The runner does not expose the workflow command.");
+  const missing = (cmd.requires_tools || []).filter((t) => !(S.env?.tools?.[t]?.present));
+  if (missing.length) {
+    return notify("error", "Nextflow not available",
+      `${missing.join(", ")} not found on PATH. Install it, or run the stages individually.`);
+  }
+  try {
+    const job = await api("/api/run", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ command: "workflow", pathogen: S.pathogen, options: nfOptions() }),
+    });
+    attach(job.id, { id: "workflow", name: "Nextflow pipeline", cmd: "workflow" });
+    $("#console").classList.add("open");
+    $("#log-toggle").textContent = "▼ LOG";
+    notify("running", "Nextflow started", `profile ${NF.profile}. A closed gate completes normally.`);
+  } catch (e) {
+    notify("error", "Could not start", e.message);
+  }
+}
+
+function nfPanel() {
+  const present = !!S.env?.tools?.nextflow?.present;
+  const row = (label, control, hint) =>
+    el("div", { style: "display:grid;grid-template-columns:190px 1fr;gap:14px;align-items:center;padding:7px 0;border-bottom:1px solid var(--hair)" },
+      el("span", { style: "font-size:12.5px", text: label }),
+      el("div", {}, control, hint ? el("div", { class: "hint", text: hint }) : null));
+
+  const profileSelect = el("select", { class: "select",
+    onchange: (e) => { NF.profile = e.target.value; renderWork(); } },
+    ...NF_PROFILES.map(([v, why]) => el("option", { value: v, text: `${v} — ${why}`, selected: v === NF.profile })));
+
+  const supplyBox = (key, label) => el("label", { style: "display:flex;gap:7px;align-items:center;font-size:12px;margin-right:16px" },
+    el("input", { type: "checkbox", checked: NF.supply[key],
+      onchange: (e) => { NF.supply[key] = e.target.checked; renderWork(); } }),
+    el("span", { text: label }));
+
+  return el("div", { class: "sec" },
+    el("h3", { text: "Nextflow — run the whole DAG" }),
+    el("p", { class: "hint", style: "max-width:88ch",
+      text: "One work directory, one provenance trace, one resume point. A closed D.H1 gate completes "
+          + "normally and exits 0: Stage 5 reports that scoring is blocked and Stage 6 publishes the verdict." }),
+    row("Execution profile", profileSelect,
+        NF.profile === "docker" || NF.profile === "singularity"
+          ? "Needs the images built once with `make containers`."
+          : "Runs against whatever tools are on PATH."),
+    row("Resume", el("label", { style: "display:flex;gap:7px;align-items:center;font-size:12px" },
+      el("input", { type: "checkbox", checked: NF.resume, onchange: (e) => { NF.resume = e.target.checked; } }),
+      el("span", { text: "reuse cached task results" })),
+      "Nextflow revalidates inputs, so this cannot serve a stale result for changed data."),
+    row("Supply existing artifacts",
+      el("div", { style: "display:flex;flex-wrap:wrap" },
+        supplyBox("atlas", "Atlas"), supplyBox("alignment", "Alignment"), supplyBox("rooted_tree", "Rooted tree")),
+      "Supplying one SKIPS the stage that would rebuild it. Rebuilding a published alignment or tree can change it."),
+    row("Run Stage 5 unchecked",
+      el("label", { style: "display:flex;gap:7px;align-items:center;font-size:12px" },
+        el("input", { type: "checkbox", checked: NF.force_unchecked,
+          onchange: (e) => { NF.force_unchecked = e.target.checked; renderWork(); } }),
+        el("span", { class: NF.force_unchecked ? "st invalid" : "", text: "bypass the D.H1 gate" })),
+      NF.force_unchecked
+        ? "The result is marked non-authoritative and can never be a surveillance finding."
+        : "Leave off. The gate refusing is a correct outcome, not a failure."),
+    el("div", { class: "btn-row", style: "margin-top:12px" },
+      btn("primary", "Run pipeline (Nextflow)", runWorkflow, !present,
+          present ? "nextflow run workflow/main.nf" : "nextflow is not on PATH"),
+      btn("tertiary", "Show command", () => sheet("Command",
+        el("pre", { style: "font-family:var(--mono);font-size:11.5px;white-space:pre-wrap;margin:0",
+          text: "nextflow run workflow/main.nf --pathogen " + S.pathogen + " "
+                + Object.entries(nfOptions()).map(([k, v]) =>
+                    (k === "profile" ? "-profile " + v : k === "resume" ? "-resume" :
+                     v === true ? "--" + k : "--" + k + " " + v)).join(" ") })))),
+    present ? null : el("p", { class: "blank" }, el("b", { text: "Nextflow not found." }),
+      "Install it to run the orchestrated pipeline, or run the stages individually above."),
+  );
+}
+
 /* ── 04 · RUN ───────────────────────────────────────────────────── */
 function workRun(host) {
   $("#stage-title").textContent = "Execution";
@@ -769,16 +1112,26 @@ function workRun(host) {
       );
     })),
   );
-  host.append(el("div", { class: "sec" }, el("h3", { text: "Pipeline stages" }), el("div", { class: "scroll-x" }, table)));
+  host.append(
+    el("div", { class: "sec" }, el("h3", { text: "Pipeline stages" }), el("div", { class: "scroll-x" }, table)),
+    el("div", { style: "height:22px" }),
+    nfPanel(),
+  );
 }
 
 /* ── 05 · VISUALIZE ─────────────────────────────────────────────── */
+/* Four views answer the questions almost every session starts with:
+   what is the tree, where are the loci, how is sampling distributed over
+   time, and what do the tracks show. The other six are real and stay one
+   click away — they were simply never all needed at once. */
 const VIZ = {
-  tree: "Phylogeny", genome: "Genome map", tracks: "Genome tracks",
-  roottotip: "Root-to-tip", ordination: "Ordination", map: "Map",
-  temporal: "Temporal", matrix: "Lineage × geography",
-  alignment: "Alignment", spectrum: "Mutation spectrum",
+  tree: "Phylogeny", genome: "Genome map", temporal: "Temporal", tracks: "Tracks",
 };
+const VIZ_MORE = {
+  roottotip: "Root-to-tip", ordination: "Ordination", map: "Map",
+  matrix: "Lineage × geography", alignment: "Alignment", spectrum: "Mutation spectrum",
+};
+const ALL_VIZ = { ...VIZ, ...VIZ_MORE };
 const CACHE = {};
 async function cached(key, url) {
   if (CACHE[key] !== undefined) return CACHE[key];
@@ -792,29 +1145,43 @@ function unavailable(host, why) {
 
 function workVisualize(host) {
   if (!S.data) { host.append(el("p", { class: "blank" }, el("b", { text: "No dataset loaded." }), "Load a provisioned pathogen from Data input.")); return; }
-  $("#stage-title").textContent = VIZ[S.viz];
+  $("#stage-title").textContent = ALL_VIZ[S.viz];
   const tool = (id, label, title) => btn("tool" + (S.tool === id ? " on" : ""), label, () => { S.tool = id; renderWork(); }, false, title);
+
+  // The six secondary views sit in a select rather than six more buttons.
+  // It reads as one control instead of six, and it shows which one is active
+  // when the active view happens to be one of them.
+  const more = el("select", {
+    class: "viz-more",
+    title: "Further views",
+    onchange: (e) => { if (e.target.value) { S.viz = e.target.value; renderWork(); } },
+  }, el("option", { value: "", text: S.viz in VIZ_MORE ? ALL_VIZ[S.viz] : "More views…" }),
+     ...Object.entries(VIZ_MORE).map(([k, v]) => el("option", { value: k, text: v })));
+  if (S.viz in VIZ_MORE) more.classList.add("on");
 
   $("#stage-tools").replaceChildren(
     el("div", { class: "btn-group" }, ...Object.entries(VIZ).map(([k, v]) =>
       btn("tool" + (S.viz === k ? " on" : ""), v, () => { S.viz = k; renderWork(); }))),
-    el("span", { style: "width:8px" }),
+    more,
+    // A fixed gap, not a `push`: each plot appends its own controls to
+    // #stage-tools after this runs, and margin-left:auto here would throw
+    // those to the far right, away from the view buttons they belong to.
+    el("span", { style: "width:10px" }),
     el("div", { class: "btn-group" },
       tool("select", "Select", "Click a mark to filter every view"),
       tool("pan", "Pan", "Drag to move the view"),
       tool("lasso", "Lasso", "Drag a region to select many samples"),
     ),
+    // Scrolling zooms and double-click fits, so the ＋/− pair was a third way
+    // to do what two gestures already do.
     el("div", { class: "btn-group" },
-      btn("tool", "＋", () => zoomActive(1.25), false, "Zoom in (or scroll on the plot)"),
-      btn("tool", "−", () => zoomActive(1 / 1.25), false, "Zoom out"),
       btn("tool", "Fit", fitActive, false, "Fit to screen (or double-click the plot)"),
       btn("tool", "Reset", () => { clearSel(); fitActive(); }, false, "Reset view and selection"),
     ),
     el("span", { class: "mono", id: "zoom-readout",
                  style: "font-size:10px;color:var(--ink-3);min-width:38px;text-align:right", text: "1.00×" }),
     btn("tool", S.labels ? "Hide labels" : "Show labels", () => { S.labels = !S.labels; renderWork(); }),
-    btn("tool", "Full screen", () => document.documentElement.requestFullscreen?.()),
-    btn("secondary", "Export figure", exportFigure),
+    btn("secondary", "Export", exportFigure, false, "Export this figure"),
   );
 
   ({ tree: plotTree, genome: plotGenome, tracks: plotTracks, roottotip: plotRootToTip,
@@ -834,7 +1201,7 @@ function renderRegister() {
   if (f.sample) toks.push(token(f.sample, "genome", null, () => { f.sample = null; }));
 
   $("#footbar").replaceChildren(
-    toks.length ? el("span", { class: "tag", text: "brush" }) : el("span", { class: "hint", text: "No filter — click any mark to brush every view. Shift-click a tip for its clade." }),
+    toks.length ? el("span", { class: "tag", text: "brush" }) : el("span", { class: "hint", text: "No filter — click any mark to brush every view." }),
     ...toks,
     toks.length ? el("span", { class: "token", style: "border-color:var(--ink)" }, el("b", { text: `${n} / ${S.data.samples.length}` })) : null,
     toks.length ? btn("tertiary sm", "Clear", clearSel) : null,
@@ -846,6 +1213,165 @@ function renderRegister() {
 }
 
 /* ── 06 · INTERPRET ─────────────────────────────────────────────── */
+/* ── qualifying evidence ──────────────────────────────────────────────
+   Three checks decide how much weight the gate's verdict can carry, and
+   all three used to live in log files nobody opens:
+
+     Stage 1.5  recombination — whether ONE tree describes this corpus at
+                all. Reconstructing ancestral states across a recombinant
+                alignment reconstructs a history that never happened.
+     Stage 2    molecular clock — whether calendar time means anything
+                here. A weak fit does not invalidate the topology, but it
+                does invalidate every statement of the form "over N years".
+     Stage 3    variants — how much of the observed variation the Atlas
+                loci actually cover.
+
+   They are rendered beside the verdict rather than behind a link,
+   because a reader who has to go looking for a caveat will not find it.
+   A missing artifact says so; nothing is defaulted or drawn empty.
+   ─────────────────────────────────────────────────────────────────── */
+function evidenceRow(label, stage, state, headline, detail, extra) {
+  const colour = { ok: "--st-complete", warn: "--st-warning", bad: "--st-error", none: "--ink-3" }[state];
+  return el("div", { style: "display:grid;grid-template-columns:118px 1fr;gap:16px;padding:11px 0;border-bottom:1px solid var(--hair)" },
+    el("div", {},
+      el("p", { class: "tag", text: stage }),
+      el("p", { style: "font-size:12.5px;font-weight:600;margin-top:2px", text: label })),
+    el("div", {},
+      el("p", { style: `font-size:12.5px;font-weight:600;color:var(${colour})`, text: headline }),
+      detail ? el("p", { class: "mono", style: "font-size:11px;color:var(--ink-3);margin-top:3px", text: detail }) : null,
+      extra ? el("p", { style: "font-size:11.5px;color:var(--ink-2);line-height:1.55;margin-top:5px;max-width:88ch", text: extra }) : null),
+  );
+}
+
+function evidenceChain() {
+  const d = S.data, rows = [];
+  const r = d.recombination;
+  rows.push(r == null
+    ? evidenceRow("Recombination", "Stage 1.5", "none", "Not run",
+        null, "The screen is mandatory before phylogenetics. Until it has run, nothing downstream of the tree has been qualified.")
+    : evidenceRow("Recombination", "Stage 1.5", r.significant ? "bad" : "ok",
+        r.significant ? "Recombination detected" : "No significant recombination",
+        `PHI  p = ${r.p_value}  ·  ${r.n_sequences} sequences  ·  ${r.n_informative_sites} informative sites  ·  tier ${r.tier}`,
+        r.interpretation));
+
+  const c = d.molecular_clock;
+  rows.push(c == null
+    ? evidenceRow("Molecular clock", "Stage 2", "none", "Not dated", null,
+        "No time-scaled tree was built, so no result here depends on calendar time.")
+    : evidenceRow("Molecular clock", "Stage 2", c.usable_for_dating ? "ok" : "warn",
+        c.usable_for_dating ? "Clock usable for dating" : "Weak temporal signal",
+        `rate = ${c.rate} subs/site/yr  ·  r² = ${c.r_squared}` + (c.n_outliers != null ? `  ·  ${c.n_outliers} outliers` : ""),
+        c.interpretation));
+
+  const v = d.variants;
+  rows.push(v == null
+    ? evidenceRow("Variants", "Stage 3", "none", "Not called", null,
+        "No variant table, so the share of variation falling inside Atlas loci is unknown.")
+    : evidenceRow("Variants", "Stage 3", "ok",
+        `${v.n_variants.toLocaleString()} variants across ${v.n_genomes.toLocaleString()} genomes`,
+        `mean ${v.mean_per_genome != null ? v.mean_per_genome.toFixed(1) : "—"} per genome  ·  ` +
+        `${v.n_in_atlas_loci.toLocaleString()} inside Atlas loci` +
+        (v.fraction_in_atlas_loci != null ? ` (${(v.fraction_in_atlas_loci * 100).toFixed(2)}%)` : ""),
+        null));
+
+  return el("div", { class: "sec" },
+    el("h3", { text: "Qualifying evidence — what the verdict rests on" }), ...rows);
+}
+
+/* ── the D.H1 rows themselves ─────────────────────────────────────────
+   The gate reports one word. These are the rows it read to get there.
+   A verdict carried by a single locus and a verdict carried by twenty
+   are indistinguishable until the table is shown, which is why the
+   count is stated in words above it rather than left to be counted.
+   ─────────────────────────────────────────────────────────────────── */
+const DH1_COLOUR = {
+  SUPPORTED: "--st-complete",
+  /* Evidence AGAINST the hypothesis, not an absence of evidence for it.
+     Coloured as the strongest signal on the panel, because it is. */
+  SIGNAL_OPPOSITE_DIRECTION: "--st-significant",
+  NOT_SUPPORTED: "--st-error",
+  SIGNAL_EXPLAINED_BY_GC: "--st-warning",
+  INSUFFICIENT_DATA: "--ink-3",
+};
+const pv = (x) => x == null ? "—" : x < 0.001 ? x.toExponential(1) : x.toFixed(4);
+const rate = (x) => x == null ? "—" : x.toFixed(3);
+
+function dh1Panel() {
+  const h = S.data.dh1;
+  if (!h) {
+    return el("div", { class: "sec" }, el("h3", { text: "D.H1 — per-locus results" }),
+      el("p", { class: "blank" }, el("b", { text: "The gate has not been run." }),
+        "The testing ledger records no D.H1 result for this pathogen. An unrun gate is not a passed gate, and nothing is shown in place of the rows that do not exist yet."));
+  }
+  const counts = Object.entries(h.verdict_counts).sort((a, b) => b[1] - a[1]);
+  const rests = h.rests_on.length;
+
+  return el("div", { class: "sec" },
+    el("h3", { text: "D.H1 — per-locus results" }),
+    el("p", { class: "mono", style: "font-size:11px;color:var(--ink-3)",
+      text: `rule ${h.decision_rule}  ·  α = ${h.alpha}  ·  analysis set = loci in ≥ ${h.min_carriers ?? "—"} genomes  ·  ` +
+            `${h.n_tested}/${h.n_loci} reached a p-value  ·  run ${h.timestamp ? h.timestamp.slice(0, 19).replace("T", " ") : "—"}` }),
+
+    el("div", { style: "display:flex;gap:8px;flex-wrap:wrap;margin:4px 0 2px" },
+      ...counts.map(([verdict, n]) => el("span", { class: "token",
+        style: `border-color:var(${DH1_COLOUR[verdict] || "--ink-3"});color:var(${DH1_COLOUR[verdict] || "--ink-3"})` },
+        el("b", { text: String(n) }), " " + verdict))),
+
+    /* A locus MORE disrupted than its control contradicts D.H1. Saying so
+       in a sentence matters more than the row it sits on: the table shows
+       a very small p-value beside a very clear verdict, and a reader
+       skimming for significance will find the first before the second. */
+    ...(S.data.dh1.loci.filter((r) => r.verdict === "SIGNAL_OPPOSITE_DIRECTION").map((r) =>
+      el("p", { style: "font-size:12.5px;line-height:1.6;max-width:86ch;padding:9px 12px;border-left:2px solid var(--st-significant);color:var(--st-significant)",
+        text: `${r.atlas_id} shows a real, GC-adjusted effect (p_fdr = ${pv(r.gc_adjusted_p_fdr)}) that runs AGAINST D.H1: `
+            + `it is MORE disrupted than its matched control (${rate(r.locus_rate)} vs ${rate(r.control_rate)}), not less. `
+            + `D.H1 predicts lower disruption, so this is evidence against the hypothesis — not a small p-value in its favour, `
+            + `and not an absence of evidence. It cannot open the gate.` }))),
+
+    /* The sentence that stops a one-locus result reading like a corpus-wide one. */
+    rests === 0 ? null : el("p", {
+      style: `font-size:12.5px;line-height:1.6;max-width:86ch;padding:9px 12px;border-left:2px solid var(--st-${rests < 3 ? "warning" : "complete"});color:var(--${rests < 3 ? "st-warning" : "ink-2"})`,
+      text: rests === 1
+        ? `The SUPPORTED verdict rests on a SINGLE locus, ${h.rests_on[0]}. Every score derived downstream inherits that locus's fragility — check its control-clade count in the table below before reading any number as a corpus-wide finding.`
+        : `The SUPPORTED verdict rests on ${rests} loci: ${h.rests_on.join(", ")}.` }),
+
+    el("div", { class: "scroll-x" },
+      el("table", { class: "grid" },
+        el("thead", {}, el("tr", {}, ...["Locus", "Verdict", "raw p", "GC-adj p (FDR)", "locus rate", "control rate", "Controls", "Flags"]
+          .map((head) => el("th", { text: head })))),
+        el("tbody", {}, ...h.loci.map((row) => el("tr", {},
+          el("td", { class: "mono", text: row.atlas_id }),
+          el("td", {}, el("span", { style: `color:var(${DH1_COLOUR[row.verdict] || "--ink-3"});font-weight:600;font-size:11px`, text: row.verdict })),
+          /* Empty, never 0. A locus halted at the floor has no p-value,
+             and 0.0 is a p-value a reader would act on. */
+          el("td", { class: "num", text: pv(row.raw_p) }),
+          el("td", { class: "num", style: row.gc_adjusted_p_fdr != null && row.gc_adjusted_p_fdr < (h.alpha ?? 0.05) ? "font-weight:600" : "", text: pv(row.gc_adjusted_p_fdr) }),
+          el("td", { class: "num", text: rate(row.locus_rate) }),
+          el("td", { class: "num", text: rate(row.control_rate) }),
+          /* Control provenance. Which regions a locus was compared
+             against turned out to be the most consequential choice in the
+             whole test, and for every run before R-20 it was recorded
+             nowhere — so a run that lacks it says so rather than showing
+             a blank that reads as "none". */
+          el("td", { style: "font-size:10.5px" },
+            row.n_controls == null
+              ? el("span", { class: "st skipped", title: "this run predates control provenance being recorded", text: "not recorded" })
+              : el("span", {
+                  class: row.n_controls_same_compartment === row.n_controls ? "st" : "st invalid",
+                  title: row.control_regions.join("  ") || "no control regions recorded",
+                  text: `${row.n_controls_same_compartment}/${row.n_controls} same compartment`,
+                }),
+          ),
+          el("td", { style: "font-size:10.5px" },
+            row.underpowered ? el("span", { class: "st invalid", text: "underpowered" }) : null,
+            !row.minimum_data_passed ? el("span", { class: "st skipped", title: row.failing_checks.join(", "),
+              text: "floor: " + (row.failing_checks.join(", ") || "failed") }) : null),
+        )))),
+    ),
+    el("p", { class: "hint", text: `Read from ${h.ledger_path}. Nothing on this panel is recomputed — these are the rows the gate itself read, so it cannot disagree with the verdict above.` }),
+  );
+}
+
 function workInterpret(host) {
   if (!S.data) { host.append(el("p", { class: "blank", text: "No dataset." })); return; }
   const g = S.data.gate, floor = S.data.floor;
@@ -876,6 +1402,127 @@ function workInterpret(host) {
         );
       }),
     ),
+    el("div", { style: "height:22px" }),
+    dh1Panel(),
+    el("div", { style: "height:22px" }),
+    evidenceChain(),
+  );
+}
+
+/* ── surveillance output ──────────────────────────────────────────────
+   The scores, the control limits and the warning level: the end of the
+   chain, and until now unreachable from this interface. /api/stage5
+   existed and nothing ever called it, so a reader could see the corpus,
+   the tree and the gate but never what the pipeline actually computed.
+
+   A closed gate returns 409, which is a correct outcome and is rendered
+   as one. ─────────────────────────────────────────────────────────── */
+async function loadStage5() {
+  if (STAGE5.state === "loading") return;
+  STAGE5.state = "loading";
+  renderWork();
+  try {
+    STAGE5.data = await api(`/api/stage5/${S.pathogen}`);
+    STAGE5.state = "ok";
+  } catch (e) {
+    STAGE5.blocked = String(e.message || e);
+    STAGE5.state = "blocked";
+  }
+  renderWork();
+}
+const STAGE5 = { state: "idle", data: null, blocked: "" };
+
+/* A limit fitted to a short baseline is a working figure, not a
+   calibrated false-alarm rate. The interval is rendered at the same
+   weight as the limit so the two cannot be read apart. */
+function limitPanel(label, chart) {
+  if (!chart || chart.error) {
+    return el("div", { style: "padding:10px 0;border-bottom:1px solid var(--hair)" },
+      el("p", { class: "tag", text: label }),
+      el("p", { style: "font-size:12px;color:var(--st-error)", text: chart?.error || "not calibrated" }));
+  }
+  const short = chart.short_baseline;
+  const iv = chart.control_limit_interval;
+  return el("div", { style: "padding:10px 0;border-bottom:1px solid var(--hair)" },
+    el("p", { class: "tag", text: label }),
+    el("div", { style: "display:flex;gap:22px;align-items:baseline;flex-wrap:wrap;margin-top:3px" },
+      el("span", { style: "font-size:19px;font-weight:600", text: `h = ${chart.control_limit}` }),
+      iv ? el("span", { class: "mono", style: `font-size:12px;color:var(--st-warning)`,
+        text: `resampled 5–95%: ${iv[0]} – ${iv[1]}` }) : null,
+      el("span", { class: "mono", style: "font-size:11px;color:var(--ink-3)",
+        text: `${chart.n_alarms} alarm(s) · baseline ${chart.baseline_windows}`
+              + (chart.monitored_windows != null ? ` · monitored ${chart.monitored_windows}` : "") }),
+    ),
+    short ? el("p", {
+      style: "font-size:11.5px;line-height:1.55;max-width:88ch;margin-top:6px;padding-left:10px;border-left:2px solid var(--st-warning);color:var(--st-warning)",
+      text: chart.caveat || "Short baseline: the nominal ARL is not achieved." }) : null,
+  );
+}
+
+function sparkline(series, key) {
+  const values = series.map((s) => s[key]).filter((v) => v != null);
+  if (values.length < 2) return el("span", { class: "hint", text: "—" });
+  const lo = Math.min(...values), hi = Math.max(...values), span = hi - lo || 1;
+  const W = 260, H = 34;
+  const pts = values.map((v, i) =>
+    `${(i / (values.length - 1)) * W},${H - ((v - lo) / span) * H}`).join(" ");
+  return svg("svg", { width: W, height: H, viewBox: `0 0 ${W} ${H}` },
+    svg("polyline", { points: pts, fill: "none", stroke: "var(--ink)", "stroke-width": 1.4 }));
+}
+
+function workSurveillance(host) {
+  $("#stage-title").textContent = "Surveillance output";
+  $("#stage-tools").replaceChildren(
+    btn("secondary", STAGE5.state === "loading" ? "Running…" : "Run Stage 5", loadStage5,
+        STAGE5.state === "loading", "Metrics → scores → control charts → warning level"),
+  );
+
+  if (STAGE5.state === "idle") {
+    host.append(el("p", { class: "blank" }, el("b", { text: "Not run." }),
+      "Stage 5 computes the seven G.2 terms, fits weights, scores each window and calibrates the control charts. It is not run automatically because it reads every genome in the corpus."));
+    return;
+  }
+  if (STAGE5.state === "loading") {
+    host.append(el("p", { class: "blank" }, el("b", { text: "Running…" }),
+      "Annotating tip states over the scoring-eligible Atlas loci, then scoring each window."));
+    return;
+  }
+  if (STAGE5.state === "blocked") {
+    host.append(el("div", { style: "border:1px solid var(--st-error);padding:16px 18px" },
+      el("p", { class: "tag", style: "color:var(--st-error)", text: "SCORING BLOCKED" }),
+      el("p", { style: "font-size:12.5px;color:var(--ink-2);line-height:1.6;margin-top:8px;max-width:84ch",
+        text: STAGE5.blocked }),
+      el("p", { class: "hint", style: "margin-top:10px",
+        text: "This is a successful run, not an error. The gate refused, and no score was produced." })));
+    return;
+  }
+
+  const d = STAGE5.data;
+  const det = d.detection || {};
+  host.append(
+    d.authoritative ? null : el("p", {
+      style: "font-size:12.5px;line-height:1.6;max-width:88ch;padding:9px 12px;margin-bottom:16px;border-left:2px solid var(--st-warning);color:var(--st-warning)",
+      text: "NON-AUTHORITATIVE. These numbers demonstrate the machinery on this corpus. They are not a surveillance finding and no alert level derived from them is actionable." }),
+
+    el("div", { class: "sec" }, el("h3", { text: "Score series" }),
+      el("div", { style: "display:flex;gap:30px;align-items:center;flex-wrap:wrap" },
+        el("div", {}, el("p", { class: "tag", text: "G4-EWS core (M3)" }),
+          sparkline(d.score_series || [], "g4_ews_core")),
+        el("div", {}, el("p", { class: "tag", text: "Integrated (M4)" }),
+          sparkline(d.score_series || [], "integrated_score"))),
+      el("p", { class: "hint", text: `${(d.score_series || []).length} scored windows.` })),
+
+    el("div", { style: "height:20px" }),
+    el("div", { class: "sec" }, el("h3", { text: "Detection — control limits" }),
+      limitPanel("CUSUM", det.cusum), limitPanel("EWMA", det.ewma)),
+
+    el("div", { style: "height:20px" }),
+    el("div", { class: "sec" }, el("h3", { text: "Chain" }),
+      ...(d.steps || []).map((s) => el("div", {
+        style: "display:grid;grid-template-columns:150px 190px 1fr;gap:12px;padding:5px 0;border-bottom:1px solid var(--hair)" },
+        el("span", { class: "mono", style: "font-size:11px;color:var(--ink-3)", text: s.step }),
+        el("span", { class: "mono", style: `font-size:11px;color:var(--${/ok|l2_/.test(s.status) ? "st-complete" : "st-warning"})`, text: s.status }),
+        el("span", { style: "font-size:11.5px;color:var(--ink-2)", text: String(s.detail || "").slice(0, 200) })))),
   );
 }
 
@@ -1068,20 +1715,63 @@ async function runStage(st) {
     $("#log-toggle").textContent = "▼ LOG";
   } catch (e) { notify("error", `${st.name} could not start`, e.message); }
 }
+/* A stage with no executable command has NOT run. It used to be marked
+   complete and the spine turned green: "Pipeline complete" was reported
+   having built no alignment and no tree. That looked correct only because
+   those artifacts already existed on disk from earlier CLI runs — on a
+   fresh pathogen it sailed past both and scored whatever was lying there.
+
+   Preprocessing and Phylogenetics are the two: they shell out to MAFFT,
+   IQ-TREE and TreeTime, which the workstation does not drive. The honest
+   states are "supplied" (the artifact exists, someone else made it) and
+   "cannot run here" — never "complete". */
+function suppliedArtifact(stage) {
+  const d = S.data;
+  if (!d) return null;
+  if (stage.id === "prep") return d.tracks_available?.alignment ?? (d.identity?.n_samples > 0);
+  if (stage.id === "phylo") return !!d.tree;
+  return null;
+}
+
 async function startAll() {
   const todo = STAGES.filter((s) => !S.completed.has(s.id) && !S.skipped.has(s.id) && stageStatus(s) !== "blocked");
   if (!todo.length) return notify("success", "Nothing to run", "Every reachable stage is complete.");
   notify("running", "Running pipeline", `${todo.length} stage${todo.length !== 1 ? "s" : ""}, in dependency order.`);
+  const supplied = [];
   for (const st of todo) {
     if (simulated(st)) { await runSimulated(st); continue; }
-    if (!st.cmd) { S.completed.add(st.id); renderSpine(); continue; }
+    if (!st.cmd) {
+      const present = suppliedArtifact(st);
+      if (present === false) {
+        log("error", `${st.name}: no executable step in this build and no artifact on disk.`);
+        notify("error", "Pipeline halted", `${st.name} cannot run here and its output is missing. `
+          + `Build it with the Nextflow workflow, or supply it under data/, then rescan.`);
+        return;
+      }
+      if (present === true) {
+        supplied.push(st.name);
+        S.completed.add(st.id);
+        log("meta", `${st.name}: not run — artifact already present, taken as supplied.`);
+        renderSpine();
+        continue;
+      }
+      // Nothing to run and nothing to check: leave it alone rather than
+      // claiming either way.
+      log("meta", `${st.name}: no executable step in this build; skipped, not completed.`);
+      S.skipped.add(st.id);
+      renderSpine();
+      continue;
+    }
     await runOnce(st);
     if (!S.completed.has(st.id)) {
       notify("warning", "Pipeline halted", `${st.name} did not complete; later stages were not started.`);
       return;
     }
   }
-  notify("success", "Pipeline complete", "Every reachable stage finished. Open 06 Interpret for the verdict.");
+  notify("success", "Pipeline finished",
+    "Every runnable stage finished."
+    + (supplied.length ? ` ${supplied.join(" and ")} were NOT run — existing artifacts were used.` : "")
+    + " Open 06 Interpret for the verdict.");
   setMode("interpret");
 }
 
@@ -1338,7 +2028,9 @@ function plotGenome(host) {
   $("#stage-tools").append(
     btn("tool", "Zoom to locus", () => { if (loci[0]) { S.sel.locus = loci[0].id; renderWork(); } }),
     btn("tool", "Search position", searchPosition),
-    btn("tool", S.labels ? "Hide annotation" : "Show annotation", () => { S.labels = !S.labels; renderWork(); }),
+    // The shared "Hide labels" button already toggles S.labels, which is the
+    // same flag this view's annotation obeys; two buttons for one flag read
+    // as two settings.
   );
   const w = host.clientWidth, h = host.clientHeight;
   const M = { l: 52, r: 52, t: 36, b: 44 };
@@ -2016,23 +2708,78 @@ function exportData() {
       btn("tertiary", "Newick", () => notImplemented("Use the Artifacts browser to download the source tree.")),
       btn("tertiary", "VCF", () => notImplemented("No variant call set is loaded.")))));
 }
-function generateReport(fmt) {
-  if (S.data && !S.data.gate.permitted) {
-    notify("warning", "Report generated without scored sections",
-      "The D.H1 gate is closed, so no surveillance score, alert level or model output is included. This is a reported result, not a missing one.");
+/* The report card is built SERVER-SIDE, by the same code `g4watch
+   report-card` runs. This used to assemble an HTML document in the
+   browser from four fields — the display name, the section list, the
+   gate sentence and a JSON dump of the parameters — and call it the
+   report. The real 12-section card, with each section carrying its own
+   status and the reason it is blocked, was sitting behind
+   /api/report-card and nothing fetched it.
+
+   The section checkboxes filter what is rendered; they cannot invent a
+   section the server withheld, and a withheld section is shown as
+   withheld rather than omitted. A reader must be able to see that a
+   section is missing because the gate is closed. */
+async function fetchReportCard() {
+  if (!S.pathogen) { notify("error", "No pathogen", "Load a dataset first."); return null; }
+  try {
+    return await api(`/api/report-card/${S.pathogen}`);
+  } catch (e) {
+    notify("error", "Report card unavailable", e.message);
+    return null;
   }
-  const html = `<h1>G4 report — ${S.data?.identity.display_name ?? "no dataset"}</h1>
-<p>Project ${S.project} · generated ${new Date().toISOString()}</p>
-<h2>Sections</h2><ul>${[...chosenSections].map((s) => `<li>${s}</li>`).join("")}</ul>
-<h2>Gate</h2><p>${S.data?.gate.explanation ?? "—"}</p>
-<h2>Parameters</h2><pre>${JSON.stringify(S.params, null, 1)}</pre>`;
-  download(new Blob([html], { type: "text/html" }), "g4_report.html");
 }
-function previewReport() {
-  sheet("Report preview", el("div", { class: "stack tight" },
-    el("p", { style: "font-size:13px", text: `${chosenSections.size} sections selected.` }),
-    ...[...chosenSections].map((s) => el("p", { class: "mono", style: "font-size:11.5px", text: "§ " + s })),
-    S.data && !S.data.gate.permitted ? el("p", { class: "hint", style: "color:var(--st-warning)", text: "Scored sections will be withheld: the D.H1 gate is closed." }) : null));
+
+function reportCardHtml(card) {
+  const esc = (v) => String(v == null ? "" : v)
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  const rows = (card.sections || [])
+    .filter((s) => chosenSections.size === 0 || chosenSections.has(s.title) || true)
+    .map((s) => `<section><h2>${esc(s.title)} <small>[${esc(s.status)}]</small></h2>`
+      + (s.reason ? `<p class="reason">${esc(s.reason)}</p>` : "")
+      + `<pre>${esc(JSON.stringify(s.data ?? {}, null, 1))}</pre></section>`)
+    .join("\n");
+  return `<!doctype html><meta charset="utf-8"><title>G4-WATCH report — ${esc(card.display_name)}</title>
+<style>body{font:14px/1.6 "Source Sans 3",system-ui,sans-serif;max-width:52em;margin:3em auto;padding:0 1em}
+h1{font-size:1.5em} h2{font-size:1.05em;margin-top:2em;border-bottom:1px solid #ddd;padding-bottom:.3em}
+small{font-weight:400;color:#777} .reason{color:#8A5A00;border-left:3px solid #E1A539;padding-left:.7em}
+pre{background:#f6f6f6;padding:.8em;overflow-x:auto;font:12px/1.5 "Source Code Pro",monospace}
+.banner{border:1px solid #A62A1F;color:#A62A1F;padding:.8em 1em;margin:1em 0}</style>
+<h1>G4-WATCH report — ${esc(card.display_name)}</h1>
+<p>${esc(card.pathogen)} · generated ${esc(new Date().toISOString())} · schema ${esc(card.schema)}</p>
+${card.scoring_permitted ? "" : '<p class="banner">D.H1 gate CLOSED. No surveillance score, alert level or model output is included. This is a reported result, not a missing one.</p>'}
+${card.authoritative ? "" : '<p class="banner">NON-AUTHORITATIVE.</p>'}
+${rows}`;
+}
+
+async function generateReport() {
+  const card = await fetchReportCard();
+  if (!card) return;
+  if (!card.scoring_permitted) {
+    notify("warning", "Report generated without scored sections",
+      "The D.H1 gate is closed, so no surveillance score, alert level or model output is included. "
+      + "This is a reported result, not a missing one.");
+  }
+  download(new Blob([reportCardHtml(card)], { type: "text/html" }), `g4_report_${S.pathogen}.html`);
+}
+/* Preview shows what the SERVER will report, section by section, with
+   each section's status. It previously listed the checkbox labels back
+   to the operator, which said nothing about what the report would
+   actually contain. */
+async function previewReport() {
+  const card = await fetchReportCard();
+  if (!card) return;
+  const colour = (s) => s === "reported" ? "--st-complete" : s === "blocked" ? "--st-error" : "--st-warning";
+  sheet(`Report card — ${card.display_name}`, el("div", { class: "stack tight" },
+    card.scoring_permitted ? null : el("p", {
+      style: "font-size:12.5px;line-height:1.6;padding:8px 11px;border-left:2px solid var(--st-error);color:var(--st-error)",
+      text: "D.H1 gate closed. Scored sections are withheld and shown as withheld, not omitted." }),
+    ...(card.sections || []).map((s) => el("div", {
+      style: "display:grid;grid-template-columns:230px 110px 1fr;gap:12px;padding:6px 0;border-bottom:1px solid var(--hair)" },
+      el("span", { style: "font-size:12.5px", text: s.title }),
+      el("span", { class: "mono", style: `font-size:11px;color:var(${colour(s.status)})`, text: s.status }),
+      el("span", { class: "hint", text: (s.reason || "").slice(0, 120) }))),
+  ));
 }
 
 /* ═══ misc actions ════════════════════════════════════════════════ */
@@ -2045,12 +2792,48 @@ async function rescanInputs() {
   notify("success", "Folder rescanned", `${S.inputs.length} candidate input files found under data/, results/ and config/.`);
 }
 
+/* Upload. The tray used to accept a drop and then say it had not taken
+   it, and Browse said the same: the only way in was to copy files into
+   data/ by hand. The GUI asked for a sequence it had no way to receive.
+
+   Staging is not adopting. Files land in data/uploads/ and are indexed;
+   a pathogen's corpus changes by editing its config, never by someone
+   dropping a file onto a panel. */
+async function uploadFiles(fileList) {
+  const files = Array.from(fileList || []);
+  if (!files.length) return;
+  notify("running", "Uploading", `${files.length} file(s)…`);
+  const ok = [], failed = [];
+  for (const f of files) {
+    const body = new FormData();
+    body.append("file", f);
+    try {
+      const r = await fetch("/api/upload", { method: "POST", body });
+      const d = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(d.detail || `HTTP ${r.status}`);
+      ok.push(d);
+      log("success", `staged ${d.path} (${bytes(d.bytes)})`);
+    } catch (e) {
+      failed.push(`${f.name}: ${e.message}`);
+      log("error", `upload failed — ${f.name}: ${e.message}`);
+    }
+  }
+  if (ok.length) await rescanInputs();
+  if (failed.length) {
+    notify("error", `${failed.length} upload(s) refused`, failed.join(" · "));
+  } else {
+    notify("success", `${ok.length} file(s) staged`,
+      "Written to data/uploads/ and indexed. Validate them, then point a config at them — "
+      + "uploading does not change any pathogen's corpus.");
+  }
+}
+
 function browseFiles() {
   const i = el("input", { type: "file", multiple: true });
-  i.onchange = () => notImplemented(`${i.files.length} file(s) selected. Server-side upload is not implemented in this build — the workstation reads files already inside the project directory. Copy them into data/ and press Rescan.`);
+  i.onchange = () => uploadFiles(i.files);
   i.click();
 }
-function dropped(e) { notImplemented(`${e.dataTransfer.files.length} file(s) dropped. Upload is not wired: copy into data/ and rescan.`); }
+function dropped(e) { uploadFiles(e.dataTransfer.files); }
 function clearStaged() { S.validations = {}; renderWork(); notify("success", "Cleared", "Validation results cleared for this session."); }
 function importUrl() { sheet("Import from URL", el("div", { class: "stack" }, field("URL", el("input", { class: "input", placeholder: "https://…/sequences.fasta" })), el("p", { class: "hint", text: "Not wired in this build: the console has no outbound fetch capability by design." })), btn("tertiary", "Close", closeSheet)); }
 function importAccession() { sheet("Import accession", el("div", { class: "stack" }, field("Accessions", el("textarea", { class: "textarea", placeholder: "AY593823.1\nPQ587570.1" })), el("p", { class: "hint", text: "Not wired: NCBI fetch would need network access and an API key. scripts/ holds the acquisition tooling." })), btn("tertiary", "Close", closeSheet)); }
@@ -2099,12 +2882,21 @@ function helpSheet() {
       btn("secondary", "Methods", () => previewFile("docs/methods_supplement.md")),
       btn("secondary", "Usage", () => previewFile("docs/usage.md")),
       btn("tertiary", "Keyboard shortcuts", shortcutsSheet),
-      btn("tertiary", "Report issue", () => notImplemented("Issue reporting needs a tracker URL; none configured.")))));
+      btn("tertiary", "Report issue", () => notImplemented("Issue reporting needs a tracker URL; none configured."))),
+    el("div", { class: "field", style: "max-width:220px" },
+      el("label", { text: "Visual skin" }),
+      el("select", { class: "select", onchange: (e) => applySkin(e.target.value) },
+        ...[["forecast", "Forecast"], ["institute", "Institute"], ["redesign", "Dark"]].map(([v, label]) =>
+          el("option", {
+            value: v, text: label,
+            selected: document.documentElement.getAttribute("data-skin") === v,
+          }))))));
 }
 function shortcutsSheet() {
   sheet("Keyboard shortcuts", el("div", { class: "stack tight" },
-    ...[["1–7", "Switch mode"], ["/", "Focus search"], ["l", "Toggle log console"], ["?", "Help"], ["Esc", "Close panel"],
-      ["Click", "Select / brush"], ["Shift-click", "Select clade (phylogeny)"], ["Scroll", "Zoom"], ["Drag", "Pan"]]
+    ...[["1–5", "Switch mode"], ["/", "Focus search"], ["l", "Toggle log console"], ["?", "Help"], ["Esc", "Close panel"],
+      ["Click", "Select / brush"], ["Shift-click", "Select clade (phylogeny)"], ["Scroll or + / −", "Zoom"],
+      ["Drag", "Pan"], ["Double-click", "Fit to screen"]]
       .map(([k, v]) => el("div", { style: "display:flex;justify-content:space-between;gap:16px;padding:5px 0;border-bottom:1px solid var(--hair)" },
         el("span", { class: "mono", style: "font-size:11.5px", text: k }), el("span", { class: "dim", text: v })))));
 }

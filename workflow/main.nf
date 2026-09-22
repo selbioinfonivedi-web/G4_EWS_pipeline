@@ -27,6 +27,7 @@ nextflow.enable.dsl = 2
 include { BUILD_ATLAS          } from './modules/atlas_construction.nf'
 include { SEQUENCE_QC          } from './modules/qc.nf'
 include { ALIGN_TO_REFERENCE   } from './modules/alignment.nf'
+include { BUILD_DATES          } from './modules/dates.nf'
 include { RECOMBINATION_SCREEN } from './modules/recombination_screen.nf'
 include { IQTREE_ML            } from './modules/phylogenetics.nf'
 include { TREETIME_ROOT        } from './modules/phylogenetics.nf'
@@ -38,6 +39,58 @@ include { SURVEILLANCE_SCORING } from './modules/scoring.nf'
 include { GATE_STATUS_REPORT   } from './modules/reporting.nf'
 include { REPORT_CARD          } from './modules/reporting.nf'
 include { DH3_TEST             } from './modules/reporting.nf'
+
+/*
+ * Resolve the reference FASTA for a pathogen.
+ *
+ * The path lives in config/<pathogen>.yaml under `reference.fasta`, which
+ * is where every other stage gets it: `g4watch qc`, `g4watch dh1` and the
+ * rest are each handed only `--pathogen` and read the rest themselves.
+ * Alignment was the exception -- MAFFT runs as a bare tool here rather
+ * than through the CLI, so Nextflow has to stage the file and therefore
+ * has to know its path.
+ *
+ * It asked for that path as `--reference`, defaulting to null, while the
+ * help message listed only `--pathogen` as required. A run that believed
+ * the help died inside `Channel.fromPath(null)` with a Groovy stack trace
+ * naming neither the parameter nor the pathogen. Reading the config
+ * removes the second copy of the path rather than documenting it.
+ *
+ * `--reference` still overrides, for a corpus being aligned against
+ * something other than its declared reference.
+ */
+def referenceFasta(pathogen) {
+    if (params.reference) {
+        return params.reference
+    }
+    def configFile = file("${projectDir}/../config/${pathogen}.yaml")
+    if (!configFile.exists()) {
+        exit 1, "ERROR: no config for pathogen '${pathogen}' at ${configFile}.\n" +
+                "       Pass --reference explicitly, or add the config."
+    }
+    def cfg = new org.yaml.snakeyaml.Yaml().load(configFile.text)
+    // A stub config declares nulls deliberately rather than guessing an
+    // accession, and `provisioned: false` says so. Reporting the missing
+    // reference would name a symptom; this names the cause.
+    if (cfg?.provisioned == false) {
+        exit 1, "ERROR: pathogen '${pathogen}' is not provisioned.\n" +
+                "       ${configFile} sets provisioned: false; see its provisioning_notes\n" +
+                "       for what a curator must fill in before it can run."
+    }
+    def declared = cfg?.reference?.fasta
+    if (!declared) {
+        exit 1, "ERROR: ${configFile} declares no reference.fasta, and --reference was not given.\n" +
+                "       Stage 1 aligns against a reference; there is nothing to align to."
+    }
+    // Config paths are repo-relative, as the CLI reads them.
+    def resolved = file("${projectDir}/../${declared}")
+    if (!resolved.exists()) {
+        exit 1, "ERROR: ${configFile} points reference.fasta at ${declared}, which does not exist.\n" +
+                "       Looked for: ${resolved}"
+    }
+    log.info "  reference: ${declared} (from ${configFile.name})"
+    return resolved
+}
 
 def helpMessage() {
     log.info """
@@ -53,6 +106,12 @@ def helpMessage() {
       --alignment PATH        use this reference-anchored alignment
       --rooted_tree PATH      use this rooted Newick tree
       --atlas PATH            use this Atlas TSV instead of rebuilding
+      --reference PATH        override reference.fasta from the pathogen config
+      --dates PATH            override the dates derived from corpus metadata
+
+    --reference and --dates are OVERRIDES, not requirements. Both are
+    resolved from config/<pathogen>.yaml when not given, so a plain
+    `--pathogen <name>` run works, as the Required section says.
 
     Toggles:
       --skip_qc               corpus is already QC-filtered
@@ -103,7 +162,7 @@ workflow {
             exit 1, "ERROR: --skip_qc needs --alignment; there is nothing to align otherwise."
         }
         ch_qc        = SEQUENCE_QC(pathogen)
-        ch_reference = Channel.fromPath(params.reference, checkIfExists: true)
+        ch_reference = Channel.fromPath(referenceFasta(pathogen), checkIfExists: true)
         ch_alignment = ALIGN_TO_REFERENCE(pathogen, ch_qc.passed_fasta, ch_reference).alignment.first()
     }
 
@@ -122,7 +181,12 @@ workflow {
     }
     else {
         ch_treefile    = IQTREE_ML(pathogen, ch_alignment).treefile
-        ch_dates       = Channel.fromPath(params.dates, checkIfExists: true)
+        // Derived from the corpus metadata this pathogen already declares,
+        // unless the operator overrides it. Requiring a hand-made file here
+        // is what made `--pathogen btv` die in Channel.fromPath(null).
+        ch_dates       = (params.dates
+            ? Channel.fromPath(params.dates, checkIfExists: true)
+            : BUILD_DATES(pathogen, ch_alignment).dates).first()
         // Staged as an input rather than referenced via ${projectDir}/..,
         // which is not mounted under the docker/singularity profiles.
         ch_root_resolver = Channel.fromPath(

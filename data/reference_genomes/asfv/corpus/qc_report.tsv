@@ -1,0 +1,61 @@
+accession	lineage_raw	lineage_normalized	country	passed	completeness_fraction	n_content_fraction	reasons_failed
+PZ564645.1	Viet Nam	Viet Nam	Viet Nam	True	0.9829	0.0	
+PZ564644.1	Viet Nam	Viet Nam	Viet Nam	True	0.9788	0.0	
+PZ564643.1	Viet Nam	Viet Nam	Viet Nam	True	0.9716	0.0	
+PZ564642.1	Viet Nam	Viet Nam	Viet Nam	True	0.9668	0.0	
+PV804861.1	Ghana	Ghana	Ghana	True	1.0175	0.0	
+PZ179807.1	Viet Nam	Viet Nam	Viet Nam	True	1.0141	0.0	
+PZ179806.1	Viet Nam	Viet Nam	Viet Nam	True	1.0144	0.0	
+PW118571.1				False	0.9701	0.0	collection date missing year-level precision
+PW023772.1				False	0.9803	0.0	collection date missing year-level precision
+PP050539.1	Italy	Italy	Italy	True	1.0519	0.0	
+PP050538.1	Italy	Italy	Italy	True	1.0518	0.0	
+PP050537.1	Italy	Italy	Italy	True	1.0518	0.0	
+PP050536.1	Italy	Italy	Italy	True	1.0518	0.0	
+PP050535.1	Italy	Italy	Italy	True	1.0518	0.0	
+PP050534.1	Italy	Italy	Italy	True	1.0518	0.0	
+PP050533.1	Italy	Italy	Italy	True	1.0518	0.0	
+PP050532.1	Italy	Italy	Italy	True	1.0518	0.0	
+PP050531.1	Italy	Italy	Italy	True	1.0518	0.0	
+PP050530.1	Italy	Italy	Italy	True	1.0518	0.0	
+PP050529.1	Italy	Italy	Italy	True	1.0519	0.0	
+PP050528.1	Italy	Italy	Italy	True	1.0519	0.0	
+PP050527.1	Italy	Italy	Italy	True	1.0519	0.0	
+PP050526.1	Italy	Italy	Italy	True	1.0519	0.0	
+PP050525.1	Italy	Italy	Italy	True	1.0518	0.0	
+PZ544121.1	China	China	China	True	1.0455	0.0	
+PX880620.1	Taiwan	Taiwan	Taiwan	True	1.0255	0.0001	
+PX880619.1	Taiwan	Taiwan	Taiwan	True	1.0353	0.0002	
+PX880618.1	Taiwan	Taiwan	Taiwan	True	1.0443	0.0	
+PZ539208.1	China	China	China	True	1.0453	0.0	
+PZ334409.1	Viet Nam	Viet Nam	Viet Nam	True	1.0256	0.0005	
+PZ325337.1	Viet Nam	Viet Nam	Viet Nam	True	1.0245	0.0005	
+PZ412710.1	Russia	Russia	Russia	True	1.0506	0.0	
+PZ412709.1	Russia	Russia	Russia	True	1.0506	0.0073	
+PQ010734.2	Viet Nam	Viet Nam	Viet Nam	True	1.0267	0.0	
+PQ010733.2	Viet Nam	Viet Nam	Viet Nam	True	1.0263	0.0	
+PQ010732.2	Viet Nam	Viet Nam	Viet Nam	True	1.0231	0.0	
+PZ334444.1				False	1.0435	0.0	collection date missing year-level precision
+PZ268055.1	Viet Nam	Viet Nam	Viet Nam	True	1.0228	0.0	
+PZ268054.1	Viet Nam	Viet Nam	Viet Nam	True	1.0278	0.0	
+PV833569.1	Italy	Italy	Italy	True	1.0519	0.0	
+PV833568.1	Italy	Italy	Italy	True	1.052	0.0	
+PV833567.1	Italy	Italy	Italy	True	1.0519	0.0	
+PV833566.1	Italy	Italy	Italy	True	1.0519	0.0	
+PV833565.1	Italy	Italy	Italy	True	1.0519	0.0	
+PP050516.1	Italy	Italy	Italy	True	1.052	0.0	
+PP050515.1	Italy	Italy	Italy	True	1.0519	0.0	
+PP050514.1	Italy	Italy	Italy	True	1.0519	0.0	
+PP050513.1	Italy	Italy	Italy	True	1.052	0.0	
+PP050512.1	Italy	Italy	Italy	True	1.0519	0.0	
+PP317820.1	Italy	Italy	Italy	True	1.0519	0.0	
+PP317819.1	Italy	Italy	Italy	True	1.0519	0.0	
+PP317818.1	Italy	Italy	Italy	True	1.052	0.0	
+PP317817.1	Italy	Italy	Italy	True	1.052	0.0	
+PP317816.1	Italy	Italy	Italy	True	1.0519	0.0	
+PP317815.1	Italy	Italy	Italy	True	1.0519	0.0	
+PP317814.1	Italy	Italy	Italy	True	1.0519	0.0	
+PP317813.1	Italy	Italy	Italy	True	1.0519	0.0	
+PP317812.1	Italy	Italy	Italy	True	1.0519	0.0	
+PP317811.1	Italy	Italy	Italy	True	1.0519	0.0	
+PP317808.1	Italy	Italy	Italy	True	1.0519	0.0	

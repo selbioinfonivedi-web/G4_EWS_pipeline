@@ -28,25 +28,87 @@ made about it:**
 trusting a flag. Stage 5 (scoring) and Stage 6 (scored reporting) refuse
 to run until they hold, and editing the workflow cannot open the gate.
 
-**Current status — FMDV: `INSUFFICIENT_DATA`. Scoring is blocked.**
+**Current status — no pathogen has an open gate, and no early warning is
+produced.** Surveillance scores now compute for FMDV 2026 (16 windows,
+M3 and M4) because `conservation_pct_phylo` is finally populated and 43
+loci reach SC. No alarm threshold can be calibrated on them — CUSUM and
+EWMA need 20 baseline observations and the corpus yields 8 — so the chain
+produces scores and stops short of a warning level. See
+`docs/revision_log.md` R-21 and R-22.
+
+| Pathogen | Genome | Corpus | D.H1 verdict | Scoring |
+|---|---|---|---|---|
+| FMDV | ssRNA+ 8.2 kb | 848 aligned | `INSUFFICIENT_DATA` | blocked |
+| FMDV2026 | ssRNA+ 8.2 kb | 936 aligned | `SIGNAL_OPPOSITE_DIRECTION` | blocked |
+| PPRV | ssRNA− 15.9 kb | 73 aligned | `INSUFFICIENT_DATA` | blocked |
+| CSFV | ssRNA+ 12.3 kb | 896 aligned | not yet run | blocked |
+| NDV | ssRNA− 15.2 kb | 1,583 aligned | not yet run | blocked |
+| EBV | dsDNA 172 kb | 209 aligned | not run (Atlas only) | blocked |
+| LSDV | dsDNA 150 kb | scaffold config | not run | blocked |
+| FMDV2026:O | stratified | 532 aligned | `SIGNAL_OPPOSITE_DIRECTION` (cannot open the FMDV2026 gate) | blocked |
+
+Six pathogens are provisioned across positive- and negative-sense RNA and
+dsDNA genomes, 8 kb to 172 kb. LSDV remains a scaffold: it is a ~150 kb
+poxvirus with ~156 ORFs, and `GenomeAnnotation` models a single CDS span
+(`docs/revision_log.md` R-08).
 
 ```
-$ g4watch gate-status -p fmdv
-D.H1 GATE: SCORING BLOCKED  [BLOCKED_INSUFFICIENT_DATA]
+$ g4watch gate-status -p fmdv2026
+D.H1 GATE: SCORING BLOCKED  [BLOCKED_SIGNAL_OPPOSITE_DIRECTION]
 ```
 
-That is a real finding about corpus composition, not a pipeline failure.
-The FMDV corpus holds 848 aligned sequences, but 269 (32%) have no
-serotype recorded at all, and among those that do, three serotypes
-(Asia1, Pan Asia O, C) fall below the 20-sequences-per-lineage floor.
-Overall corpus size cannot average that away — which is exactly what the
-floor exists to catch. No p-value was produced for any locus, because
-the test never ran.
+Both FMDV results are real findings, not pipeline failures, and they are
+different findings.
 
-`INSUFFICIENT_DATA` is kept strictly distinct from `NOT_SUPPORTED`
-throughout: the first means the test could not be run, the second means
-it ran and the hypothesis failed. Neither permits scoring, but they mean
-very different things and conflating them would misrepresent the result.
+**FMDV (848 sequences) — `INSUFFICIENT_DATA`.** 269 sequences (32%) have
+no serotype recorded, and among those that do, three serotypes fall below
+the 20-sequences-per-lineage floor. Overall corpus size cannot average
+that away, which is exactly what the floor exists to catch. No p-value
+was produced for any locus, because the test never ran.
+
+**FMDV 2026 (936 sequences) — `SIGNAL_OPPOSITE_DIRECTION`.** The larger
+corpus clears the floor: all five circulating serotypes pass, and 18 of
+37 pre-specified loci reached a p-value.
+
+One locus, FMDV2026-G4-004, shows a very strong effect that survives GC
+adjustment — and it points the wrong way. It is *more* disrupted than its
+five matched CDS controls (0.775 vs 0.287, p_fdr = 1.1e-09), which is
+evidence against D.H1 rather than for it.
+
+Three loci point the *predicted* way. FMDV2026-G4-015 (0.306 vs 0.726)
+and G4-025 (0.111 vs 0.538) are markedly more conserved than their
+controls, and in both cases GC adjustment removes the effect —
+`SIGNAL_EXPLAINED_BY_GC`, which is precisely the job that gate exists to
+do. G4-020 sits just outside significance in the same direction
+(p_fdr = 0.077). The remaining 15 tested loci are `NOT_SUPPORTED`.
+
+Two defects had to be fixed before any of those numbers meant anything,
+and both are worth reading before quoting a result:
+
+* the gate never compared the two disruption rates, so a locus more
+  disrupted than its control was recorded as `SUPPORTED`
+  (`docs/revision_log.md` R-18);
+* control selection broke GC ties by position, putting 36 of 37 controls
+  in the structured 5' UTR — for G4-004 there were 443 candidates tied at
+  a *perfect* GC match, 374 of them in the CDS, and it was handed nt 7-31
+  (R-20).
+
+Every D.H1 verdict produced before those fixes rests on a control arm
+drawn from the wrong part of the genome. Fixing the controls did not
+weaken the wrong-direction finding — it strengthened it by two orders of
+magnitude, because the bad control had been masking it.
+
+The four verdicts are kept strictly distinct throughout, because they
+mean different things and conflating them would misrepresent the result:
+
+| Verdict | Meaning |
+|---|---|
+| `INSUFFICIENT_DATA` | the test could not be run |
+| `NOT_SUPPORTED` | it ran; no significant difference |
+| `SIGNAL_EXPLAINED_BY_GC` | a raw effect that GC adjustment removed |
+| `SIGNAL_OPPOSITE_DIRECTION` | a real effect, running against the hypothesis |
+
+None of them permits scoring.
 
 ---
 
@@ -60,6 +122,7 @@ Stage 2    Phylogenomics + ancestral states  IQ-TREE2 / TreeTime
 Stage 3    Variant analysis
 Stage 4    G4 surveillance metrics ────────┐
 Stage 4.5  GC-confound control gate ───────┴─ g4watch dh1
+           (two-sided tests + an explicit direction check)
            ╔══════════════════════════════╗
            ║   GATE: D.H1  (Section 12)   ║
            ╚══════════════════════════════╝
@@ -79,14 +142,48 @@ screen runs before phylogenetics for every pathogen.
 ## Quick start
 
 ```bash
+git clone <repository-url> G4_WATCH && cd G4_WATCH
 make install          # creates .venv and installs the package
 make vendor           # builds PhiPack from the vendored source (no network)
 make doctor           # reports which external tools are present
 
 g4watch config list
-g4watch gate-status -p fmdv
-g4watch dashboard   -p fmdv
+g4watch gate-status -p fmdv2026
 ```
+
+### The web application
+
+```bash
+.venv/bin/python -m uvicorn web.runner.app:app --host 127.0.0.1 --port 8800
+```
+
+Open <http://127.0.0.1:8800/>. **Analyses** (mode 00) is the end-to-end
+path: create an analysis, upload a FASTA, validate it, launch the
+Nextflow pipeline with a chosen profile, watch the status, read the
+results — without a terminal.
+
+Analyses persist in SQLite (`data/analyses.sqlite3`, relocatable with
+`G4WATCH_DB`), so a run survives a restart. Anything left `RUNNING` when
+the service stopped is marked `FAILED` with an explanation rather than
+left claiming to be running: statuses persist and processes do not.
+
+### Deployment
+
+```bash
+docker compose -f containers/docker-compose.yml up --build -d
+```
+
+Serves the read-only public dashboard on <http://127.0.0.1:8080>. It
+never runs the pipeline and never writes the ledger — `data/` and
+`config/` are mounted read-only.
+
+**Tools that stay on the host.** The operator console shells out to
+MAFFT, IQ-TREE 2, TreeTime, Rscript (with `ape`) and Nextflow. They are
+not in the web images by design: the dashboard does not compute. Install
+them for pipeline work, or run the pipeline under `-profile docker`,
+which uses the built images instead. `make doctor` reports what is
+present, and every stage that needs a missing tool fails loudly rather
+than skipping.
 
 Run the whole pipeline. `-profile docker` needs the images built once
 with `make containers`; `-profile conda_free` runs against the host.
@@ -114,10 +211,26 @@ nextflow run workflow/main.nf -entry ACQUISITION \
   --pathogen <name> --accession_list <accessions.txt>
 ```
 
-Individual stages are also available directly:
+Individual stages are also available directly. The full chain for a
+newly provisioned pathogen, in order:
+
+```bash
+g4watch qc             -p <name>   # Stage 1  — QC filters
+g4watch align          -p <name>   # Stage 1  — MAFFT to the reference
+g4watch recombination  -p <name>   # Stage 1.5 — PHI screen (mandatory)
+g4watch phylogenetics  -p <name>   # Stage 2  — IQ-TREE, TreeTime, rooting
+g4watch stage0         -p <name>   # Stage 0  — build the Atlas
+g4watch atlas-conservation -p <name>  # populate conservation, re-tier
+g4watch dh1            -p <name>   # Stage 4/4.5 — the gated test
+```
+
+Others:
 
 ```bash
 g4watch stage0 -p <name>          # build the Atlas
+g4watch stage0 -p <name> --survey <aligned.fasta>   # and survey the corpus
+g4watch atlas-reclassify -p <name>   # bring a stored Atlas up to date
+g4watch calibrate                    # measure the SC operating point
 g4watch variants -p <name>        # call variants from the alignment
 g4watch dh1 -p <name>             # the gated hypothesis test
 g4watch stage5 -p <name>          # the full downstream chain
@@ -127,6 +240,38 @@ g4watch report-card -p <name>     # the 12-section card
 
 A closed gate is a **successful** run. Stage 5 reports that scoring is
 blocked, Stage 6 publishes the gate status, and the workflow exits 0.
+
+### Testing
+
+```bash
+.venv/bin/python -m pytest -q              # the whole suite
+.venv/bin/python -m pytest tests/unit -q   # unit only, no corpus needed
+.venv/bin/python -m pytest tests/web -q    # API, store, validation, GUI contracts
+.venv/bin/ruff check g4watch web tests scripts
+```
+
+Tests that need a real corpus skip themselves when one is absent, so a
+fresh clone runs the suite without downloading anything.
+
+Synthetic edge-case datasets are built by
+`scripts/python/make_synthetic_datasets.py` into `data/synthetic/`. Every
+record id there begins with `SYNTH-`: nothing in that directory is a
+biological observation, and no result from it may be reported as one.
+
+### Debugging the pipeline directly
+
+When the console is not the problem, run Nextflow itself:
+
+```bash
+nextflow run workflow/main.nf -profile conda_free --pathogen fmdv2026 \
+  --atlas       data/atlases/G4_Reference_Atlas_v2.0.fmdv2026.tsv \
+  --alignment   data/reference_genomes/fmdv/corpus_2026/aligned/fmdv2026_qc_passed_aligned_to_ref.fasta \
+  --rooted_tree data/reference_genomes/fmdv/corpus_2026/phylogenetics/fmdv2026_rooted_div.nwk \
+  --skip_qc -resume
+```
+
+`-resume` reuses cached task results. `results/pipeline_info/` holds the
+trace, timeline and DAG for the run.
 
 ### Exit codes
 

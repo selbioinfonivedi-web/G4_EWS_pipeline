@@ -301,13 +301,22 @@ def test_assets_are_not_heuristically_cached(client):
 
 
 def test_asset_urls_carry_a_content_hash(client):
-    """Belt and braces: a changed file gets a new URL."""
+    """Belt and braces: a changed file gets a new URL.
+
+    Asserts the PROPERTY — every local asset reference is stamped — rather
+    than a count. It previously required at least 8 references, which made
+    any legitimate removal of a stylesheet look like a regression in the
+    cache-busting.
+    """
     import re
 
     html = client.get("/").text
-    refs = re.findall(r"/workstation/static/[\w.]+\.(?:css|js)\?v=([a-f0-9]{8})", html)
-    assert len(refs) >= 8, f"expected every local asset stamped, found {len(refs)}"
-    assert len(set(refs)) > 1, "hashes should differ between files"
+    referenced = re.findall(r'(/workstation/static/[\w.]+\.(?:css|js))(\?v=[a-f0-9]{8})?', html)
+    assert referenced, "no local assets referenced at all"
+    unstamped = [path for path, stamp in referenced if not stamp]
+    assert not unstamped, f"local assets served without a content hash: {unstamped}"
+    hashes = {stamp for _, stamp in referenced}
+    assert len(hashes) > 1, "hashes should differ between files"
 
 
 def test_hash_changes_when_a_file_changes(client, tmp_path):
@@ -394,3 +403,71 @@ def test_the_diagnostic_reads_the_same_storage_key_the_app_writes():
     diag_keys = set(re.findall(r'localStorage\.\w+\("(g4-skin[^"]*)"', (static / "app.html").read_text()))
     assert app_keys, "the app stores no skin key"
     assert diag_keys <= app_keys, f"diagnostic uses keys the app never reads: {sorted(diag_keys - app_keys)}"
+
+
+# ── typography and payload weight ───────────────────────────────────
+def test_every_font_family_named_by_a_skin_is_actually_loaded():
+    """The default skin's --sans began at -apple-system and named no
+    webfont at all, so on Linux it fell to DejaVu Sans and the interface
+    rendered flat — while the page downloaded ten families it never used
+    for body text."""
+    import re
+    from pathlib import Path
+
+    static = Path("web/workstation/static")
+    page = (static / "app.html").read_text()
+    loaded = set()
+    for url in re.findall(r"fonts\.googleapis\.com[^\"']+", page):
+        loaded |= {f.replace("+", " ") for f in re.findall(r"family=([A-Za-z0-9+]+)", url)}
+
+    system = {
+        "SF Mono", "Segoe UI", "Helvetica Neue", "Cascadia Code", "Fira Code",
+        "Times New Roman", "Arial", "Menlo", "Roboto",
+    }
+    for skin in ("forecast", "institute", "redesign", "g4"):
+        css = (static / f"{skin}.css").read_text()
+        for decl in re.findall(r"--(?:sans|mono|display|serif):\s*([^;]+);", css):
+            for family in re.findall(r'"([^"]+)"', decl):
+                assert family in loaded or family in system, (
+                    f"{skin}.css names {family!r}, which the page does not load and "
+                    "is not a system fallback — it would render as a system font"
+                )
+
+
+def test_the_default_skin_names_a_webfont_first():
+    """Not a system stack: that is what produced the flattening."""
+    import re
+    from pathlib import Path
+
+    css = (Path("web/workstation/static") / "forecast.css").read_text()
+    sans = re.search(r'--sans:\s*([^;]+);', css).group(1).strip()
+    assert sans.startswith('"'), f"--sans starts with a system font: {sans}"
+
+
+def test_no_skin_is_offered_without_a_stylesheet_on_disk():
+    """Companion to the picker test: the reverse direction. A stylesheet
+    for a skin nobody can select is dead weight."""
+    import re
+    from pathlib import Path
+
+    static = Path("web/workstation/static")
+    page = (static / "app.html").read_text()
+    offered = set(re.findall(r'<option value="([a-z0-9-]+)"', re.search(
+        r'<select[^>]*id="skin-pick".*?</select>', page, re.S).group(0)))
+    linked = set(re.findall(r"/workstation/static/([a-z0-9]+)\.css", page))
+    # Base sheets are linked but not selectable; every OFFERED skin must be linked.
+    assert offered <= linked, f"offered but not linked: {offered - linked}"
+
+
+def test_the_removed_glass_field_left_nothing_behind():
+    """A requestAnimationFrame loop painting halos behind a translucent
+    shell, on a page whose job is to show numbers."""
+    from pathlib import Path
+
+    static = Path("web/workstation/static")
+    js = (static / "g4.js").read_text()
+    page = (static / "app.html").read_text()
+    for symbol in ("startField", "drawGlassField", "glassCells"):
+        assert symbol not in js, f"{symbol} survives in g4.js"
+    for element in ("glassfield", "glassveil"):
+        assert element not in page, f"{element} survives in app.html"

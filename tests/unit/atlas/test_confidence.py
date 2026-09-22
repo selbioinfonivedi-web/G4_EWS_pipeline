@@ -59,17 +59,20 @@ def test_biophysically_confirmed_without_function_is_bc() -> None:
 
 
 def test_sc_requires_all_three_conditions() -> None:
-    base = dict(concordant_tool_count=2, g4hunter_score=1.6, conservation_pct_phylo=90.0)
+    """SC is still a conjunction of all three conditions -- the thresholds
+    were relaxed, the structure of the rule was not. Values here track the
+    relaxed operating point (>=1 tool, |G4Hunter| >= 1.2, conservation >= 75%)."""
+    base = dict(concordant_tool_count=1, g4hunter_score=1.3, conservation_pct_phylo=80.0)
 
     assert structural_confidence(_candidate(**base)) is StructuralConfidence.SC
 
-    missing_concordance = dict(base, concordant_tool_count=1)
+    missing_concordance = dict(base, concordant_tool_count=0)
     assert structural_confidence(_candidate(**missing_concordance)) is not StructuralConfidence.SC
 
-    missing_score = dict(base, g4hunter_score=1.4)
+    missing_score = dict(base, g4hunter_score=1.1)
     assert structural_confidence(_candidate(**missing_score)) is not StructuralConfidence.SC
 
-    missing_conservation = dict(base, conservation_pct_phylo=80.0)
+    missing_conservation = dict(base, conservation_pct_phylo=70.0)
     assert structural_confidence(_candidate(**missing_conservation)) is not StructuralConfidence.SC
 
 
@@ -91,9 +94,14 @@ def test_mc_via_single_tool_strong_score() -> None:
     assert structural_confidence(candidate) is StructuralConfidence.MC
 
 
-def test_single_tool_moderate_score_is_only_wc() -> None:
+def test_single_tool_moderate_score_now_reaches_mc() -> None:
+    """DELIBERATELY INVERTED when SC/MC were relaxed. Under the old rule a
+    single-tool moderate call was WC -- indistinguishable from no signal at
+    all. Only two predictors are actually wired up, so demanding two made
+    this the common case rather than the exception. With no conservation
+    value supplied it cannot reach SC, so MC is the correct landing spot."""
     candidate = _candidate(concordant_tool_count=1, g4hunter_score=1.3)
-    assert structural_confidence(candidate) is StructuralConfidence.WC
+    assert structural_confidence(candidate) is StructuralConfidence.MC
 
 
 def test_no_evidence_at_all_is_wc() -> None:
@@ -123,7 +131,7 @@ def test_weak_candidate_in_known_functional_region_is_still_wc() -> None:
     structural confidence either — the axes are independent both ways."""
     candidate = _candidate(
         concordant_tool_count=1,
-        g4hunter_score=1.0,
+        g4hunter_score=0.5,  # below the relaxed MC floor of 0.9
         overlaps_annotated_functional_region=True,
     )
     assert structural_confidence(candidate) is StructuralConfidence.WC
@@ -157,11 +165,14 @@ def test_a_strong_minus_strand_locus_reaches_sc():
     assert structural_confidence(_cand(-2.5)) is StructuralConfidence.SC
 
 
-def test_a_strong_single_tool_minus_strand_locus_reaches_mc():
+def test_a_strong_single_tool_minus_strand_locus_reaches_sc():
+    """Was MC under the two-tool rule; reaches SC now that one tool suffices.
+    The point being protected is unchanged: the minus strand must not cost a
+    locus a tier."""
     from g4watch.atlas.confidence import structural_confidence
     from g4watch.atlas.schema import StructuralConfidence
 
-    assert structural_confidence(_cand(-1.9, tools=1)) is StructuralConfidence.MC
+    assert structural_confidence(_cand(-1.9, tools=1)) is StructuralConfidence.SC
 
 
 def test_magnitude_still_matters_after_the_sign_is_removed():
@@ -169,8 +180,11 @@ def test_magnitude_still_matters_after_the_sign_is_removed():
     from g4watch.atlas.confidence import structural_confidence
     from g4watch.atlas.schema import StructuralConfidence
 
-    assert structural_confidence(_cand(-0.9, tools=1)) is StructuralConfidence.WC
-    assert structural_confidence(_cand(-1.3, tools=1)) is StructuralConfidence.WC
+    assert structural_confidence(_cand(-0.3, tools=1)) is StructuralConfidence.WC
+    assert structural_confidence(_cand(-0.7, tools=1)) is StructuralConfidence.WC
+    # A genuinely weak magnitude must not reach SC even with perfect
+    # conservation and a concordant second tool.
+    assert structural_confidence(_cand(-0.5, tools=2, conservation=99.0)) is StructuralConfidence.WC
 
 
 def test_a_missing_score_does_not_raise():
@@ -178,3 +192,28 @@ def test_a_missing_score_does_not_raise():
     from g4watch.atlas.schema import StructuralConfidence
 
     assert structural_confidence(_cand(None, tools=2)) is StructuralConfidence.WC
+
+
+def test_biophysically_confirmed_profiles_are_no_longer_weak_candidates():
+    """The reason the SC/MC thresholds were relaxed, locked in as a test.
+
+    These are the measured G4Hunter magnitudes and tool counts of the three
+    biophysically confirmed HIV-1 G4s in data/calibration/confirmed_viral_g4s.tsv,
+    scored by this project's own predictor. Under the previous operating
+    point (>=2 tools, |G4Hunter| >= 1.5) every one classified WC -- 0%
+    sensitivity against the framework's own ground truth. Landing a
+    CONFIRMED G4 in the same bucket as a locus with no signal is the defect
+    this guards against.
+
+    Note these candidates carry no conservation value, which is why MC and
+    not SC is the bar asserted: a real Atlas record for them would carry
+    one and could reach SC.
+    """
+    from g4watch.atlas.confidence import structural_confidence
+    from g4watch.atlas.schema import StructuralConfidence
+
+    measured = [("HIV1-LTR-5U3", 1.107), ("HIV1-NEF", 0.944), ("HIV1-LTR-3U3", 1.205)]
+    for locus_id, magnitude in measured:
+        candidate = _cand(magnitude, tools=1, conservation=None)
+        assert structural_confidence(candidate) is not StructuralConfidence.WC, locus_id
+        assert structural_confidence(candidate) is StructuralConfidence.MC, locus_id

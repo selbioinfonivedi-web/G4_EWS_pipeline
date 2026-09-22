@@ -23,7 +23,7 @@ from functools import lru_cache
 from pathlib import Path
 
 from g4watch.config import PathogenConfig, load_config
-from g4watch.gating import evaluate_gate
+from g4watch.gating import evaluate_gate, read_ledger
 from g4watch.io.fasta import read_fasta
 from g4watch.pipeline.stage45_dh1 import _extract_year
 
@@ -379,8 +379,175 @@ def build_dataset(pathogen: str) -> dict:
             "explanation": gate.explain(),
         },
         "floor": floor,
+        # Stage 1.5 and Stage 3, surfaced beside the data they qualify.
+        # The recombination verdict in particular belongs next to the tree:
+        # it is the check that decides whether a single tree describes this
+        # corpus at all, and a reader should not have to know the log exists.
+        "recombination": _recombination_or_none(config.pathogen),
+        "variants": _variants_or_none(config.pathogen),
+        # A weak clock undermines anything reading calendar time, and the
+        # number otherwise lives in a file nobody opens.
+        "molecular_clock": _clock_or_none(config.pathogen),
+        # Where this pathogen's artifacts actually live, repo-relative.
+        # The Nextflow panel supplies them as --atlas/--alignment/
+        # --rooted_tree so the orchestrated run SKIPS the stages that would
+        # rebuild them; without the paths it would silently supply nothing
+        # and quietly rebuild a published alignment instead.
+        "paths": _artifact_paths(config),
+        # The per-locus D.H1 evidence behind the gate's one-word verdict.
+        # `gate` says SUPPORTED or BLOCKED; this says which loci, on what
+        # p-values, against how many control clades. A verdict resting on
+        # one locus with a thin control arm and a verdict resting on
+        # twenty look identical until the rows are shown.
+        "dh1": _dh1_or_none(config),
         "observations": observe(samples, named, years, countries, loci, floor, gate),
     }
+
+
+def _artifact_paths(config) -> dict:
+    """Repo-relative paths to the artifacts a run may supply rather than rebuild.
+
+    Only paths that actually exist are returned. A key present but absent
+    from disk would be passed to Nextflow as ``--alignment <missing>`` and
+    fail the run's input check, which is a worse outcome than rebuilding.
+    """
+    from .tracks import _paths
+
+    try:
+        resolved = _paths(config.pathogen.lower())
+    except Exception:  # noqa: BLE001 - a pathogen with no corpus has no artifacts
+        return {}
+
+    # _paths has no rooted-tree entry, so look beside the tree artifacts
+    # it does know about. The divergence-rooted tree is preferred: it is
+    # the one D.H1 reads (revision log R-16).
+    phylo_dir = Path(resolved["mldist"]).parent if resolved.get("mldist") else None
+    stem = config.pathogen.lower()
+    rooted = None
+    if phylo_dir:
+        for name in (f"{stem}_rooted_div.nwk", f"{stem}_rooted.nwk", f"{stem}_iqtree_rooted.nwk"):
+            if (phylo_dir / name).is_file():
+                rooted = phylo_dir / name
+                break
+
+    out: dict[str, str] = {}
+    candidates = {
+        "alignment": resolved.get("alignment"),
+        "rooted_tree": rooted,
+        "atlas": getattr(config, "atlas_path", None),
+    }
+    for name, path in candidates.items():
+        if path and Path(path).is_file():
+            try:
+                out[name] = str(Path(path).resolve().relative_to(REPO_ROOT))
+            except ValueError:
+                out[name] = str(path)
+    return out
+
+
+def _dh1_or_none(config) -> dict | None:
+    """Per-locus D.H1 rows from the latest run recorded for this pathogen.
+
+    Latest run only, matching :func:`g4watch.gating.evaluate_gate` — the
+    ledger is append-only so earlier runs stay on the record, but showing
+    a superseded run beside the current verdict would invite reading the
+    two as one result.
+
+    Nothing here is recomputed. These are the rows the gate itself read,
+    so the panel cannot disagree with the verdict above it.
+    """
+    try:
+        rows = read_ledger(config.ledger_path, config.pathogen)
+    except Exception:  # noqa: BLE001 - a missing or malformed ledger must not break the payload
+        return None
+    if not rows:
+        return None
+
+    latest_timestamp = max(row.get("timestamp", "") for row in rows)
+    latest = [row for row in rows if row.get("timestamp", "") == latest_timestamp]
+
+    def _num(value):
+        try:
+            return float(value)
+        except (TypeError, ValueError):
+            return None
+
+    def _int_or_none(value):
+        try:
+            return int(value)
+        except (TypeError, ValueError):
+            return None
+
+    loci = [
+        {
+            "atlas_id": row.get("atlas_id", ""),
+            "verdict": row.get("verdict", ""),
+            # Empty, not zero. A locus halted at the minimum-data floor
+            # has no p-value, and 0.0 is a p-value.
+            "raw_p": _num(row.get("raw_p_value")),
+            "gc_adjusted_p_fdr": _num(row.get("gc_adjusted_p_value_fdr")),
+            "locus_rate": _num(row.get("locus_disruption_rate")),
+            "control_rate": _num(row.get("control_disruption_rate")),
+            "tested": bool((row.get("raw_p_value") or "").strip()),
+            "minimum_data_passed": (row.get("minimum_data_passed") or "").strip().lower() == "true",
+            "failing_checks": [c for c in (row.get("minimum_data_failing_checks") or "").split(";") if c],
+            "underpowered": (row.get("underpowered") or "").strip().lower() == "true",
+            # Control provenance. Empty for runs predating R-20, which is
+            # the honest value — it was not recorded then — and the UI says
+            # "not recorded" rather than implying zero controls.
+            "n_controls": _int_or_none(row.get("n_controls")),
+            "control_regions": [r for r in (row.get("control_regions") or "").split(";") if r],
+            "n_controls_same_compartment": _int_or_none(row.get("n_controls_same_compartment")),
+        }
+        for row in latest
+    ]
+    verdicts: dict[str, int] = {}
+    for locus in loci:
+        verdicts[locus["verdict"]] = verdicts.get(locus["verdict"], 0) + 1
+
+    supported = [locus for locus in loci if locus["verdict"] == "SUPPORTED"]
+    return {
+        "timestamp": latest_timestamp or None,
+        "decision_rule": (config.raw.get("dh1_gate") or {}).get("decision_rule", "conjunction"),
+        "alpha": (config.raw.get("dh1_gate") or {}).get("alpha"),
+        "min_carriers": ((config.raw.get("dh1_gate") or {}).get("locus_selection") or {}).get("min_carriers"),
+        "n_loci": len(loci),
+        "n_tested": sum(1 for locus in loci if locus["tested"]),
+        "verdict_counts": verdicts,
+        "loci": sorted(loci, key=lambda r: (r["gc_adjusted_p_fdr"] is None, r["gc_adjusted_p_fdr"] or 0)),
+        # Named so the UI can say it rather than leaving a reader to count
+        # the rows: a verdict carried by one locus is a different claim
+        # from the same verdict carried by twenty.
+        "rests_on": [locus["atlas_id"] for locus in supported],
+        "ledger_path": str(config.ledger_path),
+    }
+
+
+def _recombination_or_none(pathogen: str):
+    from .tracks import recombination
+
+    try:
+        return recombination(pathogen)
+    except Exception:  # noqa: BLE001 - a missing or malformed log must not break the payload
+        return None
+
+
+def _clock_or_none(pathogen: str):
+    from .tracks import molecular_clock
+
+    try:
+        return molecular_clock(pathogen)
+    except Exception:  # noqa: BLE001
+        return None
+
+
+def _variants_or_none(pathogen: str):
+    from .tracks import variant_summary
+
+    try:
+        return variant_summary(pathogen)
+    except Exception:  # noqa: BLE001
+        return None
 
 
 def _genome_length(config: PathogenConfig) -> int | None:

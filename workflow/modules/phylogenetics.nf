@@ -78,7 +78,18 @@ process TREETIME_ROOT {
     # TreeTime has made the root decision; multi2di() only reformats it
     # into the bifurcating shape ape::ace() requires. Safe here, and only
     # here (see the module header).
+    #
+    # The DIVERGENCE tree, not the timetree. Both carry TreeTime's rooting;
+    # they differ in branch-length units. ace() reconstructs a discrete
+    # character under a substitution model, so it wants substitutions per
+    # site -- calendar time is the wrong scale for it and, on a corpus with
+    # a weak clock, a numerically fatal one: the FMDV 2026 timetree had 166
+    # zero-length branches and lengths up to 161 YEARS, and ace() died with
+    # "NA/NaN/Inf in foreign function call" and non-finite gradients. The
+    # divergence tree from the same run spans 0 to 0.33 and reconstructs
+    # cleanly. Nothing downstream reads calendar branch lengths: clade
+    # trajectories take their dates from the metadata, not the tree.
     Rscript ${root_resolver} \\
-        treetime_output/timetree.nexus rooted.nwk
+        treetime_output/divergence_tree.nexus rooted.nwk
     """
 }

@@ -87,7 +87,16 @@ _REQUIRED_SECTIONS = frozenset(
     }
 )
 
-_KNOWN_SECTIONS = _REQUIRED_SECTIONS | {"taxonomy_id", "provisioned", "provisioning_notes"}
+#: Optional top-level sections. ``detection`` carries the control-chart
+#: calibration settings (baseline_fraction, min_baseline_windows) for
+#: pathogens whose sampling cadence cannot reach the default baseline
+#: length — see g4watch/scoring/cusum.py.
+_KNOWN_SECTIONS = _REQUIRED_SECTIONS | {
+    "taxonomy_id",
+    "provisioned",
+    "provisioning_notes",
+    "detection",
+}
 
 
 class ConfigError(ValueError):
@@ -219,6 +228,36 @@ class PathogenConfig:
                 f"{self.path}:corpus.lineage_fallback_fields must be a list of strings, got {raw!r}"
             )
         return tuple(raw)
+
+    @property
+    def min_lineage_size(self) -> int:
+        """Lineages with fewer sequences than this are dropped as a RULE.
+
+        The Appendix C floor demands at least 20 sequences in EVERY
+        lineage, so one singleton fails an entire corpus however well the
+        real groups are sampled: NDV holds 1,798 sequences across 64
+        countries, fifteen of them over the floor, and a single sequence
+        from one country halted all of it.
+
+        A rule rather than a hand-written list, deliberately. A list of
+        names goes stale the moment the corpus is re-fetched, and choosing
+        which names to write down after seeing the corpus is selection the
+        pre-specification rules exist to prevent. The threshold is a
+        property of sampling, knowable before any p-value exists, and it
+        is recorded in the config so a run is still fully described by
+        (commit, config, accession list) — the same standard R-12 sets for
+        the D.H1 analysis set.
+
+        0 (the default) disables it: every lineage is kept and the floor
+        judges them all, which is the right behaviour for a pathogen whose
+        lineage field is a real vocabulary rather than a sampling proxy.
+        """
+        raw = self.raw["corpus"].get("min_lineage_size", 0)
+        if not isinstance(raw, int) or isinstance(raw, bool) or raw < 0:
+            raise ConfigError(
+                f"{self.path}:corpus.min_lineage_size must be a non-negative integer, got {raw!r}"
+            )
+        return raw
 
     @property
     def exclude_lineages(self) -> tuple[str, ...]:

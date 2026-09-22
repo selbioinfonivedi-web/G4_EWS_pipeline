@@ -22,14 +22,15 @@ apart from a failure.
 from __future__ import annotations
 
 import argparse
-import shutil
 import subprocess
 import sys
+from dataclasses import replace
 from pathlib import Path
 
 from . import __version__
 from .config import ConfigError, PathogenConfig, available_pathogens, load_config
 from .gating import ScoringNotPermittedError
+from .tools import resolve_executable
 
 EXIT_OK = 0
 EXIT_ERROR = 1
@@ -73,7 +74,7 @@ def cmd_doctor(args: argparse.Namespace) -> int:
 
     missing = []
     for tool, purpose in EXTERNAL_TOOLS:
-        path = shutil.which(tool)
+        path = resolve_executable(tool)
         print(f"  {tool:<18}: {path or 'NOT FOUND'}   ({purpose})")
         if path is None:
             missing.append(tool)
@@ -83,7 +84,7 @@ def cmd_doctor(args: argparse.Namespace) -> int:
     if not phi.exists():
         missing.append("PhiPack")
 
-    if shutil.which("Rscript"):
+    if resolve_executable("Rscript"):
         probe = subprocess.run(
             ["Rscript", "-e", 'cat(as.character(packageVersion("ape")))'],
             capture_output=True,
@@ -152,10 +153,18 @@ def cmd_stage0(args: argparse.Namespace) -> int:
     from .pipeline.stage0_atlas import run_stage0
 
     config = _load(args)
-    result = run_stage0(config, output_path=Path(args.out) if args.out else None, force=args.force)
+    result = run_stage0(
+        config,
+        output_path=Path(args.out) if args.out else None,
+        force=args.force,
+        survey_alignment=Path(args.survey) if args.survey else None,
+        min_survey_carriers=args.min_carriers,
+    )
     print(f"Stage 0 — {config.pathogen} Atlas v{result.atlas_version}")
     print(f"  reference : {result.reference_accession} ({result.reference_length} nt)")
     print(f"  loci found: {len(result.records)}")
+    if result.survey_note:
+        print(f"  survey    : {result.survey_note}")
     for record in result.records:
         print(
             f"    {record.atlas_id}  nt {record.genome_start}-{record.genome_end}  "
@@ -212,6 +221,10 @@ def cmd_dh1(args: argparse.Namespace) -> int:
     aligned = _resolve(config, args.alignment, "aligned", f"{config.pathogen.lower()}_qc_passed_aligned_to_ref.fasta")
     tree = _resolve(config, args.tree, "phylogenetics", f"{config.pathogen.lower()}_iqtree_rooted.nwk")
 
+    pathogen_override = None
+    if args.lineage:
+        aligned, tree, pathogen_override = _stratify(config, aligned, tree, args.lineage)
+
     result = run_stage45_dh1(
         config,
         aligned_fasta=aligned,
@@ -220,6 +233,7 @@ def cmd_dh1(args: argparse.Namespace) -> int:
         ledger_path=Path(args.ledger) if args.ledger else None,
         recombination_screen_completed=args.recombination_screen_completed,
         write_ledger=not args.no_ledger,
+        pathogen_override=pathogen_override,
     )
 
     stats = result.corpus_stats
@@ -246,7 +260,16 @@ def cmd_dh1(args: argparse.Namespace) -> int:
         if not report.control_found:
             print("  No matched control region found — locus not testable for D.H1.")
         else:
-            print(f"  Matched control: nt {report.control_start}-{report.control_end} (GC={report.control_gc:.3f})")
+            same = report.n_controls_same_compartment
+            total = len(report.controls)
+            print(
+                f"  Locus compartment: {report.compartment or 'n/a'}  "
+                f"({same}/{total} controls share it)"
+            )
+            print(f"  Matched controls ({total}, mean GC={report.control_gc:.3f}):")
+            for start, end, gc, compartment in report.controls:
+                flag = "" if compartment == report.compartment else "   <-- different compartment"
+                print(f"    nt {start}-{end}  GC={gc:.3f}  {compartment}{flag}")
             rate = report.locus_disruption_rate
             crate = report.control_disruption_rate
             print(
@@ -403,7 +426,22 @@ def cmd_stage5(args: argparse.Namespace) -> int:
     if args.force_unchecked or downgraded:
         why = "ineligible Atlas loci" if downgraded else "--force-unchecked"
         print(f"WARNING: running unchecked ({why}). Results are marked non-authoritative.", file=sys.stderr)
-        result = run_stage5_unchecked(config.pathogen, samples, authoritative=False)
+        result = run_stage5_unchecked(
+            config.pathogen, samples, authoritative=False,
+            detection=(config.raw.get("detection") or {}),
+        )
+        # The unchecked path skips the gate, so the reason must still be
+        # attached here -- otherwise the run that most needs the caveat is
+        # the only one without it.
+        from .gating import evaluate_gate
+        from .pipeline.stage5_driver import annotate_gate_status
+
+        annotate_gate_status(
+            result,
+            evaluate_gate(
+                config.ledger_path, config.pathogen, operational_mode=config.operational_mode
+            ),
+        )
     else:
         try:
             result = run_stage5(config, samples)
@@ -483,6 +521,423 @@ def cmd_variants(args: argparse.Namespace) -> int:
     print(f"{n_variants} variants across {len(alignment) - 1} genomes -> {out}")
     print(f"{len(g4_rows)} fall inside {len(loci)} Atlas locus/loci"
           + (f" -> {args.g4_out}" if args.g4_out else ""))
+    return 0
+
+
+def _stratify(config, aligned_path: Path, tree_path: Path, lineage: str):
+    """Restrict the alignment and tree to one lineage for a stratified D.H1.
+
+    Returns (alignment path, tree path, ledger pathogen key). The key is
+    ``<PATHOGEN>:<LINEAGE>`` so a stratified verdict cannot open the
+    pathogen's own gate — see g4watch/phylo/subset.py.
+    """
+    import csv as _csv
+    from collections import Counter
+
+    from Bio import Phylo
+
+    from .io.fasta import read_fasta
+    from .phylo.subset import stratified_pathogen_key, write_subset
+    from .qc.metadata_normalization import LineageVocabulary
+
+    wanted = lineage.strip().upper()
+    vocabulary = LineageVocabulary.from_config(config)
+    metadata_path = config.corpus_metadata_tsv
+    if metadata_path is None or not Path(metadata_path).is_file():
+        raise ConfigError(f"--lineage needs corpus.metadata_tsv, which is missing: {metadata_path}")
+
+    delimiter = "," if str(metadata_path).endswith(".csv") else "\t"
+    keep, seen = set(), Counter()
+    with open(metadata_path, newline="") as handle:
+        for row in _csv.DictReader(handle, delimiter=delimiter):
+            resolved = (
+                vocabulary.resolve(*[row.get(f, "") or "" for f in
+                                     (config.lineage_field, *config.lineage_fallback_fields)])
+                or ""
+            ).upper()
+            seen[resolved or "(unresolved)"] += 1
+            if resolved == wanted:
+                accession = (row.get("accession") or "").strip()
+                if accession:
+                    # Metadata sometimes drops the version suffix while the
+                    # alignment keeps it. Match on both spellings rather
+                    # than silently selecting nothing.
+                    keep.add(accession)
+                    keep.add(accession.split(".")[0])
+
+    if not keep:
+        raise ConfigError(
+            f"no corpus record resolves to lineage {wanted!r}. Present: "
+            + ", ".join(f"{k}={v}" for k, v in seen.most_common())
+        )
+
+    aligned = {name.split()[0]: seq for name, seq in read_fasta(aligned_path).items()}
+    keep |= {a for a in aligned if a.split(".")[0] in keep}
+    tree = Phylo.read(str(tree_path), "newick")
+
+    out_dir = Path("results") / "stratified" / f"{config.pathogen.lower()}_{wanted.lower()}"
+    label = f"{config.pathogen.lower()}_{wanted.lower()}"
+    fasta_out, tree_out = write_subset(
+        aligned, tree, keep, config.reference_accession, out_dir, label
+    )
+    n_kept = sum(1 for a in aligned if a in keep)
+    print(f"Stratified run — lineage {wanted}: {n_kept} genomes (+ reference), tree pruned.")
+    print(f"  ledger key: {stratified_pathogen_key(config.pathogen, wanted)}  "
+          "(a stratified verdict cannot open the pathogen's own gate)")
+    return fasta_out, tree_out, stratified_pathogen_key(config.pathogen, wanted)
+
+
+def cmd_align(args: argparse.Namespace) -> int:
+    """Stage 1 — align the QC-passed corpus to the reference."""
+    from .pipeline.stage1_align import run_alignment
+
+    config = _load(args)
+    # Two naming conventions exist in the repository: `g4watch qc` writes
+    # <pathogen>_corpus_qc_passed.fasta, while the 2026 FMDV corpus was
+    # built by hand as fmdv2026_qc_passed.fasta. Resolving only one of
+    # them meant this command failed on every corpus QC had produced.
+    # Both are tried, in the order the pipeline itself produces them.
+    stem = config.pathogen.lower()
+    qc_passed = None
+    if args.qc_passed:
+        qc_passed = Path(args.qc_passed)
+    else:
+        for candidate in (f"{stem}_corpus_qc_passed.fasta", f"{stem}_qc_passed.fasta"):
+            resolved = _resolve(config, None, candidate)
+            if resolved.is_file():
+                qc_passed = resolved
+                break
+        if qc_passed is None:
+            raise ConfigError(
+                f"no QC-passed FASTA found for {config.pathogen}. Expected "
+                f"{stem}_corpus_qc_passed.fasta or {stem}_qc_passed.fasta beside the corpus "
+                "metadata. Run `g4watch qc` first, or pass --qc-passed."
+            )
+    result = run_alignment(
+        config,
+        qc_passed_fasta=qc_passed,
+        out_dir=Path(args.out) if args.out else None,
+        threads=args.threads,
+    )
+    print(f"Stage 1 alignment — {config.pathogen}")
+    print(f"  input : {qc_passed}")
+    print(f"  output: {result.outputs['alignment']}")
+    print(f"  log   : {result.log_path}")
+    return EXIT_OK
+
+
+def cmd_dates(args: argparse.Namespace) -> int:
+    """Derive TreeTime's dates.csv from the corpus metadata.
+
+    This derivation already existed inside ``cmd_phylogenetics``, where it
+    was reachable only by also building a tree. The Nextflow workflow
+    builds its own tree with IQ-TREE and then needs the dates file on its
+    own, so it demanded ``--dates`` as a pre-made path -- and a run that
+    did not pass one died inside Nextflow's ``Channel.fromPath(null)``
+    rather than saying what was missing.
+
+    Exposing the derivation makes the workflow able to produce what the
+    CLI produces, from the same corpus metadata, by the same rules.
+    """
+    from .io.fasta import read_fasta
+    from .pipeline.stage1_align import build_dates_csv
+
+    config = _load(args)
+    alignment = _resolve(
+        config, args.alignment, "aligned", f"{config.pathogen.lower()}_qc_passed_aligned_to_ref.fasta"
+    )
+    out_path = Path(args.out) if args.out else _resolve(config, None, "phylogenetics", "dates.csv")
+    aligned = read_fasta(alignment)
+    dates_path, n_dated = build_dates_csv(config, aligned, Path(out_path))
+    print(f"dates — {config.pathogen}")
+    print(f"  {n_dated}/{len(aligned)} sequences carry a usable date -> {dates_path}")
+    if n_dated < 3:
+        # TreeTime regresses divergence on sampling date; two points is a
+        # line through two points, not a clock estimate.
+        print("  NOTE: fewer than 3 dated sequences. TreeTime cannot root on this.")
+    return EXIT_OK
+
+
+def cmd_phylogenetics(args: argparse.Namespace) -> int:
+    """Stage 2 — maximum-likelihood tree, then TreeTime rooting."""
+    from .pipeline.stage1_align import run_phylogenetics
+
+    config = _load(args)
+    alignment = _resolve(
+        config, args.alignment, "aligned", f"{config.pathogen.lower()}_qc_passed_aligned_to_ref.fasta"
+    )
+    # Build dates.csv if it is not already there. Without it TreeTime does
+    # not run, no rooted tree is written, and D.H1 -- which reads the
+    # rooted tree -- cannot run at all. Deriving it from the corpus
+    # metadata the pathogen already declares is better than requiring the
+    # operator to produce a file by hand for every pathogen.
+    dates = Path(args.dates) if args.dates else _resolve(config, None, "phylogenetics", "dates.csv")
+    if not Path(dates).is_file():
+        from .io.fasta import read_fasta
+        from .pipeline.stage1_align import build_dates_csv
+
+        aligned_for_dates = read_fasta(alignment)
+        dates, n_dated = build_dates_csv(config, aligned_for_dates, Path(dates))
+        print(f"  dates    : built {n_dated}/{len(aligned_for_dates)} dated sequences -> {dates}")
+        if n_dated < 3:
+            print("  NOTE: too few dated sequences for TreeTime; it will be skipped.")
+    result = run_phylogenetics(
+        config,
+        alignment=alignment,
+        dates_csv=dates if Path(dates).is_file() else None,
+        out_dir=Path(args.out) if args.out else None,
+        threads=args.threads,
+        reuse_tree=not args.redo,
+        bootstrap=not args.no_bootstrap,
+    )
+    print(f"Stage 2 phylogenetics — {config.pathogen}")
+    for name, path in result.outputs.items():
+        print(f"  {name:<16} {path}")
+    if "divergence_tree" not in result.outputs:
+        print("  NOTE: no dates file, so TreeTime did not run and no rooted tree was written.")
+        print("        D.H1 reads the rooted tree; it is not substituted with the unrooted one.")
+    return EXIT_OK
+
+
+def cmd_atlas_conservation(args: argparse.Namespace) -> int:
+    """Populate ``conservation_pct_phylo``, then re-tier the Atlas.
+
+    This column was written as None by every code path, and SC requires it.
+    No locus in any Atlas had ever reached SC, so nothing was
+    scoring-eligible and no surveillance score could be produced for any
+    pathogen even with an open D.H1 gate. See revision log R-21.
+
+    Reclassification runs in the same command because conservation feeds
+    the tier directly: leaving them separate means an Atlas that carries
+    fresh conservation values but stale tiers, which is the drift R-19
+    exists to prevent.
+    """
+    from Bio import Phylo
+
+    from .atlas.conservation import (
+        choose_representatives,
+        conservation_for_span,
+    )
+    from .atlas.io import read_atlas_tsv, write_atlas_tsv
+    from .atlas.reclassify import reclassify
+    from .io.fasta import read_fasta
+
+    config = _load(args)
+    atlas_path = Path(args.atlas) if args.atlas else config.atlas_path
+    records = read_atlas_tsv(atlas_path)
+    if not records:
+        print(f"{atlas_path} contains no Atlas records.", file=sys.stderr)
+        return 1
+
+    aligned_path = _resolve(
+        config, args.alignment, "aligned", f"{config.pathogen.lower()}_qc_passed_aligned_to_ref.fasta"
+    )
+    tree_path = _resolve(config, args.tree, "phylogenetics", f"{config.pathogen.lower()}_rooted.nwk")
+    for label, path in (("alignment", aligned_path), ("tree", tree_path)):
+        if not path.is_file():
+            print(f"{label} not found: {path}", file=sys.stderr)
+            return 1
+
+    aligned = {name.split()[0]: seq for name, seq in read_fasta(aligned_path).items()}
+    tree = Phylo.read(str(tree_path), "newick")
+    representatives = choose_representatives(tree, args.representatives)
+
+    print(f"Atlas conservation — {config.pathogen}")
+    print(f"  atlas  : {atlas_path}")
+    print(f"  tree   : {tree_path}")
+    print(f"  {len(representatives)} representatives drawn from {len(aligned)} aligned genomes")
+    print("  measure: mean pairwise identity across representatives — no reference in the")
+    print("           comparison, one vote per clade rather than one per genome.")
+
+    updated, unusable = [], []
+    for record in records:
+        result = conservation_for_span(
+            aligned, representatives, record.genome_start, record.genome_end, record.atlas_id
+        )
+        if not result.usable:
+            unusable.append(record.atlas_id)
+            updated.append(record)
+            continue
+        updated.append(replace(record, conservation_pct_phylo=result.conservation_pct))
+
+    values = [r.conservation_pct_phylo for r in updated if r.conservation_pct_phylo is not None]
+    if values:
+        values_sorted = sorted(values)
+        print(f"  computed for {len(values)}/{len(records)} loci — "
+              f"min {values_sorted[0]:.1f}%, median {values_sorted[len(values_sorted)//2]:.1f}%, "
+              f"max {values_sorted[-1]:.1f}%")
+    if unusable:
+        # Left as None, never as 0.0: no callable base is missing data, and
+        # 0% conservation is a claim about the sequence.
+        print(f"  {len(unusable)} locus/loci had no comparable positions and keep conservation = empty")
+
+    result = reclassify(updated)
+    print(f"  re-tiered: {result.summary().splitlines()[0]}")
+    for line in result.summary().splitlines()[1:]:
+        print(f"  {line}")
+
+    if args.dry_run:
+        print(f"\n  --dry-run: {atlas_path} NOT modified.")
+        return EXIT_OK
+
+    write_atlas_tsv(result.records, atlas_path)
+    print(f"\n  Wrote {atlas_path}")
+    return EXIT_OK
+
+
+def cmd_atlas_reclassify(args: argparse.Namespace) -> int:
+    """Bring a stored Atlas's tiers in line with the current classifier.
+
+    Changing a threshold in confidence.py does not change any Atlas
+    already on disk, and nothing in the file records which rule wrote it.
+    This is the supported way to close that gap without a re-scan, which
+    would discard curated conservation and the multi-genome survey notes
+    the D.H1 analysis set is selected from (R-05, R-11).
+    """
+    from .atlas.io import read_atlas_tsv, write_atlas_tsv
+    from .atlas.reclassify import reclassify
+
+    config = _load(args)
+    atlas_path = Path(args.atlas) if args.atlas else config.atlas_path
+    records = read_atlas_tsv(atlas_path)
+    if not records:
+        print(f"{atlas_path} contains no Atlas records.", file=sys.stderr)
+        return 1
+
+    result = reclassify(records)
+    print(f"Atlas reclassification — {config.pathogen}")
+    print(f"  file: {atlas_path}")
+    print(f"  {result.summary()}")
+
+    if not result.changed:
+        print("\n  Already current. Nothing written.")
+        return EXIT_OK
+
+    if args.dry_run:
+        print(f"\n  --dry-run: {atlas_path} NOT modified.")
+        for transition in result.transitions[: args.show]:
+            print(f"    {transition.atlas_id}: {transition.before} -> {transition.after}")
+        if len(result.transitions) > args.show:
+            print(f"    ... and {len(result.transitions) - args.show} more")
+        return EXIT_OK
+
+    write_atlas_tsv(result.records, atlas_path)
+    print(f"\n  Wrote {atlas_path}")
+    print(
+        "  Recorded: only structural_confidence changed, and only within WC/MC/SC. "
+        "EC, BC and AA were preserved because the evidence behind them has no column "
+        "in the TSV; functional_context was not recomputed for the same reason."
+    )
+    return EXIT_OK
+
+
+def cmd_calibrate(args: argparse.Namespace) -> int:
+    """Measure the structural-confidence operating point against known G4s.
+
+    Reports; never changes a threshold. Moving one is a scientific
+    decision needing sign-off and a revision-log entry -- and moving it
+    while looking at the loci it would admit is the failure the whole
+    framework exists to prevent.
+    """
+    from .io.fasta import read_fasta
+    from .validation.calibration import (
+        ScoredLocus,
+        build_report,
+        load_confirmed_set,
+        score_region,
+    )
+    from .validation.control_regions import find_matched_control_region
+
+    rows = load_confirmed_set(args.set)
+    if not rows:
+        print(f"no confirmed loci in {args.set}", file=sys.stderr)
+        return 1
+
+    genomes: dict[str, str] = {}
+    for path in Path(args.genomes).glob("*.fasta"):
+        for name, seq in read_fasta(path).items():
+            genomes[name.split()[0]] = seq.upper()
+
+    positives, negatives, missing = [], [], []
+    for row in rows:
+        sequence = genomes.get(row["accession"])
+        if sequence is None:
+            missing.append(row["accession"])
+            continue
+        start, end = int(row["start"]), int(row["end"])
+        score, tools = score_region(sequence, start, end)
+        positives.append(ScoredLocus(
+            locus_id=row["locus_id"], virus=row["virus"], is_positive=True,
+            g4hunter_score=score, n_tools=tools,
+            provenance=row.get("coordinate_provenance", ""),
+        ))
+        # Negatives matched exactly as the pipeline matches D.H1 controls,
+        # so calibration uses the contrast the pipeline actually draws.
+        #
+        # locus_id is passed so the tie-break is seeded per locus rather
+        # than falling back to enumeration order, which starts at nt 1 and
+        # gave every locus a control from the genome's 5' end (R-20). No
+        # cds_bounds: these validation genomes carry no declared CDS span,
+        # so no compartment preference applies and none is invented.
+        control = find_matched_control_region(sequence, start, end, locus_id=row["locus_id"])
+        if control is not None:
+            c_score, c_tools = score_region(sequence, control.start, control.end)
+            negatives.append(ScoredLocus(
+                locus_id=f"{row['locus_id']}-control", virus=row["virus"],
+                is_positive=False, g4hunter_score=c_score, n_tools=c_tools,
+            ))
+
+    report = build_report(positives, negatives, min_tools=args.min_tools)
+
+    print("=" * 74)
+    print("G4 THRESHOLD CALIBRATION")
+    print("=" * 74)
+    if missing:
+        print(f"  genome not found for: {', '.join(sorted(set(missing)))}")
+    print(f"  {report.explain()}")
+    print()
+    print(f"  {'locus':18} {'virus':8} {'|G4H|':>7} {'tools':>6}  provenance")
+    for p in report.positives:
+        magnitude = f"{p.magnitude:.3f}" if p.g4hunter_score is not None else "MISSED"
+        print(f"  {p.locus_id:18} {p.virus:8} {magnitude:>7} {p.n_tools:6}  {p.provenance}")
+
+    print()
+    print("  CURRENT RULE (|G4Hunter| >= 1.5 AND >= 2 tools):")
+    print(f"    sensitivity to confirmed G4s = {report.sensitivity_at(1.5, 2):.0%}")
+    print("  Same score bar, tool requirement dropped:")
+    print(f"    sensitivity = {report.sensitivity_at(1.5, 1):.0%}")
+
+    # Operating points are printed ONLY for a usable set. On three
+    # positives and three negatives the predictor missed entirely, the
+    # curve is degenerate and its best row reads "|G4H| >= 0.00, J=+1.00"
+    # -- a number that is arithmetically true, meaningless, and exactly
+    # the sort of thing that survives being screenshotted away from the
+    # warning printed beside it.
+    if report.usable and report.curve and report.negatives:
+        print()
+        print("  Operating points by Youden's J (sensitivity + specificity - 1):")
+        best = sorted(report.curve, key=lambda r: -r["youden_j"])[:5]
+        for row in best:
+            print(f"    |G4H| >= {row['threshold']:.2f}  sens={row['sensitivity']:.0%}  "
+                  f"spec={row['specificity']:.0%}  J={row['youden_j']:+.2f}")
+
+    if not report.usable:
+        print()
+        print("  NOT USABLE FOR SETTING A THRESHOLD:")
+        for reason in report.blocking_reasons:
+            print(f"    - {reason}")
+        print("  See data/calibration/README.md for what a usable set needs.")
+    if args.out:
+        import json
+
+        Path(args.out).write_text(json.dumps({
+            "usable": report.usable,
+            "blocking_reasons": list(report.blocking_reasons),
+            "positives": [vars(p) for p in report.positives],
+            "negatives": [vars(n) for n in report.negatives],
+            "curve": report.curve,
+        }, indent=1))
+        print(f"\n    wrote {args.out}")
     return 0
 
 
@@ -663,6 +1118,19 @@ def build_parser() -> argparse.ArgumentParser:
         help="overwrite an existing Atlas. A re-scan drops curated conservation values and "
         "multi-genome evidence notes, so this is never the default.",
     )
+    s0.add_argument(
+        "--survey",
+        help="alignment FASTA to scan beyond the reference. Catalogues loci a single "
+        "reference genome cannot show — a lineage-restricted locus is invisible to a "
+        "one-genome scan however strongly supported.",
+    )
+    s0.add_argument(
+        "--min-carriers",
+        type=int,
+        default=2,
+        help="genomes that must carry a surveyed locus before it enters the Atlas "
+        "(default: 2, so one genome's artefact cannot promote itself)",
+    )
     s0.set_defaults(func=cmd_stage0)
 
     qc = with_pathogen(sub.add_parser("qc", help="Stage 1 — sequence QC over the corpus"))
@@ -687,6 +1155,11 @@ def build_parser() -> argparse.ArgumentParser:
         "omitting it makes the floor fail, which is the intended fail-closed behaviour.",
     )
     dh1.add_argument("--no-ledger", action="store_true", help="do not append to the ledger (dry run)")
+    dh1.add_argument(
+        "--lineage",
+        help="restrict the analysis to one lineage (e.g. --lineage O). Records under "
+        "<PATHOGEN>:<LINEAGE> so a stratified verdict cannot open the pathogen's gate.",
+    )
     dh1.set_defaults(func=cmd_dh1)
 
     ledger_parser = sub.add_parser("ledger", help="the study-wide testing ledger (append-only)")
@@ -752,6 +1225,64 @@ def build_parser() -> argparse.ArgumentParser:
     var.add_argument("--out", help="write the variant table here (default: variants.tsv)")
     var.add_argument("--g4-out", help="also write the variant x Atlas-locus intersection here")
     var.set_defaults(func=cmd_variants)
+
+    aln = with_pathogen(sub.add_parser("align", help="Stage 1 — align the corpus to the reference"))
+    aln.add_argument("--qc-passed", help="QC-passed FASTA (default: under the corpus directory)")
+    aln.add_argument("--out", help="output directory (default: <corpus>/aligned)")
+    aln.add_argument("--threads", type=int, default=4)
+    aln.set_defaults(func=cmd_align)
+
+    dat = with_pathogen(sub.add_parser(
+        "dates", help="derive TreeTime's dates.csv from the corpus metadata"))
+    dat.add_argument("--alignment", help="aligned FASTA; only its sequences are dated")
+    dat.add_argument("--out", help="output CSV (default: <corpus>/phylogenetics/dates.csv)")
+    dat.set_defaults(func=cmd_dates)
+
+    phy = with_pathogen(sub.add_parser("phylogenetics", help="Stage 2 — ML tree and TreeTime rooting"))
+    phy.add_argument("--alignment", help="aligned FASTA")
+    phy.add_argument("--dates", help="dates CSV for TreeTime")
+    phy.add_argument("--out", help="output directory (default: <corpus>/phylogenetics)")
+    phy.add_argument("--threads", type=int, default=4)
+    phy.add_argument("--no-bootstrap", action="store_true",
+                     help="skip ultrafast bootstrap. The ML topology is identical; only support "
+                          "values are omitted, and D.H1 never reads them. Much faster. A published "
+                          "phylogeny needs them — rebuild with bootstrap before quoting a tree.")
+    phy.add_argument("--redo", action="store_true",
+                     help="rebuild the ML tree even if one newer than the alignment exists")
+    phy.set_defaults(func=cmd_phylogenetics)
+
+    con = with_pathogen(sub.add_parser(
+        "atlas-conservation",
+        help="compute conservation_pct_phylo for every locus, then re-tier",
+    ))
+    con.add_argument("--atlas", help="Atlas TSV (default: atlas.path from config)")
+    con.add_argument("--alignment", help="aligned FASTA (reference must be present)")
+    con.add_argument("--tree", help="rooted Newick tree")
+    con.add_argument("--representatives", type=int, default=60,
+                     help="phylogenetically spread genomes to compare (default: 60)")
+    con.add_argument("--dry-run", action="store_true", help="report without writing")
+    con.set_defaults(func=cmd_atlas_conservation)
+
+    rec = with_pathogen(sub.add_parser(
+        "atlas-reclassify",
+        help="recompute a stored Atlas's WC/MC/SC tiers with the current classifier",
+    ))
+    rec.add_argument("--atlas", help="Atlas TSV (default: atlas.path from config)")
+    rec.add_argument("--dry-run", action="store_true",
+                     help="report what would change without writing")
+    rec.add_argument("--show", type=int, default=15,
+                     help="transitions to list under --dry-run (default: 15)")
+    rec.set_defaults(func=cmd_atlas_reclassify)
+
+    cal = sub.add_parser("calibrate", help="measure the SC operating point against known G4s")
+    cal.add_argument("--set", default="data/calibration/confirmed_viral_g4s.tsv",
+                     help="curated confirmed-G4 TSV")
+    cal.add_argument("--genomes", default="data/reference_genomes/_validation",
+                     help="directory of reference FASTA files")
+    cal.add_argument("--min-tools", type=int, default=1,
+                     help="tool count required when drawing the ROC curve")
+    cal.add_argument("--out", help="write the full report as JSON here")
+    cal.set_defaults(func=cmd_calibrate)
 
     dh3 = with_pathogen(sub.add_parser("dh3", help="D.H3 — phylogenetic clustering of G4 transitions"))
     dh3.add_argument("--out", help="write the result as JSON here")

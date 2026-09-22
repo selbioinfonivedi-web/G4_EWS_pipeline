@@ -56,8 +56,31 @@ class LocusControlData:
     locus_id: str
     locus_clade_values: list[float]  # one 0/1 value per informative clade (disruption indicator)
     locus_gc: float
+    #: Clade values pooled across ALL of this locus's matched controls.
     control_clade_values: list[float]
+    #: Representative GC for reporting — the mean across the controls when
+    #: there is more than one.
     control_gc: float
+    #: Per-observation GC, aligned element-for-element with
+    #: ``control_clade_values``. Present when a locus has several matched
+    #: controls, which is now the default: each control has its own GC and
+    #: the pooled model must see the real value for each row rather than
+    #: one figure broadcast across all of them. ``None`` broadcasts
+    #: ``control_gc``, which is what a single-control caller wants.
+    control_gc_values: list[float] | None = None
+
+    def control_gc_per_value(self) -> list[float]:
+        """GC for each control observation, broadcasting when unset."""
+        if self.control_gc_values is None:
+            return [self.control_gc] * len(self.control_clade_values)
+        if len(self.control_gc_values) != len(self.control_clade_values):
+            raise ValueError(
+                f"{self.locus_id}: {len(self.control_gc_values)} control GC values for "
+                f"{len(self.control_clade_values)} control observations. These must align "
+                "element-for-element, or the pooled model attributes a clade's disruption "
+                "to the wrong control's GC."
+            )
+        return list(self.control_gc_values)
 
 
 @dataclass(frozen=True)
@@ -142,9 +165,13 @@ def gc_confound_gate(
             dummy_row[locus_index] = 1.0
             rows_X.append([1.0, locus.locus_gc, *dummy_row])  # intercept, GC, locus dummies
             rows_y.append(value)
-        for value in locus.control_clade_values:
+        # Each control observation carries ITS OWN GC. With several matched
+        # controls per locus these differ, and broadcasting one figure
+        # across them would hand the model a confounder value that no row
+        # actually has.
+        for value, control_gc in zip(locus.control_clade_values, locus.control_gc_per_value()):
             dummy_row = [0.0] * k  # controls are the reference category: all dummies 0
-            rows_X.append([1.0, locus.control_gc, *dummy_row])
+            rows_X.append([1.0, control_gc, *dummy_row])
             rows_y.append(value)
 
     X_full = np.array(rows_X)

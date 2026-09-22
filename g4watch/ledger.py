@@ -38,6 +38,18 @@ class AppendResult:
     created: bool
 
 
+#: Columns added after rows had already been written, which a ledger
+#: predating them may legitimately lack. Reading fills them with "" —
+#: honest, because that provenance genuinely was not recorded at the time —
+#: rather than refusing to read the historical record at all.
+#:
+#: Columns NOT listed here stay mandatory: a ledger missing `verdict` is
+#: corrupt, not old.
+BACKFILLABLE_FIELDS = frozenset(
+    {"n_controls", "control_regions", "n_controls_same_compartment"}
+)
+
+
 def read_rows(path: str | Path) -> list[dict]:
     ledger = Path(path)
     if not ledger.exists():
@@ -47,9 +59,41 @@ def read_rows(path: str | Path) -> list[dict]:
         if reader.fieldnames is None:
             return []
         missing = [field for field in LEDGER_FIELDS if field not in reader.fieldnames]
-        if missing:
-            raise LedgerError(f"{ledger} is missing required column(s): {', '.join(missing)}")
-        return list(reader)
+        hard_missing = [field for field in missing if field not in BACKFILLABLE_FIELDS]
+        if hard_missing:
+            raise LedgerError(f"{ledger} is missing required column(s): {', '.join(hard_missing)}")
+        rows = list(reader)
+        for row in rows:
+            for field in missing:
+                row.setdefault(field, "")
+        return rows
+
+
+def migrate(path: str | Path) -> bool:
+    """Rewrite a ledger with the current column set. Returns True if it changed.
+
+    Append-only refers to ROWS: no row is added, removed or altered here.
+    Only the header gains the columns it lacks, and existing rows carry ""
+    in them, which is the truthful value — that provenance was not
+    recorded when those runs happened.
+    """
+    ledger = Path(path)
+    if not ledger.exists():
+        return False
+    with open(ledger, newline="") as handle:
+        reader = csv.DictReader(handle, delimiter="\t")
+        fieldnames = list(reader.fieldnames or [])
+        rows = list(reader)
+    if all(field in fieldnames for field in LEDGER_FIELDS):
+        return False
+    for row in rows:
+        for field in LEDGER_FIELDS:
+            row.setdefault(field, "")
+    with open(ledger, "w", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=LEDGER_FIELDS, delimiter="\t", extrasaction="ignore")
+        writer.writeheader()
+        writer.writerows(rows)
+    return True
 
 
 def _identity(row: dict) -> tuple:
@@ -72,8 +116,16 @@ def append_rows(ledger_path: str | Path, rows: list[dict]) -> AppendResult:
     fresh, duplicates = [], 0
     for row in rows:
         missing = [field for field in LEDGER_FIELDS if field not in row]
-        if missing:
-            raise LedgerError(f"Row for {row.get('atlas_id', '?')} is missing column(s): {', '.join(missing)}")
+        # Same rule as read_rows: a row without `verdict` is malformed, a
+        # row without control provenance is merely not carrying it. The
+        # pipeline always supplies provenance; callers writing a row by
+        # hand should not have to.
+        hard_missing = [field for field in missing if field not in BACKFILLABLE_FIELDS]
+        if hard_missing:
+            raise LedgerError(
+                f"Row for {row.get('atlas_id', '?')} is missing column(s): {', '.join(hard_missing)}"
+            )
+        row = {**{field: "" for field in BACKFILLABLE_FIELDS}, **row}
         if _identity(row) in seen:
             duplicates += 1
             continue

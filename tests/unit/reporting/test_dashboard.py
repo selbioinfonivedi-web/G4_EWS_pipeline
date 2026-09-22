@@ -33,9 +33,27 @@ def test_blocked_pathogen_carries_the_blocked_disclaimer():
 def test_both_confidence_axes_are_reported_separately():
     # Collapsing them into one number is exactly what the two-axis scheme
     # exists to prevent.
+    #
+    # This asserts the SEPARATION, not a snapshot of the counts. It used to
+    # pin confidence_breakdown == {"WC": 4}, which made a legitimate
+    # reclassification of the Atlas (revision log R-19) look like a
+    # regression in the dashboard. The tier a locus lands in is the
+    # classifier's business and is tested there; what this test owns is
+    # that the two axes arrive as two independent breakdowns.
+    from g4watch.atlas.schema import StructuralConfidence
+
     data = build_dashboard(load_config("fmdv"))
-    assert data.confidence_breakdown == {"WC": 4}
+    assert data.confidence_breakdown, "the structural axis is missing"
+    assert set(data.confidence_breakdown) <= {t.name for t in StructuralConfidence}
+    assert sum(data.confidence_breakdown.values()) == len(data.loci)
+
     assert set(data.functional_breakdown) == {"known_functional_region", "unannotated"}
+    assert sum(data.functional_breakdown.values()) == len(data.loci)
+
+    # The axes must not be the same object or the same partition by
+    # accident: functional context uses annotation keys, structural uses
+    # tier names, and neither vocabulary may leak into the other.
+    assert not set(data.confidence_breakdown) & set(data.functional_breakdown)
 
 
 def test_missing_atlas_still_renders():

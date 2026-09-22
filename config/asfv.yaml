@@ -1,0 +1,107 @@
+# G4-WATCH pathogen configuration — African Swine Fever Virus
+#
+# Provisioned 2026-09-13. Every value read from the record it claims to
+# come from, not inferred.
+
+pathogen: ASFV
+display_name: "African Swine Fever Virus"
+genome_type: dsDNA
+taxonomy_id: 10497
+provisioned: true
+
+reference:
+  accession: NC_044958.1
+  fasta: data/reference_genomes/asfv/NC_044958.1.fasta
+  genome_length: 181187
+  # NO CDS BOUNDS, deliberately. ASFV has 163 CDS features on both
+  # strands spanning 100% of the 181 kb genome, so a single
+  # first-start-to-last-end span would label the entire genome "CDS" and
+  # leave the 5'/3' UTR categories empty. That is not annotation, it is a
+  # tautology dressed as one.
+  #
+  # Declaring none means every locus is reported as "unannotated region",
+  # which is the honest statement: this pipeline does not know which ASFV
+  # gene a locus sits in. EBV is configured the same way for the same
+  # reason. Per-gene labelling needs the multi-ORF work LSDV also needs
+  # (revision log R-08).
+
+corpus:
+  metadata_tsv: data/reference_genomes/asfv/corpus/asfv_corpus_metadata.tsv
+  sequences_fasta: data/reference_genomes/asfv/corpus/asfv_corpus_sequences.fasta
+  # NOT genotype: every record has an empty /genotype qualifier. Lineage
+  # is assigned in the literature from specific genes and is not in the
+  # GenBank source features, so declaring it would resolve everything to
+  # "unknown" and fail the per-lineage floor for a metadata reason rather
+  # than a biological one. Country is used instead, as for EBV, PPRV, CSFV
+  # and NDV. It is NOT a phylogenetic lineage.
+  lineage_field: country
+  lineage_fallback_fields: []
+  exclude_lineages: []
+  # See revision log R-26. A rule, not a list of country names.
+  min_lineage_size: 20
+
+qc:
+  min_completeness_fraction: 0.90
+  max_n_content_fraction: 0.05
+  require_year_precision_date: true
+
+alignment:
+  tool: mafft
+  args: "--auto --keeplength --addfragments"
+  max_gapped_fraction: 0.50
+
+recombination:
+  enabled: true
+  tier: high_priority
+  alpha: 0.05
+
+phylogenetics:
+  tool: iqtree2
+  model: GTR+F+I+G4
+  bootstrap_replicates: 1000
+  seed: 20250823
+  outgroup: null
+  ancestral_states: required
+  timetree:
+    tool: treetime
+    clock_rate: null
+    clock_filter_iqd: 3.0
+
+g4_prediction:
+  g4hunter:
+    window: 25
+    threshold: 1.2
+  pattern_motif:
+    enabled: true
+  g4rna_screener:
+    enabled: false
+    reason: "Python 2-only with a pickled PyBrain classifier; see vendor/README.md"
+  pqsfinder:
+    enabled: false
+    reason: "DNA-virus-scoped tool, deferred"
+  concordance:
+    min_overlap_fraction: 0.80
+  flank: 100
+
+control_regions:
+  length_tolerance: 0.10
+  gc_tolerance: 0.05
+  pqs_overlap_score_threshold: 0.80
+  exclusion_buffer: 50
+  n_controls: 5
+
+atlas:
+  version: "1.0"
+  path: data/atlases/G4_Reference_Atlas_v1.0.asfv.tsv
+
+dh1_gate:
+  alpha: 0.05
+  ledger: data/atlases/testing_ledger.tsv
+
+detection:
+  baseline_fraction: 0.5
+  min_baseline_windows: 8
+
+# Layer 1 of the Section 12 gate. False until a SUPPORTED D.H1 verdict
+# exists, which no run has produced.
+operational_mode: false

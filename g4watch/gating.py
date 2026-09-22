@@ -46,6 +46,11 @@ class ScoringPermission(str, Enum):
     BLOCKED_INSUFFICIENT_DATA = "BLOCKED_INSUFFICIENT_DATA"
     BLOCKED_NOT_SUPPORTED = "BLOCKED_NOT_SUPPORTED"
     BLOCKED_SIGNAL_EXPLAINED_BY_GC = "BLOCKED_SIGNAL_EXPLAINED_BY_GC"
+    #: A real, GC-adjusted effect exists but runs AGAINST D.H1 — the locus
+    #: is more disrupted than its matched control. Blocked like any other
+    #: non-SUPPORTED verdict, but named separately because it is evidence
+    #: against the hypothesis rather than an absence of evidence for it.
+    BLOCKED_SIGNAL_OPPOSITE_DIRECTION = "BLOCKED_SIGNAL_OPPOSITE_DIRECTION"
     BLOCKED_OPERATIONAL_MODE_OFF = "BLOCKED_OPERATIONAL_MODE_OFF"
 
 
@@ -96,6 +101,12 @@ class GateStatus:
             ScoringPermission.BLOCKED_SIGNAL_EXPLAINED_BY_GC: (
                 "D.H1's apparent signal did not survive the GC-confound gate "
                 "(SIGNAL_EXPLAINED_BY_GC). Scoring stays unwired."
+            ),
+            ScoringPermission.BLOCKED_SIGNAL_OPPOSITE_DIRECTION: (
+                "at least one locus shows a real, GC-adjustment-surviving effect that runs AGAINST "
+                "D.H1 (SIGNAL_OPPOSITE_DIRECTION): it is MORE disrupted than its matched control, "
+                "not less. This is evidence against the hypothesis, not an absence of evidence for "
+                "it, and it is reported separately for that reason. Scoring stays unwired."
             ),
             ScoringPermission.BLOCKED_OPERATIONAL_MODE_OFF: (
                 "D.H1 is SUPPORTED, but operational_mode is false in the pathogen config. Both "
@@ -168,6 +179,12 @@ def evaluate_gate(
         )
     elif all(v == INSUFFICIENT_DATA for v in verdicts):
         permission = ScoringPermission.BLOCKED_INSUFFICIENT_DATA
+    elif Dh1Verdict.SIGNAL_OPPOSITE_DIRECTION.value in verdicts:
+        # Ranked first among the blocking verdicts for the same reason the
+        # locus-level roll-up ranks it first: an effect pointing away from
+        # the hypothesis is the most specific finding in the run, and the
+        # one most easily lost if reported as a bare NOT_SUPPORTED.
+        permission = ScoringPermission.BLOCKED_SIGNAL_OPPOSITE_DIRECTION
     elif Dh1Verdict.SIGNAL_EXPLAINED_BY_GC.value in verdicts:
         # A GC-explained signal is the more specific and more important
         # finding to report, so it wins over a bare NOT_SUPPORTED when
@@ -188,19 +205,45 @@ def evaluate_gate(
     )
 
 
+#: What a closed gate does.
+#:
+#: ``refuse``   -- raise, produce nothing. The default, and the behaviour
+#:                every pathogen has unless its config says otherwise.
+#: ``annotate`` -- let scoring proceed, and mark the whole result as
+#:                non-authoritative with the gate's own reason attached.
+#:
+#: ``annotate`` exists because refusing produces no artifact at all, and a
+#: reader then has nothing to look at and no sense of what the machinery
+#: would have said. It is NOT a way to obtain a usable score from a corpus
+#: that has not earned one: the reason travels with every result, the
+#: warning classifier is capped, and ``authoritative`` stays False. A
+#: number carrying its own disclaimer is safer than a number with no
+#: disclaimer, and both are less safe than a refusal -- which is why
+#: ``refuse`` remains the default and has to be opted out of per pathogen.
+ON_BLOCK_REFUSE = "refuse"
+ON_BLOCK_ANNOTATE = "annotate"
+DEFAULT_ON_BLOCK = ON_BLOCK_REFUSE
+
+
 def assert_scoring_permitted(
     ledger_path: str | Path,
     pathogen: str,
     *,
     operational_mode: bool,
+    on_block: str = DEFAULT_ON_BLOCK,
 ) -> GateStatus:
     """Raise unless Stage 5 scoring is permitted for this pathogen.
 
     This is the call every Stage 5/6 real-data entry point must make
     first. It raises rather than returning a boolean so that a caller
     cannot ignore the result by accident.
+
+    ``on_block="annotate"`` returns the closed status instead of raising,
+    leaving the caller responsible for carrying the reason into its
+    output. Callers that do this MUST mark the result non-authoritative;
+    :func:`g4watch.pipeline.stage5_driver.run_stage5` does.
     """
     status = evaluate_gate(ledger_path, pathogen, operational_mode=operational_mode)
-    if not status.permitted:
+    if not status.permitted and on_block != ON_BLOCK_ANNOTATE:
         raise ScoringNotPermittedError(status.explain())
     return status

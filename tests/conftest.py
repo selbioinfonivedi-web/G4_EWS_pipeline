@@ -65,6 +65,21 @@ requires_real_corpus = pytest.mark.skipif(
     reason="needs the regenerable FMDV alignment/tree, which are gitignored; run `nextflow run workflow/main.nf --pathogen fmdv`",
 )
 
+#: Same reasoning as REAL_ALIGNMENT/REAL_TREE above, for the newer 2026
+#: FMDV corpus. Kept separate rather than folded into requires_real_corpus
+#: because a checkout can have one regenerated without the other -- they
+#: are produced by different pipeline runs.
+FMDV2026_ALIGNED = (
+    REPO_ROOT / "data/reference_genomes/fmdv/corpus_2026/aligned/fmdv2026_qc_passed_aligned_to_ref.fasta"
+)
+requires_fmdv2026_corpus = pytest.mark.skipif(
+    not FMDV2026_ALIGNED.is_file(),
+    reason="needs the regenerable FMDV2026 alignment, which is gitignored; run "
+           "`nextflow run workflow/main.nf --pathogen fmdv2026 --alignment ... --rooted_tree ...` "
+           "or the equivalent g4watch CLI stages",
+)
+
+
 def skip_without_real_corpus() -> None:
     """The callable form, for use *inside* a fixture.
 

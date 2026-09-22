@@ -37,7 +37,12 @@ from typing import Any
 from ..metrics import lineage_outcomes as outcomes_mod
 from ..metrics import surveillance_metrics as sm
 from ..metrics.normalization import NormalizedMetric
-from ..scoring.cusum import calibrate_cusum, lag1_autocorrelation, run_cusum
+from ..scoring.cusum import (
+    STRICT_MIN_BASELINE,
+    calibrate_cusum,
+    lag1_autocorrelation,
+    run_cusum,
+)
 from ..scoring.ewma import calibrate_ewma, run_ewma
 from ..scoring.g4_ews_core import CoreWeights, g4_ews_core
 from ..scoring.integrated_score import IntegratedWeights, integrated_score
@@ -184,12 +189,18 @@ def run_stage5_unchecked(
     width: int = 1,
     horizon: int = outcomes_mod.DEFAULT_HORIZON,
     authoritative: bool = False,
+    detection: dict | None = None,
 ) -> Stage5Result:
     """The full downstream chain, without the gate check.
 
     ``authoritative=False`` marks the result as a demonstration of the
     machinery rather than a surveillance finding. Only ``run_stage5``
     sets it True, and only after the D.H1 gate permits scoring.
+
+    ``detection`` carries the pathogen's ``detection:`` config block —
+    ``baseline_fraction`` and ``min_baseline_windows``. Passed explicitly
+    rather than read from a config object because this function takes a
+    pathogen NAME, so that it stays callable against synthetic fixtures.
     """
     out = Stage5Result(pathogen=pathogen, authoritative=authoritative)
 
@@ -295,11 +306,19 @@ def run_stage5_unchecked(
 
     # 6 — detection. Both charts are calibrated on the first half of the
     # series so the limits are not set by the excursion they should catch.
-    split = max(4, len(series) // 2)
+    # Baseline share. Half by default; a pathogen whose sampling cadence
+    # cannot produce a long series may declare more, at the cost of having
+    # fewer windows left to monitor. Both numbers are reported.
+    detection_config = detection or {}
+    baseline_fraction = float(detection_config.get("baseline_fraction", 0.5))
+    min_baseline = int(detection_config.get("min_baseline_windows", STRICT_MIN_BASELINE))
+    split = max(4, min(len(series) - 1, round(len(series) * baseline_fraction)))
     baseline = series[:split]
     rho = lag1_autocorrelation(series)
     try:
-        params = calibrate_cusum(baseline, autocorrelation_aware=True)
+        params = calibrate_cusum(
+            baseline, autocorrelation_aware=True, min_baseline=min_baseline
+        )
         cusum = run_cusum(series, params)
         alarms = tuple(getattr(cusum, "alarm_indices", ()) or ())
         out.detection["cusum"] = {
@@ -310,6 +329,11 @@ def run_stage5_unchecked(
             "achieved_arl": round(float(params.achieved_arl), 2),
             "calibration": str(params.calibration),
             "baseline_windows": len(baseline),
+            "monitored_windows": len(series) - len(baseline),
+            "short_baseline": params.short_baseline,
+            "control_limit_interval": params.control_limit_interval,
+            "limit_uncertainty_ratio": params.limit_uncertainty_ratio,
+            "caveat": params.caveat(),
             "note": (
                 "Calibrated by moving-block bootstrap so the baseline's autocorrelation "
                 "survives resampling — an independence assumption here would make the "
@@ -326,7 +350,9 @@ def run_stage5_unchecked(
         out.note("cusum", "failed", str(exc))
 
     try:
-        eparams = calibrate_ewma(baseline, autocorrelation_aware=True)
+        eparams = calibrate_ewma(
+            baseline, autocorrelation_aware=True, min_baseline=min_baseline
+        )
         ewma = run_ewma(series, eparams)
         e_alarms = tuple(getattr(ewma, "alarm_indices", ()) or ())
         out.detection["ewma"] = {
@@ -335,6 +361,16 @@ def run_stage5_unchecked(
             "lambda": round(float(eparams.lambda_), 3),
             "control_limit": round(float(eparams.control_limit), 4),
             "achieved_arl": round(float(eparams.achieved_arl), 2),
+            # The same short-baseline reporting CUSUM carries. Omitting it
+            # here left the EWMA limit looking calibrated while the CUSUM
+            # limit beside it carried a caveat — two limits fitted to the
+            # same eight observations, only one of them admitting it.
+            "baseline_windows": len(baseline),
+            "monitored_windows": len(series) - len(baseline),
+            "short_baseline": eparams.short_baseline,
+            "control_limit_interval": eparams.control_limit_interval,
+            "limit_uncertainty_ratio": eparams.limit_uncertainty_ratio,
+            "caveat": eparams.caveat(),
         }
         out.note("ewma", "ok", f"{len(e_alarms)} EWMA alarms.")
     except Exception as exc:  # noqa: BLE001
@@ -491,8 +527,66 @@ def _mc_to_dict(result: Any) -> dict:
 
 
 def run_stage5(config, samples: list[sm.Sample], **kwargs) -> Stage5Result:
-    """Gated entry point. Refuses unless D.H1 permits scoring for this pathogen."""
-    from ..gating import assert_scoring_permitted
+    """Gated entry point.
 
-    assert_scoring_permitted(config.ledger_path, config.pathogen, operational_mode=config.operational_mode)
-    return run_stage5_unchecked(config.pathogen, samples, authoritative=True, **kwargs)
+    Refuses unless D.H1 permits scoring, UNLESS the pathogen config sets
+    ``dh1_gate.on_block: annotate``. In that mode a closed gate does not
+    stop the run; it produces the result with ``authoritative=False`` and
+    the gate's own reason recorded as the first step, so the disclaimer
+    cannot be separated from the numbers by anyone reading them later.
+
+    The default is still to refuse. Annotating is weaker: a reader can
+    ignore a caveat but cannot ignore a missing file. It is opt-in per
+    pathogen so that choosing it is a recorded decision rather than a
+    property of the system.
+    """
+    from ..gating import DEFAULT_ON_BLOCK, assert_scoring_permitted
+
+    on_block = (config.raw.get("dh1_gate") or {}).get("on_block", DEFAULT_ON_BLOCK)
+    status = assert_scoring_permitted(
+        config.ledger_path,
+        config.pathogen,
+        operational_mode=config.operational_mode,
+        on_block=on_block,
+    )
+    result = run_stage5_unchecked(
+        config.pathogen,
+        samples,
+        authoritative=status.permitted,
+        detection=(config.raw.get("detection") or {}),
+        **kwargs,
+    )
+    annotate_gate_status(result, status)
+    return result
+
+
+def annotate_gate_status(result: Stage5Result, status) -> Stage5Result:
+    """Prepend the gate's reason to a non-authoritative result.
+
+    A caveat that appears on only one code path is worse than none,
+    because its absence then reads as evidence there was nothing to
+    caveat. This was exactly the case: `--include-ineligible-loci` routes
+    through ``run_stage5_unchecked`` and skipped the annotation entirely,
+    so the run that most needed the disclaimer was the one without it.
+    Both entry points call this.
+
+    Prepended rather than appended so it is the first thing any reader of
+    ``steps`` meets, before a single number.
+    """
+    if status is None or getattr(status, "permitted", False):
+        return result
+    if result.steps and result.steps[0].get("step") == "d.h1_gate":
+        return result
+    result.steps.insert(0, {
+        "step": "d.h1_gate",
+        "status": "not_permitted",
+        "detail": status.explain(),
+        "permission": status.permission.value,
+        "consequence": (
+            "Scores below are a demonstration of the machinery on this corpus. "
+            "They are NOT a surveillance finding, no alert level derived from them "
+            "is actionable, and they must not be reported as evidence that the "
+            "underlying hypothesis holds."
+        ),
+    })
+    return result

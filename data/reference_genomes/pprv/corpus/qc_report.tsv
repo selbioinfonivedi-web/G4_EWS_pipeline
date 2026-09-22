@@ -1,0 +1,116 @@
+accession	lineage_raw	lineage_normalized	country	passed	completeness_fraction	n_content_fraction	reasons_failed
+PZ706560.1	China	China	China	True	0.9986	0.0	
+PX497029.1	Bangladesh	Bangladesh	Bangladesh	True	1.0	0.0	
+PX112974.1	Nigeria	Nigeria	Nigeria	True	1.0	0.0	
+PV110162.1	Ethiopia	Ethiopia	Ethiopia	True	1.0	0.0	
+PV110161.1	Ethiopia	Ethiopia	Ethiopia	True	1.0	0.0	
+PV110160.1	Ethiopia	Ethiopia	Ethiopia	True	1.0	0.0	
+PV110159.1	Ethiopia	Ethiopia	Ethiopia	True	1.0	0.0	
+PQ881839.1	China	China	China	True	1.0	0.0	
+MN920707.1	India	India	India	True	0.9996	0.0	
+MN920706.1	India	India	India	True	1.0	0.0	
+OL741724.2	Cote d'Ivoire	Cote d'Ivoire	Cote d'Ivoire	True	1.0	0.0	
+OL741725.1	Morocco	Morocco	Morocco	True	1.0	0.0001	
+AJ849636.2	Turkey	Turkey	Turkey	False	1.0	0.0	collection date missing year-level precision
+OP066374.1	China	China	China	True	1.0004	0.0	
+ON707028.1	Egypt	Egypt	Egypt	True	0.9703	0.0	
+ON707027.1	Nigeria	Nigeria	Nigeria	True	0.9453	0.0	
+ON110960.1	Ethiopia	Ethiopia	Ethiopia	True	1.0	0.0002	
+ON207131.1	Russia	Russia	Russia	True	0.9999	0.0	
+MZ388427.1				False	1.0	0.0	collection date missing year-level precision
+MZ388426.1				False	1.0	0.0	collection date missing year-level precision
+MZ388425.1				False	1.0	0.0	collection date missing year-level precision
+MZ388424.1				False	1.0	0.0	collection date missing year-level precision
+MZ388423.1				False	1.0	0.0	collection date missing year-level precision
+MZ388422.1				False	1.0	0.0	collection date missing year-level precision
+MZ388421.1				False	1.0	0.0	collection date missing year-level precision
+MZ388420.1				False	1.0	0.0	collection date missing year-level precision
+MZ388419.1				False	1.0	0.0	collection date missing year-level precision
+MZ388418.1				False	1.0	0.0	collection date missing year-level precision
+MZ388417.1				False	1.0	0.0	collection date missing year-level precision
+MZ388416.1				False	1.0	0.0	collection date missing year-level precision
+MZ388415.1				False	1.0	0.0	collection date missing year-level precision
+MZ388414.1				False	1.0	0.0	collection date missing year-level precision
+MZ388413.1				False	1.0	0.0	collection date missing year-level precision
+MZ388412.1				False	1.0	0.0	collection date missing year-level precision
+MZ388411.1				False	1.0	0.0	collection date missing year-level precision
+MZ388410.1				False	1.0	0.0	collection date missing year-level precision
+MZ388409.1				False	1.0	0.0	collection date missing year-level precision
+OL310704.1	Israel	Israel	Israel	False	1.0	0.0	collection date missing year-level precision
+OL310703.1	Israel	Israel	Israel	False	1.0	0.0	collection date missing year-level precision
+OL310702.1	Israel	Israel	Israel	False	1.0	0.0	collection date missing year-level precision
+OL310701.1	Israel	Israel	Israel	False	1.0	0.0	collection date missing year-level precision
+OL310700.1	Israel	Israel	Israel	False	1.0	0.0	collection date missing year-level precision
+OL310699.1	Israel	Israel	Israel	False	1.0	0.0	collection date missing year-level precision
+OL310698.1	Israel	Israel	Israel	False	1.0	0.0	collection date missing year-level precision
+OL310697.1	Israel	Israel	Israel	False	1.0	0.0	collection date missing year-level precision
+OL310696.1	Israel	Israel	Israel	False	1.0	0.0	collection date missing year-level precision
+OL310695.1	Israel	Israel	Israel	False	1.0	0.0	collection date missing year-level precision
+OL310694.1	Israel	Israel	Israel	False	1.0	0.0	collection date missing year-level precision
+OL310693.1	Israel	Israel	Israel	False	1.0	0.0	collection date missing year-level precision
+OL310692.1	Israel	Israel	Israel	False	1.0	0.0	collection date missing year-level precision
+OL310691.1	Israel	Israel	Israel	False	1.0	0.0	collection date missing year-level precision
+OL310690.1	Israel	Israel	Israel	False	1.0	0.0	collection date missing year-level precision
+OL310689.1	Israel	Israel	Israel	False	1.0	0.0	collection date missing year-level precision
+OL310688.1	Israel	Israel	Israel	False	1.0	0.0	collection date missing year-level precision
+OL310687.1	Israel	Israel	Israel	False	1.0	0.0	collection date missing year-level precision
+OL310685.1	Democratic Republic of the Congo	Democratic Republic of the Congo	Democratic Republic of the Congo	True	1.0	0.0	
+MZ061722.1	Mongolia	Mongolia	Mongolia	True	1.0003	0.0021	
+MZ061721.1	Mongolia	Mongolia	Mongolia	True	0.999	0.0441	
+MZ061720.1	Mongolia	Mongolia	Mongolia	True	1.0004	0.0001	
+MZ061719.1	Mongolia	Mongolia	Mongolia	True	1.0004	0.0001	
+MZ322753.1	Tanzania	Tanzania	Tanzania	True	1.0	0.0	
+MW960272.1	Tanzania	Tanzania	Tanzania	True	1.0	0.0	
+MK408669.1	Iraq	Iraq	Iraq	True	0.998	0.0	
+MN657232.1	Turkey	Turkey	Turkey	True	1.0	0.0001	
+NC_006383.2	Turkey	Turkey	Turkey	False	1.0	0.0	collection date missing year-level precision
+KY628761.1	Nigeria	Nigeria	Nigeria	True	1.0	0.0	
+KX421388.1	China	China	China	True	1.0	0.0	
+KX421387.1	China	China	China	True	1.0004	0.0	
+KX421386.1	China	China	China	True	1.0004	0.0001	
+KX421385.1	China	China	China	True	1.0004	0.0001	
+KX421384.1	China	China	China	True	1.0004	0.0001	
+KY888168.1	Mongolia	Mongolia	Mongolia	True	1.0004	0.0	
+KY885100.1	Algeria	Algeria	Algeria	True	1.0	0.0	
+KT860065.1	India	India	India	True	1.0	0.0001	
+KT860064.1	India	India	India	True	1.0	0.0	
+KT860063.1	India	India	India	True	1.0	0.0	
+KX354359.1	China	China	China	True	1.0	0.0008	
+KX033350.1	India	India	India	True	1.0	0.0	
+KU236379.1	Liberia	Liberia	Liberia	True	1.0	0.0	
+KF727981.2	India	India	India	True	1.0	0.0	
+KR828814.1	Nigeria	Nigeria	Nigeria	True	1.0	0.0	
+KR828813.1	Nigeria	Nigeria	Nigeria	True	1.0	0.0	
+KT633939.1	China	China	China	True	1.0004	0.0001	
+KR781450.1	Benin	Benin	Benin	True	1.0	0.0	
+KR781449.1	Benin	Benin	Benin	True	1.0	0.0	
+KP868655.1	China	China	China	True	1.0004	0.0	
+KM816619.1	China	China	China	True	1.0069	0.0	
+KT270355.1	India	India	India	True	0.9996	0.0001	
+KR261605.1	India	India	India	True	1.0	0.0	
+KR781451.1	Cote d'Ivoire	Cote d'Ivoire	Cote d'Ivoire	True	1.0	0.0	
+KP789375.1	Senegal	Senegal	Senegal	True	1.0	0.0	
+KR140086.1	India	India	India	True	1.0	0.0001	
+KP260624.1	China	China	China	True	1.0004	0.0	
+KJ466104.1	Ghana	Ghana	Ghana	True	1.0	0.0	
+KM089832.1	China	China	China	True	1.0004	0.0	
+KM089831.1	China	China	China	True	1.0006	0.0	
+KM089830.1	China	China	China	True	1.0004	0.0	
+KM463083.1	Kenya	Kenya	Kenya	True	1.0	0.0	
+KJ867545.1	United Arab Emirates	United Arab Emirates	United Arab Emirates	True	1.0	0.0	
+KJ867544.1	Oman	Oman	Oman	True	1.0	0.0	
+KJ867543.1	Uganda	Uganda	Uganda	True	1.0	0.0	
+KJ867540.1	Ethiopia	Ethiopia	Ethiopia	True	1.0	0.0	
+KM091959.1	China	China	China	True	1.0004	0.0	
+KM212177.1	Senegal	Senegal	Senegal	True	1.0	0.0	
+KJ867542.1	India	India	India	True	1.0	0.0	
+KJ867541.1	Ethiopia	Ethiopia	Ethiopia	True	1.0	0.0	
+KC594074.1	Morocco	Morocco	Morocco	True	1.0	0.0	
+JX217850.1	China	China	China	True	1.0	0.0	
+JF939201.1	China	China	China	True	1.0	0.0	
+HQ197753.1	Nigeria	Nigeria	Nigeria	False	1.0	0.0	collection date missing year-level precision
+FJ905304.1	China	China	China	True	1.0	0.0	
+EU267273.1	Cote d'Ivoire	Cote d'Ivoire	Cote d'Ivoire	True	1.0	0.0	
+AY560591.3				False	0.996	0.0	collection date missing year-level precision
+EU267274.1	Nigeria	Nigeria	Nigeria	True	1.0	0.0	
+X74443.2	Nigeria	Nigeria	Nigeria	False	1.0	0.0	collection date missing year-level precision

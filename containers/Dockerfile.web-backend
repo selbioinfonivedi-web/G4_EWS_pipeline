@@ -16,7 +16,18 @@ COPY config ./config
 # where no corpus exists. Left unset, config_dir() falls through to
 # ./config in the working directory — the mounted repository.
 
-RUN pip install --no-cache-dir . "fastapi>=0.110,<1" "uvicorn[standard]>=0.27,<1"
+# jinja2 is NOT optional here. web/backend/app.py imports
+# fastapi.templating.Jinja2Templates, and starlette raises
+# "jinja2 must be installed to use Jinja2Templates" at import time --
+# so the container crash-looped on start and `docker compose up`
+# served 502 through the proxy. It was missing because FastAPI does
+# not depend on jinja2 itself; the templating module does.
+#
+# python-multipart likewise: the upload endpoint needs it to parse
+# multipart form data, and FastAPI reports that only when a request
+# arrives rather than at import.
+RUN pip install --no-cache-dir . "fastapi>=0.110,<1" "uvicorn[standard]>=0.27,<1" \
+        "jinja2>=3.1,<4" "python-multipart>=0.0.9"
 
 # The service is read-only over pipeline artifacts. data/ is mounted
 # read-only at run time (see containers/docker-compose.yml) rather than

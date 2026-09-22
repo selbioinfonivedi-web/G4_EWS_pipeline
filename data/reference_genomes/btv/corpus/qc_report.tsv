@@ -1,0 +1,501 @@
+accession	lineage_raw	lineage_normalized	country	passed	completeness_fraction	n_content_fraction	reasons_failed
+PZ512953.1			Spain	True	1.0017	0.0	
+PZ512943.1			Spain	True	1.0065	0.0	
+PZ528069.1			USA	True	0.9819	0.0	
+PZ528068.1			USA	True	0.9819	0.0	
+PZ528067.1			USA	True	1.0048	0.0	
+PZ528066.1			USA	True	1.0048	0.0	
+PZ528065.1			USA	True	1.0048	0.0	
+PZ528064.1			USA	True	1.0048	0.0	
+PZ528063.1			USA	True	0.9945	0.0	
+PZ528062.1			USA	True	1.0017	0.0	
+PZ528061.1			USA	True	1.0017	0.0	
+PZ528060.1			USA	True	1.0017	0.0	
+PZ528059.1			USA	True	1.0003	0.0	
+PZ528058.1			USA	True	0.9819	0.0	
+PZ528057.1			USA	True	1.0003	0.0	
+PZ528056.1			USA	True	1.0003	0.0	
+PZ547133.1			South Africa	False	1.0065	0.0	collection date missing year-level precision
+PZ547132.1			South Africa	False	0.9819	0.0	collection date missing year-level precision
+PZ547131.1			South Africa	False	1.0058	0.0	collection date missing year-level precision
+PZ547130.1			South Africa	False	1.0021	0.0	collection date missing year-level precision
+PZ547129.1			South Africa	False	1.0048	0.0	collection date missing year-level precision
+PZ547128.1			South Africa	False	0.9959	0.0	collection date missing year-level precision
+PZ547127.1			South Africa	False	1.0	0.0	collection date missing year-level precision
+PZ547126.1			South Africa	False	1.0003	0.0	collection date missing year-level precision
+PZ547125.1			South Africa	False	1.0017	0.0	collection date missing year-level precision
+PZ547124.1			South Africa	False	1.0048	0.0	collection date missing year-level precision
+PZ547123.1			South Africa	False	1.0065	0.0	collection date missing year-level precision
+PZ547122.1			South Africa	False	1.0075	0.0	collection date missing year-level precision
+PZ513828.1	3	3	Ireland	True	1.0048	0.0	
+PZ498880.1			Spain	True	1.0065	0.0003	
+PX056767.1	4	4	China	True	1.0017	0.0	
+PV076075.1	4	4	Spain	True	1.0017	0.0	
+PZ338999.1	14	14	France	True	0.9986	0.0	
+PZ338989.1			France	True	1.0014	0.0	
+PZ272906.1	3	3	United Kingdom	True	1.0003	0.0	
+PZ117009.1			Spain	True	1.0065	0.0	
+PZ044306.1			Spain	True	1.0065	0.0	
+PX965948.1	3	3	United Kingdom	True	1.0048	0.0	
+PX965938.1	3	3	United Kingdom	True	1.0048	0.0	
+PV485363.1	5	5	Israel	True	1.0003	0.0	
+PV485353.1	11	11	Israel	True	0.9935	0.0	
+PV472032.1	1	1	Israel	True	0.9966	0.0	
+PV582474.1	4	4	Israel	True	1.0017	0.0	
+PV575823.1	3	3	Israel	True	1.001	0.0	
+PV575822.1	3	3	Israel	True	1.0003	0.0003	
+PV575821.1	3	3	Israel	True	0.9942	0.0	
+PV564892.1	3	3	Israel	True	1.0024	0.0	
+PV564882.1	3	3	Israel	True	1.001	0.0	
+PV553550.1	3	3	Israel	True	1.0045	0.0003	
+PV553540.1	3	3	Israel	True	1.0045	0.0	
+PV535776.1	3	3	Israel	True	1.0045	0.0	
+PV524090.1	3	3	Israel	True	1.0045	0.0	
+PV524080.1	3	3	Israel	True	1.0045	0.0	
+PV495245.1	3	3	Israel	True	1.0048	0.0	
+PV495235.1	8	8	Israel	True	1.0062	0.0	
+PX963012.1	BTV8	BTV8	Greece	True	1.0062	0.0	
+PX963002.1	BTV3	BTV3	Greece	True	1.0048	0.0	
+PX740420.1	4	4	Italy	True	0.9688	0.0353	
+PX740401.1	4	4	Italy	True	0.9894	0.019	
+PX740410.1	4	4	Italy	True	1.0017	0.0	
+PX740391.1	4	4	Italy	True	1.0017	0.0	
+PX740381.1	3	3	Italy	True	1.0048	0.0	
+PX692383.1	17	17	France	True	0.9993	0.0	
+PX692373.1	8	8	France	True	1.0058	0.0	
+PX692363.1	3	3	France	True	1.0021	0.0	
+PX692353.1	3	3	France	True	0.9986	0.0	
+PX692343.1	3	3	France	True	0.9993	0.0	
+PX692333.1	3	3	France	True	1.0003	0.0	
+PX692323.1	8	8	France	True	1.0031	0.0	
+PX692313.1	8	8	France	True	1.0051	0.0	
+PX692303.1	3	3	France	True	1.0003	0.0	
+PX692293.1	4	4	France	True	1.0003	0.0	
+PX660383.1	8	8	United Kingdom	True	1.0058	0.0	
+PX660380.1	3	3	United Kingdom	True	1.0045	0.0	
+PX660370.1	3	3	United Kingdom	True	1.0048	0.0	
+PX660360.1	3	3	United Kingdom	True	1.0048	0.0	
+PX460303.1			Italy	True	1.0	0.0	
+PX442672.1	BTV4	BTV4	Spain	True	1.0017	0.0	
+PV990387.1	8	8	Italy	True	1.0062	0.0	
+PV990377.1	8	8	Italy	True	1.0062	0.0	
+PV990367.1	8	8	Italy	True	1.0062	0.0	
+PV990357.1	8	8	Italy	True	1.0062	0.0	
+PV990347.1	8	8	Italy	True	1.0062	0.0	
+PV974536.1	8	8	Italy	True	1.0021	0.0	
+PV974526.1	8	8	Italy	True	1.0062	0.0	
+PV974516.1	8	8	Italy	True	1.0021	0.0	
+PV974506.1	4	4	Tunisia	True	0.9952	0.0	
+PV956183.1	4	4	Italy	True	1.0014	0.0	
+PV956173.1	4	4	Tunisia	True	0.9979	0.0	
+PV927998.1	3	3	France	True	0.9986	0.0	
+PV927988.1	19	19	France	True	0.9997	0.0	
+PV927978.1	12	12	France	True	0.9911	0.0003	
+PV927968.1	19	19	France	True	1.0	0.0	
+PV927958.1	1	1	France	True	1.0045	0.0	
+PV853965.1	12	12	United Kingdom	True	0.9932	0.0	
+PV853962.1	3	3	United Kingdom	True	1.0048	0.0	
+PV797209.1	3	3	United Kingdom	True	1.0048	0.0	
+PV797199.1	3	3	United Kingdom	True	1.0048	0.0	
+PV694149.1	1	1	France	True	1.0045	0.0	
+PV694148.1	1	1	France	True	1.0021	0.0	
+PV694147.1	14	14	France	True	0.9935	0.0	
+PV594923.1	3	3	Spain	True	1.0048	0.0	
+PV595118.1	BTV8	BTV8	Spain	True	1.0062	0.0	
+PV541162.1	8	8	Italy	True	1.0062	0.0	
+PV459730.1	BTV1	BTV1	Spain	True	1.0065	0.0	
+PV275616.1	17	17	French Guiana	True	1.0007	0.0	
+PV275615.1	3	3	France	True	1.0048	0.0	
+PV275614.1	8	8	France	True	1.0048	0.0	
+PV275613.1	4	4	France	True	1.0003	0.0003	
+PV295885.1	12	12	France	True	0.9918	0.0	
+PV295875.1	1	1	France	True	1.0062	0.0	
+PQ584055.2	3	3	USA	True	1.0038	0.0	
+MF124283.2			Tunisia	True	0.9651	0.0	
+PV076085.1	8	8	Spain	True	1.0062	0.0	
+PQ168273.1			China	True	1.0127	0.0	
+PQ587295.1	3	3	Switzerland	True	1.0045	0.0007	
+PQ584500.1			Netherlands	True	0.9942	0.0	
+PQ303751.1	5	5	China	True	1.0	0.0	
+PQ303741.1	5	5	China	True	1.0	0.0	
+OZ177707.1				False	1.0048	0.0	collection date missing year-level precision
+PP982460.1			Serbia	True	0.9829	0.0003	
+PP896803.1	3	3	USA	True	0.986	0.0	
+PP262563.1	4	4	France	True	1.0017	0.0	
+MZ395203.2	10	10	Portugal	True	1.0017	0.0	
+MZ395183.2	8	8	South Africa	True	1.0055	0.0	
+MZ395173.2	3	3	Cyprus	True	1.0048	0.0	
+MZ215882.2	13	13	South Africa	True	1.0041	0.0	
+PP199312.1	8	8	France	True	1.0062	0.0	
+PP199302.1	8	8	France	True	1.0062	0.0	
+PP199292.1	8	8	France	True	1.0062	0.0	
+PP199282.1	8	8	France	True	1.0062	0.0	
+PP199272.1	8	8	France	True	1.0062	0.0	
+PP199262.1	8	8	France	True	1.0062	0.0	
+PP199252.1	8	8	France	True	1.0062	0.0	
+PP199242.1	4	4	France	True	1.0017	0.0	
+PP199232.1	4	4	France	True	1.0017	0.0	
+PP199222.1	4	4	France	True	1.0017	0.0	
+PP199212.1	4	4	France	True	1.0017	0.0	
+PP199202.1	4	4	France	True	1.0017	0.0	
+PP199192.1	4	4	France	True	1.0017	0.0	
+MW513377.1			China	True	1.0017	0.0	
+OR603993.1	3	3	Netherlands	True	1.0048	0.0	
+OK507976.1	9	9	Israel	True	0.9873	0.0	
+OR611887.1	24	24	Cuba	True	1.0007	0.0	
+OR611877.1	22	22	Cuba	True	0.9952	0.0	
+OR611867.1	19	19	Cuba	True	1.0058	0.0	
+OR611857.1	18	18	Cuba	True	1.0021	0.0	
+OR611847.1	18	18	Cuba	True	1.0021	0.0	
+OR611837.1	18	18	Cuba	True	1.0021	0.0	
+OR611827.1	17	17	Cuba	True	1.0007	0.0	
+OR611817.1	17	17	Cuba	True	1.0007	0.0	
+OR611807.1	13	13	Cuba	True	1.0048	0.0	
+OR611797.1	12	12	Cuba	True	0.9942	0.0	
+OR611787.1	12	12	Cuba	True	0.9942	0.0	
+OR611777.1	10	10	Cuba	True	1.0017	0.0	
+OR611767.1	10	10	Cuba	True	1.0017	0.0	
+OR611757.1	3	3	Cuba	True	1.0048	0.0	
+OR611747.1	2	2	Cuba	True	1.0075	0.0	
+OR611737.1	1	1	Cuba	True	1.0065	0.0	
+OR611727.1	1	1	Cuba	True	1.0065	0.0	
+OR500245.1	8	8	France	True	1.0062	0.0	
+OR500235.1	4	4	France	True	1.0017	0.0003	
+OQ860936.1	8	8	France	True	1.0062	0.0	
+OQ798199.1	17	17	USA	True	0.9819	0.0	
+OQ847486.1			USA	True	0.988	0.0	
+OQ847476.1			USA	True	0.988	0.0	
+OQ398245.1	4	4	Israel	True	1.0017	0.0	
+OQ001235.1	9	9	Kazakhstan	True	1.001	0.0	
+OP185795.1	13	13	France	True	1.0048	0.0	
+OL333535.1	20	20	China	True	1.0014	0.0	
+OP185865.1	22	22	France	True	0.9952	0.0	
+OP185825.1	6	6	France	True	1.0003	0.0	
+OP185855.1	1	1	France	True	1.0065	0.0	
+OP185815.1	1	1	France	True	1.0065	0.0	
+OP185805.1	10	10	France	True	0.9894	0.0	
+OP185835.1	24	24	France	True	0.9819	0.0	
+OP185775.1	24	24	France	True	1.0007	0.0	
+OP185765.1	24	24	France	True	1.0007	0.0	
+OP185755.1	17	17	France	True	0.9819	0.0	
+OP185875.1	12	12	France	True	0.9942	0.0	
+OP185785.1	12	12	France	True	0.9767	0.0	
+OP185745.1	12	12	France	True	0.9942	0.0	
+OP185735.1	2	2	France	True	1.0075	0.0	
+OP185845.1	11	11	France	True	1.0017	0.0	
+OP185725.1	11	11	France	True	1.0017	0.0	
+OP122158.1	12	12	France	True	0.9767	0.0	
+OP122148.1	1	1	France	True	1.0065	0.0	
+OP122138.1	13	13	France	True	0.9976	0.0	
+OP122128.1	12	12	France	True	0.9887	0.0	
+OP122118.1	1	1	France	True	1.0065	0.0	
+OP122108.1	1	1	France	True	1.0065	0.0	
+OP122098.1	14	14	France	True	1.0003	0.0	
+OM502353.1	1	1	Israel	True	0.9949	0.0	
+OP186417.1	4	4	Kosovo	True	1.0017	0.0	
+OP186407.1	4	4	Kosovo	True	1.0017	0.0	
+OP186397.1	4	4	Kosovo	True	1.0017	0.0003	
+OM523088.1	8	8	Germany	True	1.0062	0.0	
+MZ065388.1	rBTV-4	rBTV-4	Morocco	False	1.0003	0.0	collection date missing year-level precision
+MZ065378.1	rBTV-1	rBTV-1	Morocco	False	1.0065	0.0	collection date missing year-level precision
+MW046281.1	7	7	China	True	1.0051	0.0	
+MZ325475.1			Italy	True	1.0024	0.0003	
+MW456748.1	10	10	USA	True	0.9986	0.0	
+MW456738.1	2	2	USA	True	1.0027	0.0	
+MW159098.1	BTV-8	BTV-8	Netherlands	True	1.0062	0.0003	
+MZ395213.1	11	11	South Africa	True	0.9986	0.0	
+MZ395193.1	9	9	South Africa	True	0.9979	0.0	
+MZ215892.1	19	19	South Africa	True	1.0034	0.0	
+MZ215872.1	7	7	South Africa	True	1.0051	0.0	
+MZ215862.1	5	5	South Africa	True	1.0003	0.0	
+MZ215852.1	2	2	South Africa	True	1.0048	0.0	
+MZ130596.1	14	14	South Africa	True	1.0003	0.0	
+MZ130586.1	12	12	South Africa	True	0.9942	0.0	
+MZ130576.1	6	6	South Africa	True	1.0003	0.0	
+MZ130566.1	4	4	South Africa	True	1.0021	0.0	
+MZ130556.1	1	1	South Africa	True	1.0065	0.0	
+MW001852.1	22	22	France	True	0.9952	0.0	
+MW001842.1	24	24	France	True	0.9819	0.0	
+MW001832.1	18	18	France	True	1.0021	0.0	
+MW001822.1	14	14	France	True	1.0003	0.0	
+MW001812.1	1	1	France	True	1.0065	0.0	
+MW001802.1	1	1	France	True	1.0065	0.0	
+MN698742.1	1	1	Australia	True	1.0041	0.0	
+LR797931.1	serotype 8	serotype 8	Switzerland	True	1.0062	0.0	
+LR797848.1	serotype 8	serotype 8	Switzerland	True	0.9918	0.0	
+LR797837.1	serotype 8	serotype 8	Switzerland	True	1.0062	0.0	
+MT815695.1	19	19	France	True	1.0058	0.0	
+MT815685.1	13	13	France	True	1.0048	0.0	
+MT815675.1	3	3	France	True	1.0048	0.0	
+MT815665.1	3	3	France	True	1.0048	0.0	
+MT815655.1	3	3	France	True	1.0048	0.0	
+MT815645.1	24	24	France	True	1.0007	0.0	
+MT815635.1	12	12	France	True	0.9942	0.0	
+MT815625.1	6	6	France	True	1.0003	0.0	
+MT773518.1	8	8	Israel	True	1.0058	0.0	
+MT773515.1	8	8	Israel	True	1.0058	0.0	
+MT773514.1	8	8	Israel	True	1.0058	0.0	
+MT773513.1	8	8	Israel	True	1.0062	0.0	
+MN695909.1	16	16	Australia	True	0.9979	0.0	
+MN747871.1	16	16	Australia	True	0.9969	0.0	
+MH816896.2	8	8	Israel	True	1.0058	0.0	
+MH816856.2	8	8	Israel	True	1.0058	0.0	
+MH816855.2	8	8	Israel	True	1.0058	0.0	
+MH816854.2	8	8	Israel	True	1.0058	0.0	
+LR993301.1	BTV-25	BTV-25	Germany	True	1.0014	0.0	
+LR993250.1	25	25	Switzerland	True	1.0	0.0	
+LR993240.1	36	36	Switzerland	False	0.999	0.0	collection date missing year-level precision
+MW528448.1	8	8	Luxembourg	True	1.0062	0.0007	
+MW528438.1	8	8	Luxembourg	True	1.0062	0.0003	
+MT119874.1	3	3	South Africa	True	1.0048	0.0	
+MT119864.1	2	2	South Africa	True	1.0075	0.0	
+MT119854.1	1	1	South Africa	True	1.0065	0.0	
+MT090656.1	23	23	South Africa	True	1.0	0.0	
+MT090646.1	24	24	South Africa	True	1.0007	0.0	
+MT078410.1	22	22	South Africa	True	0.9952	0.0	
+MT078400.1	21	21	South Africa	True	1.0003	0.0	
+MT078390.1	20	20	South Africa	True	1.0014	0.0	
+MT078380.1	19	19	South Africa	True	1.0058	0.0	
+MT078370.1	18	18	South Africa	True	1.0021	0.0	
+MT078360.1	17	17	South Africa	True	0.9839	0.0	
+MT078350.1	16	16	South Africa	True	1.0048	0.0	
+MT078340.1	15	15	South Africa	True	0.9959	0.0	
+MT078330.1	14	14	South Africa	True	1.0003	0.0	
+MT078320.1	13	13	South Africa	True	1.0048	0.0	
+MT078310.1	12	12	South Africa	True	0.9942	0.0	
+MT078300.1	11	11	South Africa	True	1.0017	0.0	
+MT078290.1	10	10	South Africa	True	1.0017	0.0	
+MT078280.1	9	9	South Africa	True	1.0	0.0	
+MT078270.1	8	8	South Africa	True	1.0062	0.0	
+MT078260.1	7	7	South Africa	True	1.0051	0.0	
+MT078250.1	6	6	South Africa	True	1.0003	0.0	
+MT043259.1	4	4	South Africa	True	1.0017	0.0	
+MT043249.1	5	5	South Africa	True	1.0	0.0	
+MT043239.1	12	12	South Africa	True	0.9942	0.0	
+MT043229.1	7	7	South Africa	True	1.0051	0.0007	
+MT043219.1	13	13	South Africa	True	1.0048	0.0	
+MT043209.1	4	4	South Africa	True	1.0017	0.0	
+MT028400.1	3	3	South Africa	True	1.0048	0.0	
+MT028390.1	12	12	South Africa	True	0.9942	0.0	
+MT028380.1	2	2	South Africa	True	1.0075	0.0003	
+MN714844.1	4	4	Australia	True	0.9829	0.0	
+MN714834.1	4	4	Australia	True	0.9829	0.0	
+MN714824.1	4	4	Australia	True	0.9829	0.0	
+MN714814.1	4	4	Australia	True	0.9829	0.0	
+MN714804.1	4	4	Australia	True	0.9829	0.0	
+MN714794.1	4	4	Australia	True	0.9829	0.0	
+MN714784.1	16	16	Papua New Guinea	True	0.9997	0.0	
+MN714774.1	16	16	Australia	True	0.9997	0.0	
+MN714764.1	16	16	Australia	True	0.9969	0.0	
+MN714754.1	16	16	Australia	True	0.9969	0.0	
+MN714744.1	16	16	Australia	True	0.999	0.0	
+MN714734.1	2	2	Australia	True	1.0031	0.0	
+MN714724.1	1	1	Australia	True	1.0062	0.0	
+MT212707.1	21	21	Australia	True	1.0003	0.0	
+MT212697.1	21	21	Australia	True	0.9979	0.0	
+MT212687.1	21	21	Australia	True	1.0003	0.0	
+MT212677.1	16	16	Australia	True	0.999	0.0	
+MT212667.1	16	16	Australia	True	0.999	0.0	
+MT212657.1	1	1	Australia	True	1.0031	0.0	
+MT212647.1	1	1	Australia	True	1.0038	0.0	
+MT212637.1	1	1	Australia	True	0.988	0.0	
+MN747881.1	16	16	Australia	True	0.999	0.0	
+MN747861.1	16	16	Australia	True	0.999	0.0	
+MN747851.1	16	16	Australia	True	0.9986	0.0	
+MN738449.1	15	15	Australia	True	0.9901	0.0	
+MN738439.1	20	20	Australia	True	0.9979	0.0	
+MN738429.1	21	21	Australia	True	0.9993	0.0	
+MN738419.1	21	21	Australia	True	0.9997	0.0	
+MN738409.1	7	7	Australia	True	1.0031	0.0	
+MN738399.1	7	7	Australia	True	0.9979	0.0	
+MN738389.1	7	7	Australia	True	1.0	0.0	
+MN738379.1	7	7	Australia	True	1.0038	0.0	
+MN698782.1	3	3	Australia	True	0.9973	0.0	
+MN698772.1	3	3	Australia	True	0.9973	0.0	
+MN698762.1	1	1	Australia	True	0.988	0.0	
+MN698752.1	1	1	Australia	True	0.988	0.0	
+MN227138.1	16	16	Australia	True	0.9983	0.0	
+MT879212.1	4	4	Greece	True	1.0017	0.0	
+MT879202.1	4	4	North Macedonia	True	1.0017	0.0	
+MT879200.1	4	4	Kosovo	True	1.0017	0.0	
+MT879199.1	4	4	Serbia	True	1.0017	0.0	
+MT879198.1	4	4	Bulgaria	True	1.0017	0.0	
+MT879197.1	4	4	Bulgaria	True	1.0017	0.0	
+MT879196.1	4	4	Romania	True	1.0017	0.0	
+MT952972.1	17	17	USA	True	1.0007	0.0003	
+LR877359.1	34	34	Mongolia	True	1.0017	0.0	
+LR877348.1	31	31	Mongolia	True	1.0017	0.0	
+LR877338.1	33	33	Mongolia	True	1.0024	0.0	
+MT024755.1			South Africa	True	1.0045	0.0	
+LR798442.1	serotype 25	serotype 25	Germany	True	1.0048	0.0	
+MN528195.1	8	8	France	True	1.0062	0.0	
+MN528185.1	8	8	France	True	1.0062	0.0003	
+MN528175.1	8	8	France	True	1.0062	0.0	
+MN528165.1	8	8	France	True	1.0062	0.0	
+MN528155.1	8	8	France	True	1.0062	0.0	
+MN528145.1	8	8	France	True	1.0062	0.0	
+KP821101.1	5	5	South Africa	True	1.0	0.0	
+KP821100.1	12	12	South Africa	True	0.9942	0.0	
+KP821099.1	8	8	Netherlands	False	1.0058	0.0	collection date missing year-level precision
+KP821098.1	15	15	Israel	True	0.9959	0.0	
+KP821097.1	14	14	Spain	True	1.0003	0.0	
+KP821096.1	14	14	Russia	True	1.0003	0.0	
+KP821095.1	14	14	Poland	True	1.0003	0.0	
+KP821094.1	14	14	Cameroon	True	1.0003	0.0	
+KP821093.1	9	9	Turkey	True	1.0	0.0	
+KP821092.1	9	9	Turkey	True	1.0	0.0	
+KP821091.1	9	9	Turkey	True	1.0	0.0003	
+KP821090.1	9	9	Serbia	True	1.0	0.0	
+KP821089.1	9	9	South Africa	True	1.0	0.0	
+KP821088.1	9	9	South Africa	True	1.0	0.0	
+KP821087.1	9	9	Libya	True	1.0	0.0	
+KP821086.1	9	9	Libya	True	1.0	0.0	
+KP821085.1	9	9	Kosovo	True	1.0	0.0003	
+KP821084.1	9	9	Kosovo	True	1.0	0.0	
+KP821083.1	9	9	Italy	True	1.0	0.0	
+KP821082.1	9	9	Greece	True	1.0	0.0	
+KP821081.1	9	9	Greece	True	1.0	0.0	
+KP821080.1	9	9	Greece	True	1.0	0.0	
+KP821079.1	9	9	Bulgaria	True	1.0	0.0	
+KP821078.1	9	9	Bosnia and Herzegovina	True	1.0	0.0	
+KP821077.1	8	8	United Kingdom	True	1.0062	0.0	
+KP821076.1	8	8	South Africa	True	1.0062	0.0	
+KP821075.1	19	19	South Africa	True	1.0058	0.0	
+KP821074.1	8	8	Netherlands	True	1.0062	0.0	
+KP821073.1	8	8	Greece	True	1.0062	0.0	
+KP821072.1	8	8	Israel	True	1.0062	0.0	
+KP821071.1	4	4	Sudan	True	1.0017	0.0	
+KP821070.1	4	4	Spain	True	1.0017	0.0	
+KP821069.1	4	4	Spain	True	1.0017	0.0	
+KP821068.1	4	4	Spain	True	1.0017	0.0	
+KP821067.1	4	4	Spain	True	1.0017	0.0	
+KP821066.1	4	4	Cyprus	True	1.0017	0.0	
+KP821065.1	4	4	Morocco	True	1.0017	0.0003	
+KP821064.1	4	4	Morocco	True	1.0017	0.0	
+KP821063.1	4	4	Morocco	True	1.0017	0.0003	
+KP821062.1	4	4	Morocco	True	1.0017	0.0003	
+KP821061.1	4	4	Morocco	True	1.0017	0.0	
+KP821060.1	24	24	Israel	True	1.0007	0.0	
+KP821059.1	4	4	Israel	True	1.0017	0.0	
+KP821058.1	4	4	Greece	True	1.0017	0.0	
+KP821057.1	4	4	Greece	True	1.0017	0.0	
+KP821056.1	4	4	Greece	True	1.0017	0.0	
+KP821055.1	4	4	Greece	True	1.0017	0.0003	
+KP821054.1	4	4	Greece	True	1.0017	0.0003	
+KP821053.1	4	4	Greece	True	1.0017	0.0003	
+KP821052.1	4	4	Greece	True	1.0017	0.0	
+KP821051.1	4	4	Greece	True	1.0017	0.0	
+KP821050.1	4	4	France	True	1.0017	0.0	
+KP821049.1	4	4	France	True	1.0017	0.0	
+KP821048.1	4	4	France	True	1.0017	0.0	
+KP821047.1	4	4	Egypt	True	1.0017	0.0007	
+KP821046.1	4	4	Cyprus	True	1.0017	0.0	
+KP821045.1	4	4	Cyprus	True	1.0017	0.0	
+KP821044.1	4	4	Cyprus	True	1.0017	0.0	
+KP821043.1	4	4	Cyprus	True	1.0017	0.0	
+KP821042.1	4	4	Cyprus	True	1.0017	0.0	
+KP821041.1	4	4	Cyprus	True	1.0017	0.0	
+KP821040.1	4	4	Cyprus	True	1.0017	0.0	
+KP821039.1	3	3	Cyprus	True	1.0048	0.0	
+KP821038.1	3	3	Cyprus	True	1.0048	0.0003	
+KP821037.1	2	2	Tunisia	True	1.0075	0.0	
+KP821036.1	2	2	Sudan	True	1.0075	0.0	
+KP821035.1	2	2	Spain	True	1.0075	0.0	
+KP821034.1	2	2	Italy	True	1.0075	0.0	
+KP821033.1	2	2	Italy	True	1.0079	0.0	
+KP821032.1	2	2	Italy	True	1.0075	0.0003	
+KP821031.1	2	2	South Africa	True	1.0075	0.0	
+KP821030.1	2	2	South Africa	True	1.0075	0.0	
+KP821029.1	2	2	Italy	True	1.0075	0.0003	
+KP821028.1	2	2	Italy	True	1.0075	0.0003	
+KP821027.1	2	2	Israel	True	1.0075	0.0	
+KP821026.1	2	2	France	True	1.0075	0.0	
+KP821025.1	2	2	France	True	1.0075	0.0	
+KP821024.1	2	2	France	True	1.0075	0.0	
+KP821023.1	1	1	Tunisia	True	1.0065	0.0007	
+KP821022.1	1	1	Sudan	True	1.0065	0.0	
+KP821021.1	1	1	Spain	True	1.0065	0.0	
+KP821020.1	1	1	Spain	True	1.0065	0.0	
+KP821019.1	1	1	Spain	True	1.0065	0.0	
+KP821018.1	1	1	Spain	True	1.0065	0.001	
+KP821017.1	1	1	South Africa	True	1.0065	0.0	
+KP821016.1	1	1	Morocco	True	1.0065	0.0	
+KP821015.1	1	1	Morocco	True	1.0065	0.0	
+KP821014.1	1	1	Morocco	True	1.0065	0.0	
+KP821013.1	1	1	Morocco	True	1.0065	0.0	
+KP821012.1	1	1	Morocco	True	1.0065	0.0	
+KP821011.1	1	1	Morocco	True	1.0065	0.0	
+KP821010.1	1	1	Morocco	True	1.0065	0.0	
+KP821009.1	1	1	Morocco	True	1.0065	0.0	
+KP821008.1	1	1	Libya	True	1.0065	0.0	
+KP821007.1	1	1	Greece	True	1.0065	0.0	
+KP821006.1	1	1	Greece	True	1.0065	0.0003	
+KP821005.1	1	1	Greece	True	1.0065	0.0	
+KP821004.1	1	1	Gibraltar	True	1.0065	0.0	
+KP821003.1	1	1	France	True	1.0065	0.0	
+KP821002.1	1	1	France	True	1.0065	0.0	
+KP821001.1	1	1	France	True	1.0065	0.0	
+KP821000.1	1	1	France	True	1.0065	0.0	
+KP820999.1	1	1	France	True	1.0065	0.0	
+KP820998.1	1	1	Cameroon	True	1.0065	0.0	
+KP820997.1	1	1	Algeria	True	1.0065	0.0	
+KP820996.1	1	1	Algeria	True	1.0027	0.0	
+KP820995.1	1	1	Algeria	True	1.0065	0.0	
+KP820994.1	16	16	Turkey	True	1.0048	0.0	
+KP820993.1	16	16	Pakistan	True	1.0048	0.0	
+KP820992.1	16	16	Israel	True	1.0048	0.0	
+KP820991.1	16	16	Israel	True	1.0014	0.0	
+KP820990.1	16	16	Greece	True	1.0048	0.0	
+KP820989.1	16	16	Greece	True	1.0048	0.0	
+KP820988.1	16	16	France	True	1.0048	0.0	
+KP820987.1	16	16	Cyprus	True	1.0048	0.0	
+KP820986.1	16	16	Cyprus	True	1.0048	0.0	
+KP820985.1	16	16	Cyprus	True	1.0048	0.0	
+KP820984.1	15	15	South Africa	True	0.9959	0.0	
+KP820983.1	14	14	South Africa	True	1.0003	0.0	
+KP820982.1	8	8	France	True	1.0062	0.0	
+KP820981.1	8	8	France	True	1.0062	0.0003	
+KP820980.1	8	8	France	True	1.0062	0.0	
+MN710221.1	BTV-23	BTV-23	Australia	True	1.0021	0.0	
+MN710220.1	BTV-22	BTV-22	South Africa	True	0.9952	0.0	
+MN710219.1	BTV-21	BTV-21	Australia	True	0.9986	0.0	
+MN710218.1	BTV-20	BTV-20	Australia	True	1.0014	0.0	
+MN710217.1	BTV-19	BTV-19	South Africa	True	1.0058	0.0	
+MN710216.1	BTV-18	BTV-18	South Africa	True	1.0021	0.0	
+MN710215.1	BTV-17	BTV-17	USA	True	1.0007	0.0	
+MN710214.1	BTV-13	BTV-13	South Africa	True	1.0048	0.0	
+MN710213.1	BTV-12	BTV-12	South Africa	True	0.9942	0.0	
+MN710212.1	BTV-11	BTV-11	South Africa	True	1.0017	0.0	
+MN710211.1	BTV-10	BTV-10	Portugal	True	1.0017	0.0	
+MN710210.1	BTV-7	BTV-7	South Africa	True	1.0048	0.0	
+MN710209.1	BTV-5	BTV-5	South Africa	True	1.0	0.0	
+MN710208.1	BTV-12	BTV-12	Israel	True	0.9825	0.0	
+MN710207.1	BTV-2A	BTV-2A	Israel	True	1.0075	0.0	
+MN710206.1	BTV-5	BTV-5	Israel	True	1.0	0.0	
+MN710205.1	BTV-8	BTV-8	Israel	True	1.0062	0.0	
+MN710204.1	BTV-5	BTV-5	Israel	True	1.0	0.0	
+MN710203.1	BTV-5	BTV-5	Israel	True	1.0	0.0	
+MN710202.1	BTV-24	BTV-24	Israel	True	1.0007	0.0	
+MN710201.1	BTV-24	BTV-24	Israel	True	1.0007	0.0	
+MN710200.1	BTV-16B	BTV-16B	Cyprus	True	1.0048	0.0	
+MN710199.1	BTV-16B	BTV-16B	Cyprus	True	1.0048	0.0	
+MN710198.1	BTV-16B	BTV-16B	Cyprus	True	1.0048	0.0	
+MN710197.1	BTV-8	BTV-8	Cyprus	True	1.0045	0.0	
+MN710196.1	BTV-8	BTV-8	Cyprus	True	1.0062	0.0	
+MN710195.1	BTV-8	BTV-8	Cyprus	True	1.0062	0.0	
+MN710194.1	BTV-8	BTV-8	Cyprus	True	1.0062	0.0	
+MN710193.1	BTV-8	BTV-8	Cyprus	True	1.0062	0.0	
+MH028889.1	12	12	Australia	True	0.9887	0.0	
+MK250957.1	21	21	China	True	1.0003	0.0	
+MH559807.1			Israel	True	0.999	0.0	
+KX234079.2			Italy	True	1.0027	0.0	
+MH383090.1	6	6	Israel	True	0.9846	0.0	
+MK348538.1	3	3	Italy	True	0.9925	0.0	
+MH778119.1	3	3	USA	True	1.0048	0.0	
+MG924987.1	5	5	Australia	True	0.988	0.0	
+MG345001.1	3	3	Israel	True	1.0051	0.0	
+MG344991.1	3	3	Israel	True	1.0051	0.0	
+MG344981.1	3	3	Israel	True	1.0041	0.0	
+MG710531.1	16	16	India	False	0.999	0.0	collection date missing year-level precision
+MG710530.1	16	16	India	False	1.0024	0.0	collection date missing year-level precision
+MG710529.1	16	16	India	False	1.0003	0.0	collection date missing year-level precision
