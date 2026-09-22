@@ -222,13 +222,17 @@ def cmd_dh1(args: argparse.Namespace) -> int:
     tree = _resolve(config, args.tree, "phylogenetics", f"{config.pathogen.lower()}_iqtree_rooted.nwk")
 
     pathogen_override = None
+    raw_corpus = None
     if args.lineage:
-        aligned, tree, pathogen_override = _stratify(config, aligned, tree, args.lineage)
+        aligned, tree, raw_corpus, pathogen_override = _stratify(
+            config, aligned, tree, args.lineage
+        )
 
     result = run_stage45_dh1(
         config,
         aligned_fasta=aligned,
         rooted_tree=tree,
+        raw_corpus_fasta=raw_corpus,
         atlas_path=Path(args.atlas) if args.atlas else None,
         ledger_path=Path(args.ledger) if args.ledger else None,
         recombination_screen_completed=args.recombination_screen_completed,
@@ -527,9 +531,14 @@ def cmd_variants(args: argparse.Namespace) -> int:
 def _stratify(config, aligned_path: Path, tree_path: Path, lineage: str):
     """Restrict the alignment and tree to one lineage for a stratified D.H1.
 
-    Returns (alignment path, tree path, ledger pathogen key). The key is
-    ``<PATHOGEN>:<LINEAGE>`` so a stratified verdict cannot open the
-    pathogen's own gate — see g4watch/phylo/subset.py.
+    Returns (alignment path, tree path, raw corpus path, ledger pathogen
+    key). The key is ``<PATHOGEN>:<LINEAGE>`` so a stratified verdict
+    cannot open the pathogen's own gate — see g4watch/phylo/subset.py.
+
+    The raw corpus is subset too. Appendix C's pass fraction divides the
+    aligned count by the RAW count, so pairing a pruned alignment with
+    the pooled corpus measured serotype size rather than sequence
+    quality — see write_subset_raw_corpus.
     """
     import csv as _csv
     from collections import Counter
@@ -537,7 +546,11 @@ def _stratify(config, aligned_path: Path, tree_path: Path, lineage: str):
     from Bio import Phylo
 
     from .io.fasta import read_fasta
-    from .phylo.subset import stratified_pathogen_key, write_subset
+    from .phylo.subset import (
+        stratified_pathogen_key,
+        write_subset,
+        write_subset_raw_corpus,
+    )
     from .qc.metadata_normalization import LineageVocabulary
 
     wanted = lineage.strip().upper()
@@ -580,11 +593,28 @@ def _stratify(config, aligned_path: Path, tree_path: Path, lineage: str):
     fasta_out, tree_out = write_subset(
         aligned, tree, keep, config.reference_accession, out_dir, label
     )
+    raw_corpus = config.corpus_sequences_fasta
+    if raw_corpus is None or not Path(raw_corpus).is_file():
+        raise ConfigError(
+            f"--lineage needs corpus.sequences_fasta to subset the raw corpus, "
+            f"which is missing: {raw_corpus}"
+        )
+    raw_out = write_subset_raw_corpus(
+        Path(raw_corpus), keep, config.reference_accession, out_dir, label
+    )
+
     n_kept = sum(1 for a in aligned if a in keep)
     print(f"Stratified run — lineage {wanted}: {n_kept} genomes (+ reference), tree pruned.")
+    print(f"  raw corpus subset: {_count_fasta_headers(raw_out)} records "
+          f"(the Appendix C pass fraction divides by this, not by the pooled corpus)")
     print(f"  ledger key: {stratified_pathogen_key(config.pathogen, wanted)}  "
           "(a stratified verdict cannot open the pathogen's own gate)")
-    return fasta_out, tree_out, stratified_pathogen_key(config.pathogen, wanted)
+    return fasta_out, tree_out, raw_out, stratified_pathogen_key(config.pathogen, wanted)
+
+
+def _count_fasta_headers(path: Path) -> int:
+    with open(path) as handle:
+        return sum(1 for line in handle if line.startswith(">"))
 
 
 def cmd_align(args: argparse.Namespace) -> int:

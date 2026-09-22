@@ -134,3 +134,72 @@ def write_subset(
     # branches and does not pad large ones.
     Phylo.write(pruned, str(tree_path), "newick", format_branch_length="%1.12g")
     return fasta_path, tree_path
+
+
+def write_subset_raw_corpus(
+    raw_corpus_fasta: Path,
+    keep: set[str],
+    reference_accession: str,
+    out_dir: Path,
+    label: str,
+) -> Path:
+    """The pre-QC corpus restricted to one lineage, for the Appendix C floor.
+
+    WHY THIS EXISTS. ``alignment_qc_pass_fraction`` is
+    ``len(aligned_ids) / n_raw``: the share of the run's input that
+    survived QC and alignment. A stratified run hands Stage 4.5 a PRUNED
+    alignment but, until this function existed, the POOLED raw corpus —
+    so the numerator counted one serotype and the denominator counted all
+    of them. On the 2026 FMDV corpus that made the check arithmetic
+    rather than a measurement:
+
+        O       532/936 = 0.568   passes the 0.50 floor
+        A       161/936 = 0.172   fails
+        Asia1    95/936 = 0.101   fails
+        SAT2     70/936 = 0.075   fails
+        SAT1     45/936 = 0.048   fails
+
+    Serotype O passed because it is more than half the corpus, not
+    because its sequences were cleaner; every other serotype was
+    unrunnable however good its data was. That is why only the pooled run
+    and FMDV2026:O had ever produced a verdict.
+
+    The floor itself is unchanged at 0.50. What changes is that the
+    denominator is now the input this run was eligible to use, which is
+    what the check was always meant to ask.
+
+    THE REFERENCE IS EXCLUDED, unlike ``subset_alignment``, which must
+    retain it because Atlas coordinates are reference-relative. It is not
+    a corpus sequence under test — Stage 1 adds it to the alignment — and
+    Stage 4.5 drops it from the numerator for the same reason. Counting
+    it on one side only is what produced a pass fraction of 96/95 =
+    1.0105 on the first corrected Asia 1 run.
+    """
+    out_dir.mkdir(parents=True, exist_ok=True)
+    path = out_dir / f"{label}_raw_corpus.fasta"
+    reference_base = reference_accession.split(".")[0]
+    wanted = {a for a in keep if a != reference_accession and a.split(".")[0] != reference_base}
+    if not wanted:
+        raise ValueError(
+            f"lineage {label!r} has no corpus sequence other than the reference "
+            f"{reference_accession!r}, so there is nothing to measure a pass fraction over"
+        )
+
+    kept = 0
+    with open(raw_corpus_fasta) as source, path.open("w") as handle:
+        writing = False
+        for line in source:
+            if line.startswith(">"):
+                accession = line[1:].split()[0] if len(line) > 1 else ""
+                writing = accession in wanted or accession.split(".")[0] in wanted
+                kept += writing
+            if writing:
+                handle.write(line)
+
+    if not kept:
+        raise ValueError(
+            f"no record in {raw_corpus_fasta} matches the {len(keep)} accessions of "
+            f"lineage {label!r}. The raw corpus and the metadata table are describing "
+            "different corpora, and the Appendix C pass fraction would be meaningless."
+        )
+    return path

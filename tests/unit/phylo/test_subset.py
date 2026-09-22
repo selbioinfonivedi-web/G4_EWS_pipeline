@@ -20,6 +20,7 @@ from g4watch.phylo.subset import (
     stratified_pathogen_key,
     subset_alignment,
     write_subset,
+    write_subset_raw_corpus,
 )
 
 TREE = "(((A:0.1,B:0.1):0.1,(C:0.1,D:0.1):0.1):0.1,((E:0.1,F:0.1):0.1,(G:0.1,H:0.1):0.1):0.1);"
@@ -131,3 +132,78 @@ def test_write_subset_produces_matching_fasta_and_tree(tmp_path):
     names = [line[1:].strip() for line in fasta_path.read_text().splitlines()
              if line.startswith(">")]
     assert set(names) == {"REF", "A", "B"}
+
+
+# ── the raw corpus denominator ──────────────────────────────────────
+# Appendix C's alignment_qc_pass_fraction is aligned/raw. A stratified
+# run handed Stage 4.5 a pruned alignment and the POOLED raw corpus, so
+# the fraction measured how big the serotype was rather than how clean
+# its sequences were: on the 2026 FMDV corpus only serotype O (532/936)
+# cleared the 0.50 floor, and every other serotype was unrunnable at any
+# data quality. These pin the denominator to the run's own input.
+def _raw(tmp_path, accessions, *, versioned=False):
+    path = tmp_path / "raw.fasta"
+    with path.open("w") as handle:
+        for accession in accessions:
+            name = f"{accession}.1" if versioned else accession
+            handle.write(f">{name} some description here\nACGTACGT\n")
+    return path
+
+
+def test_the_raw_corpus_subset_holds_the_lineage_without_the_reference(tmp_path):
+    """The reference is in the alignment but is not a corpus sequence
+    under test, and Stage 4.5 drops it from the numerator. Keeping it
+    here would compare populations differing by one."""
+    raw = _raw(tmp_path, ["REF", "A", "B", "C", "D", "E"])
+    out = write_subset_raw_corpus(raw, {"A", "B"}, "REF", tmp_path, "x")
+    names = [line[1:].split()[0] for line in out.read_text().splitlines()
+             if line.startswith(">")]
+    assert set(names) == {"A", "B"}
+
+
+def test_a_minority_lineage_is_no_longer_penalised_for_being_a_minority(tmp_path):
+    """The bug, stated as arithmetic: 3 of 100 pooled is 0.03 and fails
+    the 0.50 floor; 3 of its own 3 is 1.0 and is what the check meant."""
+    raw = _raw(tmp_path, ["REF", *[f"S{i}" for i in range(100)]])
+    keep = {"S0", "S1", "S2"}
+    out = write_subset_raw_corpus(raw, keep, "REF", tmp_path, "x")
+    n_raw = sum(1 for line in out.read_text().splitlines() if line.startswith(">"))
+    assert n_raw == 3  # the three of this lineage; the reference is not one
+    assert len(keep) / n_raw == 1.0
+
+
+def test_the_sequence_body_travels_with_its_header(tmp_path):
+    """Writing headers without their sequence would leave a file that
+    counts correctly and is unusable for anything else."""
+    raw = tmp_path / "raw.fasta"
+    raw.write_text(">A d\nACGT\nGGTT\n>B d\nTTTT\n>C d\nCCCC\n")
+    out = write_subset_raw_corpus(raw, {"A"}, "REF", tmp_path, "x")
+    assert out.read_text() == ">A d\nACGT\nGGTT\n"
+
+
+def test_version_suffixes_match_either_spelling(tmp_path):
+    """Metadata routinely drops the .1 the FASTA keeps. Matching on one
+    spelling only would silently select nothing."""
+    raw = _raw(tmp_path, ["REF", "A", "B"], versioned=True)
+    out = write_subset_raw_corpus(raw, {"A"}, "REF", tmp_path, "x")
+    names = [line[1:].split()[0] for line in out.read_text().splitlines()
+             if line.startswith(">")]
+    assert set(names) == {"A.1"}
+
+
+def test_a_corpus_matching_nothing_raises_rather_than_dividing_by_zero(tmp_path):
+    """An empty denominator would make the pass fraction 0.0 — an
+    INSUFFICIENT_DATA verdict that looks like a data problem but is a
+    mismatched-corpus problem."""
+    raw = _raw(tmp_path, ["X", "Y"])
+    with pytest.raises(ValueError, match="describing different corpora"):
+        write_subset_raw_corpus(raw, {"A", "B"}, "REF", tmp_path, "x")
+
+
+def test_a_lineage_of_nothing_but_the_reference_raises(tmp_path):
+    """A denominator of zero would render the pass fraction 0.0 — an
+    INSUFFICIENT_DATA that reads as a data problem rather than as the
+    empty subset it actually is."""
+    raw = _raw(tmp_path, ["REF", "A"])
+    with pytest.raises(ValueError, match="nothing to measure"):
+        write_subset_raw_corpus(raw, {"REF"}, "REF", tmp_path, "x")

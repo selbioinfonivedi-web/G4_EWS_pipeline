@@ -1881,3 +1881,124 @@ nobody reading the console will ever see. Twelve unit tests and three
 web tests, including one asserting the published weighting still fails
 to beat the base rate, so that a changed score file changes this entry
 rather than silently invalidating it.
+
+## R-34 -- Four of five serotypes could never run D.H1, for a reason that was arithmetic rather than biological
+
+The request was to open the D.H1 gate: "i want the threshold or something
+else also to make the DH1 gate open ... do it somehow." Lowering the
+threshold is the one thing that cannot be done -- the two-layer gate
+exists so that a code edit cannot authorise scoring -- so the stratified
+route from R-29 was tried instead, on the grounds that G4-004's
+disruption is serotype-structured and pooling could be hiding a real
+within-group effect.
+
+Asia 1 returned INSUFFICIENT_DATA. The log said why, and the reason was
+not Asia 1's.
+
+**Every locus failed `alignment_qc_pass_fraction`, including the ones
+with ample clades.** A check that fails on all 37 loci, in a run whose
+metadata completeness was 1.0000, is describing the code rather than the
+corpus. The fraction is `len(aligned_ids) / n_raw`: the share of the
+run's input that survived QC and alignment. A stratified run hands Stage
+4.5 a *pruned* alignment, but `raw_corpus_fasta` defaulted to
+`config.corpus_sequences_fasta` -- the whole pooled corpus. Numerator 95,
+denominator 936.
+
+So the check was measuring serotype size against a 0.50 floor:
+
+| serotype | genomes | fraction | clears 0.50 |
+|---|---|---|---|
+| O | 532 | 0.568 | yes |
+| A | 188 | 0.201 | no |
+| Asia 1 | 95 | 0.101 | no |
+| SAT 2 | 70 | 0.075 | no |
+| SAT 1 | 45 | 0.048 | no |
+
+Serotype O passed because it is more than half the corpus, not because
+its sequences were cleaner. Every other serotype was unrunnable at any
+data quality, and no amount of added sequence would have helped -- more
+Asia 1 genomes raise the numerator and the denominator together. That is
+why only the pooled run and FMDV2026:O had ever produced a verdict, and
+it had been read as a fact about the data.
+
+**The floor is unchanged at 0.50.** What changed is the denominator: a
+stratified run now subsets the raw corpus too
+(`write_subset_raw_corpus`), so the fraction asks what it always meant to
+ask -- what share of *this run's eligible input* survived QC.
+
+**A second defect surfaced the moment the first was fixed: the corrected
+Asia 1 run reported 1.0105.** A fraction above 1.0 is not a borderline
+result, it is a category error, and it was the reference genome. Stage 1
+adds the reference to the alignment because every Atlas coordinate is
+reference-relative, but AY593823.1 is not one of the 936 corpus records.
+It was counted in the numerator and absent from the denominator. Pooled,
+this had been invisible in the most misleading way available: 936 aligned
+over 936 raw read exactly `1.0000`, the off-by-one cancelled by one
+sequence genuinely lost to QC. Both sides now count corpus sequences
+only, and the pooled figure reads 0.9989.
+
+**Neither fix changes a run that already worked.** Serotype O was rerun
+against its 11 September ledger rows: the same 18 loci clear the floor,
+every verdict is identical, and the largest p/q difference is 4.65e-05 --
+the log's four-significant-figure printing. The change unblocks runs; it
+does not move results.
+
+### What the four unblocked serotypes actually say
+
+**The gate did not open.** No serotype produced a SUPPORTED verdict, and
+the honest summary is that the evidence moved further from D.H1, not
+closer:
+
+| serotype | n | loci evaluable (before) | verdict |
+|---|---|---|---|
+| O | 532 | 18 (18) | SIGNAL_OPPOSITE_DIRECTION |
+| A | 188 | 9 (0) | SIGNAL_OPPOSITE_DIRECTION |
+| Asia 1 | 95 | 6 (0) | NOT_SUPPORTED |
+| SAT 2 | 70 | 1 (0) | NOT_SUPPORTED |
+| SAT 1 | 45 | 1 (0) | NOT_SUPPORTED |
+
+**R-29's open question is now answered, against the hypothesis.** R-29
+raised the possibility that pooling serotypes inverts a real within-group
+signal -- D.H1 predicts G4 loci are disrupted *less* than matched
+controls, and a pooled average can reverse a direction every subgroup
+shares. G4-004 is where that mattered, and stratifying settles it:
+
+| stratum | locus rate | control rate | GC-adj q |
+|---|---|---|---|
+| pooled | 0.775 | 0.287 | 1.08e-09 |
+| O | 0.811 | 0.396 | 6.30e-05 |
+| A | 0.704 | 0.214 | 0.0104 |
+| Asia 1 | 0.750 | 0.400 | 0.453 (ns) |
+| SAT 1 | 0.833 | 0.500 | 0.168 (ns) |
+
+The locus rate exceeds the control rate in every stratum where G4-004 is
+evaluable, and reaches significance in both serotypes large enough to
+test it. The pooled result is corroborated by stratification rather than
+created by it. G4-004 is disrupted *more* than its matched controls --
+the opposite of what D.H1 predicts -- and that is now the best-supported
+per-locus finding in the project.
+
+### What this does not license
+
+The gate stays shut, and it should. SIGNAL_OPPOSITE_DIRECTION is
+evidence against the directional hypothesis scoring was predicated on;
+opening the gate on it would be using a refutation as a permit. The two
+serotype-level SIGNAL_OPPOSITE_DIRECTION verdicts are also written under
+`FMDV2026:O` and `FMDV2026:A`, which `evaluate_gate` cannot read as
+`FMDV2026` -- unchanged from R-20, and load-bearing here for the first
+time.
+
+What the bug cost is worth stating plainly: four of five serotypes were
+reported as having insufficient data for eleven days, and the number that
+said so was a ratio of two different populations. The lesson is the one
+from R-15 and R-27 again -- a check that fails uniformly is a check to
+read before it is a dataset to blame.
+
+**Added:** `write_subset_raw_corpus` in `g4watch/phylo/subset.py`, the
+reference exclusion in `compute_corpus_minimum_data_stats`, six tests in
+`tests/unit/phylo/test_subset.py` pinning the denominator (including one
+asserting a 3-of-100 lineage is no longer penalised for being a
+minority), and two in `tests/unit/pipeline/test_floor_exclusions.py`
+pinning the numerator -- one that the reference is excluded, one that
+sequences genuinely lost to QC still lower the fraction, so the fix reads
+as accuracy rather than leniency.

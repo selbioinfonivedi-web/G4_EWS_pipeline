@@ -306,6 +306,21 @@ def compute_corpus_minimum_data_stats(
 
     n_raw = _count_fasta_records(raw_corpus_fasta)
 
+    # The pass fraction is "how much of the CORPUS survived QC and
+    # alignment", so both sides must count corpus sequences. The
+    # reference is in the alignment but not in the corpus FASTA — Stage 1
+    # adds it because every Atlas coordinate is reference-relative — so
+    # counting it in the numerator compares populations that differ by
+    # one. Pooled, that inflated the figure by 1/936 and went unnoticed
+    # because QC losses hid it; stratified, it produced 96/95 = 1.0105,
+    # a fraction above 1.0, which is how it was spotted.
+    reference_base = (config.reference_accession or "").split(".")[0]
+    corpus_aligned = {
+        accession for accession in aligned_ids
+        if accession != config.reference_accession
+        and accession.split(".")[0] != reference_base
+    }
+
     base_input = MinimumDataInput(
         n_sequences_in_window=len(aligned_rows),
         # Named lineages only. Sequences with no recorded lineage stay in
@@ -318,7 +333,7 @@ def compute_corpus_minimum_data_stats(
         n_locus_informative_clades=0,  # per-locus; overridden by caller
         n_control_informative_clades=0,  # per-locus; overridden by caller
         control_region_found=True,  # per-locus; overridden by caller
-        alignment_qc_pass_fraction=len(aligned_ids) / n_raw if n_raw else 0.0,
+        alignment_qc_pass_fraction=len(corpus_aligned) / n_raw if n_raw else 0.0,
         recombination_screen_completed=recombination_screen_completed,
     )
     return base_input, named_counts, n_missing_lineage

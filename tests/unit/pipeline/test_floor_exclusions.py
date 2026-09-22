@@ -130,3 +130,58 @@ def test_the_floor_and_the_loader_agree_on_the_real_corpus():
     assert set(named) == {k for k in loader if k != "—"}, (
         f"floor sees {sorted(named)}, loader sees {sorted(loader)}"
     )
+
+
+# ── the pass fraction counts corpus sequences on both sides ─────────
+def _raw_fasta(root: Path, accessions: list[str]) -> Path:
+    path = root / "raw.fasta"
+    with path.open("w") as handle:
+        for accession in accessions:
+            handle.write(f">{accession} desc\nACGTACGT\n")
+    return path
+
+
+def test_the_reference_is_not_counted_in_the_pass_fraction(config_factory, tmp_path):
+    """alignment_qc_pass_fraction asks what share of the CORPUS survived
+    QC and alignment. The reference is in the alignment but not in the
+    corpus FASTA -- Stage 1 adds it because Atlas coordinates are
+    reference-relative -- so counting it in the numerator compares two
+    populations that differ by one. Stratified, that produced 96/95 =
+    1.0105: a fraction above 1.0, which is how it was found.
+    """
+    rows = _rows({"A": 40, "B": 40})
+    metadata = _corpus(tmp_path, rows)
+    accessions = [r["accession"] for r in rows]
+    raw = _raw_fasta(tmp_path, accessions)  # 80 corpus records, no reference
+    config = config_factory({
+        "corpus": {"metadata_tsv": str(metadata), "lineage_field": "lineage"},
+        "reference": {"accession": "REF.1"},
+    })
+
+    stats, _, _ = compute_corpus_minimum_data_stats(
+        config, {*accessions, "REF.1"},  # the alignment carries the reference
+        metadata_tsv=metadata, raw_corpus_fasta=raw,
+        recombination_screen_completed=True,
+    )
+    assert stats.alignment_qc_pass_fraction == pytest.approx(1.0)
+
+
+def test_sequences_lost_to_qc_still_lower_the_pass_fraction(config_factory, tmp_path):
+    """The point of excluding the reference is accuracy, not leniency:
+    a corpus that genuinely lost half its sequences must still read 0.5.
+    """
+    rows = _rows({"A": 40, "B": 40})
+    metadata = _corpus(tmp_path, rows)
+    accessions = [r["accession"] for r in rows]
+    raw = _raw_fasta(tmp_path, [*accessions, *[f"LOST{i}" for i in range(80)]])
+    config = config_factory({
+        "corpus": {"metadata_tsv": str(metadata), "lineage_field": "lineage"},
+        "reference": {"accession": "REF.1"},
+    })
+
+    stats, _, _ = compute_corpus_minimum_data_stats(
+        config, {*accessions, "REF.1"},
+        metadata_tsv=metadata, raw_corpus_fasta=raw,
+        recombination_screen_completed=True,
+    )
+    assert stats.alignment_qc_pass_fraction == pytest.approx(0.5)
