@@ -1406,7 +1406,60 @@ function workInterpret(host) {
     dh1Panel(),
     el("div", { style: "height:22px" }),
     evidenceChain(),
+    el("div", { style: "height:22px" }),
+    eriPanel(),
   );
+}
+
+/* ── the external ERI score, and whether it separates anything ────────
+   Proposed as an early-warning input, so the console reports whether it
+   discriminates outbreak years rather than leaving that in a revision
+   log. Rendered empty when no score file is on this checkout -- absent
+   is not the same as failing, and the panel says which. */
+function eriPanel() {
+  const host = el("div", { class: "sec" },
+    el("h3", { text: "External ERI score — does it separate outbreak years?" }),
+    el("p", { class: "hint", text: "measuring…" }));
+  cached("eri", `/api/eri-validation/${S.pathogen}`).then((data) => {
+    host.replaceChildren(el("h3", { text: "External ERI score — does it separate outbreak years?" }));
+    if (data.error || !data.weightings) {
+      host.append(el("p", { class: "hint", text:
+        "No ERI score file on this checkout, so nothing was measured. "
+        + "This is a missing input, not a failed test." }));
+      return;
+    }
+    const beats = data.weightings.filter((w) => w.loyo_accuracy > data.base_rate);
+    host.append(
+      el("p", { style: `font-size:13px;line-height:1.6;max-width:80ch;color:var(--${beats.length ? "ink-2" : "st-error"})`,
+                text: data.explanation }),
+      el("div", { style: "display:grid;grid-template-columns:1fr 70px 70px 70px 80px;gap:10px;padding:7px 0;border-bottom:1px solid var(--hair)" },
+        el("span", { class: "tag", text: "weighting" }),
+        ...["J", "sens", "spec", "LOYO"].map((h) =>
+          el("span", { class: "tag", style: "text-align:right", text: h }))),
+      ...data.weightings.map((w) => {
+        const wins = w.loyo_accuracy > data.base_rate;
+        return el("div", { style: "display:grid;grid-template-columns:1fr 70px 70px 70px 80px;gap:10px;align-items:center;padding:5px 0;border-bottom:1px solid var(--hair)" },
+          el("span", { style: "font-size:12px", text: w.label }),
+          el("span", { class: "mono", style: "font-size:11.5px;text-align:right", text: (w.youden_j >= 0 ? "+" : "") + w.youden_j.toFixed(2) }),
+          el("span", { class: "mono", style: "font-size:11.5px;text-align:right", text: `${Math.round(w.sensitivity * 100)}%` }),
+          el("span", { class: "mono", style: "font-size:11.5px;text-align:right", text: `${Math.round(w.specificity * 100)}%` }),
+          el("span", { class: "mono", style: `font-size:11.5px;text-align:right;color:var(--${wins ? "st-complete" : "st-error"})`,
+                       text: `${Math.round(w.loyo_accuracy * 100)}%` }));
+      }),
+      el("div", { style: "display:grid;grid-template-columns:1fr 70px 70px 70px 80px;gap:10px;padding:7px 0" },
+        el("span", { style: "font-size:12px;font-style:italic", text: "always answer \u201cno outbreak\u201d" }),
+        el("span", {}), el("span", {}), el("span", {}),
+        el("span", { class: "mono", style: "font-size:11.5px;text-align:right;font-weight:600",
+                     text: `${Math.round(data.base_rate * 100)}%` })),
+      el("p", { class: "hint", style: "margin-top:10px;max-width:82ch", text:
+        "LOYO is leave-one-year-out with the threshold refit inside each fold; on "
+        + `${data.n_years} years it is the only accuracy worth reading. Weightings are fixed in `
+        + "advance, not searched — one chosen after seeing which separates best would be "
+        + "selection on the outcome. The score is computed from the same genomes this "
+        + "pipeline holds, so it cannot independently validate anything derived from them." }),
+    );
+  });
+  return host;
 }
 
 /* ── surveillance output ──────────────────────────────────────────────

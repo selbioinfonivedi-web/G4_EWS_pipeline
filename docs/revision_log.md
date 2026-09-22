@@ -1676,3 +1676,208 @@ file already hold to.
 with margin** — verified locally with the identical `pytest --cov=g4watch
 --cov-report=term-missing` invocation CI runs, not assumed from the
 local number alone.
+
+
+## R-32 -- Four loose ends closed after the merge, one honestly not
+
+Four items flagged as outstanding right after `phases-0-3` merged into
+`main`. Three were real, bounded fixes. The fourth was a multi-phase
+plan, and only the part of it that is actually engineering got done --
+the part that needs real data or dedicated analysis time is still open,
+and is recorded as such here rather than quietly marked "done."
+
+**The stray tarball.** `G4_WATCH.tar.gz`, 348 MB, untracked, sitting in
+the repo root since before this session, unexplained despite being
+flagged multiple times. Deleted: it predates the merge, contains
+`__pycache__` (a raw directory snapshot, not a deliberate release
+build), and is not part of the git history it now sits beside.
+
+**The runner console had no process supervision.** It died once already
+this session when something in the environment churned, and came back
+only because someone was watching and restarted it by hand. Installed as
+a `systemctl --user` service (`~/.config/systemd/user/g4watch-
+runner.service`, `Restart=always`), verified by SIGKILL-ing the running
+process directly and confirming systemd restarted it within seconds with
+the console serving again. One honest limit, stated rather than glossed
+over: this session has no root access on this machine, so
+`loginctl enable-linger` could not be set. The service survives the
+process crashing; it does not survive the user being fully logged out or
+the machine rebooting with no active session. That needs root, once, on
+this machine specifically.
+
+**Docker images going stale silently.** Re-examined before "fixing" it,
+because the first framing of the gap was wrong: CI already rebuilds
+every image on every push to `main` (the `containers` job) and fails the
+run if one no longer builds, which is what actually caught the R-30
+defects. What CI does not do is push anywhere -- no registry is
+configured -- so a freshly-built image in CI is thrown away when the job
+ends, and a local machine's own `docker images` cache has nothing
+keeping it in sync with `main`. `g4watch/core` and `g4watch/selection`
+went six and sixteen days stale before an actual pipeline run surfaced
+it (R-30), not a `git pull`.
+
+Fixed at the scope the gap actually has: `scripts/git-hooks/post-merge`,
+installed via `scripts/install-git-hooks.sh` (now documented in
+`docs/installation.md`), rebuilds only the images whose source changed
+between `ORIG_HEAD` and the new `HEAD`, in the background, logged to
+`results/container_rebuild.log`. The change-detection logic was checked
+against this branch's own history before trusting it -- `git diff
+--name-only` between the commit two before HEAD and HEAD correctly named
+exactly `Dockerfile.selection` and the two `.py` files R-30 actually
+touched. This is a single-machine fix, stated as such in both the hook
+and the docs: it keeps whichever machine has it installed in sync with
+its own git history, and is not a registry or a multi-host deployment
+pipeline -- that needs credentials this repository does not have
+configured, and setting that up was not part of what was asked.
+
+**The monthly-data + CUSUM/EWMA plan -- Phase 1 only, and that is a real
+boundary, not an oversight.** The plan has four phases; only Phase 1
+(monthly windowing capability in the metrics layer) is an engineering
+task closeable in a session. Phases 3 and 4 (calibrating CUSUM/EWMA
+against a real quiet baseline, running the lead-time test, a live
+monthly refresh) need either real month-precision data for enough of a
+corpus to test against, or infrastructure worth building only once Phase
+3 shows there is a signal to refresh -- neither of which changes by
+writing more code today. Phase 2 (compartment-stratified D.H1) was
+already done, in R-29, with a negative-leaning result.
+
+Phase 1: `Sample` gained a `month: int | None` field, populated only
+when `qc.sequence_qc.has_month_precision` was true for the source
+`collection_date` -- undated-at-month-resolution samples are excluded
+from monthly windows, not imputed a month, the same rule
+`build_dates_csv` already applies to TreeTime's dates. `extract_month()`
+added alongside the existing `has_month_precision`/`extract_year`,
+recognizing the identical GenBank date formats. `build_windows` and
+`_in_window` gained a keyword-only `granularity` parameter
+(`"year"`/`"month"`), threaded through `compute_window_metrics` and
+`compute_lineage_window_metrics` -- every existing caller is untouched
+by default, verified with a test that asserts byte-identical output with
+and without the explicit `granularity="year"` keyword.
+
+One real bug caught before it shipped: the existing test helper `make()`
+in `test_surveillance_metrics.py` constructed `Sample` positionally.
+Inserting `month` as a new field between `year` and `states` would have
+silently shifted `states` into `month`'s slot and every argument after
+it by one -- caught by grepping every `Sample(...)` call site for
+positional construction before editing the dataclass, not after
+something broke.
+
+**Verified against the real FMDV corpus, not just synthetic fixtures.**
+`load_samples(load_config("fmdv"))` against the actual corpus: 591 of
+848 loaded samples carry real month precision, `build_windows(...,
+granularity="month")` produces 1,092 real monthly windows spanning
+1934-08 to 2025-07, and the 2013 monthly breakdown sums to exactly 41
+records -- the same total independently found by a different method in
+R-29's Phase 3 feasibility check.
+
+**What this does not do.** No lead-time test has been run. No CUSUM/EWMA
+baseline has been recalibrated against real outbreak-quiet windows. No
+pathogen is monitored monthly in production. Phase 1 is the precondition
+for Phase 3, not Phase 3 itself, and the honest state of Phase 3 is
+still: FMDV2026 (the corpus with SC-tier loci) has zero month-precision
+records, so a lead-time test there needs the older FMDV corpus's 2013
+window specifically -- 18 India, full-length, month-precision genomes,
+as found in R-29 -- which is thin enough that running it should be
+scoped and reported as a pilot, not a validation.
+
+
+## R-33 -- The ERI score does not separate outbreak years, and the divergence half is why
+
+A collaborator's ERI/EWS scores for the full 936-genome FMDV corpus were
+handed over to "use for validation." Two things had to be established
+before that phrase could mean anything: what the file actually contains,
+and whether the score it holds discriminates the thing it is meant to
+alarm on.
+
+**It is not ground truth, and could not be.** Every column --
+G4Hunter and pqsfinder motif counts, SSI, ANI divergence, G4-AMB, and
+the EWS composites over them -- is computed from the same 936 genomes
+this pipeline already holds. No case count, no confirmed-outbreak flag,
+no Rt, no field observation. A second score over shared inputs cannot
+independently validate anything derived from those inputs, D.H1
+included. The only external facts available for testing it are the
+outbreak-year labels in `data/epidemiology/`, themselves a seed set with
+most rows unverified.
+
+**The first global figure was near zero, and the first suspicion was
+wrong.** Across all 936 genomes the score barely separated anything
+(Youden's J between +0.16 and +0.29 depending on the column). The
+obvious explanation was a category error: the labels are *Indian*
+national outbreak years, while the score averages ~60 countries, so a
+Kenyan SAT2 genome was being folded into a number tested against whether
+India had an outbreak. Restricting to India's 79 genomes -- which turn
+out to be exactly the 79 of the original India-only study, sitting
+inside the global file as a subset -- did improve it, from J=+0.26 to
++0.33. It did not rescue it. Geography was a problem, not the problem.
+
+**Under leave-one-year-out, ERI as published performs worse than
+answering "no outbreak" every time.** India, 19 years, 7 of them
+outbreak years, threshold refit inside each fold:
+
+| weighting | J | sens | spec | LOYO |
+|---|---|---|---|---|
+| ERI as published (0.5 SSI + 0.5 ANI) | +0.42 | 100% | 42% | 53% |
+| SSI only | +0.49 | 57% | 92% | 58% |
+| ANI divergence only | +0.00 | 100% | 0% | 32% |
+| G4-AMB only | +0.42 | 100% | 42% | 58% |
+| SSI + G4-AMB, ANI dropped | +0.52 | 86% | 67% | 63% |
+| equal thirds | +0.42 | 100% | 42% | 53% |
+| *always answer "no outbreak"* | | | | **63%** |
+
+Nothing beats the base rate. The single-fit J values look more
+respectable than the LOYO column precisely because a threshold chosen on
+nineteen points and scored on the same nineteen is measuring
+memorisation; reporting both is what makes that visible.
+
+**The divergence term is the specific defect.** ANI alone reaches
+J = 0.00 -- its best available threshold flags every year, so it carries
+no discriminating information at all -- and its direction is inverted:
+outbreak years average 87.1 against 95.0 for quiet years, i.e. outbreak
+years are *less* divergent. The G4 structural term does point the right
+way (SSI: 52.4 against 38.0, J=+0.49, 92% specificity). Averaging the
+two at 50/50 therefore takes a real signal and cancels it against noise
+with the wrong sign, which is why SSI alone outscores the published
+composite on every measure reported.
+
+**What is deliberately not claimed.** Giving ANI a *negative*
+coefficient reaches 74% LOYO. That weighting was found by looking at the
+data, after its direction was known -- selection on the outcome, the
+defect R-12 exists to prevent. It is a hypothesis for a pre-specified
+test on data that has not been seen, and it is recorded here as such,
+not offered as a result. `WEIGHTINGS` in the new module is a fixed table
+rather than a search, and a test asserts no negative weight appears in
+it.
+
+**Two problems in the supplied chart, for whoever uses it next.** No
+annual mean EWS exceeds 66.7 in any year -- the raw score never reaches
+the 70 "high epidemic risk" line at all. Only the smoothed series
+crosses it, and having crossed, it stays above 70 for 22 of 26 years,
+with 2017 (86.0), 2018 (88.5) and 2019 (88.0) all scoring higher than
+every actual outbreak year. A threshold that fires in 85% of years is
+not an alarm. The transform producing the smoothed column is not in the
+supplied files and should be obtained before that series is used.
+
+**What this does not mean.** It does not retire the surveillance idea;
+it retires one framing of it. Thresholding an absolute annual level
+cannot work on nineteen points with seven positives, and nothing fitted
+on that generalises -- which is what the table above is showing. The
+machinery for the other framing is already in this repository and
+unused: CUSUM and EWMA ask whether a series has departed from its own
+baseline rather than whether it exceeds a number, calibrated to
+ARL0 = 200, and Phase 1 of the monthly-windowing work (R-32) is the
+enabler for feeding them a series fine-grained enough to test. The
+honest next step is the G4 structural terms only, at monthly resolution,
+through a control chart, against outbreak dates at matching resolution
+-- none of which exists yet, and the last of which is a data-acquisition
+problem rather than a modelling one.
+
+**Added:** `g4watch/validation/eri_validation.py` (the measurement, with
+the weighting table fixed in advance), `data/eri_scores/` with the
+supplied files and a README stating plainly that they are not ground
+truth, `/api/eri-validation/{pathogen}` on the runner console, and an
+Interpret-mode panel that reports the result next to the base rate --
+because a negative result that lives only in a revision log is one
+nobody reading the console will ever see. Twelve unit tests and three
+web tests, including one asserting the published weighting still fails
+to beat the base rate, so that a changed score file changes this entry
+rather than silently invalidating it.
