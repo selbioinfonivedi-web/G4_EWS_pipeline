@@ -18,6 +18,7 @@ import os
 import re
 import shutil
 import subprocess
+import sys
 from pathlib import Path
 
 import pytest
@@ -194,8 +195,22 @@ def test_print_renders_without_privileges_and_leaves_no_placeholder():
 
 @pytest.mark.skipif(shutil.which("systemd-analyze") is None, reason="systemd not available")
 def test_the_rendered_unit_passes_systemd_verify(tmp_path):
+    # `systemd-analyze verify` resolves ExecStart and reports "Command ...
+    # is not executable" when the binary is absent. A CI checkout
+    # installed with `pip install -e .` has no .venv, so that fires on a
+    # fact about the environment rather than about the unit. sys.prefix is
+    # not a fix either: this repository's own CI box has python3 but no
+    # <prefix>/bin/python. So the probe gets a prefix built for it, whose
+    # bin/python is the interpreter actually running the test -- which
+    # keeps the check on the template's structure, where the value is.
+    prefix = tmp_path / "probe-prefix"
+    (prefix / "bin").mkdir(parents=True)
+    (prefix / "bin" / "python").symlink_to(sys.executable)
+
     rendered = subprocess.run(
-        ["bash", str(INSTALLER), "--print"], capture_output=True, text=True, timeout=60,
+        ["bash", str(INSTALLER), "--print"],
+        capture_output=True, text=True, timeout=60,
+        env={**os.environ, "VIRTUAL_ENV": str(prefix)},
     ).stdout
     # A name nothing on the host can already have. Verifying under the
     # real name reports "Unit g4watch-console.service is masked." on any
