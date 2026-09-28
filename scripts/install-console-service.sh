@@ -39,10 +39,6 @@ RUN_USER="${SUDO_USER:-$USER}"
 RUN_GROUP="$(id -gn "$RUN_USER")"
 
 VENV="${VIRTUAL_ENV:-$REPO_ROOT/.venv}"
-[ -x "$VENV/bin/python" ] \
-    || die "no interpreter at $VENV/bin/python — run 'make install' first, or set VIRTUAL_ENV"
-"$VENV/bin/python" -c 'import uvicorn, web.runner.app' 2>/dev/null \
-    || die "$VENV cannot import web.runner.app — the service would fail on every start"
 
 render() {
     sed -e "s|@REPO_ROOT@|$REPO_ROOT|g" \
@@ -52,12 +48,22 @@ render() {
         "$TEMPLATE"
 }
 
+# Rendering is read-only and is the documented way to review this before
+# running it as root, so it happens BEFORE any check on the environment.
 if [ "${1:-}" = "--print" ]; then
     render
     exit 0
 fi
 
 [ "$(id -u)" -eq 0 ] || die "installing to $UNIT_DIR needs root: re-run with sudo"
+
+# Only now, when a unit is actually about to be installed, does the
+# interpreter have to exist and work: a unit pointing at a missing or
+# broken interpreter fails on every start with a message about systemd.
+[ -x "$VENV/bin/python" ] \
+    || die "no interpreter at $VENV/bin/python — run 'make install' first, or set VIRTUAL_ENV"
+"$VENV/bin/python" -c 'import uvicorn, web.runner.app' 2>/dev/null \
+    || die "$VENV cannot import web.runner.app — the service would fail on every start"
 
 # A leftover placeholder means the template grew a field this script does
 # not know about. Installing it would produce a unit that fails at start

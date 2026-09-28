@@ -197,13 +197,22 @@ def test_the_rendered_unit_passes_systemd_verify(tmp_path):
     rendered = subprocess.run(
         ["bash", str(INSTALLER), "--print"], capture_output=True, text=True, timeout=60,
     ).stdout
-    unit = tmp_path / "g4watch-console.service"
+    # A name nothing on the host can already have. Verifying under the
+    # real name reports "Unit g4watch-console.service is masked." on any
+    # machine where it is installed or masked -- a fact about the host's
+    # unit state, not about whether this file parses, and it made the
+    # test fail on a GitHub runner while passing locally.
+    unit = tmp_path / "g4watch-console-verify-probe.service"
     unit.write_text(rendered)
     result = subprocess.run(
         ["systemd-analyze", "verify", str(unit)],
         capture_output=True, text=True, timeout=60,
     )
-    # Other units already on the machine can produce unrelated noise, so
-    # only complaints naming this file count.
-    ours = [ln for ln in (result.stderr + result.stdout).splitlines() if unit.name in ln]
+    # Other units already on the machine produce unrelated noise, so only
+    # complaints naming this file count -- and of those, only ones about
+    # its contents rather than its installed state.
+    ours = [
+        line for line in (result.stderr + result.stdout).splitlines()
+        if unit.name in line and "is masked" not in line
+    ]
     assert not ours, "systemd rejected the rendered unit:\n" + "\n".join(ours)
