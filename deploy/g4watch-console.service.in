@@ -1,0 +1,72 @@
+# G4-WATCH operator console — systemd unit TEMPLATE.
+#
+# This file is not installable as it stands: @REPO_ROOT@, @VENV@, @USER@
+# and @GROUP@ are substituted by scripts/install-console-service.sh at
+# install time. That indirection is the point — a unit file with an
+# absolute path baked in is correct on exactly one machine, and this
+# repository is meant to be checked out on more than one.
+#
+# WHAT THIS REPLACES. The console was a bare background process. It died
+# with the session that started it, nothing restarted it, and a reboot
+# left the port silently closed — which is how it went down unnoticed once
+# already (revision log R-28).
+
+[Unit]
+Description=G4-WATCH operator console
+Documentation=https://github.com/selbioinfonivedi-web/G4_EWS_pipeline
+# Not network-online.target: the console binds to loopback, so it does not
+# wait for an address to be configured.
+After=network.target
+
+# A console that crashes on startup in a loop should stop and say so
+# rather than churn: five failures in two minutes and it stays down.
+# These belong to [Unit] -- systemd ignores them under [Service].
+StartLimitBurst=5
+StartLimitIntervalSec=120
+
+[Service]
+Type=exec
+User=@USER@
+Group=@GROUP@
+WorkingDirectory=@REPO_ROOT@
+
+# Host and port live here so that changing them is an edit to one file
+# rather than to the unit. Defaults match the Makefile's console target
+# and the URL the README prints.
+Environment=G4WATCH_CONSOLE_HOST=127.0.0.1
+Environment=G4WATCH_CONSOLE_PORT=8800
+# Optional, and deliberately optional: the leading - means the unit still
+# starts when the file is absent.
+EnvironmentFile=-@REPO_ROOT@/deploy/console.env
+
+ExecStart=@VENV@/bin/python -m uvicorn web.runner.app:app \
+    --host ${G4WATCH_CONSOLE_HOST} --port ${G4WATCH_CONSOLE_PORT}
+
+Restart=on-failure
+RestartSec=5s
+
+# ── Hardening ───────────────────────────────────────────────────────
+# Deliberately moderate. The console SHELLS OUT to the pipeline — docker,
+# nextflow, R, IQ-TREE — so the aggressive options fight the job it
+# exists to do. ProtectHome is absent for the same reason: the checkout
+# and its results/ directory normally live under a home directory.
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectKernelTunables=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+
+# The console runs pipeline stages and has NO AUTHENTICATION. Binding it
+# to anything but loopback exposes arbitrary command execution to the
+# network. If you change G4WATCH_CONSOLE_HOST, put an authenticating
+# proxy in front of it first.
+IPAddressAllow=localhost
+IPAddressDeny=any
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=g4watch-console
+
+[Install]
+WantedBy=multi-user.target

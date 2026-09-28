@@ -2002,3 +2002,99 @@ minority), and two in `tests/unit/pipeline/test_floor_exclusions.py`
 pinning the numerator -- one that the reference is excluded, one that
 sequences genuinely lost to QC still lower the fraction, so the fix reads
 as accuracy rather than leniency.
+
+## R-35 -- Green CI and a deployable system are different claims
+
+Eight CI jobs went green on the pass-fraction fix, and the next question
+was whether that made the project production ready. It did not, and the
+gap was not in the science. Two operational holes had been open since the
+containers job was written.
+
+**CI built eleven images on every push to main and threw all of them
+away.** No registry was configured, so nothing outside the machine that
+built an image could reproduce a run. `IMAGE_DIGESTS.tsv` recorded this
+honestly -- every row read `not pushed` -- and the file's own comment
+already explained why that matters: a LOCAL image id differs between
+machines that built the same Dockerfile and therefore proves nothing
+about what a cluster would pull. The registry digest is the immutable
+reference. The column existed, correctly documented, and nothing ever
+filled it.
+
+**The console was a bare background process.** It died with the session
+that started it, nothing restarted it, and a reboot left the port
+silently closed -- which had already happened once (R-28). `Linger=no`,
+no unit file, two `uvicorn` processes held up by nothing but the shell
+that launched them.
+
+### What was added
+
+`make containers-push REGISTRY=...`, and a systemd unit rendered from the
+checkout's own paths by `scripts/install-console-service.sh`.
+
+`REGISTRY` deliberately has no default. Pushing to a registry publishes,
+and a default would make that the accident rather than the decision.
+
+The unit is a *template* with `@REPO_ROOT@`, `@VENV@`, `@USER@` and
+`@GROUP@` substituted at install time. A committed unit file needs
+absolute paths, which makes it correct on exactly one machine and quietly
+wrong the moment the checkout moves -- the same hard-coded-path problem
+that this project has a standing rule against. `--print` renders it for
+review without privileges, which is the honest way to show someone what
+they are about to run as root.
+
+### Three defects found while building it, two of them mine
+
+**The push guard fired eight minutes too late.** `containers-push:
+containers` makes the images a prerequisite, and a prerequisite is built
+*before* the recipe runs -- so `make containers-push` with no `REGISTRY`
+built all eleven images and only then refused. The target now takes no
+prerequisite and calls `$(MAKE) containers` after the guard.
+
+**The unit's restart rate limit was silently inert.** `StartLimitBurst`
+and `StartLimitIntervalSec` belong to `[Unit]`, not `[Service]`; systemd
+255 reports `Unknown key name 'StartLimitIntervalSec' in section
+'Service', ignoring` and carries on. `systemd-analyze verify` caught it,
+and a test now keeps it caught -- the failure mode being a crash-looping
+console with no limit at all, which is the exact scenario the directive
+exists for.
+
+**A convenience variable weakened a security guarantee.** Making the
+console's host `CONSOLE_HOST ?= 127.0.0.1` looked tidy and put `make
+console CONSOLE_HOST=0.0.0.0` one flag away from exposing a service that
+runs pipeline stages with no authentication.
+`tests/web/test_security_boundary.py` failed immediately, asserting the
+host is a loopback *literal*. The correct response was to revert the
+variable, not to teach the test about it: the port is now a variable and
+the host is not, because only one of the two can turn a local tool into
+remote code execution. The systemd unit keeps its own
+`G4WATCH_CONSOLE_HOST`, behind a file that must be edited as root.
+
+**Also reconciled:** `make console` served port 8010 while the README told
+the reader to open 8800, so the documented URL was never the one it bound
+to. Both are 8800 now, and a test asserts the Makefile, the unit and the
+README agree.
+
+### What this does and does not change
+
+It closes the packaging and hosting gap: a colleague can now install the
+console as a service, and a tagged image can carry a digest that
+identifies it off this machine. It changes nothing about the science.
+D.H1 remains unsupported, `G4-004` remains significantly disrupted in the
+direction opposite to the hypothesis, Stages 5 and 6 remain inert, and
+nine of twelve pathogens have still never been run. "Production ready"
+for the pipeline is now close. "Production ready" for a G4 early-warning
+system is a claim the evidence does not support.
+
+**Added:** `deploy/g4watch-console.service.in`,
+`scripts/install-console-service.sh`, `containers-push` and an `IMAGES`
+list in the Makefile (it was written out twice, so a new Dockerfile could
+be built and then omitted from the digest record), README instructions,
+and sixteen tests in `tests/containers/test_deployment.py` that read the
+Makefile, the template and the installer without needing Docker, systemd
+or root.
+
+**Not added, and needing a decision:** the CI job that would actually
+push to GHCR on merges to main. It was written and then declined by the
+sandbox as creating public surface, which is a fair reading of what a
+registry push is. It is held out of this commit rather than worked
+around.
