@@ -14,7 +14,7 @@ VERSION     := 1.0.0
 # Dockerfile could be built and then silently omitted from the digest
 # record -- which is exactly the kind of gap `containers` exists to close.
 IMAGES      := core alignment phylogenetics selection statistics g4prediction \
-               web-backend web-db web-proxy acquisition variants
+               web-backend web-db web-proxy acquisition variants g4rna
 
 # Where `containers-push` sends them. No default: pushing to a registry
 # publishes, and a default would make that the accident rather than the
@@ -119,6 +119,10 @@ containers:
 	docker build -f containers/Dockerfile.web-proxy     -t g4watch/web-proxy:$(VERSION) .
 	docker build -f containers/Dockerfile.acquisition   -t g4watch/acquisition:$(VERSION) containers/
 	docker build -f containers/Dockerfile.variants      -t g4watch/variants:$(VERSION) containers/
+	# Root context (`.`), not `containers/`: this Dockerfile COPYs
+	# vendor/g4rna_screener-src and containers/g4rna_smoke_test.py, both
+	# paths relative to the repository root, not to containers/.
+	docker build -f containers/Dockerfile.g4rna         -t g4watch/g4rna:$(VERSION) .
 	$(MAKE) container-digests
 
 # Reproducibility: record the digest every image actually resolved to,

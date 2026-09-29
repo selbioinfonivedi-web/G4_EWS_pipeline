@@ -12,6 +12,23 @@ reference set the architecture calls for (that acquisition work was Sprint
 this is explicitly a pre-conservation, single-reference Atlas, not a
 finished one. It must not be treated as scoring-ready beyond what
 `structural_confidence` alone already gates (Section 8 of the architecture).
+
+G4RNA SCREENER SCORING IS BEST-EFFORT, NOT A THIRD CONCORDANCE VOTER.
+Concordance is still exactly G4Hunter + the pattern-motif predictor,
+unchanged — replacing a voter is a decision that would shift every
+locus's structural_confidence tier and deserves its own review, not a
+side effect of finally being able to run a previously-rejected tool. What
+this DOES do is fill in `g4rna_screener_score`, empty on every prior
+Atlas, for calibration and cross-checking: does the pickled classifier
+agree with the two voters that already decided the locus is a candidate?
+
+It degrades LOUDLY, not silently, when unavailable. Unlike PhiPack (Stage
+1.5, mandatory, no skip flag), scoring with G4RNA screener requires a
+reachable Docker daemon from inside this process
+(g4prediction/g4rna_screener.py), which will not exist in a bare CI
+runner or inside a Nextflow task already running under a container
+profile. A record built without it says so in `evidence_note` rather than
+leaving a bare `None` that reads the same as "never attempted."
 """
 
 from __future__ import annotations
@@ -21,6 +38,7 @@ from dataclasses import dataclass
 from ..g4prediction.concordance import DEFAULT_MIN_OVERLAP_FRACTION, find_concordant_candidates
 from ..g4prediction.g4hunter import DEFAULT_THRESHOLD, DEFAULT_WINDOW
 from ..g4prediction.g4hunter import predict as g4hunter_predict
+from ..g4prediction.g4rna_screener import G4RNAScreenerUnavailableError, run_g4rna_screener
 from ..g4prediction.pattern_motif import predict as pattern_motif_predict
 from .builder import build_atlas_record
 from .schema import AtlasCandidate, AtlasRecord, FunctionalContext
@@ -74,6 +92,8 @@ def scan_genome_stage0(
     g4hunter_threshold: float = DEFAULT_THRESHOLD,
     min_overlap_fraction: float = DEFAULT_MIN_OVERLAP_FRACTION,
     flank: int = DEFAULT_FLANK,
+    score_with_g4rna_screener: bool = True,
+    g4rna_screener_image: str | None = None,
 ) -> list[AtlasRecord]:
     """Runs the full Stage-0 candidate-finding + classification pipeline
     against one reference genome sequence, returning one AtlasRecord per
@@ -83,6 +103,24 @@ def scan_genome_stage0(
     g4hunter_hits = g4hunter_predict(sequence, window=g4hunter_window, threshold=g4hunter_threshold)
     pattern_hits = pattern_motif_predict(sequence)
     concordant = find_concordant_candidates(g4hunter_hits, pattern_hits, min_overlap_fraction)
+
+    # One batched call for every concordant candidate, not one call per
+    # locus: each `docker run` has its own startup cost, and scoring 37
+    # loci one at a time would spend more wall-clock time starting
+    # containers than scoring sequences. Best-effort — see the module
+    # docstring for why this cannot be a hard dependency the way PhiPack
+    # is, and `g4rna_screener_unavailable_reason` is what a record's
+    # evidence_note reports when it is None instead.
+    g4rna_screener_hits: dict = {}
+    g4rna_screener_unavailable_reason: str | None = None
+    if score_with_g4rna_screener and concordant:
+        try:
+            g4rna_screener_hits = run_g4rna_screener(
+                {str(i): sequence[c.start:c.end] for i, c in enumerate(concordant, start=1)},
+                image=g4rna_screener_image,
+            )
+        except G4RNAScreenerUnavailableError as exc:
+            g4rna_screener_unavailable_reason = str(exc)
 
     n = len(sequence)
     records: list[AtlasRecord] = []
@@ -98,10 +136,17 @@ def scan_genome_stage0(
         midpoint_1based = ((cand.start + cand.end) // 2) + 1
         gene_feature, functional_context_value = _classify_region(midpoint_1based, annotation)
 
+        g4rna_hit = g4rna_screener_hits.get(str(index))
         atlas_candidate = AtlasCandidate(
             concordant_tool_count=cand.concordant_tool_count,
             g4hunter_score=cand.g4hunter_score,
-            g4rna_screener_score=None,  # deferred -- see g4prediction/pattern_motif.py module docstring
+            # Real when the container ran; None with a stated reason
+            # in evidence_note below when it did not -- never a bare
+            # None indistinguishable from "never attempted". Not a
+            # concordance voter (see module docstring): recorded for
+            # calibration against the two voters that already decided
+            # this locus is a candidate.
+            g4rna_screener_score=(g4rna_hit.g4nn_score if g4rna_hit else None),
             pqsfinder_score=None,  # deferred to LSDV sprint -- DNA-virus-scoped tool
             conservation_pct_phylo=None,  # Sprint 6 scope
             overlaps_annotated_functional_region=(functional_context_value == FunctionalContext.KNOWN_FUNCTIONAL),
@@ -128,7 +173,17 @@ def scan_genome_stage0(
                 "Computational prediction only (G4Hunter"
                 + (" + canonical PQS pattern motif" if supporting else "")
                 + f"); single reference genome ({reference_accession}); "
-                "pre-conservation Atlas -- conservation_pct_phylo not yet computed (Sprint 6 scope)."
+                "pre-conservation Atlas -- conservation_pct_phylo not yet computed (Sprint 6 scope). "
+                + (
+                    f"G4RNA screener G4NN = {g4rna_hit.g4nn_score:.4f}."
+                    if g4rna_hit
+                    else "G4RNA screener not scored: "
+                    + (
+                        g4rna_screener_unavailable_reason.splitlines()[0]
+                        if g4rna_screener_unavailable_reason
+                        else "disabled for this run."
+                    )
+                )
             ),
             atlas_version=atlas_version,
         )

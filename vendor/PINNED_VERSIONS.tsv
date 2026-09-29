@@ -1,7 +1,13 @@
 component	kind	version_or_commit	source	notes
 PhiPack	git commit	b1d48d21037dd087b12a01d06eefbb3b33428bef	https://github.com/julianzaugg/phipack	Stage 1.5 PHI recombination test. GPL-3.0, invoked as a separate executable. Build with `make vendor`.
 G4Hunter	reimplementation	native (g4watch/g4prediction/g4hunter.py)	see module docstring	Reimplemented rather than vendored; validated against the published reference behaviour.
-G4RNA Screener	NOT USED	n/a	https://github.com/scottgroup/G4RNA_screener	Python 2-only, pickled PyBrain classifier. See vendor/README.md and docs/revision_log.md R-01.
+G4RNA Screener	git commit	3e548338d6e37dfe419d04a2439d0cc5916498b6	https://github.com/scottgroup/g4rna_screener	Reversed from R-01's NOT USED. GPL-3.0, run in its own Python 2.7 container (containers/Dockerfile.g4rna), invoked as a subprocess. See vendor/g4rna_screener-src/PROVENANCE.md and docs/revision_log.md R-01/R-36.
+G4RNA Screener -- numpy	python (in container)	1.16.6	https://pypi.org/project/numpy/	Last release with Python 2.7 wheels. Pinned in containers/Dockerfile.g4rna, not this project's own venv.
+G4RNA Screener -- pandas	python (in container)	0.24.2	https://pypi.org/project/pandas/	Last release supporting Python 2.7 (0.25.0 dropped it).
+G4RNA Screener -- scipy	python (in container)	1.2.3	https://pypi.org/project/scipy/	Last release with Python 2.7 wheels.
+G4RNA Screener -- regex	python (in container)	2018.11.22	https://pypi.org/project/regex/	Contemporaneous with the tool's own last commit.
+G4RNA Screener -- biopython	python (in container)	1.76	https://pypi.org/project/biopython/	Last release supporting Python 2.7.
+G4RNA Screener -- pybrain	python (in container)	0.3	https://pypi.org/project/pybrain/	The only real PyPI release (0.2.1 predates it). Confirmed importing and unpickling G4RNA_2016-11-07.pkl correctly under this pinned stack.
 IQ-TREE	external tool	2.3.6	https://github.com/iqtree/iqtree2	Stage 2 ML phylogeny. Pinned in containers/Dockerfile.phylogenetics.
 TreeTime	external tool	0.11.4	PyPI phylo-treetime	Stage 2 time-scaling and rooting.
 MAFFT	external tool	7.505-1 (Debian)	Debian bookworm	Stage 1 alignment. Pinned in containers/Dockerfile.alignment. Corrected 2026-09-05: the file previously claimed 7.520-1, which bookworm does not ship, so the image could never build.

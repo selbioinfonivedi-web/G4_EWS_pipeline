@@ -2098,3 +2098,98 @@ push to GHCR on merges to main. It was written and then declined by the
 sandbox as creating public surface, which is a fair reading of what a
 registry push is. It is held out of this commit rather than worked
 around.
+
+## R-36 -- G4RNA screener was never broken; it needed a real Python 2 to run in
+
+R-01 (Sprint 2) investigated G4RNA screener for the RNA-virus concordance
+pairing the architecture originally specified, found it Python 2-only
+with a pickled PyBrain classifier, and substituted a native pattern-motif
+matcher instead. That investigation was correct and is not being
+reversed: PyBrain still does not import under Python 3, confirmed again
+here by installing it and watching it fail --
+
+    >>> import pybrain
+    ModuleNotFoundError: No module named 'structure'
+
+-- which is PyBrain's own `__init__.py` using Python 2's implicit
+relative-import syntax, removed by PEP 328. Nothing in `g4watch/` imports
+PyBrain or this tool. That much of R-01 stands.
+
+**What R-01's environment never had was an actual Python 2.7
+interpreter.** One now exists, in `containers/Dockerfile.g4rna`, and
+under it the tool is not broken at all:
+
+    >>> import pickle
+    >>> pickle.load(open("G4RNA_2016-11-07.pkl"))
+    <pybrain.structure.networks.feedforward.FeedForwardNetwork object at ...>
+
+and `screen.py` reproduces the tool's own bundled expectations against
+its own `sample.fas`: the telomeric repeat RNA (TERRA), a G4-forming RNA
+confirmed in the literature, scores G4NN = 0.998; its own documented
+"false negative example" (a Spinach aptamer) scores 0.12-0.21, which is
+what its own filename says it should do; poly-U and poly-C negative
+controls score near zero. Checked again at every image build (the
+Dockerfile's own smoke test), so a pinned-dependency drift fails the
+build rather than silently changing scores months later -- verified by
+deliberately corrupting the classifier file and confirming the build then
+fails.
+
+**The fix is a subprocess boundary, the same shape as PhiPack's.**
+`g4watch/g4prediction/g4rna_screener.py` shells out to `docker run`
+against the image, exactly as `recombination_screen.py` shells out to a
+built `Phi` binary. The tool's GPL-3.0 licence stays behind that
+boundary, same as PhiPack's LGPL-3.0 -- never imported, never linked.
+
+**This does not change concordance.** Concordance is still exactly
+G4Hunter + the pattern-motif predictor; replacing a voter is a decision
+that would shift every locus's structural_confidence tier and deserves
+its own review, not a side effect of a previously-rejected tool finally
+running. What changes is `g4rna_screener_score`, empty on every Atlas
+built before this, now real:
+
+    FMDV2026-G4-001  G4NN = 0.0001
+    FMDV2026-G4-002  G4NN = 0.5049
+    FMDV2026-G4-003  G4NN = 0.0013
+    FMDV2026-G4-004  G4NN = 0.0002
+
+Worth stating plainly rather than glossing over: three of the four loci
+this pipeline's own G4Hunter + pattern-motif concordance already flagged
+score near zero on the pickled classifier. That is a real disagreement
+between voters, not a bug -- G4Hunter and the pattern matcher are
+density/combinatorial predictors; the pickled net was trained on a
+different, mostly-human RNA corpus, and disagreeing with it is exactly
+the kind of calibration signal recording this score was for. It is not
+evidence about D.H1 either way; it is a note for whoever next reviews
+which loci deserve more scrutiny before being treated as settled
+candidates.
+
+**This is deliberately optional, unlike PhiPack.** Calling into a Docker
+daemon from inside `g4watch` itself needs a reachable Docker socket, which
+will not exist inside a bare CI runner, nor inside a Nextflow task already
+running under the docker/singularity profile (none of this project's
+profiles mount the host's Docker socket into a task container, and
+enabling that is a security decision this change does not make). Its
+absence is recorded in a record's `evidence_note` rather than left as a
+bare `None` indistinguishable from "never attempted" -- confirmed by
+rebuilding the same Atlas with the image removed and reading the note.
+
+`--pull=never` is load-bearing, not incidental: without it, a missing
+local image on a host with slow or blocked network egress hangs on a
+registry pull instead of failing in milliseconds, which is the wrong
+failure mode for a predictor meant to degrade fast inside an Atlas build.
+Pinned directly in a test, not only inferred from timing.
+
+**Added:** `vendor/g4rna_screener-src/` (committed, mirroring
+`phipack-src/`'s shape, with `PROVENANCE.md`), `containers/Dockerfile.g4rna`
+and `containers/g4rna_smoke_test.py`, `g4watch/g4prediction/g4rna_screener.py`,
+the wiring in `g4watch/atlas/stage0.py` (`score_with_g4rna_screener`,
+default `True`, batched one Docker call per genome scan rather than one
+per locus), `g4rna` in the Makefile's `IMAGES` list and `containers:`
+recipe. Nineteen new tests: pure parser and failure-mode tests needing no
+Docker, mocked wiring tests for the success/unavailable/disabled paths in
+`stage0.py`, and real end-to-end tests against the actual built image,
+skipped rather than faked when it is not present. Six existing
+`test_stage0.py` tests gained `score_with_g4rna_screener=False` so they
+stay pure, fast, Docker-independent unit tests rather than silently
+acquiring an Environment dependency they never asked for. 1319 passed,
+coverage 89.44%.

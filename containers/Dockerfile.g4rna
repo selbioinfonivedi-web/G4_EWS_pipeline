@@ -1,0 +1,83 @@
+# g4watch/g4rna — G4RNA screener (Garant, Perreault & Scott 2017), the
+# tool the original architecture named for RNA-virus G4 concordance.
+#
+# Revision log R-01 rejected running this INSIDE g4watch's own process:
+# it is Python-2-only and its classifier is a pickled PyBrain neural
+# network, and PyBrain does not import under Python 3 at all (confirmed
+# again during this integration -- see vendor/g4rna_screener-src/
+# PROVENANCE.md). That conclusion still holds and this image does not
+# change it: g4watch (Python 3, MIT) is not installed here, and nothing
+# in g4watch/ imports anything from this image.
+#
+# What changed is confirming the TOOL ITSELF still works under a real
+# Python 2.7 interpreter, which R-01's environment did not have. It does
+# -- PyBrain imports, the classifier unpickles, and screen.py reproduces
+# the tool's own bundled expectations against its own sample.fas. The fix
+# is therefore a subprocess boundary
+# (g4watch/g4prediction/g4rna_screener.py shells out to `docker run`),
+# the same shape as the PhiPack boundary in Dockerfile.selection, not a
+# reimplementation and not an in-process import.
+#
+# Base is Debian buster (python:2.7-slim), not bookworm: Python 2.7 has
+# not been in any Debian release since bullseye, so there is no way to
+# install it via apt on a current base -- and copying a buster-built
+# interpreter into a bookworm image across a glibc boundary is exactly
+# the "subtly broken reproduction" vendor/README.md already warned
+# against for this tool. Buster's own package mirror was retired from
+# the default host after this image was first built against it; apt is
+# pointed at archive.debian.org below, a real archival mirror, kept
+# reachable, rather than trusting a distribution the default mirror has
+# already dropped.
+FROM python:2.7-slim
+
+LABEL org.opencontainers.image.title="g4watch-g4rna" \
+      org.opencontainers.image.description="G4RNA screener (Garant et al. 2017), run as its own Python 2.7 process" \
+      org.opencontainers.image.vendor="ICAR-NIVEDI" \
+      org.opencontainers.image.licenses="GPL-3.0"
+
+RUN sed -i \
+      -e 's|deb.debian.org|archive.debian.org|g' \
+      -e 's|security.debian.org|archive.debian.org|g' \
+      -e '/buster-updates/d' \
+      /etc/apt/sources.list \
+ && echo 'Acquire::Check-Valid-Until "false";' > /etc/apt/apt.conf.d/99no-check-valid
+
+# build-essential: `regex` has no universal manylinux wheel for every
+# platform this might build on and falls back to compiling from source.
+RUN apt-get update && apt-get install -y --no-install-recommends build-essential \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean
+
+# Exact versions pinned in vendor/g4rna_screener-src/PROVENANCE.md, each
+# the last release that still shipped a Python 2.7 wheel.
+RUN pip install --no-cache-dir \
+        numpy==1.16.6 \
+        pandas==0.24.2 \
+        scipy==1.2.3 \
+        regex==2018.11.22 \
+        biopython==1.76 \
+        pybrain==0.3
+
+COPY vendor/g4rna_screener-src /opt/g4rna_screener
+WORKDIR /opt/g4rna_screener
+
+# Confirms the exact failure mode this image exists to avoid never comes
+# back silently: the classifier must still unpickle under whatever numpy
+# ends up resolved, or the build fails here rather than at first real use.
+RUN python -c "import pickle; pickle.load(open('G4RNA_2016-11-07.pkl'))" \
+    && echo "G4RNA_2016-11-07.pkl unpickles under this image's pinned stack"
+
+# And the tool's own bundled sample must still reproduce its own stated
+# expectations. See containers/g4rna_smoke_test.py for what "still" means
+# here -- kept as a real file rather than an inline one-liner because a
+# quoted, escaped, embedded Python block inside a Dockerfile RUN is its
+# own source of silent breakage.
+COPY containers/g4rna_smoke_test.py /tmp/g4rna_smoke_test.py
+RUN python /tmp/g4rna_smoke_test.py
+
+USER 1000
+# NO ENTRYPOINT, for the same reason as Dockerfile.selection: this image
+# is invoked with an explicit command by the wrapper module
+# (g4watch/g4prediction/g4rna_screener.py), never by a bare `docker run`
+# expecting a default. CMD is kept so a bare run is still informative.
+CMD ["python", "screen.py", "--help"]

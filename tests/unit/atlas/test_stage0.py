@@ -1,5 +1,13 @@
 """Tests for genome-wide Stage-0 Atlas construction, using small synthetic
-genomes designed so the expected output can be hand-verified."""
+genomes designed so the expected output can be hand-verified.
+
+Every call below passes score_with_g4rna_screener=False. Without it these
+tests would shell out to Docker on every run (a real concordant candidate
+is exactly what several of them build), which is environment coupling a
+unit test suite should not silently acquire. The G4RNA wiring itself is
+tested on its own terms in test_stage0_g4rna_screener.py -- mocked calls
+for the always-run tests, one real end-to-end test gated on the image
+actually being built."""
 
 from __future__ import annotations
 
@@ -16,7 +24,10 @@ def test_scan_finds_a_concordant_hit_and_classifies_it_sc() -> None:
     flank_seq = "A" * 50
     sequence = flank_seq + g4_region + flank_seq
 
-    records = scan_genome_stage0(sequence, virus="TESTV", reference_accession="TEST001", atlas_version="v0.1-test")
+    records = scan_genome_stage0(
+        sequence, virus="TESTV", reference_accession="TEST001", atlas_version="v0.1-test",
+        score_with_g4rna_screener=False,
+    )
 
     assert len(records) == 1
     record = records[0]
@@ -45,6 +56,7 @@ def test_scan_with_pattern_support_reaches_two_tool_concordance() -> None:
         atlas_version="v0.1-test",
         g4hunter_window=15,
         g4hunter_threshold=1.2,
+        score_with_g4rna_screener=False,
     )
 
     assert len(records) == 1
@@ -72,6 +84,7 @@ def test_scan_annotates_utr_vs_cds_from_genome_annotation() -> None:
         annotation=annotation,
         g4hunter_window=15,
         g4hunter_threshold=1.2,
+        score_with_g4rna_screener=False,
     )
 
     assert len(records) == 1
@@ -81,7 +94,10 @@ def test_scan_annotates_utr_vs_cds_from_genome_annotation() -> None:
 
 def test_scan_no_hits_on_low_complexity_genome() -> None:
     sequence = "ATATATATATATATATATATATATATATATATAT" * 3
-    assert scan_genome_stage0(sequence, virus="TESTV", reference_accession="TEST001", atlas_version="v0.1-test") == []
+    assert scan_genome_stage0(
+        sequence, virus="TESTV", reference_accession="TEST001", atlas_version="v0.1-test",
+        score_with_g4rna_screener=False,
+    ) == []
 
 
 def test_scan_atlas_ids_are_sequential_and_unique() -> None:
@@ -96,6 +112,7 @@ def test_scan_atlas_ids_are_sequential_and_unique() -> None:
         atlas_version="v0.1-test",
         g4hunter_window=15,
         g4hunter_threshold=1.2,
+        score_with_g4rna_screener=False,
     )
 
     assert [r.atlas_id for r in records] == ["TESTV-G4-001", "TESTV-G4-002"]
@@ -112,6 +129,7 @@ def test_scan_genome_start_end_are_one_based_and_consistent_with_sequence_field(
         atlas_version="v0.1-test",
         g4hunter_window=15,
         g4hunter_threshold=1.2,
+        score_with_g4rna_screener=False,
     )
 
     assert len(records) == 1
