@@ -154,8 +154,24 @@ g4watch gate-status -p fmdv2026
 ### The web application
 
 ```bash
-.venv/bin/python -m uvicorn web.runner.app:app --host 127.0.0.1 --port 8800
+make console          # or: .venv/bin/python -m uvicorn web.runner.app:app \
+                      #       --host 127.0.0.1 --port 8800
 ```
+
+To keep it running across logouts and reboots, install it as a service
+instead. The unit is rendered from this checkout's own paths, so there is
+nothing to edit first:
+
+```bash
+scripts/install-console-service.sh --print   # review it, no privileges needed
+sudo scripts/install-console-service.sh      # install, enable, start
+journalctl -u g4watch-console -f             # follow the log
+```
+
+The console runs pipeline stages and has **no authentication**. Both the
+Makefile target and the unit bind it to `127.0.0.1`, and the unit adds
+`IPAddressDeny=any`. Put an authenticating proxy in front of it before
+changing that.
 
 Open <http://127.0.0.1:8800/>. **Analyses** (mode 00) is the end-to-end
 path: create an analysis, upload a FASTA, validate it, launch the

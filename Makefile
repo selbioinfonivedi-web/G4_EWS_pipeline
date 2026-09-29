@@ -10,8 +10,29 @@ BIN         := $(VENV)/bin
 PHIPACK_COMMIT := b1d48d21037dd087b12a01d06eefbb3b33428bef
 VERSION     := 1.0.0
 
+# The image set, named once. It was written out twice before, so a new
+# Dockerfile could be built and then silently omitted from the digest
+# record -- which is exactly the kind of gap `containers` exists to close.
+IMAGES      := core alignment phylogenetics selection statistics g4prediction \
+               web-backend web-db web-proxy acquisition variants g4rna
+
+# Where `containers-push` sends them. No default: pushing to a registry
+# publishes, and a default would make that the accident rather than the
+# decision. CI passes ghcr.io/<owner>.
+REGISTRY    ?=
+
+# The console's port only. The HOST is deliberately NOT a variable: the
+# console runs pipeline stages and has no authentication, so binding it
+# off-loopback is remote code execution, and `make console
+# CONSOLE_HOST=0.0.0.0` would put that one flag away. The literal below
+# is what tests/web/test_security_boundary.py reads. The systemd unit has
+# its own G4WATCH_CONSOLE_HOST for the rare case that needs it, behind a
+# file you must edit as root.
+CONSOLE_PORT ?= 8800
+
 .PHONY: help venv install dev vendor test test-fast coverage lint typecheck console \
-        doctor validate run-fmdv dashboard containers container-digests web clean
+        doctor validate run-fmdv dashboard containers container-digests containers-push \
+        web clean
 
 help:
 	@echo "G4-WATCH $(VERSION)"
@@ -98,6 +119,10 @@ containers:
 	docker build -f containers/Dockerfile.web-proxy     -t g4watch/web-proxy:$(VERSION) .
 	docker build -f containers/Dockerfile.acquisition   -t g4watch/acquisition:$(VERSION) containers/
 	docker build -f containers/Dockerfile.variants      -t g4watch/variants:$(VERSION) containers/
+	# Root context (`.`), not `containers/`: this Dockerfile COPYs
+	# vendor/g4rna_screener-src and containers/g4rna_smoke_test.py, both
+	# paths relative to the repository root, not to containers/.
+	docker build -f containers/Dockerfile.g4rna         -t g4watch/g4rna:$(VERSION) .
 	$(MAKE) container-digests
 
 # Reproducibility: record the digest every image actually resolved to,
@@ -110,12 +135,39 @@ containers:
 # what this file proves.
 container-digests:
 	@echo "image	local_image_id	registry_digest" > containers/IMAGE_DIGESTS.tsv
-	@for img in core alignment phylogenetics selection statistics g4prediction web-backend web-db web-proxy acquisition variants; do \
+	@for img in $(IMAGES); do \
 	    d=$$(docker inspect --format='{{index .Id}}' g4watch/$$img:$(VERSION) 2>/dev/null || echo "not built"); \
 	    r=$$(docker inspect --format='{{if .RepoDigests}}{{index .RepoDigests 0}}{{else}}not pushed{{end}}' g4watch/$$img:$(VERSION) 2>/dev/null || echo "not built"); \
 	    echo "g4watch/$$img:$(VERSION)	$$d	$$r" >> containers/IMAGE_DIGESTS.tsv; \
 	done
 	@cat containers/IMAGE_DIGESTS.tsv
+
+# Tag every built image into a registry and push it, then re-record the
+# digests -- which is the point. `container-digests` prints "not pushed"
+# until this runs, because a LOCAL image id differs between machines that
+# built the same Dockerfile and therefore proves nothing about what a
+# cluster would pull. The registry digest is the immutable reference, and
+# until an image has one, nothing outside the machine that built it can
+# reproduce a run.
+#
+# REGISTRY has no default on purpose: this publishes.
+# NOT `containers-push: containers`. A prerequisite is built before the
+# recipe runs, so the guard below would have fired only after eleven
+# images had already been built -- eight minutes to be told the command
+# was missing an argument.
+containers-push:
+	@test -n "$(REGISTRY)" || { \
+	    echo "make containers-push needs REGISTRY, e.g."; \
+	    echo "  make containers-push REGISTRY=ghcr.io/selbioinfonivedi-web"; \
+	    exit 1; \
+	}
+	@$(MAKE) containers
+	@for img in $(IMAGES); do \
+	    echo "==> $(REGISTRY)/g4watch-$$img:$(VERSION)"; \
+	    docker tag  g4watch/$$img:$(VERSION) $(REGISTRY)/g4watch-$$img:$(VERSION) || exit 1; \
+	    docker push $(REGISTRY)/g4watch-$$img:$(VERSION) || exit 1; \
+	done
+	@$(MAKE) container-digests
 
 web:
 	$(BIN)/uvicorn web.backend.app:app --host 0.0.0.0 --port 8000
@@ -123,7 +175,7 @@ web:
 # The operator console runs pipeline stages, so unlike `web` it binds to
 # localhost only. It has no authentication: do not expose it.
 console:
-	$(BIN)/uvicorn web.runner.app:app --host 127.0.0.1 --port 8010
+	$(BIN)/uvicorn web.runner.app:app --host 127.0.0.1 --port $(CONSOLE_PORT)
 
 clean:
 	rm -rf work .nextflow .nextflow.log* results htmlcov .coverage .pytest_cache

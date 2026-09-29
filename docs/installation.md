@@ -129,3 +129,29 @@ dumps) are not tracked in git. What *is* tracked is everything needed to
 regenerate them: accession lists, corpus metadata, QC reports, the
 Atlas, and the testing ledger. Reproducibility here means "regenerate
 from the committed accession list", not "commit 116 MB of derived FASTA".
+
+## Keeping local Docker images from going stale
+
+CI rebuilds every image on every push to `main` (the `containers` job)
+and fails the run if one no longer builds — so a broken Dockerfile never
+reaches `main` unnoticed. What CI does not do is push anywhere: no
+registry is configured, so those freshly-built images are thrown away
+when the job ends. A machine that built its images once and then just
+pulls new commits has no signal that `docker images` is now describing
+old code — `g4watch/core` and `g4watch/selection` went six and sixteen
+days stale before anyone noticed, and it took an actual end-to-end
+pipeline run to surface it (revision log R-30), not a `git pull`.
+
+```bash
+./scripts/install-git-hooks.sh
+```
+
+installs a `post-merge` hook that rebuilds affected images automatically
+after a local merge or pull touches `g4watch/`, `containers/`, or
+`vendor/phipack-src`. It runs `make containers` in the background and
+logs to `results/container_rebuild.log`, so a pull is not blocked
+waiting on an image build. This is a single-machine fix, not a
+deployment pipeline: it keeps whichever machine has the hook installed
+in sync with its own git history, and does nothing for any other machine
+or a real multi-host rollout — that would need a registry and
+credentials this repository does not have configured.

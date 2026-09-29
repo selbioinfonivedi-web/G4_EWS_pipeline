@@ -1,0 +1,51 @@
+#!/bin/sh
+# Rebuilds local Docker images after a merge that touched anything they're
+# built from.
+#
+# CI already rebuilds every image on every push to main (see the
+# `containers` job in .github/workflows/ci.yml) and fails the run if one
+# doesn't build -- so a broken Dockerfile is always caught. What CI does
+# NOT do is push anywhere: no registry is configured, so CI's freshly-
+# built images are thrown away when the job ends. This machine's own
+# `docker images` cache is a separate, local thing that nothing kept in
+# sync -- g4watch/core and g4watch/selection went six and sixteen days
+# stale before anyone noticed (see revision log R-30), and it took an
+# actual end-to-end pipeline run to surface it, not a git pull.
+#
+# This hook closes that specific gap: after a local merge/pull, rebuild
+# only if something the images are actually built from changed. It does
+# NOT set up a registry or a multi-machine deployment pipeline -- that
+# would need credentials this repository does not have configured, and
+# inventing that unprompted would be a bigger change than "keep this
+# machine's cache from going stale silently."
+
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+cd "$REPO_ROOT" || exit 0
+
+command -v docker >/dev/null 2>&1 || exit 0
+docker info >/dev/null 2>&1 || exit 0
+
+# ORIG_HEAD is what HEAD pointed to before the merge; git sets it for
+# every merge, including a fast-forward pull.
+if [ -z "$ORIG_HEAD" ] || ! git rev-parse -q --verify "$ORIG_HEAD" >/dev/null; then
+    exit 0
+fi
+
+CHANGED=$(git diff --name-only "$ORIG_HEAD" HEAD -- \
+    g4watch pyproject.toml README.md scripts containers vendor/phipack-src)
+
+if [ -z "$CHANGED" ]; then
+    exit 0
+fi
+
+LOG="$REPO_ROOT/results/container_rebuild.log"
+mkdir -p "$REPO_ROOT/results"
+echo "post-merge: rebuilding Docker images (make containers) in the background -- log: $LOG"
+{
+    echo "=== $(date -Is) — rebuild triggered by merge past $ORIG_HEAD ==="
+    echo "changed:"
+    printf '%s\n' "$CHANGED" | sed 's/^/  /'
+    make containers
+    echo "=== $(date -Is) — done, exit $? ==="
+} >>"$LOG" 2>&1 &
+disown 2>/dev/null || true

@@ -213,3 +213,43 @@ def test_the_report_card_has_every_section_with_a_status(client):
         assert section["status"], f"{section['key']} has no status"
         if section["status"] == "blocked":
             assert section["reason"], f"{section['key']} is blocked without saying why"
+
+
+# ── the ERI validation endpoint ─────────────────────────────────────
+#
+# The score was proposed as an early-warning input and does not beat the
+# base rate (revision log R-33). That answer is only useful if it is
+# visible in the console, so the endpoint and the panel that reads it are
+# checked here in both directions, like everything else in this file.
+
+def test_eri_validation_endpoint_reports_against_the_base_rate(client):
+    from pathlib import Path
+
+    if not Path("data/eri_scores/fmdv_global_per_genome_eri.csv").is_file():
+        pytest.skip("no ERI score file on this checkout")
+    body = client.get("/api/eri-validation/fmdv2026").json()
+    assert body["n_outbreak_years"] == 7
+    assert 0 < body["base_rate"] < 1
+    # The base rate must be present: an accuracy without it is unreadable
+    # on a corpus where most years are quiet.
+    assert f"{body['base_rate']:.0%}" in body["explanation"]
+    labels = [w["label"] for w in body["weightings"]]
+    assert labels[0].startswith("ERI as published")
+
+
+def test_eri_validation_refuses_a_country_it_has_no_genomes_for(client):
+    from pathlib import Path
+
+    if not Path("data/eri_scores/fmdv_global_per_genome_eri.csv").is_file():
+        pytest.skip("no ERI score file on this checkout")
+    assert client.get("/api/eri-validation/fmdv2026?country=Atlantis").status_code == 422
+
+
+def test_the_interpret_panel_reads_the_eri_endpoint():
+    """The finding has to reach the screen, not just the API."""
+    js = Path("web/workstation/static/g4.js").read_text(errors="replace")
+    assert "/api/eri-validation/" in js, "nothing in the console calls the ERI endpoint"
+    assert "eriPanel()" in js, "eriPanel is never composed into a view"
+    # The base rate is the comparison that makes the accuracy meaningful;
+    # a panel showing LOYO without it would mislead.
+    assert "base_rate" in js

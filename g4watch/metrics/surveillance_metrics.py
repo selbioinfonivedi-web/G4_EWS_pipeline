@@ -56,6 +56,12 @@ class Sample:
     lineage: str
     country: str
     year: int | None
+    #: Calendar month (1-12), set only when the source collection_date
+    #: carried month precision (qc.sequence_qc.has_month_precision).
+    #: None otherwise -- undated-at-month-resolution samples are omitted
+    #: from monthly windows, not imputed a month, the same rule
+    #: build_dates_csv already applies to TreeTime's dates.csv.
+    month: int | None = None
     #: locus_id -> one of KNOWN_STATES. Empty is allowed and means
     #: "not assessed", which is not the same as ABSENT.
     states: dict[str, str] = field(default_factory=dict)
@@ -103,16 +109,69 @@ class WindowMetrics:
 
 
 # ── windowing ───────────────────────────────────────────────────────
-def build_windows(samples: list[Sample], width: int = 1) -> list[tuple[int, int]]:
-    """Contiguous year windows spanning the corpus, closed-open."""
-    years = sorted({s.year for s in samples if s.year is not None})
-    if not years:
+#
+# Two granularities, one representation: a window is always a closed-open
+# pair of integers on SOME monotonic time axis, and every caller that
+# only compares or subtracts window bounds (which is everything except
+# printing) never needs to know which axis it is. "year" keeps the axis
+# as the calendar year itself -- unchanged from before granularity
+# existed, so every caller that does not pass it keeps the exact
+# behaviour it already had. "month" uses year*12+(month-1), a single
+# monotonic index with no calendar arithmetic (no variable month
+# lengths, no year-boundary special case) -- decoded back to
+# (year, month) only where something needs to print a date, via
+# month_window_label below.
+GRANULARITIES = ("year", "month")
+
+
+def _month_index(year: int, month: int) -> int:
+    return year * 12 + (month - 1)
+
+
+def month_window_label(window: tuple[int, int]) -> str:
+    """(year, month) for a month-granularity window's start, for display.
+    Windows are closed-open, so the label names the first month IN it."""
+    year, month0 = divmod(window[0], 12)
+    return f"{year}-{month0 + 1:02d}"
+
+
+def build_windows(
+    samples: list[Sample], width: int = 1, *, granularity: str = "year"
+) -> list[tuple[int, int]]:
+    """Contiguous windows spanning the corpus, closed-open.
+
+    ``granularity="month"`` needs ``Sample.month`` populated -- samples
+    with a year but no month precision do not extend the range and are
+    not assigned to any month window (correctly: FMDV2026's 936 genomes
+    are entirely year-only, so `build_windows(samples,
+    granularity="month")` on that corpus returns ``[]`` rather than
+    windows nothing can ever fall into).
+    """
+    if granularity not in GRANULARITIES:
+        raise ValueError(f"granularity must be one of {GRANULARITIES}, got {granularity!r}")
+
+    if granularity == "year":
+        years = sorted({s.year for s in samples if s.year is not None})
+        if not years:
+            return []
+        lo, hi = years[0], years[-1]
+        return [(y, y + width) for y in range(lo, hi + 1, width)]
+
+    indices = sorted({
+        _month_index(s.year, s.month) for s in samples
+        if s.year is not None and s.month is not None
+    })
+    if not indices:
         return []
-    lo, hi = years[0], years[-1]
-    return [(y, y + width) for y in range(lo, hi + 1, width)]
+    lo, hi = indices[0], indices[-1]
+    return [(m, m + width) for m in range(lo, hi + 1, width)]
 
 
-def _in_window(sample: Sample, window: tuple[int, int]) -> bool:
+def _in_window(sample: Sample, window: tuple[int, int], *, granularity: str = "year") -> bool:
+    if granularity == "month":
+        if sample.year is None or sample.month is None:
+            return False
+        return window[0] <= _month_index(sample.year, sample.month) < window[1]
     return sample.year is not None and window[0] <= sample.year < window[1]
 
 
@@ -215,13 +274,23 @@ def compute_window_metrics(
     width: int = 1,
     baseline_windows: int = DEFAULT_BASELINE_WINDOWS,
     min_genomes: int = MIN_WINDOW_GENOMES,
+    granularity: str = "year",
 ) -> list[WindowMetrics]:
-    """The seven G.2 terms for every window in the corpus."""
-    windows = build_windows(samples, width)
+    """The seven G.2 terms for every window in the corpus.
+
+    ``granularity="month"`` needs ``Sample.month`` populated on enough of
+    the corpus to form windows at all -- see ``build_windows``. A corpus
+    with no month-precision dates returns ``[]`` here, the same as a
+    corpus with no dates at all, rather than silently falling back to
+    annual windows a caller did not ask for.
+    """
+    windows = build_windows(samples, width, granularity=granularity)
     if not windows:
         return []
 
-    by_window: list[list[Sample]] = [[s for s in samples if _in_window(s, w)] for w in windows]
+    by_window: list[list[Sample]] = [
+        [s for s in samples if _in_window(s, w, granularity=granularity)] for w in windows
+    ]
 
     # Level series first; the two Δ terms need a baseline to difference against.
     g4c_level: list[float | None] = []
@@ -362,6 +431,7 @@ def compute_lineage_window_metrics(
     width: int = 1,
     baseline_windows: int = DEFAULT_BASELINE_WINDOWS,
     min_genomes: int = 6,
+    granularity: str = "year",
 ) -> dict[str, list[WindowMetrics]]:
     """The seven terms computed *within each lineage*, per window.
 
@@ -378,14 +448,14 @@ def compute_lineage_window_metrics(
     Per (lineage, window) the classes separate, because different lineages
     in the same window do different things.
     """
-    windows = build_windows(samples, width)
+    windows = build_windows(samples, width, granularity=granularity)
     lineages = sorted({s.lineage for s in samples if s.lineage})
     out: dict[str, list[WindowMetrics]] = {}
 
     for lineage in lineages:
         members_all = [s for s in samples if s.lineage == lineage]
-        by_window = [[s for s in members_all if _in_window(s, w)] for w in windows]
-        corpus_by_window = [[s for s in samples if _in_window(s, w)] for w in windows]
+        by_window = [[s for s in members_all if _in_window(s, w, granularity=granularity)] for w in windows]
+        corpus_by_window = [[s for s in samples if _in_window(s, w, granularity=granularity)] for w in windows]
 
         g4c_level: list[float | None] = []
         g4mb_level: list[float | None] = []

@@ -14,8 +14,14 @@ from g4watch.metrics import lineage_outcomes as lo
 from g4watch.metrics import surveillance_metrics as sm
 
 
-def make(accession, lineage, country, year, states=None, g4=None, total=None):
-    return sm.Sample(accession, lineage, country, year, states or {}, g4, total)
+def make(accession, lineage, country, year, states=None, g4=None, total=None, month=None):
+    # Keyword, not positional: Sample gained a `month` field between
+    # `year` and `states`, and a positional call here would have silently
+    # shifted every argument after `year` into the wrong slot.
+    return sm.Sample(
+        accession=accession, lineage=lineage, country=country, year=year,
+        month=month, states=states or {}, g4_mutations=g4, total_mutations=total,
+    )
 
 
 def corpus(n_per_year=12, years=range(2010, 2020), lineages=("A", "B")):
@@ -61,6 +67,75 @@ def test_genomes_without_states_produce_none_not_zero():
 def test_empty_corpus_yields_no_windows():
     assert sm.compute_window_metrics([]) == []
     assert sm.build_windows([]) == []
+
+
+# ── monthly windowing ────────────────────────────────────────────────
+#
+# ERI integration plan Phase 1: monthly windows alongside the existing
+# annual ones, not replacing them. Every test above this section must
+# keep passing unchanged, since granularity defaults to "year" -- that
+# is the actual regression risk here, not the new code path.
+def test_year_granularity_is_bit_for_bit_unchanged_by_default():
+    samples = corpus()
+    assert sm.build_windows(samples) == sm.build_windows(samples, granularity="year")
+    assert sm.compute_window_metrics(samples) == sm.compute_window_metrics(samples, granularity="year")
+
+
+def test_month_windows_span_exactly_the_dated_range():
+    samples = [
+        make("S0", "A", "C1", 2020, month=3),
+        make("S1", "A", "C1", 2020, month=3),
+        make("S2", "A", "C1", 2020, month=7),
+        make("S3", "A", "C1", 2021, month=1),
+    ]
+    windows = sm.build_windows(samples, granularity="month")
+    assert [sm.month_window_label(w) for w in windows] == [
+        "2020-03", "2020-04", "2020-05", "2020-06", "2020-07",
+        "2020-08", "2020-09", "2020-10", "2020-11", "2020-12", "2021-01",
+    ]
+
+
+def test_a_sample_with_year_but_no_month_is_excluded_from_month_windows():
+    # This is the real, current state of FMDV2026: 936/936 genomes have a
+    # year and none has month precision. Monthly analysis on that corpus
+    # must report "nothing to work with", not silently produce annual
+    # windows under a month-shaped call.
+    samples = [make(f"S{i}", "A", "C1", 2020) for i in range(20)]  # no month=
+    assert sm.build_windows(samples, granularity="month") == []
+    assert sm.compute_window_metrics(samples, granularity="month") == []
+
+
+def test_month_windows_only_count_the_dated_sample_not_the_whole_year():
+    dated = [make(f"D{i}", "A", "C1", 2020, month=6) for i in range(10)]
+    undated = [make(f"U{i}", "A", "C1", 2020) for i in range(50)]
+    windows = sm.build_windows(dated + undated, granularity="month")
+    june = next(w for w in windows if sm.month_window_label(w) == "2020-06")
+    assert sum(1 for s in dated + undated if sm._in_window(s, june, granularity="month")) == 10
+
+
+def test_month_window_label_names_the_first_month_in_a_closed_open_window():
+    assert sm.month_window_label((sm._month_index(2020, 3), sm._month_index(2020, 4))) == "2020-03"
+    assert sm.month_window_label((sm._month_index(1999, 12), sm._month_index(2000, 1))) == "1999-12"
+
+
+def test_build_windows_rejects_an_unknown_granularity():
+    with pytest.raises(ValueError):
+        sm.build_windows(corpus(), granularity="fortnight")
+
+
+def test_month_metrics_are_computed_on_a_real_planted_series():
+    # Same shape as test_disruption_fraction_tracks_the_planted_rate
+    # below, but monthly: six months, a fixed disruption rate, enough
+    # genomes per month to clear MIN_WINDOW_GENOMES.
+    samples = []
+    for month in range(1, 7):
+        for i in range(10):
+            states = {"L1": sm.DISRUPTED if i < 4 else sm.PRESENT}
+            samples.append(make(f"M{month}-{i}", "A", "C1", 2021, month=month, states=states))
+    metrics = sm.compute_window_metrics(samples, granularity="month", min_genomes=8)
+    usable = [m for m in metrics if m.sufficient]
+    assert usable
+    assert usable[-1].g4d == pytest.approx(0.4, abs=1e-6)
 
 
 # ── the seven terms ─────────────────────────────────────────────────

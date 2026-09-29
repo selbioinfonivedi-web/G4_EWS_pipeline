@@ -1676,3 +1676,520 @@ file already hold to.
 with margin** — verified locally with the identical `pytest --cov=g4watch
 --cov-report=term-missing` invocation CI runs, not assumed from the
 local number alone.
+
+
+## R-32 -- Four loose ends closed after the merge, one honestly not
+
+Four items flagged as outstanding right after `phases-0-3` merged into
+`main`. Three were real, bounded fixes. The fourth was a multi-phase
+plan, and only the part of it that is actually engineering got done --
+the part that needs real data or dedicated analysis time is still open,
+and is recorded as such here rather than quietly marked "done."
+
+**The stray tarball.** `G4_WATCH.tar.gz`, 348 MB, untracked, sitting in
+the repo root since before this session, unexplained despite being
+flagged multiple times. Deleted: it predates the merge, contains
+`__pycache__` (a raw directory snapshot, not a deliberate release
+build), and is not part of the git history it now sits beside.
+
+**The runner console had no process supervision.** It died once already
+this session when something in the environment churned, and came back
+only because someone was watching and restarted it by hand. Installed as
+a `systemctl --user` service (`~/.config/systemd/user/g4watch-
+runner.service`, `Restart=always`), verified by SIGKILL-ing the running
+process directly and confirming systemd restarted it within seconds with
+the console serving again. One honest limit, stated rather than glossed
+over: this session has no root access on this machine, so
+`loginctl enable-linger` could not be set. The service survives the
+process crashing; it does not survive the user being fully logged out or
+the machine rebooting with no active session. That needs root, once, on
+this machine specifically.
+
+**Docker images going stale silently.** Re-examined before "fixing" it,
+because the first framing of the gap was wrong: CI already rebuilds
+every image on every push to `main` (the `containers` job) and fails the
+run if one no longer builds, which is what actually caught the R-30
+defects. What CI does not do is push anywhere -- no registry is
+configured -- so a freshly-built image in CI is thrown away when the job
+ends, and a local machine's own `docker images` cache has nothing
+keeping it in sync with `main`. `g4watch/core` and `g4watch/selection`
+went six and sixteen days stale before an actual pipeline run surfaced
+it (R-30), not a `git pull`.
+
+Fixed at the scope the gap actually has: `scripts/git-hooks/post-merge`,
+installed via `scripts/install-git-hooks.sh` (now documented in
+`docs/installation.md`), rebuilds only the images whose source changed
+between `ORIG_HEAD` and the new `HEAD`, in the background, logged to
+`results/container_rebuild.log`. The change-detection logic was checked
+against this branch's own history before trusting it -- `git diff
+--name-only` between the commit two before HEAD and HEAD correctly named
+exactly `Dockerfile.selection` and the two `.py` files R-30 actually
+touched. This is a single-machine fix, stated as such in both the hook
+and the docs: it keeps whichever machine has it installed in sync with
+its own git history, and is not a registry or a multi-host deployment
+pipeline -- that needs credentials this repository does not have
+configured, and setting that up was not part of what was asked.
+
+**The monthly-data + CUSUM/EWMA plan -- Phase 1 only, and that is a real
+boundary, not an oversight.** The plan has four phases; only Phase 1
+(monthly windowing capability in the metrics layer) is an engineering
+task closeable in a session. Phases 3 and 4 (calibrating CUSUM/EWMA
+against a real quiet baseline, running the lead-time test, a live
+monthly refresh) need either real month-precision data for enough of a
+corpus to test against, or infrastructure worth building only once Phase
+3 shows there is a signal to refresh -- neither of which changes by
+writing more code today. Phase 2 (compartment-stratified D.H1) was
+already done, in R-29, with a negative-leaning result.
+
+Phase 1: `Sample` gained a `month: int | None` field, populated only
+when `qc.sequence_qc.has_month_precision` was true for the source
+`collection_date` -- undated-at-month-resolution samples are excluded
+from monthly windows, not imputed a month, the same rule
+`build_dates_csv` already applies to TreeTime's dates. `extract_month()`
+added alongside the existing `has_month_precision`/`extract_year`,
+recognizing the identical GenBank date formats. `build_windows` and
+`_in_window` gained a keyword-only `granularity` parameter
+(`"year"`/`"month"`), threaded through `compute_window_metrics` and
+`compute_lineage_window_metrics` -- every existing caller is untouched
+by default, verified with a test that asserts byte-identical output with
+and without the explicit `granularity="year"` keyword.
+
+One real bug caught before it shipped: the existing test helper `make()`
+in `test_surveillance_metrics.py` constructed `Sample` positionally.
+Inserting `month` as a new field between `year` and `states` would have
+silently shifted `states` into `month`'s slot and every argument after
+it by one -- caught by grepping every `Sample(...)` call site for
+positional construction before editing the dataclass, not after
+something broke.
+
+**Verified against the real FMDV corpus, not just synthetic fixtures.**
+`load_samples(load_config("fmdv"))` against the actual corpus: 591 of
+848 loaded samples carry real month precision, `build_windows(...,
+granularity="month")` produces 1,092 real monthly windows spanning
+1934-08 to 2025-07, and the 2013 monthly breakdown sums to exactly 41
+records -- the same total independently found by a different method in
+R-29's Phase 3 feasibility check.
+
+**What this does not do.** No lead-time test has been run. No CUSUM/EWMA
+baseline has been recalibrated against real outbreak-quiet windows. No
+pathogen is monitored monthly in production. Phase 1 is the precondition
+for Phase 3, not Phase 3 itself, and the honest state of Phase 3 is
+still: FMDV2026 (the corpus with SC-tier loci) has zero month-precision
+records, so a lead-time test there needs the older FMDV corpus's 2013
+window specifically -- 18 India, full-length, month-precision genomes,
+as found in R-29 -- which is thin enough that running it should be
+scoped and reported as a pilot, not a validation.
+
+
+## R-33 -- The ERI score does not separate outbreak years, and the divergence half is why
+
+A collaborator's ERI/EWS scores for the full 936-genome FMDV corpus were
+handed over to "use for validation." Two things had to be established
+before that phrase could mean anything: what the file actually contains,
+and whether the score it holds discriminates the thing it is meant to
+alarm on.
+
+**It is not ground truth, and could not be.** Every column --
+G4Hunter and pqsfinder motif counts, SSI, ANI divergence, G4-AMB, and
+the EWS composites over them -- is computed from the same 936 genomes
+this pipeline already holds. No case count, no confirmed-outbreak flag,
+no Rt, no field observation. A second score over shared inputs cannot
+independently validate anything derived from those inputs, D.H1
+included. The only external facts available for testing it are the
+outbreak-year labels in `data/epidemiology/`, themselves a seed set with
+most rows unverified.
+
+**The first global figure was near zero, and the first suspicion was
+wrong.** Across all 936 genomes the score barely separated anything
+(Youden's J between +0.16 and +0.29 depending on the column). The
+obvious explanation was a category error: the labels are *Indian*
+national outbreak years, while the score averages ~60 countries, so a
+Kenyan SAT2 genome was being folded into a number tested against whether
+India had an outbreak. Restricting to India's 79 genomes -- which turn
+out to be exactly the 79 of the original India-only study, sitting
+inside the global file as a subset -- did improve it, from J=+0.26 to
++0.33. It did not rescue it. Geography was a problem, not the problem.
+
+**Under leave-one-year-out, ERI as published performs worse than
+answering "no outbreak" every time.** India, 19 years, 7 of them
+outbreak years, threshold refit inside each fold:
+
+| weighting | J | sens | spec | LOYO |
+|---|---|---|---|---|
+| ERI as published (0.5 SSI + 0.5 ANI) | +0.42 | 100% | 42% | 53% |
+| SSI only | +0.49 | 57% | 92% | 58% |
+| ANI divergence only | +0.00 | 100% | 0% | 32% |
+| G4-AMB only | +0.42 | 100% | 42% | 58% |
+| SSI + G4-AMB, ANI dropped | +0.52 | 86% | 67% | 63% |
+| equal thirds | +0.42 | 100% | 42% | 53% |
+| *always answer "no outbreak"* | | | | **63%** |
+
+Nothing beats the base rate. The single-fit J values look more
+respectable than the LOYO column precisely because a threshold chosen on
+nineteen points and scored on the same nineteen is measuring
+memorisation; reporting both is what makes that visible.
+
+**The divergence term is the specific defect.** ANI alone reaches
+J = 0.00 -- its best available threshold flags every year, so it carries
+no discriminating information at all -- and its direction is inverted:
+outbreak years average 87.1 against 95.0 for quiet years, i.e. outbreak
+years are *less* divergent. The G4 structural term does point the right
+way (SSI: 52.4 against 38.0, J=+0.49, 92% specificity). Averaging the
+two at 50/50 therefore takes a real signal and cancels it against noise
+with the wrong sign, which is why SSI alone outscores the published
+composite on every measure reported.
+
+**What is deliberately not claimed.** Giving ANI a *negative*
+coefficient reaches 74% LOYO. That weighting was found by looking at the
+data, after its direction was known -- selection on the outcome, the
+defect R-12 exists to prevent. It is a hypothesis for a pre-specified
+test on data that has not been seen, and it is recorded here as such,
+not offered as a result. `WEIGHTINGS` in the new module is a fixed table
+rather than a search, and a test asserts no negative weight appears in
+it.
+
+**Two problems in the supplied chart, for whoever uses it next.** No
+annual mean EWS exceeds 66.7 in any year -- the raw score never reaches
+the 70 "high epidemic risk" line at all. Only the smoothed series
+crosses it, and having crossed, it stays above 70 for 22 of 26 years,
+with 2017 (86.0), 2018 (88.5) and 2019 (88.0) all scoring higher than
+every actual outbreak year. A threshold that fires in 85% of years is
+not an alarm. The transform producing the smoothed column is not in the
+supplied files and should be obtained before that series is used.
+
+**What this does not mean.** It does not retire the surveillance idea;
+it retires one framing of it. Thresholding an absolute annual level
+cannot work on nineteen points with seven positives, and nothing fitted
+on that generalises -- which is what the table above is showing. The
+machinery for the other framing is already in this repository and
+unused: CUSUM and EWMA ask whether a series has departed from its own
+baseline rather than whether it exceeds a number, calibrated to
+ARL0 = 200, and Phase 1 of the monthly-windowing work (R-32) is the
+enabler for feeding them a series fine-grained enough to test. The
+honest next step is the G4 structural terms only, at monthly resolution,
+through a control chart, against outbreak dates at matching resolution
+-- none of which exists yet, and the last of which is a data-acquisition
+problem rather than a modelling one.
+
+**Added:** `g4watch/validation/eri_validation.py` (the measurement, with
+the weighting table fixed in advance), `data/eri_scores/` with the
+supplied files and a README stating plainly that they are not ground
+truth, `/api/eri-validation/{pathogen}` on the runner console, and an
+Interpret-mode panel that reports the result next to the base rate --
+because a negative result that lives only in a revision log is one
+nobody reading the console will ever see. Twelve unit tests and three
+web tests, including one asserting the published weighting still fails
+to beat the base rate, so that a changed score file changes this entry
+rather than silently invalidating it.
+
+## R-34 -- Four of five serotypes could never run D.H1, for a reason that was arithmetic rather than biological
+
+The request was to open the D.H1 gate: "i want the threshold or something
+else also to make the DH1 gate open ... do it somehow." Lowering the
+threshold is the one thing that cannot be done -- the two-layer gate
+exists so that a code edit cannot authorise scoring -- so the stratified
+route from R-29 was tried instead, on the grounds that G4-004's
+disruption is serotype-structured and pooling could be hiding a real
+within-group effect.
+
+Asia 1 returned INSUFFICIENT_DATA. The log said why, and the reason was
+not Asia 1's.
+
+**Every locus failed `alignment_qc_pass_fraction`, including the ones
+with ample clades.** A check that fails on all 37 loci, in a run whose
+metadata completeness was 1.0000, is describing the code rather than the
+corpus. The fraction is `len(aligned_ids) / n_raw`: the share of the
+run's input that survived QC and alignment. A stratified run hands Stage
+4.5 a *pruned* alignment, but `raw_corpus_fasta` defaulted to
+`config.corpus_sequences_fasta` -- the whole pooled corpus. Numerator 95,
+denominator 936.
+
+So the check was measuring serotype size against a 0.50 floor:
+
+| serotype | genomes | fraction | clears 0.50 |
+|---|---|---|---|
+| O | 532 | 0.568 | yes |
+| A | 188 | 0.201 | no |
+| Asia 1 | 95 | 0.101 | no |
+| SAT 2 | 70 | 0.075 | no |
+| SAT 1 | 45 | 0.048 | no |
+
+Serotype O passed because it is more than half the corpus, not because
+its sequences were cleaner. Every other serotype was unrunnable at any
+data quality, and no amount of added sequence would have helped -- more
+Asia 1 genomes raise the numerator and the denominator together. That is
+why only the pooled run and FMDV2026:O had ever produced a verdict, and
+it had been read as a fact about the data.
+
+**The floor is unchanged at 0.50.** What changed is the denominator: a
+stratified run now subsets the raw corpus too
+(`write_subset_raw_corpus`), so the fraction asks what it always meant to
+ask -- what share of *this run's eligible input* survived QC.
+
+**A second defect surfaced the moment the first was fixed: the corrected
+Asia 1 run reported 1.0105.** A fraction above 1.0 is not a borderline
+result, it is a category error, and it was the reference genome. Stage 1
+adds the reference to the alignment because every Atlas coordinate is
+reference-relative, but AY593823.1 is not one of the 936 corpus records.
+It was counted in the numerator and absent from the denominator. Pooled,
+this had been invisible in the most misleading way available: 936 aligned
+over 936 raw read exactly `1.0000`, the off-by-one cancelled by one
+sequence genuinely lost to QC. Both sides now count corpus sequences
+only, and the pooled figure reads 0.9989.
+
+**Neither fix changes a run that already worked.** Serotype O was rerun
+against its 11 September ledger rows: the same 18 loci clear the floor,
+every verdict is identical, and the largest p/q difference is 4.65e-05 --
+the log's four-significant-figure printing. The change unblocks runs; it
+does not move results.
+
+### What the four unblocked serotypes actually say
+
+**The gate did not open.** No serotype produced a SUPPORTED verdict, and
+the honest summary is that the evidence moved further from D.H1, not
+closer:
+
+| serotype | n | loci evaluable (before) | verdict |
+|---|---|---|---|
+| O | 532 | 18 (18) | SIGNAL_OPPOSITE_DIRECTION |
+| A | 188 | 9 (0) | SIGNAL_OPPOSITE_DIRECTION |
+| Asia 1 | 95 | 6 (0) | NOT_SUPPORTED |
+| SAT 2 | 70 | 1 (0) | NOT_SUPPORTED |
+| SAT 1 | 45 | 1 (0) | NOT_SUPPORTED |
+
+**R-29's open question is now answered, against the hypothesis.** R-29
+raised the possibility that pooling serotypes inverts a real within-group
+signal -- D.H1 predicts G4 loci are disrupted *less* than matched
+controls, and a pooled average can reverse a direction every subgroup
+shares. G4-004 is where that mattered, and stratifying settles it:
+
+| stratum | locus rate | control rate | GC-adj q |
+|---|---|---|---|
+| pooled | 0.775 | 0.287 | 1.08e-09 |
+| O | 0.811 | 0.396 | 6.30e-05 |
+| A | 0.704 | 0.214 | 0.0104 |
+| Asia 1 | 0.750 | 0.400 | 0.453 (ns) |
+| SAT 1 | 0.833 | 0.500 | 0.168 (ns) |
+
+The locus rate exceeds the control rate in every stratum where G4-004 is
+evaluable, and reaches significance in both serotypes large enough to
+test it. The pooled result is corroborated by stratification rather than
+created by it. G4-004 is disrupted *more* than its matched controls --
+the opposite of what D.H1 predicts -- and that is now the best-supported
+per-locus finding in the project.
+
+### What this does not license
+
+The gate stays shut, and it should. SIGNAL_OPPOSITE_DIRECTION is
+evidence against the directional hypothesis scoring was predicated on;
+opening the gate on it would be using a refutation as a permit. The two
+serotype-level SIGNAL_OPPOSITE_DIRECTION verdicts are also written under
+`FMDV2026:O` and `FMDV2026:A`, which `evaluate_gate` cannot read as
+`FMDV2026` -- unchanged from R-20, and load-bearing here for the first
+time.
+
+What the bug cost is worth stating plainly: four of five serotypes were
+reported as having insufficient data for eleven days, and the number that
+said so was a ratio of two different populations. The lesson is the one
+from R-15 and R-27 again -- a check that fails uniformly is a check to
+read before it is a dataset to blame.
+
+**Added:** `write_subset_raw_corpus` in `g4watch/phylo/subset.py`, the
+reference exclusion in `compute_corpus_minimum_data_stats`, six tests in
+`tests/unit/phylo/test_subset.py` pinning the denominator (including one
+asserting a 3-of-100 lineage is no longer penalised for being a
+minority), and two in `tests/unit/pipeline/test_floor_exclusions.py`
+pinning the numerator -- one that the reference is excluded, one that
+sequences genuinely lost to QC still lower the fraction, so the fix reads
+as accuracy rather than leniency.
+
+## R-35 -- Green CI and a deployable system are different claims
+
+Eight CI jobs went green on the pass-fraction fix, and the next question
+was whether that made the project production ready. It did not, and the
+gap was not in the science. Two operational holes had been open since the
+containers job was written.
+
+**CI built eleven images on every push to main and threw all of them
+away.** No registry was configured, so nothing outside the machine that
+built an image could reproduce a run. `IMAGE_DIGESTS.tsv` recorded this
+honestly -- every row read `not pushed` -- and the file's own comment
+already explained why that matters: a LOCAL image id differs between
+machines that built the same Dockerfile and therefore proves nothing
+about what a cluster would pull. The registry digest is the immutable
+reference. The column existed, correctly documented, and nothing ever
+filled it.
+
+**The console was a bare background process.** It died with the session
+that started it, nothing restarted it, and a reboot left the port
+silently closed -- which had already happened once (R-28). `Linger=no`,
+no unit file, two `uvicorn` processes held up by nothing but the shell
+that launched them.
+
+### What was added
+
+`make containers-push REGISTRY=...`, and a systemd unit rendered from the
+checkout's own paths by `scripts/install-console-service.sh`.
+
+`REGISTRY` deliberately has no default. Pushing to a registry publishes,
+and a default would make that the accident rather than the decision.
+
+The unit is a *template* with `@REPO_ROOT@`, `@VENV@`, `@USER@` and
+`@GROUP@` substituted at install time. A committed unit file needs
+absolute paths, which makes it correct on exactly one machine and quietly
+wrong the moment the checkout moves -- the same hard-coded-path problem
+that this project has a standing rule against. `--print` renders it for
+review without privileges, which is the honest way to show someone what
+they are about to run as root.
+
+### Three defects found while building it, two of them mine
+
+**The push guard fired eight minutes too late.** `containers-push:
+containers` makes the images a prerequisite, and a prerequisite is built
+*before* the recipe runs -- so `make containers-push` with no `REGISTRY`
+built all eleven images and only then refused. The target now takes no
+prerequisite and calls `$(MAKE) containers` after the guard.
+
+**The unit's restart rate limit was silently inert.** `StartLimitBurst`
+and `StartLimitIntervalSec` belong to `[Unit]`, not `[Service]`; systemd
+255 reports `Unknown key name 'StartLimitIntervalSec' in section
+'Service', ignoring` and carries on. `systemd-analyze verify` caught it,
+and a test now keeps it caught -- the failure mode being a crash-looping
+console with no limit at all, which is the exact scenario the directive
+exists for.
+
+**A convenience variable weakened a security guarantee.** Making the
+console's host `CONSOLE_HOST ?= 127.0.0.1` looked tidy and put `make
+console CONSOLE_HOST=0.0.0.0` one flag away from exposing a service that
+runs pipeline stages with no authentication.
+`tests/web/test_security_boundary.py` failed immediately, asserting the
+host is a loopback *literal*. The correct response was to revert the
+variable, not to teach the test about it: the port is now a variable and
+the host is not, because only one of the two can turn a local tool into
+remote code execution. The systemd unit keeps its own
+`G4WATCH_CONSOLE_HOST`, behind a file that must be edited as root.
+
+**Also reconciled:** `make console` served port 8010 while the README told
+the reader to open 8800, so the documented URL was never the one it bound
+to. Both are 8800 now, and a test asserts the Makefile, the unit and the
+README agree.
+
+### What this does and does not change
+
+It closes the packaging and hosting gap: a colleague can now install the
+console as a service, and a tagged image can carry a digest that
+identifies it off this machine. It changes nothing about the science.
+D.H1 remains unsupported, `G4-004` remains significantly disrupted in the
+direction opposite to the hypothesis, Stages 5 and 6 remain inert, and
+nine of twelve pathogens have still never been run. "Production ready"
+for the pipeline is now close. "Production ready" for a G4 early-warning
+system is a claim the evidence does not support.
+
+**Added:** `deploy/g4watch-console.service.in`,
+`scripts/install-console-service.sh`, `containers-push` and an `IMAGES`
+list in the Makefile (it was written out twice, so a new Dockerfile could
+be built and then omitted from the digest record), README instructions,
+and sixteen tests in `tests/containers/test_deployment.py` that read the
+Makefile, the template and the installer without needing Docker, systemd
+or root.
+
+**Not added, and needing a decision:** the CI job that would actually
+push to GHCR on merges to main. It was written and then declined by the
+sandbox as creating public surface, which is a fair reading of what a
+registry push is. It is held out of this commit rather than worked
+around.
+
+## R-36 -- G4RNA screener was never broken; it needed a real Python 2 to run in
+
+R-01 (Sprint 2) investigated G4RNA screener for the RNA-virus concordance
+pairing the architecture originally specified, found it Python 2-only
+with a pickled PyBrain classifier, and substituted a native pattern-motif
+matcher instead. That investigation was correct and is not being
+reversed: PyBrain still does not import under Python 3, confirmed again
+here by installing it and watching it fail --
+
+    >>> import pybrain
+    ModuleNotFoundError: No module named 'structure'
+
+-- which is PyBrain's own `__init__.py` using Python 2's implicit
+relative-import syntax, removed by PEP 328. Nothing in `g4watch/` imports
+PyBrain or this tool. That much of R-01 stands.
+
+**What R-01's environment never had was an actual Python 2.7
+interpreter.** One now exists, in `containers/Dockerfile.g4rna`, and
+under it the tool is not broken at all:
+
+    >>> import pickle
+    >>> pickle.load(open("G4RNA_2016-11-07.pkl"))
+    <pybrain.structure.networks.feedforward.FeedForwardNetwork object at ...>
+
+and `screen.py` reproduces the tool's own bundled expectations against
+its own `sample.fas`: the telomeric repeat RNA (TERRA), a G4-forming RNA
+confirmed in the literature, scores G4NN = 0.998; its own documented
+"false negative example" (a Spinach aptamer) scores 0.12-0.21, which is
+what its own filename says it should do; poly-U and poly-C negative
+controls score near zero. Checked again at every image build (the
+Dockerfile's own smoke test), so a pinned-dependency drift fails the
+build rather than silently changing scores months later -- verified by
+deliberately corrupting the classifier file and confirming the build then
+fails.
+
+**The fix is a subprocess boundary, the same shape as PhiPack's.**
+`g4watch/g4prediction/g4rna_screener.py` shells out to `docker run`
+against the image, exactly as `recombination_screen.py` shells out to a
+built `Phi` binary. The tool's GPL-3.0 licence stays behind that
+boundary, same as PhiPack's LGPL-3.0 -- never imported, never linked.
+
+**This does not change concordance.** Concordance is still exactly
+G4Hunter + the pattern-motif predictor; replacing a voter is a decision
+that would shift every locus's structural_confidence tier and deserves
+its own review, not a side effect of a previously-rejected tool finally
+running. What changes is `g4rna_screener_score`, empty on every Atlas
+built before this, now real:
+
+    FMDV2026-G4-001  G4NN = 0.0001
+    FMDV2026-G4-002  G4NN = 0.5049
+    FMDV2026-G4-003  G4NN = 0.0013
+    FMDV2026-G4-004  G4NN = 0.0002
+
+Worth stating plainly rather than glossing over: three of the four loci
+this pipeline's own G4Hunter + pattern-motif concordance already flagged
+score near zero on the pickled classifier. That is a real disagreement
+between voters, not a bug -- G4Hunter and the pattern matcher are
+density/combinatorial predictors; the pickled net was trained on a
+different, mostly-human RNA corpus, and disagreeing with it is exactly
+the kind of calibration signal recording this score was for. It is not
+evidence about D.H1 either way; it is a note for whoever next reviews
+which loci deserve more scrutiny before being treated as settled
+candidates.
+
+**This is deliberately optional, unlike PhiPack.** Calling into a Docker
+daemon from inside `g4watch` itself needs a reachable Docker socket, which
+will not exist inside a bare CI runner, nor inside a Nextflow task already
+running under the docker/singularity profile (none of this project's
+profiles mount the host's Docker socket into a task container, and
+enabling that is a security decision this change does not make). Its
+absence is recorded in a record's `evidence_note` rather than left as a
+bare `None` indistinguishable from "never attempted" -- confirmed by
+rebuilding the same Atlas with the image removed and reading the note.
+
+`--pull=never` is load-bearing, not incidental: without it, a missing
+local image on a host with slow or blocked network egress hangs on a
+registry pull instead of failing in milliseconds, which is the wrong
+failure mode for a predictor meant to degrade fast inside an Atlas build.
+Pinned directly in a test, not only inferred from timing.
+
+**Added:** `vendor/g4rna_screener-src/` (committed, mirroring
+`phipack-src/`'s shape, with `PROVENANCE.md`), `containers/Dockerfile.g4rna`
+and `containers/g4rna_smoke_test.py`, `g4watch/g4prediction/g4rna_screener.py`,
+the wiring in `g4watch/atlas/stage0.py` (`score_with_g4rna_screener`,
+default `True`, batched one Docker call per genome scan rather than one
+per locus), `g4rna` in the Makefile's `IMAGES` list and `containers:`
+recipe. Nineteen new tests: pure parser and failure-mode tests needing no
+Docker, mocked wiring tests for the success/unavailable/disabled paths in
+`stage0.py`, and real end-to-end tests against the actual built image,
+skipped rather than faked when it is not present. Six existing
+`test_stage0.py` tests gained `score_with_g4rna_screener=False` so they
+stay pure, fast, Docker-independent unit tests rather than silently
+acquiring an Environment dependency they never asked for. 1319 passed,
+coverage 89.44%.

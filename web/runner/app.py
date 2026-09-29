@@ -838,6 +838,30 @@ def create_app() -> FastAPI:
             spectrum=tk.mutation_spectrum(pathogen),
         )
 
+    @app.get("/api/eri-validation/{pathogen}")
+    def eri_validation(pathogen: str, country: str = "India") -> dict:
+        """Does the external ERI score separate outbreak years from quiet ones?
+
+        Surfaced in the console because the score was proposed as an
+        early-warning input, and the answer -- it does not beat the base
+        rate -- is the kind of thing that stays invisible if it lives only
+        in a revision-log entry. Returns 404 when the score file is
+        absent rather than inventing an empty result.
+        """
+        from g4watch.validation.eri_validation import validate_eri
+
+        scores = REPO_ROOT / "data" / "eri_scores" / "fmdv_global_per_genome_eri.csv"
+        outbreaks = REPO_ROOT / "data" / "epidemiology" / "fmdv_outbreak_years.tsv"
+        if not scores.is_file() or not outbreaks.is_file():
+            raise HTTPException(
+                status_code=404,
+                detail="no ERI score file or outbreak-year seed on this checkout",
+            )
+        try:
+            return validate_eri(scores, outbreaks, country=country).as_dict()
+        except ValueError as exc:
+            raise HTTPException(status_code=422, detail=str(exc)) from exc
+
     @app.get("/api/stage5/{pathogen}")
     def stage5(pathogen: str) -> dict:
         """The full downstream chain: metrics -> outcomes -> score -> detection.

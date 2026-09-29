@@ -71,7 +71,12 @@ requires_docker = pytest.mark.skipif(not _docker_available(), reason="needs a re
 
 # ── inventory ───────────────────────────────────────────────────────
 def test_dockerfiles_are_present():
-    assert len(DOCKERFILES) == 11, f"expected 11 Dockerfiles, found {len(DOCKERFILES)}"
+    # 12 since Dockerfile.g4rna: G4RNA screener, rejected in R-01 as
+    # unrunnable in-process (Python 2 + a pickled PyBrain classifier),
+    # confirmed still not runnable in-process and instead containerised
+    # as its own Python 2.7 process, invoked as a subprocess boundary
+    # exactly like PhiPack's -- see vendor/g4rna_screener-src/PROVENANCE.md.
+    assert len(DOCKERFILES) == 12, f"expected 12 Dockerfiles, found {len(DOCKERFILES)}"
 
 
 @pytest.mark.parametrize("name", NAMES)
